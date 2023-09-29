@@ -1,0 +1,64 @@
+
+%%%%%%%%%%%%%%%%%%%%%
+\section{Discrétisation des équations différentielles} %%%%%%%%%  \mt{}
+%%%%%%%%%%%%%%%%%%%%%
+%
+La discrétisation des l'équations différentielles se fait à l'aide de l'algorithme de Verlet. Cet algorithme consiste à symétriser la dérivée par rapport au temps puis d'obtenir une expression de $\psi(\mt{x},\mt{t}+\dt)$ en fonction de $\psi(\mt{x},\mt{t})$ et $\psi(\mt{x},\mt{t}-\dt)$. Cette expression permet de simuler de proche en proche le comportement du système physique. La solution discrète se rapproche de la solution analytique si la valeur de dt est convenablement choisie. En dehors d'un certain encadrement de dt, la solution discrète s'éloigne de la solution analytique.
+%
+\subsection{Discrétisation des dérivées}
+%
+\subsubsection{Dérivé symétrisée}
+Par définition, la dérivé symétrisée est :
+\[
+\frac{\mt{d}\psi(\mt{t})}{\dt}=\frac{\psi(\mt{t}+\dt)-\psi(\mt{t}-\dt)}{2\dt}
+\]
+On en déduit l'expression suivante de la dérivée seconde :
+\[
+\frac{\mt{d}^2\psi(\mt{t})}{\dt^2}=\frac{\psi (\mt{t}+2\dt)-\psi (\mt{t})-\psi (\mt{t})+\psi(\mt{t}-2\dt)}{4\dt^2}
+\]
+Le changement de variable dt' = 2 dt simplifie cette expression :
+\[
+\frac{\mt{d}^2\psi(\mt{t})}{\dt^2}=\frac{\psi(\mt{t}+\dt)-2\psi(\mt{t})+\psi(\mt{t}-\dt)}{\dt^2}
+\]
+
+\subsection{Discrétisation de l'équation de Schrödinger}
+%
+On introduit les dérivées symétrisées dans l'équation de Schrödinger :
+\[
+\mt{i}\hbar\ \frac{\partial\psi}{\partial\mt{t}} =
+\frac{-\hbar^2}{2\mt{m}}\ \frac{\partial^2\psi}{\partial\mt{x}^2}
++\mt{V(x)}\psi
+\]
+%
+ce qui donne :
+\[
+\mt{i}\hbar\ \frac{\psi(\mt{x},\mt{t}+\dt)-\psi(\mt{x},\mt{t}-\dt)}{2\dt} =
+\frac{-\hbar^2}{2\mt{m}}\ \frac{\psi(\mt{x}+\mt{dx},\mt{t})-2\psi(\mt{x},\mt{t})+\psi(\mt{x}-\mt{dx},\mt{t})}{\mt{dx}^2}
++\mt{V(x)}\psi(\mt{x},\mt{t})
+\]
+%
+soit
+\[
+\psi(\mt{x},\mt{t}+\dt)-\psi(\mt{x},\mt{t}-\dt)=
+\frac{\mt{i}\hbar\dt}{\mt{m}}\ \frac{\psi(\mt{x}+\mt{dx},\mt{t})-2\psi(\mt{x},\mt{t})+\psi(\mt{x}-\mt{dx},\mt{t})}{\mt{dx}^2}
+-\frac{2\mt{i}\dt}{\hbar}\ \mt{V(x)}\psi(\mt{x},\mt{t})
+\]
+%ou encore
+%\[
+%\psi(\mt{x},\mt{t}+\dt)=\psi(\mt{x},\mt{t}-\dt)+
+%\frac{\mt{i}\hbar\dt}{\mt{m }\mt{dx}^2}\ \Big(\psi(\mt{x}+\mt{dx},\mt{t})+\psi(\mt{x}-\mt{dx},\mt{t})\Big)
+%-\Big(\frac{2\mt{i}\hbar\dt}{\mt{m }\mt{dx}^2}+\frac{2\mt{i}\dt}{\hbar}\ \mt{V(x)}\Big)\psi(\mt{x},\mt{t})
+%\]
+ou
+\[
+\psi(\mt{x},\mt{t}+\dt)=\psi(\mt{x},\mt{t}-\dt)+
+\frac{\mt{i}\hbar\dt}{\mt{m }\mt{dx}^2}\ \Big[\psi(\mt{x}+\mt{dx},\mt{t})+\psi(\mt{x}-\mt{dx},\mt{t})
+-\big(2+\frac{2\mt{m}}{\hbar^2}\ \mt{V(x)}\big)\psi(\mt{x},\mt{t})\Big]
+\]
+
+On pose alors : Dt = $\frac{\mt{i}\hbar\dt}{\mt{m }\mt{dx}^2}$ et v(x)$=2+\frac{2\mt{m}}{\hbar^2}\ \mt{V(x)}$, et on obtient :
+\[
+\psi(\mt{x},\mt{t}+\dt)=\psi(\mt{x},\mt{t}-\dt)+
+\Big[\psi(\mt{x}+\mt{dx},\mt{t})+\psi(\mt{x}-\mt{dx},\mt{t})
+-\mt{v(x) }\psi(\mt{x},\mt{t})\Big]\mt{Dt}
+\]
