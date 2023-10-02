@@ -1,7 +1,6 @@
 /*
-Copyright Septembre 2023, Stephan Runigo
+Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 SimFourier 0.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
@@ -65,8 +64,6 @@ struct GraphiqueT {
 	SDL_Texture *SimFourier;
 	int taille;
 
-	//int largeur;
-	//int hauteur;
 		int fenetreX;	// hauteur de la fenêtre
 		int fenetreY;	// largeur de la fenêtre
 };
