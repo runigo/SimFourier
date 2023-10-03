@@ -1,7 +1,7 @@
 /*
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-SimFourier 0.0 Transformation de Fourier
+SimFourier 0.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -29,27 +29,47 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
+#ifndef _SYSTEME_
+#define _SYSTEME_
 
-#ifndef _INTERFACE_
-#define _INTERFACE_
+#include "fonction.h"
 
-#include "../donnees/constantes.h"
+typedef struct SystemeT systemeT;
+	struct SystemeT
+		{
+		fonctionT ancien;
+		fonctionT actuel;
+		fonctionT nouveau;
 
-#include <SDL2/SDL.h>
+		fonctionT fourier;
 
-typedef struct InterfaceT interfaceT;
-struct InterfaceT {
-	SDL_Window *fenetre;
-	SDL_Event evenement;
+		fonctionT potentiel;	// Partie réelle : potentiel V(x) ; partie imaginaire : potentiel réduit v(x) = 2 + V(x).2m/hbar
+		
+		int nombre;			//	Nombre de points
 
-	int continu;
-};
+		float masse;		//	Masse du quanton
+		float dt;			//	Pas temporel
+		float dx;			//	Pas spatial
+		float hbar;			//	Constante de Planck réduite
 
-int interfaceInitialisationSDL(void);
-int interfaceQuitteSDL(void);
+		float hbardtSmdx2;		// hbar dt / m dx2 = Dt
 
-int interfaceCreation(interfaceT * interface);
-int interfaceDestruction(interfaceT * interface);
+		};
+
+	//	Initialisation du système
+int systemeInitialiseSysteme(systemeT * systeme, int nombre);
+
+	//	Réinitialisation des paramètres
+int systemeInitialiseNombre(systemeT * systeme, int nombre);
+int systemeInitialiseHbar(systemeT * systeme, int hbar);
+int systemeInitialiseMasse(systemeT * systeme, float masse);
+
+	//	Réinitialisation des positions
+int systemeInitialisePosition(systemeT * systeme, int forme);
+
+	//	Évolution temporelle du système
+int systemeEvolution(systemeT * systeme, int duree);
 
 #endif
-/////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////

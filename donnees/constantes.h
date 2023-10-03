@@ -84,48 +84,32 @@ termes.
 
 	//	PARAMÈTRES DE LA CHAINE
 
-#define NOMBRE_MIN 8 // Nombre minimal de pendules
-//#define NOMBRE 64 // Nombre implicite de pendules
-#define NOMBRE 256 // Nombre implicite de pendules
-#define NOMBRE_MAX 1024 // Nombre maximal de pendules
 
-#define ABSORPTION 2.1 // Facteur de l'extrémité absorbante
+	//	PARAMÈTRES QUANTIQUE
 
-//#define SOLITON_MAX 19 // Nombre maximal de soliton
-#define DEPHASAGE_MAX 49*DEUXPI // Déphasage maximal
-
-
-	//	PARAMÈTRES CHAINE ET CORDE
-
-#define MOYENNE_MAX 2.3 // Moyenne maximale
-	// Utilisé dans systemeJauge(systeme * system)
-	// normalise la moyenne du système à zéro
-
-#define COUPLAGE_MAX 99 // Couplage maximal / nombre de pendule
-#define COUPLAGE_MIN 0.099
-
-#define GRAVITATION_MAX 77.7	// Gravitation maximale
-#define GRAVITATION 9.81		// Gravitation implicite
-#define GRAVITATION_MIN 0.07	// Gravitation minimale
+#define NOMBRE_MIN 8 	//	Nombre minimal de pendules
+#define NOMBRE 256		//	Nombre implicite de pendules
+#define NOMBRE_MAX 1024 //	Nombre maximal de pendules
 
 #define MASSE_MAX 77.7	//	Masse maximale
 #define MASSE 1.0		//	Masse implicite
 #define MASSE_MIN 0.7	//	Masse minimale
 
-#define LONGUEUR_MAX 1.0	//	Longueur maximale
-#define LONGUEUR 1.0		//	Longueur implicite
-#define LONGUEUR_MIN 1.0	//	Longueur minimale
+#define HBAR_MAX 10.0	//	hbar maximale
+#define HBAR 1.0		//	hbar implicite
+#define HBAR_MIN 0.01	//	hbar minimale
 
-#define DISSIPATION_MAX 333	//	Coeficient de frottement visqueux maximal
-#define DISSIPATION_MIN 0.033	//	Valeur minimale
+#define DX_MAX 10.0		//	Pas spatial maximale
+#define DX 1.0			//	Pas spatial implicite
+#define DX_MIN 0.01		//	Pas spatial minimale
+
+
+	//	PARAMÈTRES MOTEUR
 
 #define FREQUENCE_MAX 77	//	Valeur maximale de la fréquence du moteur
 #define FREQUENCE_MIN 0.077	//	Valeur minimale de la fréquence du moteur
 
 #define AMPLITUDE_MAX 7.7	//	Valeur maximale de l'amplitude du moteur
 #define AMPLITUDE_MIN 0.0077	//	Valeur minimale de l'amplitude du moteur
-
-#define JOSEPHSON_MAX 77.7	//	Valeur maximale de l'amplitude du courant josephson
-#define JOSEPHSON_MIN 0.077	//	Valeur minimale de l'amplitude du courant josephson
 
 #endif
