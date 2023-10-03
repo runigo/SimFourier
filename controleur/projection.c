@@ -82,7 +82,11 @@ int projectionInitialisePointDeVue(projectionT * projection, float r, float psi,
 	{
 		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
 
-	vecteurInitialisePolaire(&(*projection).pointDeVue, r, psi, phi);
+	int i;
+	for(i=0;i<2;i++)
+		{
+		vecteurInitialisePolaire(&(*projection).fonction[i].pointDeVue, r, psi, phi);
+		}
 	projectionReinitialiseBase(projection);
 	return 0;
 	}
@@ -91,8 +95,13 @@ int projectionReinitialiseBase(projectionT * projection)
 	{
 		// Réinitialise les vecteurs perpendiculaires
 
-	vecteurInitialiseVecteurPhi(&(*projection).pointDeVue, &(*projection).vecteurPhi, (*projection).fenetreX*RATIO_CHAINE_FENETRE_X);
-	vecteurInitialiseVecteurPsi(&(*projection).pointDeVue, &(*projection).vecteurPsi, (*projection).fenetreY*RATIO_CHAINE_FENETRE_X*(*projection).ratioXY);
+	int i;
+	for(i=0;i<2;i++)
+		{
+		vecteurInitialiseVecteurPhi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPhi, (*projection).fenetreX*RATIO_CHAINE_FENETRE_X);
+		vecteurInitialiseVecteurPsi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPsi, (*projection).fenetreY*RATIO_CHAINE_FENETRE_X*(*projection).ratioXY);
+		}
+
 	return 0;
 	}
 
@@ -331,74 +340,42 @@ int projectionSystemeChaineDePendule(systemeT * systeme, projectionT * projectio
 
 int projectionInitialiseSupport(projectionT * projection, int nombre)
 //
-//                                                L   K
-//                                             H   G
-//                                               M
-//                                               
-//                                                J   I
-//                                             F   E
-//               N
+//                                                Y
+//                                                
+//                                             
+//                                                 
+//                                         X            Z'
+//                                                O
+//                                                       X'
+//                                                
+//                                                
+//                                                Y'
+//             Z
 
-
-//             D   C
-//         B   A
-//
 	{
 	int i;
 	float xyz;
-
-					// AXE Oy
-	xyz = 0.4*(*projection).hauteur;
-	for(i=0;i<12;i+=2)
+	for(i=0;i<6;i++)
 		{
-		(*projection).support[i].y = xyz;
+		(*projection).support[i].x = 0;
 		}
-
-	xyz = -0.4*(*projection).hauteur;
-	for(i=1;i<12;i+=2)
-		{
-		(*projection).support[i].y = xyz;
-		}
-	(*projection).support[13].y = 0.0;
-	(*projection).support[12].y = 0.0;
-
-					// AXE Oz
-	xyz = 1.2 * (*projection).hauteur;
-	for(i=0;i<8;i++)
-		{
-		(*projection).support[i].z = xyz;
-		}
-
-	xyz = -0.2 * (*projection).hauteur;
-	for(i=8;i<12;i++)
-		{
-		(*projection).support[i].z = xyz;
-		}
-	(*projection).support[13].z = 0.0;
-	(*projection).support[12].z = 0.0;
 
 					// AXE Ox
-	xyz = 0.5 * (*projection).largeur;
-	for(i=0;i<4;i++)
-		{
-		(*projection).support[i].x = xyz;
-		}
-	(*projection).support[13].x = xyz;
-	(*projection).support[12].x = -xyz;
-	(*projection).support[0].x += 0.5*(*projection).hauteur;
-	(*projection).support[1].x += 0.5*(*projection).hauteur;
+	xyz = 1.2*(*projection).largeur;
+	(*projection).support[0].x = xyz;
+	(*projection).support[1].x = -xyz;
 
+					// AXE Oy
+	xyz = 1.2*(*projection).hauteur;
+	(*projection).support[2].y = xyz;
+	(*projection).support[3].y = -xyz;
+
+					// AXE Oz
+	xyz = 6.5 * (*projection).longueur;
+	(*projection).support[4].z = xyz;
+	xyz = 0.5 * (*projection).longueur;
+	(*projection).support[5].z = -xyz;
 	(void)nombre;
-	xyz = (-0.5) * (*projection).largeur; //-1.0/nombre
-	for(i=4;i<13;i++)
-		{
-		(*projection).support[i].x = xyz;
-		}
-	for(i=6;i<10;i++)
-		{
-		(*projection).support[i].x += -0.6*(*projection).hauteur;
-		}
-
 	return 0;
 	}
 

@@ -39,16 +39,14 @@ termes.
 #include "../interface/commandes.h"
 #include "../interface/capteurs.h"
 
-				//		Projection de la chaîne de pendules et des
+				//		Position de l'observateur,
+
+				//		projection des fonctions et des
 				//		observables sur l'interface graphique
 
-typedef struct ProjectionT projectionT;
-	struct ProjectionT
+typedef struct PointDeVueT pointDeVueT;
+	struct PointDeVueT
 		{
-
-		vecteurT support[14];	// Support fixe
-
-
 		vecteurT pointDeVue;	// Position observateur
 
 			// Vecteurs perpendiculaires à pointDeVue
@@ -59,11 +57,18 @@ typedef struct ProjectionT projectionT;
 		int largeur;	// largeur de la chaîne
 		float ratioLH;	// rapport largeur / hauteur
 
+		};
+
+typedef struct ProjectionT projectionT;
+	struct ProjectionT
+		{
+		vecteurT support[7];	// Axes x, y, z
+
+		pointDeVueT fonction[2];	//	fonction et TF
+
 		int fenetreX;	// hauteur de la fenêtre
 		int fenetreY;	// largeur de la fenêtre
 		float ratioXY;	// rapport largeur / hauteur
-
-		int rotation;	// rotation automatique du point de vue
 
 			// facteurs entre les grandeurs et la position des boutons rotatifs
 		float logCouplage;
@@ -72,7 +77,6 @@ typedef struct ProjectionT projectionT;
 		float logAmplitude;
 		float logFrequence;
 		};
-
 
 	//-----------------    INITIALISATION      -----------------------//
 int projectionInitialise(projectionT * projection);
