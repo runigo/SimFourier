@@ -83,7 +83,7 @@ int projectionInitialisePointDeVue(projectionT * projection, float r, float psi,
 		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
 
 	int i;
-	for(i=0;i<2;i++)
+	for(i=0;i<FONCTIONS;i++)
 		{
 		vecteurInitialisePolaire(&(*projection).fonction[i].pointDeVue, r, psi, phi);
 		}
@@ -96,7 +96,7 @@ int projectionReinitialiseBase(projectionT * projection)
 		// Réinitialise les vecteurs perpendiculaires
 
 	int i;
-	for(i=0;i<2;i++)
+	for(i=0;i<FONCTIONS;i++)
 		{
 		vecteurInitialiseVecteurPhi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPhi, (*projection).fenetreX*RATIO_CHAINE_FENETRE_X);
 		vecteurInitialiseVecteurPsi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPsi, (*projection).fenetreY*RATIO_CHAINE_FENETRE_X*(*projection).ratioXY);
@@ -164,18 +164,6 @@ int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, com
 			(*commandes).boutonEtat[3]=1;break; //	Mixte
 		case 4:
 			(*commandes).boutonEtat[3]=1;break; //	Mixte
-		default:
-			;
-		}
-
-		//	Dissipation
-	switch((*systeme).modeDissipation) {
-		case 0:
-			(*commandes).boutonEtat[5]=1;break; //	Nulle
-		case 1:
-			(*commandes).boutonEtat[4]=1;break; //	Uniforme
-		case 2:
-			(*commandes).boutonEtat[6]=1;break; //	Extrémité
 		default:
 			;
 		}

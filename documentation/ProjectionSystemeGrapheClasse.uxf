@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>350</x>
+      <y>240</y>
+      <w>270</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>_PointDeVueT_
+--
+*vecteurT*
+pointDeVue, vecteurPhi, vecteurPsi;
+
+/int/
+hauteur, largeur
+
+/float/
+ratioLH</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>350</x>
+      <y>400</y>
+      <w>390</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>_ProjectionT_
+--
+*vecteurT*
+support[7]
+
+*pointDeVueT*
+fonction[FONCTIONS]
+
+/int/
+fenetreX, fenetreY
+
+/float/
+ratioXY</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>20</y>
+      <w>150</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>_VecteurT_
+--
+float
+*x, y, z, r, psi, phi*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>130</y>
+      <w>200</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>_FonctionT_
+--
+*double*
+reel[NOMBRE_MAX]
+imag[NOMBRE_MAX]
+module[NOMBRE_MAX]
+
+/int/
+nombre</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>310</y>
+      <w>210</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>_SystemeT_
+--
+*fonctionT*
+ancien, actuel, nouveau
+fourier, potentiel
+
+/int/
+nombre
+
+/float/
+masse, dt, dx, hbar
+hbardtSmdx2
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>450</y>
+      <w>270</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>_GraphesT_
+--
+*grapheT*
+fonction, fourier;
+/int/
+nombre
+
+--
+GrapheT
+--
+*pointT*
+fonction[NOMBRE_MAX]
+/int/
+supporX[7], supporY[7];
+/int/
+support, dessous, arriere, gauche</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>80</y>
+      <w>40</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=3</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>80</y>
+      <w>30</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>10.0;320.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1230</x>
+      <y>0</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>SimpleClass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>160</y>
+      <w>280</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>_PointT_
+--
+*vecteurT*
+point, axe       // coordonnée 3D
+
+/float/
+sinTheta, cosTheta;	
+
+*int*
+xp, yp;       // coordonnée 2D du point
+*int*
+xa; ya;       // coordonnée 2D de l'axe</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>50</y>
+      <w>180</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>160.0;110.0;160.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>350</y>
+      <w>130</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=NOMBRE_MAX</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

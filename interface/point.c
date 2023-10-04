@@ -1,7 +1,8 @@
 /*
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-SimFourier 0.0 Transformation de Fourier
+(SiCP 1.6 simulateur de chaîne de pendules, mars 2018)
+SimFourier 0.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -29,57 +30,25 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _GRAPHIQUE_
-#define _GRAPHIQUE_
+#include "point.h"
 
-#include "graphes.h"
-#include "commandes.h"
-#include "interface.h"
-#include "capteurs.h"
+int pointInitialise(pointT * point) {
+
+		vecteurInitialise(&(*point).point);	// Coordonnees 3D du point
+
+		vecteurinitialise(&(*point).axe);	// Coordonnees 3D de l'axe
+
+			//	Mémorise la position angulaire pour la colorisation
+		(*point).sinTheta = 0;
+		(*point).cosTheta = 0;	
 
 
-struct GraphiqueT {
+		(*point).xp = 0;		// Absisse 2D du point
+		(*point).yp = 0;		// Ordonnée 2D du point
 
-	SDL_Renderer *rendu;
 
-	SDL_Color fond;
-	SDL_Color contraste;
-	
-	SDL_Color orange;
-	SDL_Color orangeF;
-
-	SDL_Color rouge;
-	SDL_Color bleue;
-
-	SDL_Color vert;
-	SDL_Color vertF;
-
-	SDL_Color gris;
-	SDL_Color grisF;
-
-	SDL_Color cyan;
-	SDL_Color aubergine;
-
-	SDL_Texture *masse;
-	SDL_Texture *SimFourier;
-	int taille;
-
-		int fenetreX;	// hauteur de la fenêtre
-		int fenetreY;	// largeur de la fenêtre
-};
-typedef struct GraphiqueT graphiqueT;
-
-int graphiqueDestruction(graphiqueT * graphique);
-int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int fond);
-
-int graphiqueNettoyage(graphiqueT * graphique);
-int graphiqueMiseAJour(graphiqueT * graphique);
-
-int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes);
-int graphiqueCapteurs(graphiqueT * graphique, capteursT * capteurs);
-void graphiquePenduleSupportPlein(graphiqueT * graphique, grapheT * graphe);
-void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe);
-void graphiquePendule(graphiqueT * graphique, grapheT * graphe);
-
-#endif
-/////////////////////////////////////////////////////////////////
+		(*point).xa = 0;		// Absisse 2D de l'axe
+		(*point).ya = 0;		// Ordonnée 2D de l'axe
+return 0;
+}
+//////////////////////////////////////////////////////////////////////

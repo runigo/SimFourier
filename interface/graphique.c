@@ -36,10 +36,6 @@ void graphiqueLigne(graphiqueT * graphique, int X, int Y, int x, int y);
 void graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT);
 //void graphiqueMasse(graphiqueT * graphique, int abs, int ord);
 
-void graphiqueTriangleGris(graphiqueT * graphique, int X, int Y, int Ax, int Ay, int Bx, int By);
-void graphiqueTriangle(graphiqueT * graphique, int X, int Y, int Ax, int Ay, int Bx, int By);
-void graphiqueRectangle(graphiqueT * graphique, int Ax, int Ay, int Bx, int By, int Cx, int Cy, int Dx, int Dy);
-
 void graphiqueMobile(graphiqueT * graphique, grapheT * graphe);
 
 int graphiqueDestruction(graphiqueT * graphique)
@@ -439,15 +435,15 @@ void graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 	do
 		{
 		//	Dessin des tiges
-		fixAbs=iter->xa;
-		fixOrd=iter->ya;
-		graphAbs=iter->xm;
-		graphOrd=iter->ym;
-		graphiqueTige(graphique, fixAbs, fixOrd, graphAbs, graphOrd, iter->sinTheta, iter->cosTheta);
+		fixAbs=(*graphe).xa;
+		fixOrd=(*graphe).ya;
+		graphAbs=(*graphe).xm;
+		graphOrd=(*graphe).ym;
+		graphiqueTige(graphique, fixAbs, fixOrd, graphAbs, graphOrd, (*graphe).sinTheta, (*graphe).cosTheta);
 
 		//	Dessin des masses
-		coordonnee.x = iter->xm - centrage;
-		coordonnee.y = iter->ym - centrage;
+		coordonnee.x = (*graphe).xm - centrage;
+		coordonnee.y = (*graphe).ym - centrage;
 		SDL_RenderCopy((*graphique).rendu, (*graphique).masse, NULL, &coordonnee);
 
 		if((*graphe).arriere == 0)

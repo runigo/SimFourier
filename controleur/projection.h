@@ -62,9 +62,9 @@ typedef struct PointDeVueT pointDeVueT;
 typedef struct ProjectionT projectionT;
 	struct ProjectionT
 		{
-		vecteurT support[7];	// Axes x, y, z
+		vecteurT support[7];	// Axes x, y, z 3D fixe
 
-		pointDeVueT fonction[2];	//	fonction et TF
+		pointDeVueT fonction[FONCTIONS];	//	fonction et TF
 
 		int fenetreX;	// hauteur de la fenêtre
 		int fenetreY;	// largeur de la fenêtre

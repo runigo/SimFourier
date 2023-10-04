@@ -1,7 +1,8 @@
 /*
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-SimFourier 0.0 Transformation de Fourier
+(SiCP 1.3.7  simulateur de chaîne de pendules septembre 2017)
+SimFourier 0.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -29,57 +30,57 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _GRAPHIQUE_
-#define _GRAPHIQUE_
-
 #include "graphes.h"
-#include "commandes.h"
-#include "interface.h"
-#include "capteurs.h"
 
 
-struct GraphiqueT {
+int grapheInitialisation(grapheT * graphe);
 
-	SDL_Renderer *rendu;
+int graphesInitialisation(grapheT * graphe)
+	{
+	grapheInitialisation(&(*graphe).fonction);
+	grapheInitialisation(&(*graphe).fourier);
+	return 0:
+	}
 
-	SDL_Color fond;
-	SDL_Color contraste;
-	
-	SDL_Color orange;
-	SDL_Color orangeF;
+int grapheInitialisation(grapheT * graphe)
+	{
+	for(i=0;i<NOMBRE_MAX){
+		pointInitialise(fonction[i])pointT ;
+		}
+	for(j=0;j<7){
+		(*graphe).supporX[j] = 0;
+		(*graphe).supporY[j] = 0;
+		}
 
-	SDL_Color rouge;
-	SDL_Color bleue;
+	(*graphe).support = 1;	// Change la représentation graphique du support
 
-	SDL_Color vert;
-	SDL_Color vertF;
+	(*graphe).dessous = 0;	// Vue de dessous
+	(*graphe).arriere = 0;	// Vue de derrière
+	(*graphe).gauche = 0;		// Vue de gauche
 
-	SDL_Color gris;
-	SDL_Color grisF;
+	return 0;
+	}
 
-	SDL_Color cyan;
-	SDL_Color aubergine;
+void grapheChangeSupport(grapheT * graphe){
 
-	SDL_Texture *masse;
-	SDL_Texture *SimFourier;
-	int taille;
+	// Change la représentation graphique du support
 
-		int fenetreX;	// hauteur de la fenêtre
-		int fenetreY;	// largeur de la fenêtre
-};
-typedef struct GraphiqueT graphiqueT;
+	if((*graphe).support==1)
+		{(*graphe).support=0;
+		printf("Support invisible\n");}
+	else
+		{
+		if((*graphe).support==0)
+			{
+			(*graphe).support=-1;
+			printf("Support transparent\n");
+			}
+		else
+			{
+			(*graphe).support=1;
+			printf("Support plein\n");
+			}
+		}
+	}
 
-int graphiqueDestruction(graphiqueT * graphique);
-int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int fond);
-
-int graphiqueNettoyage(graphiqueT * graphique);
-int graphiqueMiseAJour(graphiqueT * graphique);
-
-int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes);
-int graphiqueCapteurs(graphiqueT * graphique, capteursT * capteurs);
-void graphiquePenduleSupportPlein(graphiqueT * graphique, grapheT * graphe);
-void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe);
-void graphiquePendule(graphiqueT * graphique, grapheT * graphe);
-
-#endif
-/////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
