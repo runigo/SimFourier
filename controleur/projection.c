@@ -98,8 +98,8 @@ int projectionReinitialiseBase(projectionT * projection)
 	int i;
 	for(i=0;i<FONCTIONS;i++)
 		{
-		vecteurInitialiseVecteurPhi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPhi, (*projection).fenetreX*RATIO_CHAINE_FENETRE_X);
-		vecteurInitialiseVecteurPsi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPsi, (*projection).fenetreY*RATIO_CHAINE_FENETRE_X*(*projection).ratioXY);
+		vecteurInitialisePhi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPhi, (*projection).fenetreX*RATIO_CHAINE_FENETRE_X);
+		vecteurInitialisePsi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPsi, (*projection).fenetreY*RATIO_CHAINE_FENETRE_X*(*projection).ratioXY);
 		}
 
 	return 0;
@@ -456,39 +456,29 @@ int projectionPerspectiveChaine(projectionT * projection, grapheT * graphe)
 	return 0;
 	}
 
-int projectionSystemeChaine3D(systemeT * systeme, projectionT * projection, grapheT * graphe)
-	{
-	//	Projette le système sur une chaîne de pendule en 3 Dimensions
+int projectionSystemeChaine3D(systemeT * systeme, projectionT * projection, grapheT * graphe){
 
-	float i = -(*systeme).nombre/2;
+			//	Projette le système sur le graphe en 3 Dimensions
 
-	chaineT *iterSystem=(*systeme).premier;
-	pointsT *iterGraph=(*graphe).premier;
+	int N=(*systeme).nombre;
+	int Ns2=(*systeme).nombre/2;
+	int i;
 
-	do
+	for(i=-Ns2;i<(Ns2;i++)
 		{
 			// Axe fixe
-		iterGraph->axe.x = (*projection).largeur*(i/(*systeme).nombre);
-		iterGraph->axe.y = 0;
-		iterGraph->axe.z = 0;
+		(*graphe).fonction[i].axe.x = (*projection).largeur * (((float)i)/N);
+		(*graphe).fonction[i].axe.y = 0;
+		(*graphe).fonction[i].axe.z = 0;
 
-			// Masse
-		iterGraph->masse.x = iterGraph->axe.x;
-		iterGraph->sinTheta = sin(iterSystem->pendule.nouveau);
-		iterGraph->cosTheta = cos(iterSystem->pendule.nouveau);
-		iterGraph->masse.y = (*projection).hauteur * iterGraph->sinTheta;
-		iterGraph->masse.z = (*projection).hauteur * iterGraph->cosTheta;
-
-		//if(x>0) iterGraph->position=1;
-		//else iterGraph->position=0;
-
-		iterGraph = iterGraph->suivant;
-		iterSystem = iterSystem->suivant;
-
-		i = i + 1.0;
-
+			// Point
+		(*graphe).fonction[i].point.x = (*graphe).fonction[i].axe.x;
+		//(*graphe).fonction[i].sinTheta = sin(iterSystem->pendule.nouveau);
+		//(*graphe).fonction[i].cosTheta = cos(iterSystem->pendule.nouveau);
+		(*graphe).fonction[i].point.y = (*projection).hauteur * (*systeme).actuel.reel[i];
+		(*graphe).fonction[i].point.z = (*projection).hauteur * (*systeme).actuel.imag[i];
 		}
-	while(iterGraph!=(*graphe).premier);
+
 	return 0;
 	}
 
@@ -505,60 +495,6 @@ int projectionChangeFenetre(projectionT * projection, int x, int y) {
 	(*projection).ratioXY=(float)x/(float)y;
 
 	projectionReinitialiseBase(projection);
-	return 0;
-	}
-
-int projectionChangePhi(projectionT * projection, float x) {
-
-		// Change la position de l'observateur suivant phi
-
-	float r, psi, phi;
-
-	r = (*projection).pointDeVue.r;
-	psi = (*projection).pointDeVue.psi;
-	phi = (*projection).pointDeVue.phi + x;
-
-		// phi reste inférieur à PI
-	if(phi > PI)
-		{
-		phi = PI;
-		}
-
-		// phi reste supérieur à zéro
-	if(phi < 0.0)
-		{
-		phi = 0.0;
-		}
-
-	vecteurInitialisePolaire(&(*projection).pointDeVue, r, psi, phi);
-	projectionReinitialiseBase(projection);
-
-	return 0;
-	}
-
-int projectionChangePsi(projectionT * projection, float x) {
-
-		// Change la position de l'observateur suivant psi
-
-	float r, psi, phi;
-
-	r = (*projection).pointDeVue.r;
-	psi = (*projection).pointDeVue.psi + x;
-	phi = (*projection).pointDeVue.phi;
-
-	if(psi > PI)
-		{
-		psi = psi - DEUXPI;
-		}
-
-	if(psi < -PI)
-		{
-		psi = psi + DEUXPI;
-		}
-
-	vecteurInitialisePolaire(&(*projection).pointDeVue, r, psi, phi);
-	projectionReinitialiseBase(projection);
-
 	return 0;
 	}
 
@@ -590,25 +526,8 @@ int projectionChangeTaille(projectionT * projection, float x) {
 	return 0;
 	}
 
+
 	//-----------------    AFFICHAGE      -----------------------//
-
-int projectionAffichePointDeVue(projectionT * projection) {
-
-		// Affiche les valeurs de psi et phi
-
-	float r, psi, phi;
-
-	r = (*projection).pointDeVue.r;
-	psi = (*projection).pointDeVue.psi;
-	phi = (*projection).pointDeVue.phi;
-
-	printf("(*projection).pointDeVue.r = %f\n", r);
-	printf("(*projection).pointDeVue.psi = %f\n", psi);
-	printf("(*projection).pointDeVue.phi = %f\n", phi);
-
-	return 0;
-	}
-
 
 void projectionAffiche(projectionT * projection) {
 

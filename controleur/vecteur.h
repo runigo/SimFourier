@@ -60,8 +60,8 @@ void vecteurSommeCartesien(vecteurT * v1, vecteurT * v2, vecteurT * v3);
 void vecteurDifferenceCartesien(vecteurT * v1, vecteurT * v2, vecteurT * v3);
 
 	// Calcul des vecteurs perpendiculaires au vecteur point de vue
-int vecteurInitialiseVecteurPhi(vecteurT * pointDeVue, vecteurT * vecteurPhi, float hauteur);
-int vecteurInitialiseVecteurPsi(vecteurT * pointDeVue, vecteurT * vecteurPsi, float largeur);
+int vecteurInitialisePhi(vecteurT * pointDeVue, vecteurT * vecteurPhi, float hauteur);
+int vecteurInitialisePsi(vecteurT * pointDeVue, vecteurT * vecteurPsi, float largeur);
 
 	// Affiche les informations
 void vecteurAffiche(vecteurT * v);

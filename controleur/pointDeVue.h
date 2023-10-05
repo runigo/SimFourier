@@ -30,52 +30,42 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTION_
-#define _PROJECTION_
+#ifndef _PROJECTIONS_
+#define _PROJECTIONS_
 
 #include "../modele/systeme.h"
 #include "../modele/observables.h"
 #include "../interface/graphe.h"
 #include "../interface/commandes.h"
 #include "../interface/capteurs.h"
-#include "../interface/pointDeVue.h"
 
-				//		Projections des fonctions, des observables
-				//		et des commandes sur les graphes et les capteurs
+				//		Position de l'observateur
 
-typedef struct ProjectionT projectionT;
-	struct ProjectionT
+typedef struct PointDeVueT pointDeVueT;
+	struct PointDeVueT
 		{
-		vecteurT support[7];	// Axes x, y, z 3D fixe
+		vecteurT pointDeVue;	// Position observateur
 
-		pointDeVueT fonction;	//	fonction et TF
-		pointDeVueT fourier;	//	fonction et TF
+			// Vecteurs perpendiculaires à pointDeVue
+		vecteurT vecteurPhi;
+		vecteurT vecteurPsi;
 
-		int fenetreX;	// hauteur de la fenêtre
-		int fenetreY;	// largeur de la fenêtre
-		float ratioXY;	// rapport largeur / hauteur
+		int hauteur;	// hauteur de la chaîne
+		int largeur;	// largeur de la chaîne
+		int longueur;	// longueur de la chaîne
+		float ratioLH;	// rapport largeur / hauteur
 
-			// facteurs entre les grandeurs et la position des boutons rotatifs
-		float logCouplage;
-		float logDissipation;
-		float logJosephson;
-		float logAmplitude;
-		float logFrequence;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialise(projectionT * projection);
-void projectionInitialiseAxeFixe(grapheT * fixe, int nombre);
-
-	//-----------------    PROJECTION      -----------------------//
-int projectionSystemeChaineDePendule(systemeT * systeme, projectionT * projection, grapheT * graphe);
-int projectionObservablesCapteurs(observablesT * observables, projectionT * projection, capteursT * capteurs);
-int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, commandesT * commandes, int duree, int mode);
+int pointDeVueInitialise(pointDeVueT * pointDeVue);
 
 	//-----------------    CHANGE      -----------------------//
-int projectionChangeFenetre(projectionT * projection, int x, int y);
+int pointDeVueChangePhi(projectionT * projection, float x);
+int pointDeVueChangePsi(projectionT * projection, float x);
+int pointDeVueChangeTaille(projectionT * projection, float x);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void projectionAffiche(projectionT * projection);
+int pointDeVueAffiche(pointDeVueT * pointDeVue);
 
 #endif

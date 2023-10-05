@@ -46,10 +46,7 @@ termes.
 #define PI 3.14159265359
 #define DEUXPI 6.28318530718
 
-
-
-			//	PARAMÈTRES GRAPHIQUES
-
+		//-------------- PARAMÈTRES GRAPHIQUES ---------------
 
 	//  TAILLE IMPLICITE DE LA FENÊTRE
 #define FENETRE_X 938
@@ -68,7 +65,7 @@ termes.
 #define CAPTEURS 6 // Nombres de capteurs
 #define DUREE_CAPTEURS 128 // Nombre de points en mémoire
 
-			//	PARAMÈTRES DE DISCRÉTISATION TEMPORELLE DU SYSTÈME
+		//---------- PARAMÈTRES DE DISCRÉTISATION TEMPORELLE DU SYSTÈME -------
 
 	//	DT * DUREE = TEMPS_AFFICHAGE => temps réel
 
@@ -82,8 +79,9 @@ termes.
 #define DT_MAX 0.003		// Discrétisation maximale du temps
 
 
-	//	PARAMÈTRES DE LA CHAINE
+		//---------------- PARAMÈTRES DE LA CHAINE ---------------------
 
+#define FONCTIONS 2 // Nombres de fonctions
 
 	//	PARAMÈTRES QUANTIQUE
 

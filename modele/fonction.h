@@ -1,10 +1,10 @@
 /*
-Copyright mars 2019, Stephan Runigo
+Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-SiCF 2.0  simulateur de corde vibrante et spectre
-Ce logiciel est un programme informatique servant à simuler l'équation
-d'une corde vibrante, à calculer sa transformée de fourier, et à donner
-une représentation graphique de ces fonctions.
+(SiCF 2.0  simulateur de corde vibrante et spectre, mars 2019)
+SimFourier 0.1 Transformation de Fourier
+Ce logiciel est un programme informatique servant à donner une représentation
+graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
