@@ -58,12 +58,21 @@ termes.
 	//  NOMBRE DE COMMANDES
 #define BOUTON_COMMANDES 16		// Nombres de petits boutons
 #define ROTATIF_COMMANDES 7		// Nombre de boutons rotatifs
+#define LINEAIRE_COMMANDES 4	// Nombres de commandes linéaires
+#define TRIANGLE_COMMANDES 21	// Nombres de commandes triangulaires
 
 	//	PARAMÈTRES DES CAPTEURS
 
 #define OBSERVABLES 4 // Nombres d'observables
 #define CAPTEURS 6 // Nombres de capteurs
 #define DUREE_CAPTEURS 128 // Nombre de points en mémoire
+
+	//	PARAMÈTRES GRAPHIQUES DE LA CHAÎNE
+
+
+#define RATIO_C_X 0.399		// Ratio Centrage X
+#define RATIO_C_Y_Q 0.263		// Ratio Centrage Y Fonction
+#define RATIO_C_Y_F 0.526		// Ratio Centrage Y Fourier
 
 		//---------- PARAMÈTRES DE DISCRÉTISATION TEMPORELLE DU SYSTÈME -------
 

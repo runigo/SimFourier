@@ -57,9 +57,9 @@ typedef struct PointDeVueT pointDeVueT;
 int pointDeVueInitialise(pointDeVueT * pointDeVue);
 
 	//-----------------    CHANGE      -----------------------//
-int pointDeVueChangePhi(projectionT * projection, float x);
-int pointDeVueChangePsi(projectionT * projection, float x);
-int pointDeVueChangeTaille(projectionT * projection, float x);
+int pointDeVueChangePhi(pointDeVueT * pointDeVue, float x);
+int pointDeVueChangePsi(pointDeVueT * pointDeVue, float x);
+int pointDeVueChangeTaille(pointDeVueT * pointDeVue, float x);
 
 	//-----------------    AFFICHAGE      -----------------------//
 int pointDeVueAffiche(pointDeVueT * pointDeVue);

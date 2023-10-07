@@ -2,7 +2,7 @@
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 0.1 Transformation de Fourier
+SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -30,61 +30,17 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _CONTROLEUR_
-#define _CONTROLEUR_
+#ifndef _CONTROLEURSOURIS_
+#define _CONTROLEURSOURIS_
 
-#include "../controleur/options.h"			//	Options de la ligne de commande
-#include "../controleur/projection.h"		//	Projection en perspective de la chaîne.
-#include "../modele/observables.h"			//	Observables du système
-#include "../interface/graphique.h"			//	Librairie SDL et représentation graphique
-#include "../interface/horloge.h"			//	Librairie SDL et représentation graphique
-#include "../donnees/fichier.h"
+#include "../controleur/controleur.h"
 
-typedef struct ControleurT controleurT;
-	struct ControleurT
-		{
+int controleurSourisDefile(controleurT * controleur);
 
-		optionsT options;	//	Options de la ligne de commande
+int controleurSouris(controleurT * controleur);
 
-		systemeT systeme;	//	Modélisation physique de la chaîne
+void controleurSourisBouton(controleurT * controleur, int appui);
 
-		observablesT observables;	//	Grandeurs physique du système système
-
-		projectionT projection;	//	Projection du système et des observables sur les graphes
-
-		graphesT graphes;		//	Graphe des fonctions
-
-		commandesT commandes;	//	Graphe des commandes
-
-		capteursT capteurs;		//	Graphe des capteurs
-
-		interfaceT interface;	//	Fenêtre SDL
-
-		graphiqueT graphique;	//	Rendu SDL et graphisme
-
-		horlogeT horloge;		//	Horloge SDL
-
-		int sortie;	//	sortie de SiCP si > 0
-
-		int appui;	//	1 si le bouton de la souris est appuyé, 0 sinon.
-		int curseurX;	//	Position x de la souris.
-		int curseurY;	//	Position y de la souris.
-
-		int modeMenu;		// 0 : Menu, 1 SiCP, 2 SiGP
-
-		};
-
-int controleurSimulationGraphique(controleurT * control);
-int controleurEvolutionSysteme(controleurT * controleur);
-
-int controleurDestruction(controleurT * control);
-
-
-void controleurChangeMode(controleurT * controleur);
-void controleurChangeVitesse(controleurT * controleur, float facteur);
-
-int controleurInitialiseNombre(controleurT * controleur, int nombre);
-
-void controleurPostReinitialisation(controleurT * controleur);
+int controleurSourisAffiche(controleurT * controleur);
 
 #endif

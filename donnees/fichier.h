@@ -35,11 +35,11 @@ termes.
 
 #include "string.h"
 
-#include "../modele/change.h"
-#include "../interface/graphe.h"
+#include "../modele/systeme.h"
+#include "../interface/graphes.h"
 
-int fichierEcriture(systemeT * systeme, grapheT * graphe, char * nom);
-int fichierLecture(systemeT * systeme, grapheT * graphe, char * nom);
-int fichierFonction(systemeT * systeme, grapheT * graphe, int numero);
+int fichierEcriture(systemeT * systeme, graphesT * graphes, char * nom);
+int fichierLecture(systemeT * systeme, graphesT * graphes, char * nom);
+int fichierFonction(systemeT * systeme, graphesT * graphes, int numero);
 
 #endif

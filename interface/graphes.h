@@ -2,7 +2,7 @@
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
 (SiCP 2.5 simulateur de chaîne de pendules fevrier 2021)
-SimFourier 0.1 Transformation de Fourier
+SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -38,7 +38,8 @@ termes.
 typedef struct GrapheT grapheT;
 	struct GrapheT
 		{
-		pointT fonction[NOMBRE_MAX]; // Fonction et TF
+		pointT fonction[NOMBRE_MAX]; // Fonction ou TF
+		int nombre;
 		int supporX[7];
 		int supporY[7];
 
@@ -58,7 +59,7 @@ typedef struct GraphesT graphesT;
 		int nombre;
 		};
 
-int graphesInitialisation(grapheT * graphe, int nombre);
+int graphesInitialisation(graphesT * graphes, int nombre);
 void grapheChangeSupport(grapheT * graphe);
 
 #endif

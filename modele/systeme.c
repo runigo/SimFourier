@@ -112,6 +112,17 @@ int systemeInitialisePosition(systemeT * systeme, int forme) {
 	return 0;
 }
 
+int systemeInitialisePoint(float ancien, float actuel, float nouveau, int i) {
+
+	// Réinitialisation des positions
+
+	(*systeme).ancien.reel[i] = ancien;
+	(*systeme).actuel.reel[(i] = actuel;
+	(*systeme).nouveau.reel[i] = nouveau;
+
+	return 0;
+}
+
 int systemeInitialiseNombre(systemeT * systeme, int nombre)
 	{
 	if(nombre>NOMBRE_MIN-1 && nombre<NOMBRE_MAX+1 && ((nombre & (nombre - 1)) == 0))

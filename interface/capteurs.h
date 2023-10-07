@@ -1,7 +1,7 @@
 /*
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
+(SiCF 2.0  simulateur de corde vibrante et spectre, avril 2019)
 SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
@@ -30,52 +30,34 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTION_
-#define _PROJECTION_
+#ifndef _CAPTEURS_
+#define _CAPTEURS_
 
-#include "../modele/systeme.h"
-#include "../modele/observables.h"
-#include "../interface/graphes.h"
-#include "../interface/commandes.h"
-#include "../interface/capteurs.h"
-#include "../controleur/pointDeVue.h"
+#include "../donnees/constantes.h"
+#include <SDL2/SDL.h>
 
-				//		Projections des fonctions, des observables
-				//		et des commandes sur les graphes et les capteurs
-
-typedef struct ProjectionT projectionT;
-	struct ProjectionT
+typedef struct CapteurT capteurT;
+	struct CapteurT
 		{
-		vecteurT support[7];	// Axes x, y, z 3D fixe
+		SDL_Point gauche[DUREE_CAPTEURS];
+		SDL_Point droite[DUREE_CAPTEURS];
+		SDL_Point somme[DUREE_CAPTEURS];
 
-		pointDeVueT fonction;	//	fonction
-		pointDeVueT fourier;	//	transformée de fourier
+		int yZero; // Positon de l'origine
+		int xZero; // Positon de l'origine
 
-		int fenetreX;	// hauteur de la fenêtre
-		int fenetreY;	// largeur de la fenêtre
-		float ratioXY;	// rapport largeur / hauteur
-
-			// facteurs entre les grandeurs et la position des boutons rotatifs
-		float logCouplage;
-		float logDissipation;
-		float logJosephson;
-		float logAmplitude;
-		float logFrequence;
+		int largeur; // axe x
+		int hauteur; // axe y
 		};
 
-	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialise(projectionT * projection);
-void projectionInitialiseAxeFixe(grapheT * fixe, int nombre);
+typedef struct CapteursT capteursT;
+	struct CapteursT
+		{
+		capteurT capteur[CAPTEURS];
+		};
 
-	//-----------------    PROJECTION      -----------------------//
-int projectionSystemeGraphes(systemeT * systeme, projectionT * projection, graphesT * graphes);
-int projectionObservablesCapteurs(observablesT * observables, projectionT * projection, capteursT * capteurs);
-int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, commandesT * commandes, int duree, int mode);
+int capteursInitialise(capteursT * capteurs);
 
-	//-----------------    CHANGE      -----------------------//
-int projectionChangeFenetre(projectionT * projection, int x, int y);
-
-	//-----------------    AFFICHAGE      -----------------------//
-void projectionAffiche(projectionT * projection);
+int capteursMiseAJourLongueur(capteursT * capteurs, int largeur, int hauteur);
 
 #endif

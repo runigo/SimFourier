@@ -2,7 +2,7 @@
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 0.0 Transformation de Fourier
+SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -74,6 +74,27 @@ int projectionInitialise(projectionT * projection)
 	(*projection).hauteur = (int)((*projection).largeur/(*projection).ratioLH);// hauteur de la chaîne
 
 	projectionInitialisePointDeVue(projection, 3*FENETRE_Y, PI/2 - 0.27, PI/2 + 0.21);//r, psi, phi
+
+	return 0;
+	}
+
+void projectionInitialiseAxeFixe(graphesT * graphes, int nombre) {
+
+			//	Initialise les axes fixe des graphes en 3 Dimensions
+
+	int N=(*systeme).nombre;
+	int Ns2=(*systeme).nombre/2;
+	int i;
+
+	for(i=-Ns2;i<(Ns2;i++)
+		{
+		(*graphes).fonction.fonction[i].axe.x = (*projection).largeur * (((float)i)/N);
+		(*graphes).fonction.fonction[i].axe.y = 0;
+		(*graphes).fonction.fonction[i].axe.z = 0;
+		(*graphes).fourier.fonction[i].axe.x = (*projection).largeur * (((float)i)/N);
+		(*graphes).fourier.[i].axe.y = 0;
+		(*graphes).fourier.[i].axe.z = 0;
+		}
 
 	return 0;
 	}
@@ -309,16 +330,17 @@ int projectionObservablesCapteurs(observablesT * observables, projectionT * proj
 	return 0;
 	}
 
-int projectionSystemeChaineDePendule(systemeT * systeme, projectionT * projection, grapheT * graphe) {
+int projectionSystemeGraphes(systemeT * systeme, projectionT * projection, graphesT * graphes) {
 
-		// Projection du système sur le rendu en perspective
+		// Projection du système sur les graphes en perspective
 
-		// Projection du système sur la chaîne de pendule 3D
-	projectionSystemeChaine3D(systeme, projection, graphe);
+		//		Projection du système sur les graphes 3D
+	projectionSystemeGraphes3D(systeme, projection, graphes);
 
 		// Initialisation des points du support
 	projectionInitialiseSupport(projection, (*systeme).nombre);
 
+		//		Projection des graphes 3D sur les graphes 2D
 		// Projection en 2D de la représentation 3D
 	projectionPerspectiveChaine(projection, graphe);
 	projectionPerspectiveSupport(projection, graphe);
@@ -328,17 +350,12 @@ int projectionSystemeChaineDePendule(systemeT * systeme, projectionT * projectio
 
 int projectionInitialiseSupport(projectionT * projection, int nombre)
 //
-//                                                Y
-//                                                
-//                                             
-//                                                 
-//                                         X            Z'
+//                                                Z
+//                                          Y              X'
 //                                                O
-//                                                       X'
-//                                                
-//                                                
-//                                                Y'
-//             Z
+//                                                      Y'
+//                                                Z'
+//             X
 
 	{
 	int i;
@@ -376,7 +393,7 @@ int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe)
 	int centrageX = (int)( (*projection).fenetreX * RATIO_C_X );
 	int centrageY = (int)( (*projection).fenetreY * RATIO_C_Y );
 
-	for(i=0;i<14;i++)
+	for(i=0;i<7;i++)
 		{
 			// Coordonnees 2D des points du support
 		vecteurDifferenceCartesien(&(*projection).support[i], &(*projection).pointDeVue, &v);
@@ -420,63 +437,62 @@ int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe)
 	return 0;
 	}
 
-int projectionPerspectiveChaine(projectionT * projection, grapheT * graphe)
+int projectionPerspectiveGraphes(projectionT * projection, graphesT * graphes)
 	{
-			//	Projette la chaine 3D sur le rendu en perspective
+			//	Projette les graphes 3D sur les graphes 2D
 
-	pointsT *iterGraph=(*graphe).premier;
+	projectionPerspectiveGraphe(&(*projection).fonction, &(*graphes).fonction, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_Q ) );
+	projectionPerspectiveGraphe(&(*projection).fourier, &(*graphes).fourier, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_F ) );
 
+	return 0;
+	}
+
+int projectionPerspectiveGraphe(pointDeVueT * pointDeVue, grapheT * graphe, int centrageX, int centrageY)
+	{
+						//	Projette un graphe 3D sur son graphe 2D
 	vecteurT v;
-	int centrageX = (int)( (*projection).fenetreX * RATIO_C_X );
-	int centrageY = (int)( (*projection).fenetreY * RATIO_C_Y );
+	int i;
+	int nombre = (*graphe).nombre;
 
-	do
+	for(i=0;i<nombre;i++)
 		{
-				// Coordonnees 2D de la masse et centrage du graphe
+				// Coordonnees 2D du point et centrage du graphe
 
 			// v = masse - point de vue
-		vecteurDifferenceCartesien(&(iterGraph->masse), &(*projection).pointDeVue, &v);
+		vecteurDifferenceCartesien(&(*graphe).fonction[i].point, &(*pointDeVue).pointDeVue, &v);
 			// x = X + v.Psi		 y = Y + v.Phi
-		iterGraph->xm = centrageX + vecteurScalaireCartesien(&v, &(*projection).vecteurPsi);
-		iterGraph->ym = centrageY + vecteurScalaireCartesien(&v, &(*projection).vecteurPhi);
+		(*graphe).xp = centrageX + vecteurScalaireCartesien(&v, &(*pointDeVue).vecteurPsi);
+		(*graphe).yp = centrageY + vecteurScalaireCartesien(&v, &(*pointDeVue).vecteurPhi);
 
 
 				// Coordonnees 2D de l'axe
 
 			// v = axe - point de vue
-		vecteurDifferenceCartesien(&(iterGraph->axe), &(*projection).pointDeVue, &v);
+		vecteurDifferenceCartesien(&(*graphe).fonction[i].axe, &(*projection).pointDeVue, &v);
 			// x = X + v.Psi		 y = Y + v.Phi
-		iterGraph->xa = centrageX + vecteurScalaireCartesien(&v, &(*projection).vecteurPsi);
-		iterGraph->ya = centrageY + vecteurScalaireCartesien(&v, &(*projection).vecteurPhi);
+		(*graphe).xa = centrageX + vecteurScalaireCartesien(&v, &(*pointDeVue).vecteurPsi);
+		(*graphe).ya = centrageY + vecteurScalaireCartesien(&v, &(*pointDeVue).vecteurPhi);
 
-		iterGraph = iterGraph->suivant;
 		}
-	while(iterGraph!=(*graphe).premier);
 
 	return 0;
 	}
 
-int projectionSystemeChaine3D(systemeT * systeme, projectionT * projection, grapheT * graphe){
+int projectionSystemeGraphes3D(systemeT * systeme, projectionT * projection, graphesT * graphes){
 
-			//	Projette le système sur le graphe en 3 Dimensions
+			//	Projette le système sur les graphes en 3 Dimensions
 
-	int N=(*systeme).nombre;
-	int Ns2=(*systeme).nombre/2;
 	int i;
+	int nombre = (*systeme).nombre;
 
-	for(i=-Ns2;i<(Ns2;i++)
+	for(i=0;i<nombre;i++)
 		{
-			// Axe fixe
-		(*graphe).fonction[i].axe.x = (*projection).largeur * (((float)i)/N);
-		(*graphe).fonction[i].axe.y = 0;
-		(*graphe).fonction[i].axe.z = 0;
-
-			// Point
-		(*graphe).fonction[i].point.x = (*graphe).fonction[i].axe.x;
-		//(*graphe).fonction[i].sinTheta = sin(iterSystem->pendule.nouveau);
-		//(*graphe).fonction[i].cosTheta = cos(iterSystem->pendule.nouveau);
-		(*graphe).fonction[i].point.y = (*projection).hauteur * (*systeme).actuel.reel[i];
-		(*graphe).fonction[i].point.z = (*projection).hauteur * (*systeme).actuel.imag[i];
+		(*graphes).fonction.point[i].x = (*graphes).fonction.axe[i].x;
+		(*graphes).fonction.point[i].y = (*projection).fonction.hauteur * (*systeme).actuel.reel[i];
+		(*graphes).fonction.point[i].z = (*projection).fonction.hauteur * (*systeme).actuel.imag[i];
+		(*graphes).fourier.point[i].x = (*graphes).fourier.axe[i].x;
+		(*graphes).fourier.point[i].y = (*projection).fourier.hauteur * (*systeme).fourier.reel[i];
+		(*graphes).fourier.point[i].z = (*projection).fourier.hauteur * (*systeme).fourier.imag[i];
 		}
 
 	return 0;

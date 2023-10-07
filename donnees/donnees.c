@@ -71,8 +71,7 @@ int donneesControleur(controleurT * controleur)
 	donneesSysteme(&(*controleur).systeme, &(*controleur).options);
 
 		fprintf(stderr, " Initialisation des graphe\n");
-	graphesInitialisation(&(*controleur).graphes.fonction, (*controleur).options.nombre);
-	graphesInitialisation(&(*controleur).graphes.fourier, (*controleur).options.nombre);
+	graphesInitialisation(&(*controleur).graphes, (*controleur).options.nombre);
 
 		//fprintf(stderr, " Initialisation des capteurs\n");
 	capteursInitialise(&(*controleur).capteurs);
@@ -86,7 +85,7 @@ int donneesControleur(controleurT * controleur)
 		//fprintf(stderr, " Création de l'interface SDL\n");
 	interfaceCreation(&(*controleur).interface);
 		//fprintf(stderr, " Création du rendu\n");
-	graphiqueInitialisation(&(*controleur).graphique, &(*controleur).interface, TAILLE_MASSE, (*controleur).options.fond);
+	graphiqueInitialisation(&(*controleur).graphique, &(*controleur).interface, (*controleur).options.fond);
 
 	int fenetreX;
 	int fenetreY;

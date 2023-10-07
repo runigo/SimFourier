@@ -1,8 +1,8 @@
 /*
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 SimFourier 1.0 Transformation de Fourier
+(SiCF 2.0, avril 2019)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -30,52 +30,37 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTION_
-#define _PROJECTION_
+#ifndef _OBSERVABLES_
+#define _OBSERVABLES_
 
-#include "../modele/systeme.h"
-#include "../modele/observables.h"
-#include "../interface/graphes.h"
-#include "../interface/commandes.h"
-#include "../interface/capteurs.h"
-#include "../controleur/pointDeVue.h"
+#include <stdio.h>
 
-				//		Projections des fonctions, des observables
-				//		et des commandes sur les graphes et les capteurs
+#include "systeme.h"
+#include "fourier.h"
 
-typedef struct ProjectionT projectionT;
-	struct ProjectionT
+typedef struct ObservableT observableT;
+	struct ObservableT
 		{
-		vecteurT support[7];	// Axes x, y, z 3D fixe
-
-		pointDeVueT fonction;	//	fonction
-		pointDeVueT fourier;	//	transformée de fourier
-
-		int fenetreX;	// hauteur de la fenêtre
-		int fenetreY;	// largeur de la fenêtre
-		float ratioXY;	// rapport largeur / hauteur
-
-			// facteurs entre les grandeurs et la position des boutons rotatifs
-		float logCouplage;
-		float logDissipation;
-		float logJosephson;
-		float logAmplitude;
-		float logFrequence;
+		float gauche[DUREE_CAPTEURS];
+		float droite[DUREE_CAPTEURS];
+		float somme[DUREE_CAPTEURS];
+		float maximumCapteur;
+		float maximumSomme;
+		int dureeCapteur;
 		};
 
-	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialise(projectionT * projection);
-void projectionInitialiseAxeFixe(grapheT * fixe, int nombre);
+typedef struct ObservablesT observablesT;
+	struct ObservablesT
+		{
+		observableT observable[OBSERVABLES];// 0 : Energie, 1 : Cinetique, 2 : Couplage, 3 : Rappel
+		int index; // instant présent
+		};
 
-	//-----------------    PROJECTION      -----------------------//
-int projectionSystemeGraphes(systemeT * systeme, projectionT * projection, graphesT * graphes);
-int projectionObservablesCapteurs(observablesT * observables, projectionT * projection, capteursT * capteurs);
-int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, commandesT * commandes, int duree, int mode);
+int observablesInitialise(observablesT * observables);
+int observablesAffiche(observablesT * observables);
 
-	//-----------------    CHANGE      -----------------------//
-int projectionChangeFenetre(projectionT * projection, int x, int y);
+		// Mise à jour des observables
+int observablesMiseAJour(observablesT * observables, systemeT * systeme);
 
-	//-----------------    AFFICHAGE      -----------------------//
-void projectionAffiche(projectionT * projection);
-
+void observablesAfficheEnergie(systemeT * systeme);
 #endif

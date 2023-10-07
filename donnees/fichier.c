@@ -32,43 +32,43 @@ termes.
 
 #include "fichier.h"
 
-int fichierEcritureParametre(systemeT * systeme, grapheT * graphe, char * nom);
-int fichierLectureParametre(systemeT * systeme, grapheT * graphe, char * nom);
+int fichierEcritureParametre(systemeT * systeme, graphesT * graphes, char * nom);
+int fichierLectureParametre(systemeT * systeme, graphesT * graphes, char * nom);
 int fichierEcriturePosition(systemeT * systeme, char * nom);
 int fichierLecturePosition(systemeT * systeme, char * nom);
 
-int fichierFonctionNulle(systemeT * systeme, grapheT * graphe);
-int fichierFonctionTriangle(systemeT * systeme, grapheT * graphe, int numero);
-int fichierFonctionCarre(systemeT * systeme, grapheT * graphe, int numero);
-int fichierFonctionSinus(systemeT * systeme, grapheT * graphe, int numero);
+int fichierFonctionNulle(systemeT * systeme, graphesT * graphes);
+int fichierFonctionTriangle(systemeT * systeme, graphesT * graphes, int numero);
+int fichierFonctionCarre(systemeT * systeme, graphesT * graphes, int numero);
+int fichierFonctionSinus(systemeT * systeme, graphesT * graphes, int numero);
 
 
 
-int fichierEcriture(systemeT * systeme, grapheT * graphe, char * nom)
+int fichierEcriture(systemeT * systeme, graphesT * graphes, char * nom)
 	{
 	fprintf(stderr, "Ecriture des paramètres %s\n", nom);
-	fichierEcritureParametre(systeme, graphe, nom);
+	fichierEcritureParametre(systeme, graphes, nom);
 	fprintf(stderr, "Ecriture des positions %s\n", nom);
 	fichierEcriturePosition(systeme, nom);
 	return 0;
 	}
 
-int fichierLecture(systemeT * systeme, grapheT * graphe, char * nom)
+int fichierLecture(systemeT * systeme, graphesT * graphes, char * nom)
 	{
 			fprintf(stderr, "Réinitialisation du système\n");
 	fprintf(stderr, "Initialisation des paramètres %s\n", nom);
-	fichierLectureParametre(systeme, graphe, nom);
+	fichierLectureParametre(systeme, graphes, nom);
 	fprintf(stderr, "Initialisation des positions %s\n", nom);
 	fichierLecturePosition(systeme, nom);
 	return 0;
 	}
 
-int fichierEcritureParametre(systemeT * systeme, grapheT * graphe, char * nom)
+int fichierEcritureParametre(systemeT * systeme, graphesT * graphes, char * nom)
 	{
 	FILE *fichier; /* pointeur sur FILE */
 	float reel;
 	int entier;
-	(void)graphe;
+	(void)graphes;
 
 
 	char chemin[120] = "./donnees/enregistrement/parametre_";
@@ -122,28 +122,9 @@ int fichierEcritureParametre(systemeT * systeme, grapheT * graphe, char * nom)
 		// Caractéristique de la chaîne
 		entier = (*systeme).nombre;
 			fprintf(fichier, "%d\n", entier);
-		entier = (*systeme).equation;
-			fprintf(fichier, "%d\n", entier);
-		reel = (*systeme).dephasage;
-			fprintf(fichier, "%f\n", reel);
-		entier = (*systeme).libreFixe;
-			fprintf(fichier, "%d\n", entier);
 
 		// Paramètres physiques
 		reel = (*systeme).masse;
-			fprintf(fichier, "%f\n", reel);
-		reel = (*systeme).longueur;
-			fprintf(fichier, "%f\n", reel);
-		reel = (*systeme).couplage;
-			fprintf(fichier, "%f\n", reel);
-		reel = (*systeme).gravitation;
-			fprintf(fichier, "%f\n", reel);
-
-		entier = (*systeme).modeDissipation;
-			fprintf(fichier, "%d\n", entier);
-		reel = (*systeme).dissipation;
-			fprintf(fichier, "%f\n", reel);
-		reel = (*systeme).premier->pendule.dephasage;
 			fprintf(fichier, "%f\n", reel);
 
 		fclose(fichier);
@@ -152,12 +133,12 @@ int fichierEcritureParametre(systemeT * systeme, grapheT * graphe, char * nom)
 	return 0;
 	}
 
-int fichierLectureParametre(systemeT * systeme, grapheT * graphe, char * nom)
+int fichierLectureParametre(systemeT * systeme, graphesT * graphes, char * nom)
 	{
 	FILE *fichier; /* pointeur sur FILE */
 	float reel = 0;
 	int entier = 0;
-	//(void)graphe;
+	//(void)graphes;
 
 	char chemin[120] = "./donnees/enregistrement/parametre_";
 
@@ -176,6 +157,9 @@ int fichierLectureParametre(systemeT * systeme, grapheT * graphe, char * nom)
 		}
 	else
 		{
+		
+			fprintf(stderr, " Initialisation du système\n");
+		systemeInitialisation(systeme,NOMBRE, DT);
 		// Initialisation du moteurs
 			// Paramètres d'horloge
 		fscanf(fichier, "%f\n", &reel);
@@ -212,49 +196,15 @@ int fichierLectureParametre(systemeT * systeme, grapheT * graphe, char * nom)
 			// Caractéristiques
 		fscanf(fichier, "%d\n", &entier);
 		systemeInitialiseNombre(systeme, entier);
-		fscanf(fichier, "%d\n", &entier);
-		systemeInitialiseEquation(systeme, entier);
-
-		fscanf(fichier, "%f\n", &reel);
-		systemeInitialiseDephasage(systeme, reel);
-		fscanf(fichier, "%d\n", &entier);
-		systemeInitialiseLibreFixe(systeme, entier);
 
 			// Paramètres physiques
 		fscanf(fichier, "%f\n", &reel);
 		systemeInitialiseMasse(systeme, reel);
-		fscanf(fichier, "%f\n", &reel);
-		systemeInitialiseLongueur(systeme, reel);
-		fscanf(fichier, "%f\n", &reel);
-		systemeInitialiseCouplage(systeme, reel);
-		fscanf(fichier, "%f\n", &reel);
-		systemeInitialiseGravitation(systeme, reel);
-		fscanf(fichier, "%d\n", &entier);
-		systemeInitialiseModeDissipation(systeme, entier);
-		fscanf(fichier, "%f\n", &reel);
-		systemeInitialiseDissipation(systeme, reel);
-
-		fscanf(fichier, "%f\n", &reel); // Déphasage du premier pendule
 
 		fclose(fichier);
 
-	fprintf(stderr, "Suppression du système\n");
-	systemeSuppression(systeme);
-
-	fprintf(stderr, "Suppression du graphe\n");
-	grapheSuppression(graphe);
-
-		fprintf(stderr, " Création du système\n");
-	systemeCreation(systeme);
-
-	changeFormeDissipation(systeme, (*systeme).modeDissipation);
-	changeLimite(systeme);
-	(*systeme).premier->pendule.dephasage = reel;
-	//penduleAjouteDephasage(&(*systeme).premier->pendule, (*systeme).moteurs.dephasage);
-
-		fprintf(stderr, " Création du graphe\n");
-	grapheCreation(graphe, (*systeme).nombre);
-
+			fprintf(stderr, " Initialisation des graphes\n");
+		graphesInitialisation(graphes, (*systeme).nombre);
 		}
 
 	return 0;
@@ -281,17 +231,19 @@ int fichierEcriturePosition(systemeT * systeme, char * nom)
 		}
 	else
 	   	{
-	    chaineT *iter=(*systeme).premier;
-	    double ancien, actuel;
-
-	    do
+	    double ancien, actuel, nouveau;
+		int i;
+	    for(i=0;i<(*systeme).nombre;i++)
 	    	{
-	    	ancien = iter->pendule.ancien;
-	    	actuel = iter->pendule.nouveau;
-	    	fprintf(fichier, "%f %f\n", ancien, actuel);
-	    	iter=iter->suivant;
+	    	ancien = (*systeme).ancien.reel[i];
+	    	actuel = (*systeme).actuel.reel[i];
+	    	nouveau = (*systeme).nouveau.reel[i];
+	    	fprintf(fichier, "%f %f %f\n", ancien, actuel, nouveau);
+	    	ancien = (*systeme).ancien.imag[i];
+	    	actuel = (*systeme).actuel.imag[i];
+	    	nouveau = (*systeme).nouveau.imag[i];
+	    	fprintf(fichier, "%f %f %f\n", ancien, actuel, nouveau);
 	    	}
-	    while(iter != (*systeme).premier);
 
     	fclose(fichier);
 		}
@@ -320,107 +272,104 @@ int fichierLecturePosition(systemeT * systeme, char * nom)
 		}
 	else
 		{
-		float ancien, actuel;
-		chaineT *iter=(*systeme).premier;
-		do
+		float ancien, actuel, nouveau;
+		int i;
+	    for(i=0;i<(*systeme).nombre;i++)
 			{
 			ancien = 0;
 			actuel = 0;
-			fscanf(fichier, "%f %f\n", &ancien, &actuel);
-			penduleInitialisePosition(&iter->pendule, ancien, actuel);
-			iter=iter->suivant;
+			nouveau = 0;
+			fscanf(fichier, "%f %f %f\n", &ancien, &actuel, &nouveau);
+			systemeInitialisePoint(ancien, actuel, nouveau, i);
 			}
-		while(iter != (*systeme).premier);
+
 		fclose(fichier);
 		}
 
 	return 0;
 	}
 
-int fichierFonction(systemeT * systeme, grapheT * graphe, int numero)
+int fichierFonction(systemeT * systeme, graphesT * graphes, int numero)
 	{
 	switch (numero)
 		{
 		case 0: // Touche A
-			fichierFonctionNulle(systeme, graphe);break;
+			fichierFonctionNulle(systeme, graphes);break;
 		case 1: // Touche Z
-			fichierFonctionSinus(systeme, graphe, 1);break;
+			fichierFonctionSinus(systeme, graphes, 1);break;
 		case 2: // Touche E
-			fichierFonctionTriangle(systeme, graphe, 2);break;
+			fichierFonctionTriangle(systeme, graphes, 2);break;
 		case 3: // Touche R
-			fichierFonctionTriangle(systeme, graphe, 3);break;
+			fichierFonctionTriangle(systeme, graphes, 3);break;
 		case 4: // Touche T
-			fichierFonctionTriangle(systeme, graphe, 4);break;
+			fichierFonctionTriangle(systeme, graphes, 4);break;
 		case 5: // Touche Y
-			fichierFonctionTriangle(systeme, graphe, 5);break;
+			fichierFonctionTriangle(systeme, graphes, 5);break;
 		case 6: // Touche U
-			fichierFonctionTriangle(systeme, graphe, 6);break;
+			fichierFonctionTriangle(systeme, graphes, 6);break;
 		case 7: // Touche I
-			fichierFonctionSinus(systeme, graphe, 7);break;
+			fichierFonctionSinus(systeme, graphes, 7);break;
 		case 8: // Touche O
-			fichierFonctionSinus(systeme, graphe, 8);break;
+			fichierFonctionSinus(systeme, graphes, 8);break;
 		case 9: // Touche P
-			fichierFonctionCarre(systeme, graphe, 9);break;
+			fichierFonctionCarre(systeme, graphes, 9);break;
 		case 10: // Touche Q
-			fichierFonctionSinus(systeme, graphe, 1);break;
+			fichierFonctionSinus(systeme, graphes, 1);break;
 		case 11: // Touche S
-			fichierFonctionSinus(systeme, graphe, 2);break;
+			fichierFonctionSinus(systeme, graphes, 2);break;
 		case 12: // Touche D
-			fichierFonctionSinus(systeme, graphe, 3);break;
+			fichierFonctionSinus(systeme, graphes, 3);break;
 		case 13: // Touche F
-			fichierFonctionSinus(systeme, graphe, 4);break;
+			fichierFonctionSinus(systeme, graphes, 4);break;
 		case 14: // Touche G
-			fichierFonctionSinus(systeme, graphe, 5);break;
+			fichierFonctionSinus(systeme, graphes, 5);break;
 		case 15: // Touche H
-			fichierFonctionCarre(systeme, graphe, 1);break;
+			fichierFonctionCarre(systeme, graphes, 1);break;
 		case 16: // Touche J
-			fichierFonctionCarre(systeme, graphe, 2);break;
+			fichierFonctionCarre(systeme, graphes, 2);break;
 		case 17: // Touche K
-			fichierFonctionCarre(systeme, graphe, 3);break;
+			fichierFonctionCarre(systeme, graphes, 3);break;
 		case 18: // Touche L
-			fichierFonctionCarre(systeme, graphe, 4);break;
+			fichierFonctionCarre(systeme, graphes, 4);break;
 		case 19: // Touche M
-			fichierFonctionCarre(systeme, graphe, 5);break;
+			fichierFonctionCarre(systeme, graphes, 5);break;
 		case 20: // Touche W
-			fichierFonctionSinus(systeme, graphe, 1);break;
+			fichierFonctionSinus(systeme, graphes, 1);break;
 		case 21: // Touche X
-			fichierFonctionSinus(systeme, graphe, 2);break;
+			fichierFonctionSinus(systeme, graphes, 2);break;
 		case 22: // Touche C
-			fichierFonctionSinus(systeme, graphe, 3);break;
+			fichierFonctionSinus(systeme, graphes, 3);break;
 		case 23: // Touche V
-			fichierFonctionSinus(systeme, graphe, 4);break;
+			fichierFonctionSinus(systeme, graphes, 4);break;
 		case 24: // Touche B
-			fichierFonctionSinus(systeme, graphe, 5);break;
+			fichierFonctionSinus(systeme, graphes, 5);break;
 		case 25: // Touche N
-			fichierFonctionCarre(systeme, graphe, 1);break;
+			fichierFonctionCarre(systeme, graphes, 1);break;
 		default:
 			;
 		}
 	return 0;
 	}
 
-int fichierFonctionNulle(systemeT * systeme, grapheT * graphe)
+int fichierFonctionNulle(systemeT * systeme, graphesT * graphes)
 	{
-	(void)graphe;
-	float ancien, actuel;
-	chaineT *iter=(*systeme).premier;
-	do
+	(void)graphes;
+	(void)systeme;
+	int i;
+
+    for(i=0;i<(*systeme).nombre;i++)
 		{
-		ancien = 0;
-		actuel = 0;
-		penduleInitialisePosition(&iter->pendule, ancien, actuel);
-		iter=iter->suivant;
+		systemeInitialisePoint(0, 0, 0, i);
 		}
-	while(iter != (*systeme).premier);
 	return 0;
 	}
 
-int fichierFonctionTriangle(systemeT * systeme, grapheT * graphe, int numero)
+int fichierFonctionTriangle(systemeT * systeme, graphesT * graphes, int numero)
 	{
 	//float ancien, actuel;
-	(void)graphe;
+	(void)graphes;
 	(void)numero;
-	fichierFonctionNulle(systeme, graphe);
+	fichierFonctionNulle(systeme, graphes);
 /*
 	switch (numero)
 		{
@@ -483,12 +432,12 @@ int fichierFonctionTriangle(systemeT * systeme, grapheT * graphe, int numero)
 	return 0;
 	}
 
-int fichierFonctionCarre(systemeT * systeme, grapheT * graphe, int numero)
+int fichierFonctionCarre(systemeT * systeme, graphesT * graphes, int numero)
 	{
 	//float ancien, actuel;
-	(void)graphe;
+	(void)graphes;
 	(void)numero;
-	fichierFonctionNulle(systeme, graphe);
+	fichierFonctionNulle(systeme, graphes);
 /*
 	if(numero == 1)
 		{
@@ -509,12 +458,12 @@ int fichierFonctionCarre(systemeT * systeme, grapheT * graphe, int numero)
 	return 0;
 	}
 
-int fichierFonctionSinus(systemeT * systeme, grapheT * graphe, int numero)
+int fichierFonctionSinus(systemeT * systeme, graphesT * graphes, int numero)
 	{
 	//float ancien, actuel;
-	(void)graphe;
+	(void)graphes;
 	(void)numero;
-	fichierFonctionNulle(systeme, graphe);
+	fichierFonctionNulle(systeme, graphes);
 /*
 	if(numero == 1)
 		{

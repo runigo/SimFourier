@@ -260,9 +260,6 @@ void optionsAide(void)
 	printf("					entre les affichages (F9 F10 F11 F12)\n");
 	printf("dt		%6.4f <= dt <= %6.3f		discrétisation du temps\n", DT_MIN, DT_MAX);
 	printf("nombre		%d <= nombre <= %d	Nombre de pendule \n", NOMBRE_MIN, NOMBRE_MAX);
-	int soliton = (int)(0.1 + DEPHASAGE_MAX/DEUXPI);
-	printf("soliton		%d <= soliton <= %d	Nombre de soliton initial (y, h) \n", -soliton, soliton);
-
 	fprintf(stderr, "\nSortie de SiCP2\n");
 	exit(EXIT_FAILURE);
 	return;
