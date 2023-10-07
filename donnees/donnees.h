@@ -1,7 +1,7 @@
 /*
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-(SiCP 1.3 simulateur de chaîne de pendules, juillet 2017)
+(SiCP 1.1 simulateur de chaîne de pendules, avril 2016)
 SimFourier 0.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
@@ -30,40 +30,12 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _VECTEUR_
-#define _VECTEUR_
+#ifndef _DONNEES_
+#define _DONNEES_
 
-#include "../donnees/constantes.h"
+#include "../controleur/controleur.h"
 
-	// Un vecteurT contient les trois coordonnées cartésienne
-	// et éventuellement les coordonées polaires.
+int donneesOptions(optionsT * options);
+int donneesControleur(controleurT * controleur);
 
-typedef struct VecteurT vecteurT;
-	struct VecteurT
-		{
-		float x;
-		float y;
-		float z;
-		float r;
-		float psi;
-		float phi;
-		};
-
-	// Initialisation des trois coordonées cartésiennes
-void vecteurCartesien(vecteurT * v, float x, float y, float z);
-	// Initialisation des coordonées polaire et calcul des coordonées cartésiennes
-void vecteurInitialisePolaire(vecteurT * v, float r, float psi, float phi);
-	// retourne le produit scalaire
-float vecteurScalaireCartesien(vecteurT * v1, vecteurT * v2);
-	// v3 = v1 + v2
-void vecteurSommeCartesien(vecteurT * v1, vecteurT * v2, vecteurT * v3);
-	// v3 = v1 - v2
-void vecteurDifferenceCartesien(vecteurT * v1, vecteurT * v2, vecteurT * v3);
-
-	// Calcul des vecteurs perpendiculaires au vecteur point de vue
-int vecteurInitialisePhi(vecteurT * pointDeVue, vecteurT * vecteurPhi, float hauteur);
-int vecteurInitialisePsi(vecteurT * pointDeVue, vecteurT * vecteurPsi, float largeur);
-
-	// Affiche les informations
-void vecteurAffiche(vecteurT * v);
 #endif

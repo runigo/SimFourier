@@ -1,8 +1,8 @@
 /*
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 0.0 Transformation de Fourier
+(SiCP 1.3.7 simulateur de chaîne de pendules, septembre 2017)
+SimFourier 0.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -12,16 +12,16 @@ de la licence CeCILL telle que diffusée par le CEA, le CNRS et l'INRIA
 sur le site "http://www.cecill.info".
 En contrepartie de l'accessibilité au code source et des droits de copie,
 de modification et de redistribution accordés par cette licence, il n'est
-offert aux utilisateurs qu'une garantie limitée. Pour les mêmes raisons,
+offert aux utilisateurs qu'une garantie limitée.  Pour les mêmes raisons,
 seule une responsabilité restreinte pèse sur l'auteur du programme, le
 titulaire des droits patrimoniaux et les concédants successifs.
-A cet égard l'attention de l'utilisateur est attirée sur les risques
-associés au chargement, à l'utilisation, à la modification et/ou au
+A cet égard  l'attention de l'utilisateur est attirée sur les risques
+associés au chargement,  à l'utilisation,  à la modification et/ou au
 développement et à la reproduction du logiciel par l'utilisateur étant
 donné sa spécificité de logiciel libre, qui peut le rendre complexe à
 manipuler et qui le réserve donc à des développeurs et des professionnels
-avertis possédant des connaissances informatiques approfondies. Les
-utilisateurs sont donc invités à charger et tester l'adéquation du
+avertis possédant  des  connaissances  informatiques approfondies. Les
+utilisateurs sont donc invités à charger  et  tester  l'adéquation du
 logiciel à leurs besoins dans des conditions permettant d'assurer la
 sécurité de leurs systèmes et ou de leurs données et, plus généralement,
 à l'utiliser et l'exploiter dans les mêmes conditions de sécurité.
@@ -30,38 +30,31 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _POINTDEVUE_
-#define _POINTDEVUE_
+#ifndef _OPTIONS_
+#define _OPTIONS_
 
-#include "../interface/vecteur.h"
+#include "../donnees/constantes.h"
+#include "string.h"
 
-				//		Position de l'observateur
-
-typedef struct PointDeVueT pointDeVueT;
-	struct PointDeVueT
+typedef struct OptionsT optionsT;
+	struct OptionsT
 		{
-		vecteurT pointDeVue;	// Position observateur
+			// OPTIONS CONTROLEUR
+		int fond;		// couleur du fond de l'affichage
+		int modeDemo;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
+		int modeClavier;	// Ctrl F1 :  SiCP, Ctrl F2 : Graphiques, Ctrl F3 : Paramètres, Ctrl F4 : moteurs
+		int modePause;		// Evolution système
+		int modeMenu;		// Option menu : 0, SiCP : 1, SiCF : 2, SiGP : 3
+		int duree;		// Nombre d'évolution du système entre les affichages
 
-			// Vecteurs perpendiculaires à pointDeVue
-		vecteurT vecteurPhi;
-		vecteurT vecteurPsi;
-
-		int hauteur;	// hauteur de la chaîne
-		int largeur;	// largeur de la chaîne
-		int longueur;	// longueur de la chaîne
-		float ratioLH;	// rapport largeur / hauteur
+			// OPTIONS SiCP
+		float dt;		// discrétisation du temps
+		int nombre;		// nombre de pendule
+		int equation;		// 1 : pendule, 2 : linéarisation, 3 : corde, 4 : dioptre
+		int support;		// Chaîne avec ou sans support
 
 		};
 
-	//-----------------    INITIALISATION      -----------------------//
-int pointDeVueInitialise(pointDeVueT * pointDeVue);
-
-	//-----------------    CHANGE      -----------------------//
-int pointDeVueChangePhi(projectionT * projection, float x);
-int pointDeVueChangePsi(projectionT * projection, float x);
-int pointDeVueChangeTaille(projectionT * projection, float x);
-
-	//-----------------    AFFICHAGE      -----------------------//
-int pointDeVueAffiche(pointDeVueT * pointDeVue);
+int optionsTraitement(optionsT * opt, int nbOpt, char *option[]);
 
 #endif

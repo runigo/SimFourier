@@ -1,8 +1,8 @@
 /*
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 0.0 Transformation de Fourier
+(SiCP 2.4.3 simulateur de chaîne de pendules, septembre 2020)
+SimFourier 0.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -30,38 +30,16 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _POINTDEVUE_
-#define _POINTDEVUE_
+#ifndef _FICHIER_
+#define _FICHIER_
 
-#include "../interface/vecteur.h"
+#include "string.h"
 
-				//		Position de l'observateur
+#include "../modele/change.h"
+#include "../interface/graphe.h"
 
-typedef struct PointDeVueT pointDeVueT;
-	struct PointDeVueT
-		{
-		vecteurT pointDeVue;	// Position observateur
-
-			// Vecteurs perpendiculaires à pointDeVue
-		vecteurT vecteurPhi;
-		vecteurT vecteurPsi;
-
-		int hauteur;	// hauteur de la chaîne
-		int largeur;	// largeur de la chaîne
-		int longueur;	// longueur de la chaîne
-		float ratioLH;	// rapport largeur / hauteur
-
-		};
-
-	//-----------------    INITIALISATION      -----------------------//
-int pointDeVueInitialise(pointDeVueT * pointDeVue);
-
-	//-----------------    CHANGE      -----------------------//
-int pointDeVueChangePhi(projectionT * projection, float x);
-int pointDeVueChangePsi(projectionT * projection, float x);
-int pointDeVueChangeTaille(projectionT * projection, float x);
-
-	//-----------------    AFFICHAGE      -----------------------//
-int pointDeVueAffiche(pointDeVueT * pointDeVue);
+int fichierEcriture(systemeT * systeme, grapheT * graphe, char * nom);
+int fichierLecture(systemeT * systeme, grapheT * graphe, char * nom);
+int fichierFonction(systemeT * systeme, grapheT * graphe, int numero);
 
 #endif

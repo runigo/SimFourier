@@ -1,10 +1,10 @@
 /*
-Copyright octobre 2020, Stephan Runigo
+Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-SiCF 2.2  simulateur de corde vibrante et spectre
-Ce logiciel est un programme informatique servant à simuler l'équation
-d'une corde vibrante, à calculer sa transformée de fourier, et à donner
-une représentation graphique de ces fonctions.
+(SiCF 2.2 simulateur de chaîne de pendules, octobre 2020)
+SimFourier 0.1 Transformation de Fourier
+Ce logiciel est un programme informatique servant à donner une représentation
+graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -85,9 +85,9 @@ termes.
 
 	//	PARAMÈTRES QUANTIQUE
 
-#define NOMBRE_MIN 8 	//	Nombre minimal de pendules
-#define NOMBRE 256		//	Nombre implicite de pendules
-#define NOMBRE_MAX 1024 //	Nombre maximal de pendules
+#define NOMBRE_MIN 8 	//	Nombre minimal de points
+#define NOMBRE 1024		//	Nombre implicite de points
+#define NOMBRE_MAX 8192 //	Nombre maximal de points
 
 #define MASSE_MAX 77.7	//	Masse maximale
 #define MASSE 1.0		//	Masse implicite

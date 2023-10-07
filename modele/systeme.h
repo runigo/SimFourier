@@ -47,6 +47,8 @@ typedef struct SystemeT systemeT;
 		
 		int nombre;			//	Nombre de points
 
+		moteursT moteurs;				// Moteur périodique et impulsion
+
 		float masse;		//	Masse du quanton
 		float dt;			//	Pas temporel
 		float dx;			//	Pas spatial
@@ -57,12 +59,15 @@ typedef struct SystemeT systemeT;
 		};
 
 	//	Initialisation du système
-int systemeInitialiseSysteme(systemeT * systeme, int nombre);
+int systemeInitialisation(systemeT * systeme, int nombre, int dt);
 
 	//	Réinitialisation des paramètres
 int systemeInitialiseNombre(systemeT * systeme, int nombre);
 int systemeInitialiseHbar(systemeT * systeme, int hbar);
 int systemeInitialiseMasse(systemeT * systeme, float masse);
+
+	// Réinitialisation du potentiel
+int systemeInitialisePotentiel(systemeT * systeme, int forme);
 
 	//	Réinitialisation des positions
 int systemeInitialisePosition(systemeT * systeme, int forme);

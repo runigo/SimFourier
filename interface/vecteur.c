@@ -1,9 +1,10 @@
 /*
-Copyright juillet 2017, Stephan Runigo
+Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
-SiCP 1.3  simulateur de chaîne de pendules
-Ce logiciel est un programme informatique servant à simuler l'équation
-d'une chaîne de pendules et à en donner une représentation graphique.
+(SiCP 1.3 simulateur de chaîne de pendules, juillet 2017)
+SimFourier 0.1 Transformation de Fourier
+Ce logiciel est un programme informatique servant à donner une représentation
+graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions

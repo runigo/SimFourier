@@ -33,6 +33,7 @@ termes.
 
 	//		INITIALISATION
 int systemeInitialiseHbardtSmdx2(systemeT * systeme);
+int systemeInitialisePotentielReduit(systemeT * systeme);
 
 	//		ÉVOLUTION TEMPORELLE
 int systemeIncremente(systemeT * systeme);
@@ -46,18 +47,16 @@ int systemeJaugeZero(systemeT * systeme);
 
 /*------------------------  INITIALISATION  -------------------------*/
 
-int systemeInitialiseSysteme(systemeT * systeme, int nombre) {
+int systemeInitialisation(systemeT * systeme, int nombre, int dt) {
 
 	//	Initialisation du système
-
-	int nombre;			//	Nombre de points
+	systemeInitialiseNombre(systeme, nombre);	//	Nombre de points
+	systemeInitialiseDt(systeme, dt);			//	Pas temporel
 
 		// Initialisation des paramètres avec les valeurs implicites
 	(*systeme).masse = MASSE;	//	Masse du quanton
-	(*systeme).dt = DT;			//	Pas temporel
 	(*systeme).dx = DX;			//	Pas spatial
 	(*systeme).hbar = HBAR;		//	Constante de Planck réduite
-	systemeInitialiseHbardtSmdx2(systeme);
 
 		// Initialisation des fonctions
 	fonctionInitialise(&(*systeme).ancien, nombre);
@@ -66,15 +65,56 @@ int systemeInitialiseSysteme(systemeT * systeme, int nombre) {
 	fonctionInitialise(&(*systeme).fourier, nombre);
 	fonctionInitialise(&(*systeme).potentiel, nombre);
 
+		// Initialisation du potentiel
+	systemeInitialisePotentiel(systeme, 1);
+
+		// Initialisation des positions
+	systemeInitialisePosition(systeme, 9) {
+
+
+
 		// Initialisation des paramètres réduits
 	systemeInitialisePotentielReduit(systeme);
 	systemeInitialiseHbardtSmdx2(systeme);
 
+		// Initialisation du moteurs
+	moteursInitialisation(moteursT * moteurs);
+
+}
+
+int systemeInitialisePotentiel(systemeT * systeme, int forme) {
+
+	// Réinitialisation du potentiel
+
+	if((*systeme).nombre==0)
+		{
+		printf("ERREUR systemeInitialisePotentiel : (*systeme).nombre = %d\n", (*systeme).nombre);
+		return 1;
+		}
+	else
+		{
+		for(i=0;i<(*systeme).nombre;i++)
+			{		// Puits parabolique
+			(*systeme).potentiel.reel[i] = ( (float)forme * i * ( (*systeme).nombre - i ) ) / (*systeme).nombre;
+			}
+		}
+	return systemeInitialisePotentielReduit(systemeT * systeme);
+}
+
+int systemeInitialisePosition(systemeT * systeme, int forme) {
+
+	// Réinitialisation des positions
+
+	(*systeme).ancien.reel[(*systeme).nombre/3] = forme;
+	(*systeme).actuel.reel[(*systeme).nombre/3] = forme;
+	(*systeme).nouveau.reel[(*systeme).nombre/3] = forme;
+
+	return 0;
 }
 
 int systemeInitialiseNombre(systemeT * systeme, int nombre)
 	{
-	if(nombre>=NOMBRE_MIN && nombre<=NOMBRE_MAX)
+	if(nombre>NOMBRE_MIN-1 && nombre<NOMBRE_MAX+1 && ((nombre & (nombre - 1)) == 0))
 		{
 		(*systeme).nombre = nombre;
 		printf("(*systeme).nombre = %d\n", (*systeme).nombre);
@@ -86,6 +126,29 @@ int systemeInitialiseNombre(systemeT * systeme, int nombre)
 		printf("ERREUR systemeInitialiseNombre(%d) (*systeme).nombre = %d\n", nombre, (*systeme).nombre);
 		}
 	return 1;
+	}
+
+int systemeInitialiseDt(systemeT * systeme, float dt)
+	{
+	int erreur=0;
+
+	if(dt>=DT_MIN && dt<=DT_MAX)
+		{
+		(*systeme).dt = dt;
+		printf("(*systeme).dt = %f\n", (*systeme).dt);
+		erreur=0;
+		}
+	else
+		{
+		(*systeme).dt = DT;
+		printf("ERREUR systemeInitialiseDt(%f) (*systeme).dt = %f\n", dt, (*systeme).dt);
+		erreur=1;
+		}
+
+	erreur += systemeInitialisePotentielReduit(systemeT * systeme);
+	erreur += systemeInitialiseHbardtSmdx2(systemeT * systeme);
+
+	return erreur;
 	}
 
 int systemeInitialiseMasse(systemeT * systeme, float masse)
@@ -104,8 +167,8 @@ int systemeInitialiseMasse(systemeT * systeme, float masse)
 		erreur=1;
 		}
 
-	systemeInitialisePotentielReduit(systemeT * systeme);
-	systemeInitialiseHbardtSmdx2(systemeT * systeme);
+	erreur += systemeInitialisePotentielReduit(systemeT * systeme);
+	erreur += systemeInitialiseHbardtSmdx2(systemeT * systeme);
 
 	return erreur;
 	}

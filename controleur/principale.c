@@ -37,16 +37,16 @@ int main(int nb, char *opt[])
 
 	fprintf(stderr, "\nDémarrage de SimFourier\n");
 
-	fprintf(stderr, "\nInitialisations des options\n");
+	fprintf(stderr, "\nInitialisations des options de la ligne de commande\n");
 	assert(donneesOptions(&control.options)==0);
 
 	fprintf(stderr, "Traitement des options de la ligne de commande\n");
 	assert(optionsTraitement(&control.options, nb, opt)==0);
 
-	fprintf(stderr, "Initialisations et créations\n");
+	fprintf(stderr, "Initialisations du simulateur\n");
 	assert(donneesControleur(&control)==0);
 
-	fprintf(stderr, "Simulation graphique du système\n");
+	fprintf(stderr, "Démarrage de la simulation\n");
 	assert(controleurSimulationGraphique(&control)==0);
 
 	//fprintf(stderr, "Calcul énergétique\n");
