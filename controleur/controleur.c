@@ -40,6 +40,7 @@ int controleurEvolution(controleurT * controleur);
 int controleurProjection(controleurT * controleur);
 int controleurEvolutionSysteme(controleurT * controleur);
 int controleurConstructionGraphique(controleurT * controleur);
+int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe);
 
 int controleurTraiteEvenement(controleurT * controleur);
 
@@ -148,26 +149,34 @@ int controleurConstructionGraphique(controleurT * controleur)
 	graphiqueCapteurs(&(*controleur).graphique, &(*controleur).capteurs);
 
 		//fprintf(stderr, "Dessin des graphes\n");
-	if((*controleur).graphe.support==0)
-		{
-		graphiquePendule(&(*controleur).graphique, &(*controleur).graphe);
-		}
-	else
-		{
-		if((*controleur).graphe.support==1)
-			{
-			graphiquePenduleSupport(&(*controleur).graphique, &(*controleur).graphe);
-			}
-		else
-			{
-			graphiquePenduleSupportPlein(&(*controleur).graphique, &(*controleur).graphe);
-			}
-		}
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).graphes.fonction);
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).graphes.fourier);
 
 		//fprintf(stderr, "Mise à jour de l'affichage\n");
 	graphiqueMiseAJour(&(*controleur).graphique);
 
 	return (*controleur).sortie;
+	}
+
+int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe)
+	{
+		//		Dessine un graphe
+	if((*graphe).support==0)
+		{
+		graphiquePendule(graphique, graphe);
+		}
+	else
+		{
+		if((*graphe).support==1)
+			{
+			graphiquePenduleSupport(graphique, graphe);
+			}
+		else
+			{
+			graphiquePenduleSupportPlein(graphique, graphe);
+			}
+		}
+	return 0;
 	}
 
 int controleurTraiteEvenement(controleurT * controleur)
@@ -308,17 +317,11 @@ void controleurChangeVitesse(controleurT * controleur, float facteur) {
 	}
 
 
-	//	-------  SUPRESSION  -------  //
+	//	-------  SUPPRESSION  -------  //
 
 int controleurDestruction(controleurT * control){
 
 		//		Suppression du controleur
-
-	fprintf(stderr, "Suppression du système\n");
-	systemeSuppression(&(*control).systeme);
-
-	fprintf(stderr, "Suppression du graphe\n");
-	grapheSuppression(&(*control).graphe);
 
 	fprintf(stderr, "Suppression de l'horloge\n");
 	horlogeSuppression(&(*control).horloge);
