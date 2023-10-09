@@ -46,8 +46,16 @@ int controleurSouris(controleurT * controleur)
 		{
 		if( (*controleur).commandes.sourisX < (*controleur).commandes.rotatifs && (*controleur).commandes.sourisY < (*controleur).commandes.bas )
 			{
-			projectionChangePsi(&(*controleur).projection, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
-			projectionChangePhi(&(*controleur).projection, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+			if( (*controleur).commandes.sourisY < (*controleur).commandes.fourier )
+				{
+				pointDeVueChangePsi(&(*controleur).projection.fourier, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+				pointDeVueChangePhi(&(*controleur).projection.fourier, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+				}
+			else
+				{
+				pointDeVueChangePsi(&(*controleur).projection.fonction, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+				pointDeVueChangePhi(&(*controleur).projection.fonction, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+				}
 			}
 		}
 	return 0;
@@ -92,7 +100,7 @@ int controleurSourisDefilePointDeVueFonction(controleurT * controleur)
 		}
 	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
 		{
-		projectionChangeTaille(&(*controleur).projection.fonction, 0.97);
+		pointDeVueChangeTaille(&(*controleur).projection.fonction, 0.97);
 		}
 
 	return 0;
@@ -108,7 +116,7 @@ int controleurSourisDefilePointDeVueFourier(controleurT * controleur)
 		}
 	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
 		{
-		projectionChangeTaille(&(*controleur).projection.fourier, 0.97);
+		pointDeVueChangeTaille(&(*controleur).projection.fourier, 0.97);
 		}
 
 	return 0;
@@ -194,19 +202,19 @@ int controleurSourisCommandes(controleurT * controleur, int zone)
 				controleurSourisInitialisePosition(controleur, 6);
 				reinitialisation = 1; break;
 			case 17:
-			    fichierLecture(&(*controleur).systeme, &(*controleur).graphe, "aaa");
+			    fichierLecture(&(*controleur).systeme, &(*controleur).graphes, "aaa");
 				reinitialisation = 1; break;
 				//controleurInitialiseNombre(controleur, 1);break;
 			case 18:
-			    fichierLecture(&(*controleur).systeme, &(*controleur).graphe, "bbb");
+			    fichierLecture(&(*controleur).systeme, &(*controleur).graphes, "bbb");
 				reinitialisation = 1; break;
 				//controleurInitialiseNombre(controleur, 2);break;
 			case 19:
-			    fichierLecture(&(*controleur).systeme, &(*controleur).graphe, "ccc");
+			    fichierLecture(&(*controleur).systeme, &(*controleur).graphes, "ccc");
 				reinitialisation = 1; break;
 				//controleurInitialiseNombre(controleur, 3);break;
 			case 20:
-			    fichierLecture(&(*controleur).systeme, &(*controleur).graphe, "ddd");
+			    fichierLecture(&(*controleur).systeme, &(*controleur).graphes, "ddd");
 				reinitialisation = 1; break;
 				//controleurInitialiseNombre(controleur, 4);break;
 			default:
@@ -265,9 +273,9 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 			switch(commande)
 				{
 				case 0:
-					controleurSourisDefilePointDeVue(controleur);break;
+					controleurSourisDefile(controleur);break;
 				case 1:
-					controleurSourisDefilePointDeVue(controleur);break;
+					controleurSourisDefile(controleur);break;
 				case 2:
 					controleurChangeVitesse(controleur, 1.1);break;
 				case 3:
@@ -281,9 +289,9 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 			switch(commande)	
 				{
 				case 0:
-					controleurSourisDefilePointDeVue(controleur);break;
+					controleurSourisDefile(controleur);break;
 				case 1:
-					controleurSourisDefilePointDeVue(controleur);break;
+					controleurSourisDefile(controleur);break;
 				case 2:
 					controleurChangeVitesse(controleur, 0.91);break;
 				case 3:
