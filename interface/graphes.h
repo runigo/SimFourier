@@ -48,6 +48,9 @@ typedef struct GrapheT grapheT;
 		int dessous;	// Vue de dessous
 		int arriere;	// Vue de derrière
 		int gauche;		// Vue de gauche
+
+		int longueur;	// Longueur Ox
+		int largeur;	// Longueurs Oy et Oz
 		};
 
 

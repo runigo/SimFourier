@@ -44,48 +44,41 @@ termes.
 
 	//-----------------    INITIALISATION      -----------------------//
 
-int pointDeVueInitialise(projectionT * projection, float r, float psi, float phi)
+int pointDeVueInitialise(pointDeVueT * pointDeVue, float r, float psi, float phi)
 	{
 		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
 
-	int i;
-	for(i=0;i<FONCTIONS;i++)
-		{
-		vecteurInitialisePolaire(&(*projection).fonction[i].pointDeVue, r, psi, phi);
-		}
-	pointDeVueReinitialiseBase(projection);
+	vecteurInitialisePolaire(pointDeVue, r, psi, phi);
+	pointDeVueReinitialiseBase(pointDeVue);
 	return 0;
 	}
 
-int pointDeVueReinitialiseBase(projectionT * projection)
+int pointDeVueReinitialiseBase(pointDeVueT * pointDeVue)
 	{
 		// Réinitialise les vecteurs perpendiculaires
 
-	int i;
-	for(i=0;i<FONCTIONS;i++)
-		{
-		vecteurInitialiseVecteurPhi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPhi, (*projection).fenetreX*RATIO_CHAINE_FENETRE_X);
-		vecteurInitialiseVecteurPsi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPsi, (*projection).fenetreY*RATIO_CHAINE_FENETRE_X*(*projection).ratioXY);
+	vecteurInitialiseVecteurPhi(&(*pointDeVue).pointDeVue, &(*projection).vecteurPhi, (*pointDeVue).largeur);
+		vecteurInitialiseVecteurPsi(&(*pointDeVue).pointDeVue, &(*projection).vecteurPsi, (*pointDeVue).hauteur);
 		}
 
 	// Calcul des vecteurs perpendiculaires au vecteur point de vue
-int vecteurInitialisePhi(vecteurT * pointDeVue, vecteurT * vecteurPhi, float hauteur);
-int vecteurInitialisePsi(vecteurT * pointDeVue, vecteurT * vecteurPsi, float largeur);
+	vecteurInitialisePhi(&(*pointDeVue).pointDeVue, &(*pointDeVue).vecteurPhi, &(*pointDeVue).hauteur);
+	vecteurInitialisePsi(&(*pointDeVue).pointDeVue, &(*pointDeVue).vecteurPsi, &(*pointDeVue).largeur);
 	return 0;
 	}
 
 
 	//-----------------    CHANGE LE POINT DE VUE     -----------------------//
 
-int pointDeVueChangePhi(projectionT * projection, float x) {
+int pointDeVueChangePhi(pointDeVueT * pointDeVue, float x) {
 
 		// Change la position de l'observateur suivant phi
 
 	float r, psi, phi;
 
-	r = (*projection).pointDeVue.r;
-	psi = (*projection).pointDeVue.psi;
-	phi = (*projection).pointDeVue.phi + x;
+	r = (*pointDeVue).pointDeVue.r;
+	psi = (*pointDeVue).pointDeVue.psi;
+	phi = (*pointDeVue).pointDeVue.phi + x;
 
 		// phi reste inférieur à PI
 	if(phi > PI)
@@ -99,8 +92,8 @@ int pointDeVueChangePhi(projectionT * projection, float x) {
 		phi = 0.0;
 		}
 
-	vecteurInitialisePolaire(&(*projection).pointDeVue, r, psi, phi);
-	pointDeVueReinitialiseBase(projection);
+	vecteurInitialisePolaire(&(*pointDeVue).pointDeVue, r, psi, phi);
+	pointDeVueReinitialiseBase(pointDeVue);
 
 	return 0;
 	}

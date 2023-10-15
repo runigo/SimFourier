@@ -65,7 +65,7 @@ typedef struct ProjectionT projectionT;
 
 	//-----------------    INITIALISATION      -----------------------//
 int projectionInitialise(projectionT * projection);
-void projectionInitialiseAxeFixe(grapheT * fixe, int nombre);
+void projectionInitialiseAxeFixe(graphesT * graphes, int nombre);
 
 	//-----------------    PROJECTION      -----------------------//
 int projectionSystemeGraphes(systemeT * systeme, projectionT * projection, graphesT * graphes);

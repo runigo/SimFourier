@@ -42,7 +42,8 @@ int projectionReinitialiseBase(projectionT * projection);
 	//	PROJECTION
 float projectionValeurAbsolue(float valeur);
 int projectionPerspectiveChaine(projectionT * projection, grapheT * graphe);
-int projectionSystemeChaine3D(systemeT * systeme, projectionT * projection, grapheT * graphe);
+//int projectionSystemeChaine3D(systemeT * systeme, projectionT * projection, grapheT * graphe);
+int projectionSystemeGraphes3D(systemeT * systeme, projectionT * projection, graphesT * graphes);
 
 int projectionInitialiseSupport(projectionT * projection, int nombre);
 int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe);
@@ -60,18 +61,21 @@ int projectionInitialise(projectionT * projection)
 	(*projection).fenetreY = FENETRE_Y;	// largeur de la fenêtre
 
 	(*projection).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
-
+/*
 	(*projection).rotation = 0;
 	(*projection).logCouplage = 1.0 / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
 	(*projection).logDissipation = 1.0 / log( DISSIPATION_MAX/DISSIPATION_MIN );
 	(*projection).logJosephson = 1.0 / log( JOSEPHSON_MAX/JOSEPHSON_MIN );
 	(*projection).logAmplitude = 1.0 / log( AMPLITUDE_MAX/AMPLITUDE_MIN );
 	(*projection).logFrequence = 1.0 / log( FREQUENCE_MAX/FREQUENCE_MIN );
+*/
 
-
-	(*projection).largeur = LARGEUR_IMP;// largeur de la chaîne
-	(*projection).ratioLH = 3.99;
-	(*projection).hauteur = (int)((*projection).largeur/(*projection).ratioLH);// hauteur de la chaîne
+	(*projection).fonction.largeur = LARGEUR_IMP;// largeur de la chaîne
+	(*projection).fonction.ratioLH = 3.99;
+	(*projection).fonction.hauteur = (int)((*projection).fonction.largeur/(*projection).ratioXY);// hauteur de la chaîne
+	(*projection).fourier.largeur = LARGEUR_IMP;// largeur de la chaîne
+	(*projection).fourier.ratioLH = 3.99;
+	(*projection).fourier.hauteur = (int)((*projection).fourier.largeur/(*projection).ratioXY);// hauteur de la chaîne
 
 	projectionInitialisePointDeVue(projection, 3*FENETRE_Y, PI/2 - 0.27, PI/2 + 0.21);//r, psi, phi
 
@@ -82,32 +86,29 @@ void projectionInitialiseAxeFixe(graphesT * graphes, int nombre) {
 
 			//	Initialise les axes fixe des graphes en 3 Dimensions
 
-	int N=(*systeme).nombre;
-	int Ns2=(*systeme).nombre/2;
+	int Ns2=nombre/2;
 	int i;
 
-	for(i=-Ns2;i<(Ns2;i++)
+	for(i=-Ns2;i<Ns2;i++)
 		{
-		(*graphes).fonction.fonction[i].axe.x = (*projection).largeur * (((float)i)/N);
+		(*graphes).fonction.fonction[i].axe.x = (*graphes).fonction.largeur * (((float)i)/nombre);
 		(*graphes).fonction.fonction[i].axe.y = 0;
 		(*graphes).fonction.fonction[i].axe.z = 0;
-		(*graphes).fourier.fonction[i].axe.x = (*projection).largeur * (((float)i)/N);
-		(*graphes).fourier.[i].axe.y = 0;
-		(*graphes).fourier.[i].axe.z = 0;
+		(*graphes).fourier.fonction[i].axe.x = (*graphes).fourier.largeur * (((float)i)/nombre);
+		(*graphes).fourier.fonction[i].axe.y = 0;
+		(*graphes).fourier.fonction[i].axe.z = 0;
 		}
 
-	return 0;
+	return;
 	}
 
 int projectionInitialisePointDeVue(projectionT * projection, float r, float psi, float phi)
 	{
 		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
 
-	int i;
-	for(i=0;i<FONCTIONS;i++)
-		{
-		vecteurInitialisePolaire(&(*projection).fonction[i].pointDeVue, r, psi, phi);
-		}
+	vecteurInitialisePolaire(&(*projection).fonction.pointDeVue, r, psi, phi);
+	vecteurInitialisePolaire(&(*projection).fourier.pointDeVue, r, psi, phi);
+	
 	projectionReinitialiseBase(projection);
 	return 0;
 	}
@@ -116,12 +117,11 @@ int projectionReinitialiseBase(projectionT * projection)
 	{
 		// Réinitialise les vecteurs perpendiculaires
 
-	int i;
-	for(i=0;i<FONCTIONS;i++)
-		{
-		vecteurInitialisePhi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPhi, (*projection).fenetreX*RATIO_CHAINE_FENETRE_X);
-		vecteurInitialisePsi(&(*projection).fonction[i].pointDeVue, &(*projection).fonction[i].vecteurPsi, (*projection).fenetreY*RATIO_CHAINE_FENETRE_X*(*projection).ratioXY);
-		}
+		vecteurInitialisePhi(&(*projection).fonction.pointDeVue, &(*projection).fonction.vecteurPhi, (*projection).fenetreX*RATIO_CHAINE_FENETRE_X);
+		vecteurInitialisePsi(&(*projection).fonction.pointDeVue, &(*projection).fonction.vecteurPsi, (*projection).fenetreY*RATIO_CHAINE_FENETRE_X*(*projection).ratioXY);
+
+		vecteurInitialisePhi(&(*projection).fourier.pointDeVue, &(*projection).fourier.vecteurPhi, (*projection).fenetreX*RATIO_CHAINE_FENETRE_X);
+		vecteurInitialisePsi(&(*projection).fourier.pointDeVue, &(*projection).fourier.vecteurPsi, (*projection).fenetreY*RATIO_CHAINE_FENETRE_X*(*projection).ratioXY);
 
 	return 0;
 	}
@@ -138,13 +138,19 @@ int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, com
 
 		// Projette le système sur les commandes
 
+(void)systeme;
+(void)projection;
+(void)commandes;
+(void)duree;
+(void)mode;
+
 	float theta;
 	float ratioRotatif = 0.9;
-	float courantJosephson = projectionValeurAbsolue((*systeme).moteurs.courantJosephson);
+	//float courantJosephson = projectionValeurAbsolue((*systeme).moteurs.courantJosephson);
 
 				//	Projection sur les boutons rotatifs
 	 //	Couplage
-	theta = DEUXPI * (*projection).logCouplage * log( (*systeme).couplage / (COUPLAGE_MIN * (*systeme).nombre) );
+/*	theta = DEUXPI * (*projection).logCouplage * log( (*systeme).couplage / (COUPLAGE_MIN * (*systeme).nombre) );
 	(*commandes).rotatifPositionX[0]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[0]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
@@ -157,7 +163,7 @@ int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, com
 	theta = DEUXPI * (*projection).logJosephson * log( projectionValeurAbsolue(courantJosephson/JOSEPHSON_MIN) );
 	(*commandes).rotatifPositionX[2]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[2]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
-
+*/
 	//	Amplitude du moteur périodique
 	theta = DEUXPI * (*projection).logAmplitude * log( (*systeme).moteurs.amplitude/AMPLITUDE_MIN );
 	(*commandes).rotatifPositionX[3]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
@@ -174,7 +180,7 @@ int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, com
 	for(i=0;i<BOUTON_COMMANDES;i++) (*commandes).boutonEtat[i]=0;
 
 			//	Conditions aux limites
-	switch((*systeme).libreFixe) {
+/*	switch((*systeme).libreFixe) {
 		case 0:
 			(*commandes).boutonEtat[0]=1;break; //	Périodique
 		case 1:
@@ -253,7 +259,7 @@ int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, com
 		default:
 			;
 		}
-
+*/
 		//	Vitesse de la simulation
 	if(duree<DUREE)
 		{
@@ -342,8 +348,10 @@ int projectionSystemeGraphes(systemeT * systeme, projectionT * projection, graph
 
 		//		Projection des graphes 3D sur les graphes 2D
 		// Projection en 2D de la représentation 3D
-	projectionPerspectiveChaine(projection, graphe);
-	projectionPerspectiveSupport(projection, graphe);
+	projectionPerspectiveChaine(projection, &(*graphes).fonction);
+	projectionPerspectiveSupport(projection, &(*graphes).fourier);
+	projectionPerspectiveChaine(projection, &(*graphes).fonction);
+	projectionPerspectiveSupport(projection, &(*graphes).fourier);
 
 	return 0;
 	}
