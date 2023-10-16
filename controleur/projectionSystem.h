@@ -30,26 +30,21 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTION_
-#define _PROJECTION_
+#ifndef _PROJECTIONSYSTEM_
+#define _PROJECTIONSYSTEM_
 
 #include "../modele/systeme.h"
 #include "../modele/observables.h"
 #include "../interface/graphes.h"
 #include "../interface/commandes.h"
 #include "../interface/capteurs.h"
-#include "../controleur/pointDeVue.h"
 
-				//		Projections des fonctions, des observables
-				//		et des commandes sur les graphes et les capteurs
+				//		Projections du systeme sur les commandes
+				//		 et les capteurs
 
-typedef struct ProjectionT projectionT;
-	struct ProjectionT
+typedef struct ProjectionSystemT projectionSystemT;
+	struct ProjectionSystemT
 		{
-		vecteurT support[7];	// Axes x, y, z 3D fixe
-
-		pointDeVueT fonction;	//	fonction
-		pointDeVueT fourier;	//	transformée de fourier
 
 		int fenetreX;	// hauteur de la fenêtre
 		int fenetreY;	// largeur de la fenêtre
@@ -64,8 +59,7 @@ typedef struct ProjectionT projectionT;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialise(projectionT * projection);
-void projectionInitialiseAxeFixe(graphesT * graphes, int nombre);
+int projectionSystemInitialise(projectionT * projection);
 
 	//-----------------    PROJECTION      -----------------------//
 int projectionSystemeGraphes(systemeT * systeme, projectionT * projection, graphesT * graphes);
@@ -73,9 +67,9 @@ int projectionObservablesCapteurs(observablesT * observables, projectionT * proj
 int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, commandesT * commandes, int duree, int mode);
 
 	//-----------------    CHANGE      -----------------------//
-int projectionChangeFenetre(projectionT * projection, int x, int y);
+int projectionSystemChangeFenetre(projectionT * projection, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void projectionAffiche(projectionT * projection);
+void projectionSystemAffiche(projectionT * projection);
 
 #endif

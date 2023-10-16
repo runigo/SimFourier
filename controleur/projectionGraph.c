@@ -30,10 +30,10 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "projection.h"
+#include "projectionGraph.h"
 
-				//		Projection de la chaîne de pendules et des
-				//		observables sur l'interface graphique
+				//		Projections des graphes 3D
+				//		 sur les graphes 2D
 
 	//	INITIALISATION
 int projectionInitialisePointDeVue(projectionT * projection,  float r,float psi, float phi);
@@ -54,7 +54,7 @@ int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe);
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialise(projectionT * projection)
+int projectionGraphInitialise(projectionT * projection)
 	{
 
 	(*projection).fenetreX = FENETRE_X;	// hauteur de la fenêtre
@@ -102,7 +102,7 @@ void projectionInitialiseAxeFixe(graphesT * graphes, int nombre) {
 	return;
 	}
 
-int projectionInitialisePointDeVue(projectionT * projection, float r, float psi, float phi)
+int projectionGraphInitialisePointDeVue(projectionT * projection, float r, float psi, float phi)
 	{
 		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
 
@@ -113,7 +113,7 @@ int projectionInitialisePointDeVue(projectionT * projection, float r, float psi,
 	return 0;
 	}
 
-int projectionReinitialiseBase(projectionT * projection)
+int projectionGraphReinitialiseBase(projectionT * projection)
 	{
 		// Réinitialise les vecteurs perpendiculaires
 
@@ -128,220 +128,15 @@ int projectionReinitialiseBase(projectionT * projection)
 
 	//-----------------    PROJECTION      -----------------------//
 
-float projectionValeurAbsolue(float valeur) {
+float projectionGraphValeurAbsolue(float valeur) {
 
 	if(valeur<0) return -valeur;
 	return valeur;
 	}
 
-int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, commandesT * commandes, int duree, int mode) {
+int projectionGraphGraphes(systemeT * systeme, projectionT * projection, graphesT * graphes) {
 
-		// Projette le système sur les commandes
-
-(void)systeme;
-(void)projection;
-(void)commandes;
-(void)duree;
-(void)mode;
-
-	float theta;
-	float ratioRotatif = 0.9;
-	//float courantJosephson = projectionValeurAbsolue((*systeme).moteurs.courantJosephson);
-
-				//	Projection sur les boutons rotatifs
-	 //	Couplage
-/*	theta = DEUXPI * (*projection).logCouplage * log( (*systeme).couplage / (COUPLAGE_MIN * (*systeme).nombre) );
-	(*commandes).rotatifPositionX[0]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
-	(*commandes).rotatifPositionY[0]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
-
-	 //	Dissipation
-	theta = DEUXPI * (*projection).logDissipation * log( (*systeme).dissipation/DISSIPATION_MIN );
-	(*commandes).rotatifPositionX[1]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
-	(*commandes).rotatifPositionY[1]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
-
-	//	Amplitude du moteur josephson
-	theta = DEUXPI * (*projection).logJosephson * log( projectionValeurAbsolue(courantJosephson/JOSEPHSON_MIN) );
-	(*commandes).rotatifPositionX[2]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
-	(*commandes).rotatifPositionY[2]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
-*/
-	//	Amplitude du moteur périodique
-	theta = DEUXPI * (*projection).logAmplitude * log( (*systeme).moteurs.amplitude/AMPLITUDE_MIN );
-	(*commandes).rotatifPositionX[3]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
-	(*commandes).rotatifPositionY[3]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
-
-	//	Fréquence du moteurs
-	theta = DEUXPI * (*projection).logFrequence * log( (*systeme).moteurs.frequence/FREQUENCE_MIN );
-	(*commandes).rotatifPositionX[4]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
-	(*commandes).rotatifPositionY[4]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
-
-
-				//	Projection sur les petits boutons de droite
-	int i;
-	for(i=0;i<BOUTON_COMMANDES;i++) (*commandes).boutonEtat[i]=0;
-
-			//	Conditions aux limites
-/*	switch((*systeme).libreFixe) {
-		case 0:
-			(*commandes).boutonEtat[0]=1;break; //	Périodique
-		case 1:
-			(*commandes).boutonEtat[1]=1;break; //	Libre
-		case 2:
-			(*commandes).boutonEtat[2]=1;break; //	Fixe
-		case 3:
-			(*commandes).boutonEtat[3]=1;break; //	Mixte
-		case 4:
-			(*commandes).boutonEtat[3]=1;break; //	Mixte
-		default:
-			;
-		}
-
-	if((*systeme).moteurs.etatJosephson ==1)
-		{
-		(*commandes).boutonEtat[7]=1; //	Marche
-		}
-	else
-		{
-		(*commandes).boutonEtat[8]=1; //	Arrêt
-		}
-
-	if((*systeme).moteurs.courantJosephson < 0)
-		{
-		(*commandes).boutonEtat[10]=1; //	Gauche
-		}
-	else
-		{
-	   	(*commandes).boutonEtat[9]=1; //	Droite
-	    }
-
-	switch((*systeme).moteurs.generateur)
-		{
-		case 0:
-			(*commandes).boutonEtat[11]=1;break; //	Arrêt
-		case 1:
-			(*commandes).boutonEtat[12]=1;break; //	Sinus
-		case 2:
-			(*commandes).boutonEtat[13]=1;break; //	Carré
-		case 3:
-			(*commandes).boutonEtat[14]=1;break; //	Impulsion
-		default:
-			;
-		}
-
-	if((*systeme).moteurs.fluxon == 1)
-		{
-		if((*systeme).moteurs.deltaDephasage > 0)
-			{
-			(*commandes).boutonEtat[15]=1;
-			}
-		else
-			{
-			(*commandes).boutonEtat[16]=1;
-		    }
-		}
-
-				//	Projection sur les petits boutons du bas
-
-	for(i=0;i<TRIANGLE_COMMANDES;i++) (*commandes).triangleEtat[i]=0;
-
-		//	Rotation automatique du point de vue
-	switch((*projection).rotation)
-		{
-		case 3:
-			(*commandes).triangleEtat[0]=1;break;
-		case 1:
-			(*commandes).triangleEtat[1]=1;break;
-		case 0:
-			(*commandes).triangleEtat[2]=0;break;
-		case -1:
-			(*commandes).triangleEtat[3]=1;break;
-		case -3:
-			(*commandes).triangleEtat[4]=1;break;
-		default:
-			;
-		}
-*/
-		//	Vitesse de la simulation
-	if(duree<DUREE)
-		{
-			if(duree==1) (*commandes).triangleEtat[5]=-1; else (*commandes).triangleEtat[6]=-1;
-			(*commandes).lineairePositionX=(int)((*commandes).a * duree + (*commandes).b);
-		}
-	else
-		{
-		if(duree>DUREE)
-			{
-			if(duree==DUREE_MAX) (*commandes).triangleEtat[10]=-1; else (*commandes).triangleEtat[9]=-1;
-			(*commandes).lineairePositionX=(int)((*commandes).A * duree + (*commandes).B);
-			}
-		else
-			{
-			(*commandes).triangleEtat[8]=1;
-			}
-		}
-
-	if(mode<0)
-		{
-		(*commandes).triangleEtat[7]=2;
-		}
-
-	return 0;
-	}
-
-int projectionObservablesCapteurs(observablesT * observables, projectionT * projection, capteursT * capteurs) {
-
-		//	Projette les observables sur les capteurs
-
-	(void)projection;
-	float a;
-	int i, k, y0;
-						//	Observables	:	0 Energie, 1 Cinetique, 2 Couplage, 3 Rappel
-						//	Capteurs	:	0, 1, 2 : Somme, 3, 4, 5 : droite/gauche
-		//	SOMME
-	if((*observables).observable[0].maximumSomme!=0.0)
-		{
-		a = -(float)((*capteurs).capteur[0].hauteur) / (*observables).observable[0].maximumSomme;
-		}
-	else
-		{
-		a = 0.0;
-		}
-	y0 = (*capteurs).capteur[0].yZero;
-	for(i=0;i<DUREE_CAPTEURS;i++)
-		{
-		k=(i+(*observables).index+1)%DUREE_CAPTEURS;
-		(*capteurs).capteur[0].somme[i].y = (int)(a*(*observables).observable[3].somme[k]) + y0;
-		(*capteurs).capteur[1].somme[i].y = (int)(a*(*observables).observable[1].somme[k]) + y0;
-		(*capteurs).capteur[2].somme[i].y = (int)(a*(*observables).observable[2].somme[k]) + y0;
-		}
-
-
-		//	GAUCHE DROITE
-	if((*observables).observable[0].maximumSomme!=0.0)
-		{
-		a = -(float)((*capteurs).capteur[3].hauteur) / (*observables).observable[0].maximumSomme;
-		}
-	else
-		{
-		a = 0.0;
-		}
-	y0 = (*capteurs).capteur[3].yZero;
-	for(i=0;i<DUREE_CAPTEURS;i++)
-		{
-		k=(i+(*observables).index+1)%DUREE_CAPTEURS;
-		(*capteurs).capteur[3].gauche[i].y = (int)(a*(*observables).observable[0].gauche[k]) + y0;
-		(*capteurs).capteur[3].droite[i].y = (int)(a*(*observables).observable[0].droite[k]) + y0;
-		(*capteurs).capteur[3].somme[i].y = (int)(a*(*observables).observable[0].somme[k]) + y0;
-		}
-
-	return 0;
-	}
-
-int projectionSystemeGraphes(systemeT * systeme, projectionT * projection, graphesT * graphes) {
-
-		// Projection du système sur les graphes en perspective
-
-		//		Projection du système sur les graphes 3D
-	projectionSystemeGraphes3D(systeme, projection, graphes);
+		// Projection des graphes 3D sur les graphes 2D
 
 		// Initialisation des points du support
 	projectionInitialiseSupport(projection, (*systeme).nombre);
@@ -486,30 +281,9 @@ int projectionPerspectiveGraphe(pointDeVueT * pointDeVue, grapheT * graphe, int 
 	return 0;
 	}
 
-int projectionSystemeGraphes3D(systemeT * systeme, projectionT * projection, graphesT * graphes){
-
-			//	Projette le système sur les graphes en 3 Dimensions
-
-	int i;
-	int nombre = (*systeme).nombre;
-
-	for(i=0;i<nombre;i++)
-		{
-		(*graphes).fonction.point[i].x = (*graphes).fonction.axe[i].x;
-		(*graphes).fonction.point[i].y = (*projection).fonction.hauteur * (*systeme).actuel.reel[i];
-		(*graphes).fonction.point[i].z = (*projection).fonction.hauteur * (*systeme).actuel.imag[i];
-		(*graphes).fourier.point[i].x = (*graphes).fourier.axe[i].x;
-		(*graphes).fourier.point[i].y = (*projection).fourier.hauteur * (*systeme).fourier.reel[i];
-		(*graphes).fourier.point[i].z = (*projection).fourier.hauteur * (*systeme).fourier.imag[i];
-		}
-
-	return 0;
-	}
-
-
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int projectionChangeFenetre(projectionT * projection, int x, int y) {
+int projectionGraphChangeFenetre(projectionT * projection, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
 
@@ -522,7 +296,7 @@ int projectionChangeFenetre(projectionT * projection, int x, int y) {
 	return 0;
 	}
 
-int projectionChangeTaille(projectionT * projection, float x) {
+int projectionGraphChangeTaille(projectionT * projection, float x) {
 
 		// Change la taille de la chaîne
 
@@ -553,7 +327,7 @@ int projectionChangeTaille(projectionT * projection, float x) {
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void projectionAffiche(projectionT * projection) {
+void projectionGraphAffiche(projectionT * projection) {
 
 	//	Affiche les paramètres de la projection
 

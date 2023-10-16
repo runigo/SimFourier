@@ -62,8 +62,11 @@ $(OBJDIR)/controleurClavier.o : controleur/controleurClavier.c controleur/contro
 $(OBJDIR)/controleurSouris.o : controleur/controleurSouris.c controleur/controleurSouris.h
 	$(CC) -c -g controleur/controleurSouris.c $(CFLAGS) -o $@
 
-$(OBJDIR)/projection.o : controleur/projection.c controleur/projection.h
-	$(CC) -c -g controleur/projection.c $(CFLAGS) -o $@
+$(OBJDIR)/projectionSystem.o : controleur/projectionSystem.c controleur/projectionSystem.h
+	$(CC) -c -g controleur/projectionSystem.c $(CFLAGS) -o $@
+
+$(OBJDIR)/projectionGraph.o : controleur/projectionGraph.c controleur/projectionGraph.h
+	$(CC) -c -g controleur/projectionGraph.c $(CFLAGS) -o $@
 
 $(OBJDIR)/horloge.o : interface/horloge.c interface/horloge.h
 	$(CC) -c -g interface/horloge.c $(CFLAGS) -o $@
