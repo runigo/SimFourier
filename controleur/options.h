@@ -56,5 +56,7 @@ typedef struct OptionsT optionsT;
 		};
 
 int optionsTraitement(optionsT * opt, int nbOpt, char *option[]);
+void optionsChangeMode(optionsT * opt);
+void optionsChangeVitesse(optionsT * opt, float facteur);
 
 #endif

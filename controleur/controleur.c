@@ -261,62 +261,6 @@ void controleurPostReinitialisation(controleurT * controleur) {
 	return;
 	}
 
-
-					//	-------  CHANGE  -------  //
-
-void controleurChangeMode(controleurT * controleur) {
-
-		//		Change le mode pause
-
-	(*controleur).options.modePause = - (*controleur).options.modePause;
-
-	return;
-	}
-
-void controleurChangeVitesse(controleurT * controleur, float facteur) {
-
-		//		Change la vitesse de la simulation
-
-	if(facteur < 0.0)
-		{
-		(*controleur).options.duree = DUREE;
-		}
-	else
-		{
-		if( (*controleur).options.duree > 11 )
-			{
-			(*controleur).options.duree = (*controleur).options.duree * facteur;
-			}
-		else
-			{
-			if( facteur > 1)
-				{
-				(*controleur).options.duree ++;
-				}
-			else
-				{
-				if( (*controleur).options.duree > 1 )
-					{
-					(*controleur).options.duree --;
-					}
-				else
-					{
-					fprintf(stderr, "duree minimale atteinte, ");
-					}
-				}
-			}
-
-		if( (*controleur).options.duree > DUREE_MAX)
-			{
-			fprintf(stderr, "duree maximale atteinte, ");
-			(*controleur).options.duree = DUREE_MAX;
-			}
-		}
-	fprintf(stderr, "duree = %d\n", (*controleur).options.duree);
-	return;
-	}
-
-
 	//	-------  SUPPRESSION  -------  //
 
 int controleurDestruction(controleurT * control){

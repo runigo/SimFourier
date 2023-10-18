@@ -184,6 +184,61 @@ void optionsDuree(optionsT * options, char *opt) {
 	return;
 	}
 
+					//	-------  CHANGE  -------  //
+
+void optionsChangeMode(optionsT * opt) {
+
+		//		Change le mode pause
+
+	(*options).modePause = - (*options).modePause;
+
+	return;
+	}
+
+void optionsChangeVitesse(controleurT * controleur, float facteur) {
+
+		//		Change la vitesse de la simulation
+
+	if(facteur < 0.0)
+		{
+		(*options).duree = DUREE;
+		}
+	else
+		{
+		if( (*options).duree > 11 )
+			{
+			(*options).duree = (*options).duree * facteur;
+			}
+		else
+			{
+			if( facteur > 1)
+				{
+				(*options).duree ++;
+				}
+			else
+				{
+				if( (*options).duree > 1 )
+					{
+					(*options).duree --;
+					}
+				else
+					{
+					fprintf(stderr, "duree minimale atteinte, ");
+					}
+				}
+			}
+
+		if( (*options).duree > DUREE_MAX)
+			{
+			fprintf(stderr, "duree maximale atteinte, ");
+			(*options).duree = DUREE_MAX;
+			}
+		}
+	fprintf(stderr, "duree = %d\n", (*options).duree);
+	return;
+	}
+
+
 void optionsAide(void)
 	{
 	printf("\nAIDE DE SiCP2\n");
