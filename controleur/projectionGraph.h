@@ -55,15 +55,15 @@ typedef struct ProjectionGraphT projectionGraphT;
 
 	//-----------------    INITIALISATION      -----------------------//
 int projectionGraphInitialise(projectionGraphT * projection);
-void projectionInitialiseAxeFixe(graphesT * graphes, int nombre);
+void projectionGraphInitialiseAxeFixe(graphesT * graphes, int nombre);
 
 	//-----------------    PROJECTION      -----------------------//
-int projectionGraphes3D(projectionGraphT * projection, graphesT * graphes);
+int projectionGraphGraphes3D(projectionGraphT * projection, graphesT * graphes);
 
 	//-----------------    CHANGE      -----------------------//
 int projectionGraphChangeFenetre(projectionGraphT * projection, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void projectionGraphAffiche(projectionT * projection);
+void projectionGraphAffiche(projectionGraphT * projection);
 
 #endif

@@ -48,13 +48,13 @@ int controleurSouris(controleurT * controleur)
 			{
 			if( (*controleur).commandes.sourisY < (*controleur).commandes.fourier )
 				{
-				pointDeVueChangePsi(&(*controleur).projection.fourier, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
-				pointDeVueChangePhi(&(*controleur).projection.fourier, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+				pointDeVueChangePsi(&(*controleur).projectionGraph.fourier, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+				pointDeVueChangePhi(&(*controleur).projectionGraph.fourier, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
 				}
 			else
 				{
-				pointDeVueChangePsi(&(*controleur).projection.fonction, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
-				pointDeVueChangePhi(&(*controleur).projection.fonction, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+				pointDeVueChangePsi(&(*controleur).projectionGraph.fonction, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+				pointDeVueChangePhi(&(*controleur).projectionGraph.fonction, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
 				}
 			}
 		}
@@ -96,11 +96,11 @@ int controleurSourisDefilePointDeVueFonction(controleurT * controleur)
 
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
-		pointDeVueChangeTaille(&(*controleur).projection.fonction, 1.03);
+		pointDeVueChangeTaille(&(*controleur).projectionGraph.fonction, 1.03);
 		}
 	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
 		{
-		pointDeVueChangeTaille(&(*controleur).projection.fonction, 0.97);
+		pointDeVueChangeTaille(&(*controleur).projectionGraph.fonction, 0.97);
 		}
 
 	return 0;
@@ -112,11 +112,11 @@ int controleurSourisDefilePointDeVueFourier(controleurT * controleur)
 
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
-		pointDeVueChangeTaille(&(*controleur).projection.fourier, 1.03);
+		pointDeVueChangeTaille(&(*controleur).projectionGraph.fourier, 1.03);
 		}
 	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
 		{
-		pointDeVueChangeTaille(&(*controleur).projection.fourier, 0.97);
+		pointDeVueChangeTaille(&(*controleur).projectionGraph.fourier, 0.97);
 		}
 
 	return 0;
@@ -277,9 +277,9 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 				case 1:
 					controleurSourisDefile(controleur);break;
 				case 2:
-					controleurChangeVitesse(controleur, 1.1);break;
+					optionsChangeVitesse(&(*controleur).options, 1.1);break;
 				case 3:
-					controleurChangeVitesse(controleur, 1.1);break;
+					optionsChangeVitesse(&(*controleur).options, 1.1);break;
 				default:
 					;
 				}
@@ -293,9 +293,9 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 				case 1:
 					controleurSourisDefile(controleur);break;
 				case 2:
-					controleurChangeVitesse(controleur, 0.91);break;
+					optionsChangeVitesse(&(*controleur).options, 0.91);break;
 				case 3:
-					controleurChangeVitesse(controleur, 0.91);break;
+					optionsChangeVitesse(&(*controleur).options, 0.91);break;
 				default:
 					;
 				}

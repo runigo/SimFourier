@@ -36,17 +36,17 @@ termes.
 				//		 sur les graphes 2D
 
 	//	INITIALISATION
-int projectionInitialisePointDeVue(projectionT * projection,  float r,float psi, float phi);
-int projectionReinitialiseBase(projectionT * projection);
+int projectionInitialisePointDeVue(projectionGraphT * projection,  float r,float psi, float phi);
+int projectionReinitialiseBase(projectionGraphT * projection);
 
 	//	PROJECTION
-float projectionValeurAbsolue(float valeur);
-int projectionPerspectiveChaine(projectionT * projection, grapheT * graphe);
-//int projectionSystemeChaine3D(systemeT * systeme, projectionT * projection, grapheT * graphe);
-int projectionSystemeGraphes3D(systemeT * systeme, projectionT * projection, graphesT * graphes);
+//float projectionValeurAbsolue(float valeur);
+int projectionPerspectiveChaine(projectionGraphT * projection, grapheT * graphe);
+//int projectionSystemeChaine3D(systemeT * systeme, projectionGraphT * projection, grapheT * graphe);
+//int projectionSystemeGraphes3D(systemeT * systeme, projectionGraphT * projection, graphesT * graphes);
 
-int projectionInitialiseSupport(projectionT * projection, int nombre);
-int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe);
+int projectionInitialiseSupport(projectionGraphT * projection, int nombre);
+int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe);
 
 	//	CHANGE
 
@@ -54,7 +54,7 @@ int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe);
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionGraphInitialise(projectionT * projection)
+int projectionGraphInitialise(projectionGraphT * projection)
 	{
 
 	(*projection).fenetreX = FENETRE_X;	// hauteur de la fenêtre
@@ -91,18 +91,18 @@ void projectionInitialiseAxeFixe(graphesT * graphes, int nombre) {
 
 	for(i=-Ns2;i<Ns2;i++)
 		{
-		(*graphes).fonction.fonction[i].axe.x = (*graphes).fonction.largeur * (((float)i)/nombre);
-		(*graphes).fonction.fonction[i].axe.y = 0;
-		(*graphes).fonction.fonction[i].axe.z = 0;
-		(*graphes).fourier.fonction[i].axe.x = (*graphes).fourier.largeur * (((float)i)/nombre);
-		(*graphes).fourier.fonction[i].axe.y = 0;
-		(*graphes).fourier.fonction[i].axe.z = 0;
+		(*graphes).fonction.points[i].point.x = (*graphes).fonction.largeur * (((float)i)/nombre);
+		(*graphes).fonction.points[i].point.y = 0;
+		(*graphes).fonction.points[i].point.z = 0;
+		(*graphes).fourier.points[i].point.x = (*graphes).fourier.largeur * (((float)i)/nombre);
+		(*graphes).fourier.points[i].point.y = 0;
+		(*graphes).fourier.points[i].point.z = 0;
 		}
 
 	return;
 	}
 
-int projectionGraphInitialisePointDeVue(projectionT * projection, float r, float psi, float phi)
+int projectionGraphInitialisePointDeVue(projectionGraphT * projection, float r, float psi, float phi)
 	{
 		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
 
@@ -113,7 +113,7 @@ int projectionGraphInitialisePointDeVue(projectionT * projection, float r, float
 	return 0;
 	}
 
-int projectionGraphReinitialiseBase(projectionT * projection)
+int projectionGraphReinitialiseBase(projectionGraphT * projection)
 	{
 		// Réinitialise les vecteurs perpendiculaires
 
@@ -134,7 +134,7 @@ float projectionGraphValeurAbsolue(float valeur) {
 	return valeur;
 	}
 
-int projectionGraphGraphes(systemeT * systeme, projectionT * projection, graphesT * graphes) {
+int projectionGraphGraphes(projectionGraphT * projection, graphesT * graphes) {
 
 		// Projection des graphes 3D sur les graphes 2D
 
@@ -151,7 +151,7 @@ int projectionGraphGraphes(systemeT * systeme, projectionT * projection, graphes
 	return 0;
 	}
 
-int projectionInitialiseSupport(projectionT * projection, int nombre)
+int projectionInitialiseSupport(projectionGraphT * projection, int nombre)
 //
 //                                                Z
 //                                          Y              X'
@@ -187,7 +187,7 @@ int projectionInitialiseSupport(projectionT * projection, int nombre)
 	return 0;
 	}
 
-int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe)
+int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe)
 	{
 			//	Projette le support 3D sur le rendu en perspective
 
@@ -240,7 +240,7 @@ int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe)
 	return 0;
 	}
 
-int projectionPerspectiveGraphes(projectionT * projection, graphesT * graphes)
+int projectionPerspectiveGraphes(projectionGraphT * projection, graphesT * graphes)
 	{
 			//	Projette les graphes 3D sur les graphes 2D
 
@@ -283,7 +283,7 @@ int projectionPerspectiveGraphe(pointDeVueT * pointDeVue, grapheT * graphe, int 
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int projectionGraphChangeFenetre(projectionT * projection, int x, int y) {
+int projectionGraphChangeFenetre(projectionGraphT * projection, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
 
@@ -296,7 +296,7 @@ int projectionGraphChangeFenetre(projectionT * projection, int x, int y) {
 	return 0;
 	}
 
-int projectionGraphChangeTaille(projectionT * projection, float x) {
+int projectionGraphChangeTaille(projectionGraphT * projection, float x) {
 
 		// Change la taille de la chaîne
 
@@ -327,7 +327,7 @@ int projectionGraphChangeTaille(projectionT * projection, float x) {
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void projectionGraphAffiche(projectionT * projection) {
+void projectionGraphAffiche(projectionGraphT * projection) {
 
 	//	Affiche les paramètres de la projection
 

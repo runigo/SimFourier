@@ -47,9 +47,9 @@ typedef struct ControleurT controleurT;
 
 		optionsT options;	//	Options de la ligne de commande
 
-		systemeT systeme;	//	Modélisation physique de la chaîne
+		systemeT systeme;	//	Modélisation du système
 
-		observablesT observables;	//	Grandeurs physique du système système
+		observablesT observables;	//	Grandeurs physique du système
 
 		projectionSystemT projectionSystem;	//	Projection du système et des observables sur le graphisme
 
@@ -81,10 +81,6 @@ int controleurSimulationGraphique(controleurT * control);
 int controleurEvolutionSysteme(controleurT * controleur);
 
 int controleurDestruction(controleurT * control);
-
-
-void controleurChangeMode(controleurT * controleur);
-void controleurChangeVitesse(controleurT * controleur, float facteur);
 
 int controleurInitialiseNombre(controleurT * controleur, int nombre);
 

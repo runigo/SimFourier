@@ -77,8 +77,9 @@ int donneesControleur(controleurT * controleur)
 	capteursInitialise(&(*controleur).capteurs);
 	capteursMiseAJourLongueur(&(*controleur).capteurs, FENETRE_X, FENETRE_Y);
 
-		//fprintf(stderr, " Initialisation de la projection\n");
-	projectionInitialise(&(*controleur).projection);
+		//fprintf(stderr, " Initialisation des projections\n");
+	projectionGraphInitialise(&(*controleur).projectionGraph);
+	projectionSystemInitialise(&(*controleur).projectionSystem);
 
 		fprintf(stderr, " Initialisation SDL\n");
 	interfaceInitialisationSDL();

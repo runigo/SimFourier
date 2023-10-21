@@ -59,17 +59,17 @@ typedef struct ProjectionSystemT projectionSystemT;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionSystemInitialise(projectionT * projection);
+int projectionSystemInitialise(projectionSystemT * projection);
 
 	//-----------------    PROJECTION      -----------------------//
-int projectionSystemeGraphes(systemeT * systeme, projectionT * projection, graphesT * graphes);
-int projectionObservablesCapteurs(observablesT * observables, projectionT * projection, capteursT * capteurs);
-int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, commandesT * commandes, int duree, int mode);
+int projectionSystemeGraphes(systemeT * systeme, projectionSystemT * projection, graphesT * graphes);
+int projectionObservablesCapteurs(observablesT * observables, projectionSystemT * projection, capteursT * capteurs);
+int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes, int duree, int mode);
 
 	//-----------------    CHANGE      -----------------------//
-int projectionSystemChangeFenetre(projectionT * projection, int x, int y);
+int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void projectionSystemAffiche(projectionT * projection);
+void projectionSystemAffiche(projectionSystemT * projection);
 
 #endif

@@ -106,7 +106,7 @@ int controleurProjection(controleurT * controleur)
 		{
 		(*controleur).graphique.fenetreX=x;
 		(*controleur).graphique.fenetreY=y;
-		projectionChangeFenetre(&(*controleur).projection, x, y);
+		projectionGraphChangeFenetre(&(*controleur).projectionGraph, x, y);
 		commandesInitialiseBoutons(&(*controleur).commandes, x, y);
 		capteursMiseAJourLongueur(&(*controleur).capteurs, x, y);
 		}
@@ -116,11 +116,12 @@ int controleurProjection(controleurT * controleur)
 	SDL_GetMouseState(&x,&y);
 	commandesInitialiseSouris(&(*controleur).commandes, x, y);
 
-	projectionSystemeGraphes(&(*controleur).systeme, &(*controleur).projection, &(*controleur).graphes);
+	projectionSystemeGraphes(&(*controleur).systeme, &(*controleur).projectionSystem, &(*controleur).graphes);
+	projectionGraphGraphes3D(&(*controleur).projectionGraph, &(*controleur).graphes);
 
-	projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projection, &(*controleur).capteurs);
+	projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
 
-	projectionSystemeCommandes(&(*controleur).systeme, &(*controleur).projection, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
+	projectionSystemeCommandes(&(*controleur).systeme, &(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
 
 	return (*controleur).sortie;
 	}

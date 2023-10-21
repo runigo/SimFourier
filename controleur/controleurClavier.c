@@ -40,47 +40,43 @@ int controleurClavier(controleurT * controleur)
 		case SDLK_RETURN:
 			controleurEvolutionSysteme(controleur);break;
 		case SDLK_BACKSPACE:
-			controleurChangeMode(controleur);break;
+			optionsChangeMode(&(*controleur).options);break;
 		case SDLK_SPACE:
-			controleurChangeMode(controleur);break;
+			optionsChangeMode(&(*controleur).options);break;
 		case SDLK_ESCAPE:
 			controleurSourisAffiche(controleur);break;
 			;
 
 	// Vitesse de la simulation
 		case SDLK_KP_PLUS:
-			controleurChangeVitesse(controleur, 1.1);break;
+			optionsChangeVitesse(&(*controleur).options, 1.1);break;
 		case SDLK_KP_MINUS:
-			controleurChangeVitesse(controleur, 0.91);break;
+			optionsChangeVitesse(&(*controleur).options, 0.91);break;
 		case SDLK_F9:
-			controleurChangeVitesse(controleur, 0.32);break;
+			optionsChangeVitesse(&(*controleur).options, 0.32);break;
 		case SDLK_F10:
-			controleurChangeVitesse(controleur, 0.91);break;
+			optionsChangeVitesse(&(*controleur).options, 0.91);break;
 		case SDLK_F11:
-			controleurChangeVitesse(controleur, 1.1);break;
+			optionsChangeVitesse(&(*controleur).options, 1.1);break;
 		case SDLK_F12:
-			controleurChangeVitesse(controleur, 3.1);break;
+			optionsChangeVitesse(&(*controleur).options, 3.1);break;
 
 
 
 		case SDLK_F1:
-			projectionAffiche(&(*controleur).projection);break;
+			projectionSystemAffiche(&(*controleur).projectionSystem);break;
   // Afficher les observables
 		case SDLK_F2: // Harmoniques
 			observablesAffiche(&(*controleur).observables);break;
 
 		case SDLK_F4: // Corde asymétrique
-			controleurSourisAffiche(controleur);
-			break;
+			controleurSourisAffiche(controleur);break;
 		case SDLK_F5:
-			observablesAfficheEnergie(&(*controleur).systeme);
-			break;
+			observablesAfficheEnergie(&(*controleur).systeme);break;
 		case SDLK_F6:
-			moteursAfficheHorloge(&(*controleur).systeme.moteurs);
-			break;
+			moteursAfficheHorloge(&(*controleur).systeme.moteurs);break;
 		case SDLK_F7:
-			projectionAffiche(&(*controleur).projection);
-			break;
+			projectionGraphAffiche(&(*controleur).projectionGraph);break;
 	// Support
 	//	case SDLK_F8:
 	//		grapheChangeSupport(&(*controleur).graphes);break;

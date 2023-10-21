@@ -186,7 +186,7 @@ void optionsDuree(optionsT * options, char *opt) {
 
 					//	-------  CHANGE  -------  //
 
-void optionsChangeMode(optionsT * opt) {
+void optionsChangeMode(optionsT * options) {
 
 		//		Change le mode pause
 
@@ -195,7 +195,7 @@ void optionsChangeMode(optionsT * opt) {
 	return;
 	}
 
-void optionsChangeVitesse(controleurT * controleur, float facteur) {
+void optionsChangeVitesse(optionsT * options, float facteur) {
 
 		//		Change la vitesse de la simulation
 

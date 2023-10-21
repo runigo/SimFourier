@@ -36,17 +36,17 @@ termes.
 				//		 et les capteurs
 
 	//	INITIALISATION
-int projectionInitialisePointDeVue(projectionT * projection,  float r,float psi, float phi);
-int projectionReinitialiseBase(projectionT * projection);
+int projectionInitialisePointDeVue(projectionSystemT * projection,  float r,float psi, float phi);
+int projectionReinitialiseBase(projectionSystemT * projection);
 
 	//	PROJECTION
 float projectionValeurAbsolue(float valeur);
-int projectionPerspectiveChaine(projectionT * projection, grapheT * graphe);
-//int projectionSystemeChaine3D(systemeT * systeme, projectionT * projection, grapheT * graphe);
-int projectionSystemeGraphes3D(systemeT * systeme, projectionT * projection, graphesT * graphes);
+int projectionPerspectiveChaine(projectionSystemT * projection, grapheT * graphe);
+//int projectionSystemeChaine3D(systemeT * systeme, projectionSystemT * projection, grapheT * graphe);
+int projectionSystemeGraphes3D(systemeT * systeme, projectionSystemT * projection, graphesT * graphes);
 
-int projectionInitialiseSupport(projectionT * projection, int nombre);
-int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe);
+int projectionInitialiseSupport(projectionSystemT * projection, int nombre);
+int projectionPerspectiveSupport(projectionSystemT * projection, grapheT * graphe);
 
 	//	CHANGE
 
@@ -54,28 +54,19 @@ int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe);
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialise(projectionT * projection)
+int projectionInitialise(projectionSystemT * projection)
 	{
 
 	(*projection).fenetreX = FENETRE_X;	// hauteur de la fenêtre
 	(*projection).fenetreY = FENETRE_Y;	// largeur de la fenêtre
 
 	(*projection).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
-/*
-	(*projection).rotation = 0;
-	(*projection).logCouplage = 1.0 / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
-	(*projection).logDissipation = 1.0 / log( DISSIPATION_MAX/DISSIPATION_MIN );
-	(*projection).logJosephson = 1.0 / log( JOSEPHSON_MAX/JOSEPHSON_MIN );
-	(*projection).logAmplitude = 1.0 / log( AMPLITUDE_MAX/AMPLITUDE_MIN );
-	(*projection).logFrequence = 1.0 / log( FREQUENCE_MAX/FREQUENCE_MIN );
-*/
 
-	(*projection).fonction.largeur = LARGEUR_IMP;// largeur de la chaîne
-	(*projection).fonction.ratioLH = 3.99;
-	(*projection).fonction.hauteur = (int)((*projection).fonction.largeur/(*projection).ratioXY);// hauteur de la chaîne
-	(*projection).fourier.largeur = LARGEUR_IMP;// largeur de la chaîne
-	(*projection).fourier.ratioLH = 3.99;
-	(*projection).fourier.hauteur = (int)((*projection).fourier.largeur/(*projection).ratioXY);// hauteur de la chaîne
+	(*projection).logCouplage = 1.0;// / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
+	(*projection).logDissipation = 1.0;// / log( DISSIPATION_MAX/DISSIPATION_MIN );
+	(*projection).logJosephson = 1.0;// / log( JOSEPHSON_MAX/JOSEPHSON_MIN );
+	(*projection).logAmplitude = 1.0;// / log( AMPLITUDE_MAX/AMPLITUDE_MIN );
+	(*projection).logFrequence = 1.0;// / log( FREQUENCE_MAX/FREQUENCE_MIN );
 
 
 	return 0;
@@ -89,7 +80,7 @@ float projectionValeurAbsolue(float valeur) {
 	return valeur;
 	}
 
-int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, commandesT * commandes, int duree, int mode) {
+int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes, int duree, int mode) {
 
 		// Projette le système sur les commandes
 
@@ -242,7 +233,7 @@ int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, com
 	return 0;
 	}
 
-int projectionObservablesCapteurs(observablesT * observables, projectionT * projection, capteursT * capteurs) {
+int projectionObservablesCapteurs(observablesT * observables, projectionSystemT * projection, capteursT * capteurs) {
 
 		//	Projette les observables sur les capteurs
 
@@ -291,7 +282,7 @@ int projectionObservablesCapteurs(observablesT * observables, projectionT * proj
 	return 0;
 	}
 
-int projectionSystemeGraphes(systemeT * systeme, projectionT * projection, graphesT * graphes) {
+int projectionSystemeGraphes(systemeT * systeme, projectionSystemT * projection, graphesT * graphes) {
 
 		// Projection du système sur les graphes en perspective
 
@@ -301,21 +292,22 @@ int projectionSystemeGraphes(systemeT * systeme, projectionT * projection, graph
 	return 0;
 	}
 
-int projectionSystemeGraphes3D(systemeT * systeme, projectionT * projection, graphesT * graphes){
+int projectionSystemeGraphes3D(systemeT * systeme, projectionSystemT * projection, graphesT * graphes){
 
 			//	Projette le système sur les graphes en 3 Dimensions
 
 	int i;
 	int nombre = (*systeme).nombre;
+	(void)projection;
 
 	for(i=0;i<nombre;i++)
 		{
-		(*graphes).fonction.point[i].x = (*graphes).fonction.axe[i].x;
-		(*graphes).fonction.point[i].y = (*projection).fonction.hauteur * (*systeme).actuel.reel[i];
-		(*graphes).fonction.point[i].z = (*projection).fonction.hauteur * (*systeme).actuel.imag[i];
-		(*graphes).fourier.point[i].x = (*graphes).fourier.axe[i].x;
-		(*graphes).fourier.point[i].y = (*projection).fourier.hauteur * (*systeme).fourier.reel[i];
-		(*graphes).fourier.point[i].z = (*projection).fourier.hauteur * (*systeme).fourier.imag[i];
+		//(*graphes).fonction.points[i].point.x = (*graphes).fonction.axe[i].x;
+		(*graphes).fonction.points[i].point.y = (*systeme).actuel.reel[i];//(*projection).fonction.hauteur * 
+		(*graphes).fonction.points[i].point.z = (*systeme).actuel.imag[i];//(*projection).fonction.hauteur * 
+		//(*graphes).fourier.points[i].point.x = (*graphes).fourier.axe[i].x;
+		(*graphes).fourier.points[i].point.y = (*systeme).fourier.reel[i];//(*projection).fourier.hauteur * 
+		(*graphes).fourier.points[i].point.z = (*systeme).fourier.imag[i];//(*projection).fourier.hauteur * 
 		}
 
 	return 0;
@@ -324,7 +316,7 @@ int projectionSystemeGraphes3D(systemeT * systeme, projectionT * projection, gra
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int projectionSystemChangeFenetre(projectionT * projection, int x, int y) {
+int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
 
@@ -337,52 +329,16 @@ int projectionSystemChangeFenetre(projectionT * projection, int x, int y) {
 	return 0;
 	}
 
-int projectionSystemChangeTaille(projectionT * projection, float x) {
-
-		// Change la taille de la chaîne
-
-	int largeur = (*projection).largeur * x;
-
-	if(largeur > LARGEUR_MAX)
-		{
-		printf("Maximum de la taille ateinte\n");
-		}
-	else
-		{
-		if(largeur < LARGEUR_MIN)
-			{
-			printf("Minimum de la taille ateinte\n");
-			}
-		else
-			{
-			(*projection).largeur = largeur;
-			(*projection).hauteur = (int)(largeur/(*projection).ratioLH);
-			printf("(*projection).hauteur = %d\n", (*projection).hauteur);
-			printf("(*projection).largeur = %d\n", (*projection).largeur);
-			}
-		}
-
-	return 0;
-	}
-
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void projectionSystemAffiche(projectionT * projection) {
+void projectionSystemAffiche(projectionSystemT * projection) {
 
 	//	Affiche les paramètres de la projection
 
-	printf(" Point de vue\n");
-	vecteurAffiche(&(*projection).pointDeVue);
-	printf(" Vecteur psi\n");
-	vecteurAffiche(&(*projection).vecteurPsi);
-	printf(" Vecteur phi\n");
-	vecteurAffiche(&(*projection).vecteurPhi);
-
-	printf("(*projection).rotation = %d\n", (*projection).rotation);
 	printf("(*projection).ratioXY = %f\n", (*projection).ratioXY);
-	printf("(*projection).hauteur = %d\n", (*projection).hauteur);
-	printf("(*projection).largeur = %d\n", (*projection).largeur);
+	//printf("(*projection).hauteur = %d\n", (*projection).hauteur);
+	//printf("(*projection).largeur = %d\n", (*projection).largeur);
 	printf("(*projection).fenetreX = %d\n", (*projection).fenetreX);
 	printf("(*projection).fenetreY = %d\n", (*projection).fenetreY);
 	return ;

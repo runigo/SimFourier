@@ -38,7 +38,7 @@ termes.
 typedef struct GrapheT grapheT;
 	struct GrapheT
 		{
-		pointT fonction[NOMBRE_MAX]; // Fonction ou TF
+		pointT points[NOMBRE_MAX]; // Fonction ou TF
 		int nombre;
 		int supporX[7];
 		int supporY[7];
