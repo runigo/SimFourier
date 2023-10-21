@@ -51,6 +51,9 @@ typedef struct GrapheT grapheT;
 
 		int longueur;	// Longueur Ox
 		int largeur;	// Longueurs Oy et Oz
+		
+		float ratiox;	// rapport décalage X / fenetre X
+		float ratioy;	// rapport décalage Y / fenetre Y
 		};
 
 

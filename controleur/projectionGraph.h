@@ -42,7 +42,6 @@ termes.
 typedef struct ProjectionGraphT projectionGraphT;
 	struct ProjectionGraphT
 		{
-		vecteurT support[7];	// Axes x, y, z 3D fixe
 
 		pointDeVueT fonction;	//	fonction
 		pointDeVueT fourier;	//	transformée de fourier

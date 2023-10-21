@@ -39,6 +39,10 @@ int graphesInitialisation(graphesT * graphes, int nombre)
 	{
 	grapheInitialisation(&(*graphes).fonction, nombre);
 	grapheInitialisation(&(*graphes).fourier, nombre);
+	(*graphes).fonction.ratiox = 0.5;
+	(*graphes).fonction.ratioy = 0.33;
+	(*graphes).fourier.ratiox = 0.5;
+	(*graphes).fourier.ratioy = 0.66;
 	return 0:
 	}
 

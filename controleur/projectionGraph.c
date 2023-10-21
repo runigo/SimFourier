@@ -139,7 +139,7 @@ int projectionGraphGraphes(projectionGraphT * projection, graphesT * graphes) {
 		// Projection des graphes 3D sur les graphes 2D
 
 		// Initialisation des points du support
-	projectionInitialiseSupport(projection, (*systeme).nombre);
+	//projectionInitialiseSupport(projection, (*systeme).nombre);
 
 		//		Projection des graphes 3D sur les graphes 2D
 		// Projection en 2D de la représentation 3D
@@ -169,19 +169,19 @@ int projectionInitialiseSupport(projectionGraphT * projection, int nombre)
 		}
 
 					// AXE Ox
-	xyz = 1.2*(*projection).largeur;
+	xyz = 1.2;//*(*projection).rayon;
 	(*projection).support[0].x = xyz;
 	(*projection).support[1].x = -xyz;
 
 					// AXE Oy
-	xyz = 1.2*(*projection).hauteur;
+	xyz = 1.2;//*(*projection).rayon;
 	(*projection).support[2].y = xyz;
 	(*projection).support[3].y = -xyz;
 
 					// AXE Oz
-	xyz = 6.5 * (*projection).longueur;
+	xyz = 6.5;// * (*projection).longueur;
 	(*projection).support[4].z = xyz;
-	xyz = 0.5 * (*projection).longueur;
+	xyz = 0.5;// * (*projection).longueur;
 	(*projection).support[5].z = -xyz;
 	(void)nombre;
 	return 0;
@@ -193,8 +193,8 @@ int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe
 
 	vecteurT v;
 	int i;
-	int centrageX = (int)( (*projection).fenetreX * RATIO_C_X );
-	int centrageY = (int)( (*projection).fenetreY * RATIO_C_Y );
+	int centrageX = (int)( (*projection).fenetreX * (*graphe).ratiox );
+	int centrageY = (int)( (*projection).fenetreY * (*graphe).ratioy );
 
 	for(i=0;i<7;i++)
 		{
