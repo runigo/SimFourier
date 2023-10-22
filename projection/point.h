@@ -2,7 +2,7 @@
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 1.0 Transformation de Fourier
+SimFourier 0.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -30,46 +30,34 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTIONSYSTEM_
-#define _PROJECTIONSYSTEM_
+#ifndef _POINT_
+#define _POINT_
 
-#include "../modele/systeme.h"
-#include "../modele/observables.h"
-#include "../interface/graphes.h"
-#include "../interface/commandes.h"
-#include "../interface/capteurs.h"
+#include "vecteur.h"
 
-				//		Projections du systeme sur les commandes
-				//		 et les capteurs
-
-typedef struct ProjectionSystemT projectionSystemT;
-	struct ProjectionSystemT
+typedef struct PointT pointT;
+	struct PointT
 		{
+		vecteurT point;	// Coordonnees 3D du point
 
-		int fenetreX;	// hauteur de la fenêtre
-		int fenetreY;	// largeur de la fenêtre
-		float ratioXY;	// rapport largeur / hauteur
+		vecteurT axe;	// Coordonnees 3D de l'axe
 
-			// facteurs entre les grandeurs et la position des boutons rotatifs
-		float logCouplage;
-		float logDissipation;
-		float logJosephson;
-		float logAmplitude;
-		float logFrequence;
+			//	Mémorise la position angulaire pour la colorisation
+		float sinTheta;
+		float cosTheta;	
+
+
+		int xp;		// Absisse 2D du point
+		int yp;		// Ordonnée 2D du point
+
+
+		int xa;		// Absisse 2D de l'axe
+		int ya;		// Ordonnée 2D de l'axe
 		};
 
-	//-----------------    INITIALISATION      -----------------------//
-int projectionSystemInitialise(projectionSystemT * projection);
-
-	//-----------------    PROJECTION      -----------------------//
-int projectionSystemeGraphes(systemeT * systeme, projectionSystemT * projection, graphesT * graphes);
-int projectionObservablesCapteurs(observablesT * observables, projectionSystemT * projection, capteursT * capteurs);
-int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes, int duree, int mode);
-
-	//-----------------    CHANGE      -----------------------//
-int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y);
-
-	//-----------------    AFFICHAGE      -----------------------//
-void projectionSystemAffiche(projectionSystemT * projection);
+	//	Initialisation
+int pointInitialise(pointT * point);
 
 #endif
+
+/////////////////////////////////////////////////////////////:

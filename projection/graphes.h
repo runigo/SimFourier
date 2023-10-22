@@ -43,6 +43,8 @@ typedef struct GrapheT grapheT;
 		int supporX[7];
 		int supporY[7];
 
+		pointDeVueT pointDeVue;	//	fonction
+
 		int support;	// Change la représentation graphique du support
 
 		int dessous;	// Vue de dessous

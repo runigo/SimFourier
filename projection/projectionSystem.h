@@ -30,39 +30,46 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTIONGRAPH_
-#define _PROJECTIONGRAPH_
+#ifndef _PROJECTIONSYSTEM_
+#define _PROJECTIONSYSTEM_
 
-#include "../interface/graphes.h"
-#include "../controleur/pointDeVue.h"
+#include "../modele/systeme.h"
+#include "../modele/observables.h"
+#include "../projection/graphes.h"
+#include "../interface/commandes.h"
+#include "../interface/capteurs.h"
 
-				//		Projections des graphes 3D
-				//		 sur les graphes 2D
+				//		Projections du systeme sur les commandes
+				//		les capteurs et les graphes
 
-typedef struct ProjectionGraphT projectionGraphT;
-	struct ProjectionGraphT
+typedef struct ProjectionSystemT projectionSystemT;
+	struct ProjectionSystemT
 		{
-
-		pointDeVueT fonction;	//	fonction
-		pointDeVueT fourier;	//	transformée de fourier
-
 		int fenetreX;	// hauteur de la fenêtre
 		int fenetreY;	// largeur de la fenêtre
 		float ratioXY;	// rapport largeur / hauteur
 
+			// facteurs entre les grandeurs et la position des boutons rotatifs
+		float logCouplage;
+		float logDissipation;
+		float logJosephson;
+		float logAmplitude;
+		float logFrequence;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionGraphInitialise(projectionGraphT * projection);
-void projectionGraphInitialiseAxeFixe(graphesT * graphes, int nombre);
+int projectionSystemInitialise(projectionSystemT * projection);
 
 	//-----------------    PROJECTION      -----------------------//
-int projectionGraphGraphes3D(projectionGraphT * projection, graphesT * graphes);
+int projectionSystemeGraphes(systemeT * systeme, projectionSystemT * projection, graphesT * graphes);
+int projectionObservablesCapteurs(observablesT * observables, projectionSystemT * projection, capteursT * capteurs);
+int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes);
+int projectionControleurCommandes(projectionSystemT * projection, commandesT * commandes, int duree, int mode);
 
 	//-----------------    CHANGE      -----------------------//
-int projectionGraphChangeFenetre(projectionGraphT * projection, int x, int y);
+int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void projectionGraphAffiche(projectionGraphT * projection);
+void projectionSystemAffiche(projectionSystemT * projection);
 
 #endif

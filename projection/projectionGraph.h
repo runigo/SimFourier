@@ -2,7 +2,7 @@
 Copyright octobre 2023, Stephan Runigo
 runigo@free.fr
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 0.1 Transformation de Fourier
+SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -30,34 +30,35 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _POINT_
-#define _POINT_
+#ifndef _PROJECTIONGRAPH_
+#define _PROJECTIONGRAPH_
 
-#include "../interface/vecteur.h"
+#include "../interface/graphes.h"
+#include "../controleur/pointDeVue.h"
 
-typedef struct PointT pointT;
-	struct PointT
+				//		Projections des graphes 3D
+				//		 sur les graphes 2D
+
+typedef struct ProjectionGraphT projectionGraphT;
+	struct ProjectionGraphT
 		{
-		vecteurT point;	// Coordonnees 3D du point
 
-		vecteurT axe;	// Coordonnees 3D de l'axe
+		int fenetreX;	// hauteur de la fenêtre
+		int fenetreY;	// largeur de la fenêtre
+		float ratioXY;	// rapport largeur / hauteur
 
-			//	Mémorise la position angulaire pour la colorisation
-		float sinTheta;
-		float cosTheta;	
-
-
-		int xp;		// Absisse 2D du point
-		int yp;		// Ordonnée 2D du point
-
-
-		int xa;		// Absisse 2D de l'axe
-		int ya;		// Ordonnée 2D de l'axe
 		};
 
-	//	Initialisation
-int pointInitialise(pointT * point);
+	//-----------------    INITIALISATION      -----------------------//
+int projectionGraphInitialise(projectionGraphT * projection);
+
+	//-----------------    PROJECTION      -----------------------//
+int projectionGraphGraphes3D(projectionGraphT * projection, graphesT * graphes);
+
+	//-----------------    CHANGE      -----------------------//
+int projectionGraphChangeFenetre(projectionGraphT * projection, int x, int y);
+
+	//-----------------    AFFICHAGE      -----------------------//
+void projectionGraphAffiche(projectionGraphT * projection);
 
 #endif
-
-/////////////////////////////////////////////////////////////:

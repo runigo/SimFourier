@@ -32,7 +32,7 @@ termes.
 #ifndef _GRAPHIQUE_
 #define _GRAPHIQUE_
 
-#include "graphes.h"
+#include "../projection/graphes.h"
 #include "commandes.h"
 #include "interface.h"
 #include "capteurs.h"

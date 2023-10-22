@@ -34,8 +34,8 @@ termes.
 #define _CONTROLEUR_
 
 #include "../controleur/options.h"			//	Options de la ligne de commande
-#include "../controleur/projectionSystem.h"		//	Projection du systeme vers le graphisme.
-#include "../controleur/projectionGraph.h"		//	Projection des graphes 3D sur les graphes 2D.
+#include "../projection/projectionSystem.h"		//	Projection du systeme vers le graphisme.
+#include "../projection/projectionGraph.h"		//	Projection des graphes 3D sur les graphes 2D.
 #include "../modele/observables.h"			//	Observables du système
 #include "../interface/graphique.h"			//	Librairie SDL et représentation graphique
 #include "../interface/horloge.h"			//	Librairie SDL et représentation graphique

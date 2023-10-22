@@ -80,15 +80,13 @@ float projectionValeurAbsolue(float valeur) {
 	return valeur;
 	}
 
-int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes, int duree, int mode) {
+int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes) {
 
 		// Projette le système sur les commandes
 
 (void)systeme;
 (void)projection;
 (void)commandes;
-(void)duree;
-(void)mode;
 
 	float theta;
 	float ratioRotatif = 0.9;
@@ -206,6 +204,18 @@ int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projectio
 			;
 		}
 */
+	return 0;
+	}
+
+int projectionControleurCommandes(projectionSystemT * projection, commandesT * commandes, int duree, int mode) {
+
+		// Projette le controleur sur les commandes
+
+(void)projection;
+(void)commandes;
+(void)duree;
+(void)mode;
+
 		//	Vitesse de la simulation
 	if(duree<DUREE)
 		{
