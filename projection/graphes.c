@@ -63,6 +63,80 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	(*graphe).arriere = 0;	// Vue de derrière
 	(*graphe).gauche = 0;		// Vue de gauche
 
+	(*graphe).longueur = LONGUEUR_IMP;// largeur de la chaîne
+	(*graphe).rayon = RAYON_IMP;// hauteur de la chaîne
+
+	pointDeVueInitialise((*graphe)pointDeVue);
+
+	return 0;
+	}
+
+int graphesInitialisePointDeVue(graphesT * graphes, float r, float psi, float phi)
+	{
+		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
+
+	grapheInitialisePointDeVue(&(*graphes).fonction, r, psi, phi);
+	grapheInitialisePointDeVue(&(*graphes).fourier, r, psi, phi);
+	
+	GrapheReinitialiseBase(graphe);
+
+	return 0;
+	}
+
+int grapheInitialisePointDeVue(grapheT * graphe, float r, float psi, float phi)
+	{
+		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
+
+	vecteurInitialisePolaire(&(*graphe).pointDeVue, r, psi, phi);
+	
+	GrapheReinitialiseBase(graphe);
+
+	return 0;
+	}
+
+int GrapheReinitialiseBase(grapheT * graphe)
+	{
+		// Réinitialise les vecteurs perpendiculaires
+
+	vecteurInitialisePhi(&(*graphe).pointDeVue.pointDeVue, &(*graphe).pointDeVue.vecteurPhi, (*graphe).longueur);
+	vecteurInitialisePsi(&(*graphe).pointDeVue.pointDeVue, &(*graphe).pointDeVue.vecteurPsi, (*graphe).rayon);
+
+	return 0;
+	}
+
+int GrapheInitialiseSupport(grapheT * graphe)
+//
+//                                                Z
+//                                          Y              X'
+//                                                O
+//                                                      Y'
+//                                                Z'
+//             X
+
+	{
+	int i;
+	float xyz;
+	for(i=0;i<6;i++)
+		{
+		(*graphe).support[i].x = 0;
+		}
+
+					// AXE Ox
+	xyz = 1.2;//*(*graphe).rayon;
+	(*graphe).support[0].x = xyz;
+	(*graphe).support[1].x = -xyz;
+
+					// AXE Oy
+	xyz = 1.2;//*(*graphe).rayon;
+	(*graphe).support[2].y = xyz;
+	(*graphe).support[3].y = -xyz;
+
+					// AXE Oz
+	xyz = 6.5;// * (*graphe).longueur;
+	(*graphe).support[4].z = xyz;
+	xyz = 0.5;// * (*graphe).longueur;
+	(*graphe).support[5].z = -xyz;
+	(void)nombre;
 	return 0;
 	}
 

@@ -48,13 +48,13 @@ int controleurSouris(controleurT * controleur)
 			{
 			if( (*controleur).commandes.sourisY < (*controleur).commandes.fourier )
 				{
-				pointDeVueChangePsi(&(*controleur).projectionGraph.fourier, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
-				pointDeVueChangePhi(&(*controleur).projectionGraph.fourier, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+				pointDeVueChangePsi(&(*controleur).graphes.fourier.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+				pointDeVueChangePhi(&(*controleur).graphes.fourier.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
 				}
 			else
 				{
-				pointDeVueChangePsi(&(*controleur).projectionGraph.fonction, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
-				pointDeVueChangePhi(&(*controleur).projectionGraph.fonction, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+				pointDeVueChangePsi(&(*controleur).graphes.fonction.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+				pointDeVueChangePhi(&(*controleur).graphes.fonction.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
 				}
 			}
 		}
@@ -96,11 +96,11 @@ int controleurSourisDefilePointDeVueFonction(controleurT * controleur)
 
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
-		pointDeVueChangeTaille(&(*controleur).projectionGraph.fonction, 1.03);
+		pointDeVueChangeTaille(&(*controleur).graphes.fonction.pointDeVue, 1.03);
 		}
 	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
 		{
-		pointDeVueChangeTaille(&(*controleur).projectionGraph.fonction, 0.97);
+		pointDeVueChangeTaille(&(*controleur).graphes.fonction.pointDeVue, 0.97);
 		}
 
 	return 0;
@@ -112,11 +112,11 @@ int controleurSourisDefilePointDeVueFourier(controleurT * controleur)
 
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
-		pointDeVueChangeTaille(&(*controleur).projectionGraph.fourier, 1.03);
+		pointDeVueChangeTaille(&(*controleur).graphes.fourier.pointDeVue, 1.03);
 		}
 	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
 		{
-		pointDeVueChangeTaille(&(*controleur).projectionGraph.fourier, 0.97);
+		pointDeVueChangeTaille(&(*controleur).graphes.fourier.pointDeVue, 0.97);
 		}
 
 	return 0;

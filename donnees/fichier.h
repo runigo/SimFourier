@@ -36,7 +36,7 @@ termes.
 #include "string.h"
 
 #include "../modele/systeme.h"
-#include "../interface/graphes.h"
+#include "../projection/graphes.h"
 
 int fichierEcriture(systemeT * systeme, graphesT * graphes, char * nom);
 int fichierLecture(systemeT * systeme, graphesT * graphes, char * nom);

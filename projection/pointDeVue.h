@@ -33,7 +33,7 @@ termes.
 #ifndef _POINTDEVUE_
 #define _POINTDEVUE_
 
-#include "../interface/vecteur.h"
+#include "../projection/vecteur.h"
 
 				//		Position de l'observateur
 

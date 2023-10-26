@@ -62,11 +62,11 @@ $(OBJDIR)/controleurClavier.o : controleur/controleurClavier.c controleur/contro
 $(OBJDIR)/controleurSouris.o : controleur/controleurSouris.c controleur/controleurSouris.h
 	$(CC) -c -g controleur/controleurSouris.c $(CFLAGS) -o $@
 
-$(OBJDIR)/projectionSystem.o : controleur/projectionSystem.c controleur/projectionSystem.h
-	$(CC) -c -g controleur/projectionSystem.c $(CFLAGS) -o $@
+$(OBJDIR)/projectionSystem.o : projection/projectionSystem.c projection/projectionSystem.h
+	$(CC) -c -g projection/projectionSystem.c $(CFLAGS) -o $@
 
-$(OBJDIR)/projectionGraph.o : controleur/projectionGraph.c controleur/projectionGraph.h
-	$(CC) -c -g controleur/projectionGraph.c $(CFLAGS) -o $@
+$(OBJDIR)/projectionGraph.o : projection/projectionGraph.c projection/projectionGraph.h
+	$(CC) -c -g projection/projectionGraph.c $(CFLAGS) -o $@
 
 $(OBJDIR)/horloge.o : interface/horloge.c interface/horloge.h
 	$(CC) -c -g interface/horloge.c $(CFLAGS) -o $@
@@ -77,8 +77,8 @@ $(OBJDIR)/interface.o : interface/interface.c interface/interface.h
 $(OBJDIR)/graphique.o : interface/graphique.c interface/graphique.h
 	$(CC) -c -g interface/graphique.c $(CFLAGS) -o $@
 
-$(OBJDIR)/graphe.o : interface/graphe.c interface/graphe.h
-	$(CC) -c -g interface/graphe.c $(CFLAGS) -o $@
+$(OBJDIR)/graphes.o : projection/graphes.c projection/graphes.h
+	$(CC) -c -g projection/graphes.c $(CFLAGS) -o $@
 
 $(OBJDIR)/commandes.o : interface/commandes.c interface/commandes.h
 	$(CC) -c -g interface/commandes.c $(CFLAGS) -o $@
@@ -86,11 +86,11 @@ $(OBJDIR)/commandes.o : interface/commandes.c interface/commandes.h
 $(OBJDIR)/capteurs.o : interface/capteurs.c interface/capteurs.h
 	$(CC) -c -g interface/capteurs.c $(CFLAGS) -o $@
 
-$(OBJDIR)/points.o : interface/points.c interface/points.h
-	$(CC) -c -g interface/points.c $(CFLAGS) -o $@
+$(OBJDIR)/points.o : projection/points.c projection/points.h
+	$(CC) -c -g projection/points.c $(CFLAGS) -o $@
 
-$(OBJDIR)/vecteur.o : interface/vecteur.c interface/vecteur.h
-	$(CC) -c -g interface/vecteur.c $(CFLAGS) -o $@
+$(OBJDIR)/vecteur.o : projection/vecteur.c projection/vecteur.h
+	$(CC) -c -g projection/vecteur.c $(CFLAGS) -o $@
 
 $(OBJDIR)/observables.o : modele/observables.c modele/observables.h
 	$(CC) -c -g modele/observables.c $(CFLAGS) -o $@

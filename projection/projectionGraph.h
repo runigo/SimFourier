@@ -33,8 +33,7 @@ termes.
 #ifndef _PROJECTIONGRAPH_
 #define _PROJECTIONGRAPH_
 
-#include "../interface/graphes.h"
-#include "../controleur/pointDeVue.h"
+#include "../projection/graphes.h"
 
 				//		Projections des graphes 3D
 				//		 sur les graphes 2D

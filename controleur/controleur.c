@@ -121,7 +121,8 @@ int controleurProjection(controleurT * controleur)
 
 	projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
 
-	projectionSystemeCommandes(&(*controleur).systeme, &(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
+	projectionSystemeCommandes(&(*controleur).systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
+	projectionControleurCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
 
 	return (*controleur).sortie;
 	}

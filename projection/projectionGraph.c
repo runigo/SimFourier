@@ -41,7 +41,8 @@ int projectionReinitialiseBase(projectionGraphT * projection);
 
 	//	PROJECTION
 //float projectionValeurAbsolue(float valeur);
-int projectionPerspectiveChaine(projectionGraphT * projection, grapheT * graphe);
+int projectionPerspectiveGraphe(grapheT * graphe, int centrageX, int centrageY);
+int projectionPerspectiveGraphes(projectionGraphT * projection, graphesT * graphes);
 //int projectionSystemeChaine3D(systemeT * systeme, projectionGraphT * projection, grapheT * graphe);
 //int projectionSystemeGraphes3D(systemeT * systeme, projectionGraphT * projection, graphesT * graphes);
 
@@ -70,60 +71,27 @@ int projectionGraphInitialise(projectionGraphT * projection)
 	(*projection).logFrequence = 1.0 / log( FREQUENCE_MAX/FREQUENCE_MIN );
 */
 
-	(*projection).fonction.largeur = LARGEUR_IMP;// largeur de la chaîne
-	(*projection).fonction.ratioLH = 3.99;
-	(*projection).fonction.hauteur = (int)((*projection).fonction.largeur/(*projection).ratioXY);// hauteur de la chaîne
-	(*projection).fourier.largeur = LARGEUR_IMP;// largeur de la chaîne
-	(*projection).fourier.ratioLH = 3.99;
-	(*projection).fourier.hauteur = (int)((*projection).fourier.largeur/(*projection).ratioXY);// hauteur de la chaîne
-
-	projectionInitialisePointDeVue(projection, 3*FENETRE_Y, PI/2 - 0.27, PI/2 + 0.21);//r, psi, phi
-
 	return 0;
 	}
 
 void projectionInitialiseAxeFixe(graphesT * graphes, int nombre) {
 
-			//	Initialise les axes fixe des graphes en 3 Dimensions
+			//	Initialise les axes fixes des graphes en 3 Dimensions
 
 	int Ns2=nombre/2;
 	int i;
 
 	for(i=-Ns2;i<Ns2;i++)
 		{
-		(*graphes).fonction.points[i].point.x = (*graphes).fonction.largeur * (((float)i)/nombre);
+		(*graphes).fonction.points[i].point.x = (*graphes).fonction.longueur * (((float)i)/nombre);
 		(*graphes).fonction.points[i].point.y = 0;
 		(*graphes).fonction.points[i].point.z = 0;
-		(*graphes).fourier.points[i].point.x = (*graphes).fourier.largeur * (((float)i)/nombre);
+		(*graphes).fourier.points[i].point.x = (*graphes).fourier.longueur * (((float)i)/nombre);
 		(*graphes).fourier.points[i].point.y = 0;
 		(*graphes).fourier.points[i].point.z = 0;
 		}
 
 	return;
-	}
-
-int projectionGraphInitialisePointDeVue(projectionGraphT * projection, float r, float psi, float phi)
-	{
-		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
-
-	vecteurInitialisePolaire(&(*projection).fonction.pointDeVue, r, psi, phi);
-	vecteurInitialisePolaire(&(*projection).fourier.pointDeVue, r, psi, phi);
-	
-	projectionReinitialiseBase(projection);
-	return 0;
-	}
-
-int projectionGraphReinitialiseBase(projectionGraphT * projection)
-	{
-		// Réinitialise les vecteurs perpendiculaires
-
-		vecteurInitialisePhi(&(*projection).fonction.pointDeVue, &(*projection).fonction.vecteurPhi, (*projection).fenetreX*RATIO_CHAINE_FENETRE_X);
-		vecteurInitialisePsi(&(*projection).fonction.pointDeVue, &(*projection).fonction.vecteurPsi, (*projection).fenetreY*RATIO_CHAINE_FENETRE_X*(*projection).ratioXY);
-
-		vecteurInitialisePhi(&(*projection).fourier.pointDeVue, &(*projection).fourier.vecteurPhi, (*projection).fenetreX*RATIO_CHAINE_FENETRE_X);
-		vecteurInitialisePsi(&(*projection).fourier.pointDeVue, &(*projection).fourier.vecteurPsi, (*projection).fenetreY*RATIO_CHAINE_FENETRE_X*(*projection).ratioXY);
-
-	return 0;
 	}
 
 	//-----------------    PROJECTION      -----------------------//
@@ -151,42 +119,6 @@ int projectionGraphGraphes(projectionGraphT * projection, graphesT * graphes) {
 	return 0;
 	}
 
-int projectionInitialiseSupport(projectionGraphT * projection, int nombre)
-//
-//                                                Z
-//                                          Y              X'
-//                                                O
-//                                                      Y'
-//                                                Z'
-//             X
-
-	{
-	int i;
-	float xyz;
-	for(i=0;i<6;i++)
-		{
-		(*projection).support[i].x = 0;
-		}
-
-					// AXE Ox
-	xyz = 1.2;//*(*projection).rayon;
-	(*projection).support[0].x = xyz;
-	(*projection).support[1].x = -xyz;
-
-					// AXE Oy
-	xyz = 1.2;//*(*projection).rayon;
-	(*projection).support[2].y = xyz;
-	(*projection).support[3].y = -xyz;
-
-					// AXE Oz
-	xyz = 6.5;// * (*projection).longueur;
-	(*projection).support[4].z = xyz;
-	xyz = 0.5;// * (*projection).longueur;
-	(*projection).support[5].z = -xyz;
-	(void)nombre;
-	return 0;
-	}
-
 int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe)
 	{
 			//	Projette le support 3D sur le rendu en perspective
@@ -199,14 +131,14 @@ int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe
 	for(i=0;i<7;i++)
 		{
 			// Coordonnees 2D des points du support
-		vecteurDifferenceCartesien(&(*projection).support[i], &(*projection).pointDeVue, &v);
-		(*graphe).supporX[i] = centrageX + vecteurScalaireCartesien(&v, &(*projection).vecteurPsi);
-		(*graphe).supporY[i] = centrageY + vecteurScalaireCartesien(&v, &(*projection).vecteurPhi);
+		vecteurDifferenceCartesien(&(*graphe).support[i], &(*graphe).pointDeVue.pointDeVue, &v);
+		(*graphe).supporX[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
+		(*graphe).supporY[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
 		}
-	if((*projection).pointDeVue.psi<0)
+	if((*graphe).pointDeVue.psi<0)
 		{
 		(*graphe).gauche=1;
-		if((*projection).pointDeVue.psi < -PI/2)
+		if((*graphe).pointDeVue.vecteurPsi < -PI/2)
 			{
 			(*graphe).arriere=1;
 			}
@@ -218,7 +150,7 @@ int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe
 	else
 		{
 		(*graphe).gauche=0;
-		if((*projection).pointDeVue.psi > PI/2)
+		if((*graphe).pointDeVue.vecteurPsi > PI/2)
 			{
 			(*graphe).arriere=1;
 			}
@@ -228,7 +160,7 @@ int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe
 			}
 		}
 
-	if((*projection).pointDeVue.phi<PI/2)
+	if((*graphe).pointDeVue.vecteurPhi<PI/2)
 		{
 		(*graphe).dessous=1;
 		}
@@ -244,13 +176,13 @@ int projectionPerspectiveGraphes(projectionGraphT * projection, graphesT * graph
 	{
 			//	Projette les graphes 3D sur les graphes 2D
 
-	projectionPerspectiveGraphe(&(*projection).fonction, &(*graphes).fonction, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_Q ) );
-	projectionPerspectiveGraphe(&(*projection).fourier, &(*graphes).fourier, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_F ) );
+	projectionPerspectiveGraphe(&(*graphes).fonction, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_Q ) );
+	projectionPerspectiveGraphe(&(*graphes).fourier, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_F ) );
 
 	return 0;
 	}
 
-int projectionPerspectiveGraphe(pointDeVueT * pointDeVue, grapheT * graphe, int centrageX, int centrageY)
+int projectionPerspectiveGraphe(grapheT * graphe, int centrageX, int centrageY)
 	{
 						//	Projette un graphe 3D sur son graphe 2D
 	vecteurT v;
@@ -262,10 +194,10 @@ int projectionPerspectiveGraphe(pointDeVueT * pointDeVue, grapheT * graphe, int 
 				// Coordonnees 2D du point et centrage du graphe
 
 			// v = masse - point de vue
-		vecteurDifferenceCartesien(&(*graphe).fonction[i].point, &(*pointDeVue).pointDeVue, &v);
+		vecteurDifferenceCartesien(&(*graphe).fonction[i].point, &(*graphe).pointDeVue.pointDeVue, &v);
 			// x = X + v.Psi		 y = Y + v.Phi
-		(*graphe).xp = centrageX + vecteurScalaireCartesien(&v, &(*pointDeVue).vecteurPsi);
-		(*graphe).yp = centrageY + vecteurScalaireCartesien(&v, &(*pointDeVue).vecteurPhi);
+		(*graphe).xp = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
+		(*graphe).yp = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
 
 
 				// Coordonnees 2D de l'axe
@@ -273,8 +205,8 @@ int projectionPerspectiveGraphe(pointDeVueT * pointDeVue, grapheT * graphe, int 
 			// v = axe - point de vue
 		vecteurDifferenceCartesien(&(*graphe).fonction[i].axe, &(*projection).pointDeVue, &v);
 			// x = X + v.Psi		 y = Y + v.Phi
-		(*graphe).xa = centrageX + vecteurScalaireCartesien(&v, &(*pointDeVue).vecteurPsi);
-		(*graphe).ya = centrageY + vecteurScalaireCartesien(&v, &(*pointDeVue).vecteurPhi);
+		(*graphe).xa = centrageX + vecteurScalaireCartesien(&v, &(*graphe).vecteurPsi);
+		(*graphe).ya = centrageY + vecteurScalaireCartesien(&v, &(*graphe).vecteurPhi);
 
 		}
 

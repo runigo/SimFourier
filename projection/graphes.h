@@ -34,25 +34,30 @@ termes.
 #define _GRAPHES_
 
 #include "point.h"
+#include "pointDeVue.h"
 
 typedef struct GrapheT grapheT;
 	struct GrapheT
 		{
-		pointT points[NOMBRE_MAX]; // Fonction ou TF
 		int nombre;
+
+		pointT points[NOMBRE_MAX]; // Fonction ou TF
+
+
+		vecteurT support[7];	// Support fixe
 		int supporX[7];
 		int supporY[7];
 
-		pointDeVueT pointDeVue;	//	fonction
+		pointDeVueT pointDeVue;	//	Position de l'observateur
 
-		int support;	// Change la représentation graphique du support
+		int modeSupport;	// Change la représentation graphique du support
 
 		int dessous;	// Vue de dessous
 		int arriere;	// Vue de derrière
 		int gauche;		// Vue de gauche
 
 		int longueur;	// Longueur Ox
-		int largeur;	// Longueurs Oy et Oz
+		int rayon;	// Longueurs Oy et Oz
 		
 		float ratiox;	// rapport décalage X / fenetre X
 		float ratioy;	// rapport décalage Y / fenetre Y
