@@ -33,7 +33,6 @@ termes.
 #ifndef _GRAPHES_
 #define _GRAPHES_
 
-#include "point.h"
 #include "pointDeVue.h"
 
 typedef struct GrapheT grapheT;
@@ -41,14 +40,22 @@ typedef struct GrapheT grapheT;
 		{
 		int nombre;
 
-		pointT points[NOMBRE_MAX]; // Fonction ou TF
+			// Grandeurs 3D
+		vecteurT point[NOMBRE_MAX]; // Fonction ou TF
+		vecteurT support[SUPPORT];	// Support fixe
 
 
-		vecteurT support[7];	// Support fixe
-		int supporX[7];
-		int supporY[7];
+			// Grandeurs 2D
+		int xp[NOMBRE_MAX];		// Absisse 2D du point
+		int yp[NOMBRE_MAX];		// Ordonnée 2D du point
+		int xa[NOMBRE_MAX];		// Absisse 2D de l'axe
+		int ya[NOMBRE_MAX];		// Ordonnée 2D de l'axe
 
-		pointDeVueT pointDeVue;	//	Position de l'observateur
+		int supporX[7];		// Absisse 2D des axes
+		int supporY[7];		// Ordonnée 2D des axes
+
+			// Position de l'observateur
+		pointDeVueT pointDeVue;
 
 		int modeSupport;	// Change la représentation graphique du support
 

@@ -36,6 +36,7 @@ termes.
 				//		observables sur l'interface graphique
 
 	//	INITIALISATION
+int pointDeVueReinitialiseBase(pointDeVueT * pointDeVue);
 
 	//	CHANGE
 
@@ -44,30 +45,22 @@ termes.
 
 	//-----------------    INITIALISATION      -----------------------//
 
-int pointDeVueInitialise(pointDeVueT * pointDeVue, float r, float psi, float phi)
+int pointDeVueInitialise(pointDeVueT * pointDeVue)
 	{
-		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
-
-	vecteurInitialisePolaire(pointDeVue, r, psi, phi);
+	vecteurInitialisePolaire(&(*pointDeVue).position, DISTANCE_IMP, 0.2, 0.2);
+	vecteurInitialisePolaire(&(*pointDeVue).vecteurPhi, 0.0, 0.0, 0.0);
+	vecteurInitialisePolaire(&(*pointDeVue).vecteurPsi, 0.0, 0.0, 0.0);
 	pointDeVueReinitialiseBase(pointDeVue);
 	return 0;
 	}
 
-int pointDeVueReinitialiseBase(pointDeVueT * pointDeVue)
+int pointDeVueReinitialiseBase(pointDeVue)
 	{
 		// Réinitialise les vecteurs perpendiculaires
-
-	vecteurInitialiseVecteurPhi(&(*pointDeVue).pointDeVue, &(*projection).vecteurPhi, (*pointDeVue).largeur);
-		vecteurInitialiseVecteurPsi(&(*pointDeVue).pointDeVue, &(*projection).vecteurPsi, (*pointDeVue).hauteur);
-		}
-
-	// Calcul des vecteurs perpendiculaires au vecteur point de vue
-	vecteurInitialisePhi(&(*pointDeVue).pointDeVue, &(*pointDeVue).vecteurPhi, &(*pointDeVue).hauteur);
-	vecteurInitialisePsi(&(*pointDeVue).pointDeVue, &(*pointDeVue).vecteurPsi, &(*pointDeVue).largeur);
+	vecteurInitialiseVecteurPhi(&(*pointDeVue).position, &(*pointDeVue).vecteurPhi, &(*pointDeVue).position.r);
+	vecteurInitialiseVecteurPsi(&(*pointDeVue).position, &(*pointDeVue).vecteurPsi, &(*pointDeVue).position.r);
 	return 0;
 	}
-
-
 	//-----------------    CHANGE LE POINT DE VUE     -----------------------//
 
 int pointDeVueChangePhi(pointDeVueT * pointDeVue, float x) {
@@ -76,9 +69,9 @@ int pointDeVueChangePhi(pointDeVueT * pointDeVue, float x) {
 
 	float r, psi, phi;
 
-	r = (*pointDeVue).pointDeVue.r;
-	psi = (*pointDeVue).pointDeVue.psi;
-	phi = (*pointDeVue).pointDeVue.phi + x;
+	r = (*pointDeVue).position.r;
+	psi = (*pointDeVue).position.psi;
+	phi = (*pointDeVue).position.phi + x;
 
 		// phi reste inférieur à PI
 	if(phi > PI)
@@ -124,30 +117,29 @@ int pointDeVueChangePsi(pointDeVueT * pointDeVue, float x) {
 	return 0;
 	}
 
-int pointDeVueChangeTaille(pointDeVueT * pointDeVue, float x) {
+int pointDeVueChangeDistance(pointDeVueT * pointDeVue, float x) {
 
-		// Change la taille de la chaîne
+		// Change la distance de l'observateur
 
-	int largeur = (*pointDeVue).largeur * x;
+	float distance = (*pointDeVue).position.r * x;
 
-	if(largeur > LARGEUR_MAX)
+	if(distance > DISTANCE_MAX)
 		{
-		printf("Maximum de la taille ateinte\n");
+		printf("Maximum de la distance ateinte\n");
 		}
 	else
 		{
-		if(largeur < LARGEUR_MIN)
+		if(distance < DISTANCE_MIN)
 			{
-			printf("Minimum de la taille ateinte\n");
+			printf("Minimum de la distance ateinte\n");
 			}
 		else
 			{
-			(*pointDeVue).largeur = largeur;
-			(*pointDeVue).hauteur = (int)(largeur/(*pointDeVue).ratioLH);
-			printf("(*projection).hauteur = %d\n", (*pointDeVue).hauteur);
-			printf("(*projection).largeur = %d\n", (*pointDeVue).largeur);
+			(*pointDeVue).position.r = distance;
+			printf("(*pointDeVue).position.r = %d\n", (*pointDeVue).position.r);
 			}
 		}
+	pointDeVueReinitialiseBase(pointDeVue);
 
 	return 0;
 	}

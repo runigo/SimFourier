@@ -51,7 +51,6 @@ termes.
 	//  TAILLE IMPLICITE DE LA FENÊTRE
 #define FENETRE_X 938
 #define FENETRE_Y 680
-#define RATIO_CHAINE_FENETRE_X 0.000317 // Vecteur Psi et Phi
 
 	//	PARAMÈTRES DES CAPTEURS
 #define GRAPHES 2 // Nombres de graphes
@@ -69,12 +68,20 @@ termes.
 #define DUREE_CAPTEURS 128 // Nombre de points en mémoire
 
 	//	PARAMÈTRES GRAPHIQUES DE LA CHAÎNE
-
+#define SUPPORT 7			// Nombre de point du support (axes)
 #define LARGEUR_IMP 1900	// Longueur implicite de la chaîne
+
+#define DISTANCE_MAX 1000
+#define DISTANCE_IMP 100
+#define DISTANCE_MIN 10
+
 
 #define RATIO_C_X 0.399		// Ratio Centrage X
 #define RATIO_C_Y_Q 0.263		// Ratio Centrage Y Fonction
 #define RATIO_C_Y_F 0.526		// Ratio Centrage Y Fourier
+
+
+
 
 		//---------- PARAMÈTRES DE DISCRÉTISATION TEMPORELLE DU SYSTÈME -------
 
@@ -90,15 +97,13 @@ termes.
 #define DT_MAX 0.003		// Discrétisation maximale du temps
 
 
-		//---------------- PARAMÈTRES DE LA CHAINE ---------------------
-
-#define FONCTIONS 2 // Nombres de fonctions
-
-	//	PARAMÈTRES QUANTIQUE
+		//---------------- PARAMÈTRES DE LA CORDE ---------------------
 
 #define NOMBRE_MIN 8 	//	Nombre minimal de points
 #define NOMBRE 1024		//	Nombre implicite de points
 #define NOMBRE_MAX 8192 //	Nombre maximal de points
+
+	//	PARAMÈTRES QUANTIQUE
 
 #define MASSE_MAX 77.7	//	Masse maximale
 #define MASSE 1.0		//	Masse implicite

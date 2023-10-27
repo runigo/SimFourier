@@ -87,18 +87,18 @@ void vecteurDifferenceCartesien(vecteurT * v1, vecteurT * v2, vecteurT * v3)
 	return;
 	}
 
-int vecteurInitialiseVecteurPhi(vecteurT * pointDeVue, vecteurT * vecteurPhi, float hauteur)
+int vecteurInitialiseVecteurPhi(vecteurT * position, vecteurT * vecteurPhi, float hauteur)
 	{
-	(*vecteurPhi).x=-hauteur*cos((*pointDeVue).psi)*cos((*pointDeVue).phi);
-	(*vecteurPhi).y=-hauteur*sin((*pointDeVue).psi)*cos((*pointDeVue).phi);
-	(*vecteurPhi).z=hauteur*sin((*pointDeVue).phi);
+	(*vecteurPhi).x=-hauteur*cos((*position).psi)*cos((*pointDeVue).phi);
+	(*vecteurPhi).y=-hauteur*sin((*position).psi)*cos((*pointDeVue).phi);
+	(*vecteurPhi).z=hauteur*sin((*position).phi);
 	return 0;
 	}
 
-int vecteurInitialiseVecteurPsi(vecteurT * pointDeVue, vecteurT * vecteurPsi, float largeur)
+int vecteurInitialiseVecteurPsi(vecteurT * position, vecteurT * vecteurPsi, float largeur)
 	{
-	(*vecteurPsi).x=-largeur*sin((*pointDeVue).psi);
-	(*vecteurPsi).y=largeur*cos((*pointDeVue).psi);
+	(*vecteurPsi).x=-largeur*sin((*position).psi);
+	(*vecteurPsi).y=largeur*cos((*position).psi);
 	(*vecteurPsi).z=0;
 	return 0;
 	}

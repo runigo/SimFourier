@@ -40,17 +40,11 @@ termes.
 typedef struct PointDeVueT pointDeVueT;
 	struct PointDeVueT
 		{
-		vecteurT pointDeVue;	// Position observateur
+		vecteurT position;	// Position de l'observateur
 
-			// Vecteurs perpendiculaires à pointDeVue
+			// Vecteurs perpendiculaires à position
 		vecteurT vecteurPhi;
 		vecteurT vecteurPsi;
-
-		int hauteur;	// hauteur de la chaîne
-		int largeur;	// largeur de la chaîne
-		int longueur;	// longueur de la chaîne
-		float ratioLH;	// rapport largeur / hauteur
-
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
