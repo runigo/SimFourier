@@ -312,12 +312,12 @@ int projectionSystemeGraphes3D(systemeT * systeme, projectionSystemT * projectio
 
 	for(i=0;i<nombre;i++)
 		{
-		//(*graphes).fonction.points[i].point.x = (*graphes).fonction.axe[i].x;
-		(*graphes).fonction.points[i].point.y = (*systeme).actuel.reel[i];//(*projection).fonction.hauteur * 
-		(*graphes).fonction.points[i].point.z = (*systeme).actuel.imag[i];//(*projection).fonction.hauteur * 
-		//(*graphes).fourier.points[i].point.x = (*graphes).fourier.axe[i].x;
-		(*graphes).fourier.points[i].point.y = (*systeme).fourier.reel[i];//(*projection).fourier.hauteur * 
-		(*graphes).fourier.points[i].point.z = (*systeme).fourier.imag[i];//(*projection).fourier.hauteur * 
+		//(*graphes).fonction.point[i].x = (*graphes).fonction.axe[i].x;
+		(*graphes).fonction.point[i].y = (*systeme).actuel.reel[i];//(*projection).fonction.hauteur * 
+		(*graphes).fonction.point[i].z = (*systeme).actuel.imag[i];//(*projection).fonction.hauteur * 
+		//(*graphes).fourier.point[i].x = (*graphes).fourier.axe[i].x;
+		(*graphes).fourier.point[i].y = (*systeme).fourier.reel[i];//(*projection).fourier.hauteur * 
+		(*graphes).fourier.point[i].z = (*systeme).fourier.imag[i];//(*projection).fourier.hauteur * 
 		}
 
 	return 0;

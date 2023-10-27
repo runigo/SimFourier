@@ -83,12 +83,12 @@ void projectionInitialiseAxeFixe(graphesT * graphes, int nombre) {
 
 	for(i=-Ns2;i<Ns2;i++)
 		{
-		(*graphes).fonction.points[i].point.x = (*graphes).fonction.longueur * (((float)i)/nombre);
-		(*graphes).fonction.points[i].point.y = 0;
-		(*graphes).fonction.points[i].point.z = 0;
-		(*graphes).fourier.points[i].point.x = (*graphes).fourier.longueur * (((float)i)/nombre);
-		(*graphes).fourier.points[i].point.y = 0;
-		(*graphes).fourier.points[i].point.z = 0;
+		(*graphes).fonction.point[i].point.x = (*graphes).fonction.longueur * (((float)i)/nombre);
+		(*graphes).fonction.point[i].point.y = 0;
+		(*graphes).fonction.point[i].point.z = 0;
+		(*graphes).fourier.point[i].point.x = (*graphes).fourier.longueur * (((float)i)/nombre);
+		(*graphes).fourier.point[i].point.y = 0;
+		(*graphes).fourier.point[i].point.z = 0;
 		}
 
 	return;
@@ -111,11 +111,9 @@ int projectionGraphGraphes(projectionGraphT * projection, graphesT * graphes) {
 
 		//		Projection des graphes 3D sur les graphes 2D
 		// Projection en 2D de la représentation 3D
-	projectionPerspectiveChaine(projection, &(*graphes).fonction);
+	projectionPerspectiveSupport(projection, &(*graphes).fonction);
 	projectionPerspectiveSupport(projection, &(*graphes).fourier);
-	projectionPerspectiveChaine(projection, &(*graphes).fonction);
-	projectionPerspectiveSupport(projection, &(*graphes).fourier);
-
+	projectionPerspectiveGraphes(projection, graphes);
 	return 0;
 	}
 
@@ -131,14 +129,14 @@ int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe
 	for(i=0;i<7;i++)
 		{
 			// Coordonnees 2D des points du support
-		vecteurDifferenceCartesien(&(*graphe).support[i], &(*graphe).pointDeVue.pointDeVue, &v);
+		vecteurDifferenceCartesien(&(*graphe).support[i], &(*graphe).pointDeVue.position, &v);
 		(*graphe).supporX[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
 		(*graphe).supporY[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
 		}
-	if((*graphe).pointDeVue.psi<0)
+	if((*graphe).pointDeVue.position.psi<0)
 		{
 		(*graphe).gauche=1;
-		if((*graphe).pointDeVue.vecteurPsi < -PI/2)
+		if((*graphe).pointDeVue.position.psi < -PI/2)
 			{
 			(*graphe).arriere=1;
 			}
@@ -150,7 +148,7 @@ int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe
 	else
 		{
 		(*graphe).gauche=0;
-		if((*graphe).pointDeVue.vecteurPsi > PI/2)
+		if((*graphe).pointDeVue.position.psi > PI/2)
 			{
 			(*graphe).arriere=1;
 			}
@@ -160,7 +158,7 @@ int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe
 			}
 		}
 
-	if((*graphe).pointDeVue.vecteurPhi<PI/2)
+	if((*graphe).pointDeVue.position.phi<PI/2)
 		{
 		(*graphe).dessous=1;
 		}
@@ -194,7 +192,7 @@ int projectionPerspectiveGraphe(grapheT * graphe, int centrageX, int centrageY)
 				// Coordonnees 2D du point et centrage du graphe
 
 			// v = masse - point de vue
-		vecteurDifferenceCartesien(&(*graphe).fonction[i].point, &(*graphe).pointDeVue.pointDeVue, &v);
+		vecteurDifferenceCartesien(&(*graphe).fonction[i].point, &(*graphe).pointDeVue.position, &v);
 			// x = X + v.Psi		 y = Y + v.Phi
 		(*graphe).xp = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
 		(*graphe).yp = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);

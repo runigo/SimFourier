@@ -163,13 +163,13 @@ int controleurConstructionGraphique(controleurT * controleur)
 int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe)
 	{
 		//		Dessine un graphe
-	if((*graphe).support==0)
+	if((*graphe).modeSupport==0)
 		{
 		graphiquePendule(graphique, graphe);
 		}
 	else
 		{
-		if((*graphe).support==1)
+		if((*graphe).modeSupport==1)
 			{
 			graphiquePenduleSupport(graphique, graphe);
 			}

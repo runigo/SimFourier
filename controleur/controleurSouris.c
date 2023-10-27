@@ -96,11 +96,11 @@ int controleurSourisDefilePointDeVueFonction(controleurT * controleur)
 
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
-		pointDeVueChangeTaille(&(*controleur).graphes.fonction.pointDeVue, 1.03);
+		pointDeVueChangeDistance(&(*controleur).graphes.fonction.pointDeVue, 1.03);
 		}
 	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
 		{
-		pointDeVueChangeTaille(&(*controleur).graphes.fonction.pointDeVue, 0.97);
+		pointDeVueChangeDistance(&(*controleur).graphes.fonction.pointDeVue, 0.97);
 		}
 
 	return 0;
@@ -112,11 +112,11 @@ int controleurSourisDefilePointDeVueFourier(controleurT * controleur)
 
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
-		pointDeVueChangeTaille(&(*controleur).graphes.fourier.pointDeVue, 1.03);
+		pointDeVueChangeDistance(&(*controleur).graphes.fourier.pointDeVue, 1.03);
 		}
 	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
 		{
-		pointDeVueChangeTaille(&(*controleur).graphes.fourier.pointDeVue, 0.97);
+		pointDeVueChangeDistance(&(*controleur).graphes.fourier.pointDeVue, 0.97);
 		}
 
 	return 0;
