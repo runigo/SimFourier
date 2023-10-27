@@ -35,12 +35,14 @@ termes.
 
 #include "../projection/vecteur.h"
 
-				//		Position de l'observateur
+				//		Vecteur position de l'observateur et vecteurs
+				//		phi et psi perpendiculaire à position
 
 typedef struct PointDeVueT pointDeVueT;
 	struct PointDeVueT
 		{
-		vecteurT position;	// Position de l'observateur
+			// Position de l'observateur
+		vecteurT position;
 
 			// Vecteurs perpendiculaires à position
 		vecteurT vecteurPhi;
@@ -53,7 +55,7 @@ int pointDeVueInitialise(pointDeVueT * pointDeVue);
 	//-----------------    CHANGE      -----------------------//
 int pointDeVueChangePhi(pointDeVueT * pointDeVue, float x);
 int pointDeVueChangePsi(pointDeVueT * pointDeVue, float x);
-int pointDeVueChangeTaille(pointDeVueT * pointDeVue, float x);
+int pointDeVueChangeDistance(pointDeVueT * pointDeVue, float x);
 
 	//-----------------    AFFICHAGE      -----------------------//
 int pointDeVueAffiche(pointDeVueT * pointDeVue);
