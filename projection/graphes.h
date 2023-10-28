@@ -42,6 +42,8 @@ typedef struct GrapheT grapheT;
 
 			// Grandeurs 3D
 		vecteurT point[NOMBRE_MAX]; // Fonction ou TF
+		vecteurT axe[NOMBRE_MAX]; // Fonction ou TF
+
 		vecteurT support[SUPPORT];	// Support fixe
 
 

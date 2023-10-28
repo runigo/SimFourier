@@ -74,26 +74,6 @@ int projectionGraphInitialise(projectionGraphT * projection)
 	return 0;
 	}
 
-void projectionInitialiseAxeFixe(graphesT * graphes, int nombre) {
-
-			//	Initialise les axes fixes des graphes en 3 Dimensions
-
-	int Ns2=nombre/2;
-	int i;
-
-	for(i=-Ns2;i<Ns2;i++)
-		{
-		(*graphes).fonction.point[i].point.x = (*graphes).fonction.longueur * (((float)i)/nombre);
-		(*graphes).fonction.point[i].point.y = 0;
-		(*graphes).fonction.point[i].point.z = 0;
-		(*graphes).fourier.point[i].point.x = (*graphes).fourier.longueur * (((float)i)/nombre);
-		(*graphes).fourier.point[i].point.y = 0;
-		(*graphes).fourier.point[i].point.z = 0;
-		}
-
-	return;
-	}
-
 	//-----------------    PROJECTION      -----------------------//
 
 float projectionGraphValeurAbsolue(float valeur) {
@@ -192,19 +172,19 @@ int projectionPerspectiveGraphe(grapheT * graphe, int centrageX, int centrageY)
 				// Coordonnees 2D du point et centrage du graphe
 
 			// v = masse - point de vue
-		vecteurDifferenceCartesien(&(*graphe).fonction[i].point, &(*graphe).pointDeVue.position, &v);
+		vecteurDifferenceCartesien(&(*graphe).point[i], &(*graphe).pointDeVue.position, &v);
 			// x = X + v.Psi		 y = Y + v.Phi
-		(*graphe).xp = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
-		(*graphe).yp = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
+		(*graphe).xp[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
+		(*graphe).yp[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
 
 
 				// Coordonnees 2D de l'axe
 
 			// v = axe - point de vue
-		vecteurDifferenceCartesien(&(*graphe).fonction[i].axe, &(*projection).pointDeVue, &v);
+		vecteurDifferenceCartesien(&(*graphe).axe[i], &(*graphe).pointDeVue, &v);
 			// x = X + v.Psi		 y = Y + v.Phi
-		(*graphe).xa = centrageX + vecteurScalaireCartesien(&v, &(*graphe).vecteurPsi);
-		(*graphe).ya = centrageY + vecteurScalaireCartesien(&v, &(*graphe).vecteurPhi);
+		(*graphe).xa[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).vecteurPsi);
+		(*graphe).ya[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).vecteurPhi);
 
 		}
 

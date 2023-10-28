@@ -48,13 +48,22 @@ int graphesInitialisation(graphesT * graphes, int nombre)
 
 int grapheInitialisation(grapheT * graphe, int nombre)
 	{
+	int i;
 	(*graphe).nombre=nombre;
 	for(i=0;i<NOMBRE_MAX){
 		vecteurInitialise(&(*graphe).point[i]);
+		vecteurInitialise(&(*graphe).axe[i]);
 		(*graphe).xp[i] = 0;
 		(*graphe).yp[i] = 0;
 		(*graphe).xa[i] = 0;
 		(*graphe).ya[i] = 0;
+		}
+
+	int Ns2=nombre/2;
+	for(i=-Ns2;i<Ns2;i++)
+		{
+		(*graphe).point[i].x = (float)i;
+		(*graphe).axe[i].x = (float)i;
 		}
 	for(i=0;i<SUPPORT){
 		vecteurInitialise(&(*graphe).support[i]);
@@ -74,7 +83,8 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	(*graphe).ratiox = 0;
 	(*graphe).ratioy = 0;
 
-	pointDeVueInitialise((*graphe)pointDeVue);
+	pointDeVueInitialise((*graphe).pointDeVue);
+	grapheInitialiseSupport(graphe);
 
 	return 0;
 	}
@@ -103,7 +113,7 @@ int grapheInitialisePointDeVue(grapheT * graphe, float r, float psi, float phi)
 	return 0;
 	}
 
-int GrapheReinitialiseBase(grapheT * graphe)
+int grapheReinitialiseBase(grapheT * graphe)
 	{
 		// Réinitialise les vecteurs perpendiculaires
 
@@ -113,7 +123,7 @@ int GrapheReinitialiseBase(grapheT * graphe)
 	return 0;
 	}
 
-int GrapheInitialiseSupport(grapheT * graphe){
+int grapheInitialiseSupport(grapheT * graphe){
 //
 //                                                Z
 //                                          Y              X'
