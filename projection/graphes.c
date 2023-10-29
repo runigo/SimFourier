@@ -32,6 +32,9 @@ termes.
 
 #include "graphes.h"
 
+int grapheInitialiseSupport(grapheT * graphe);
+int grapheInitialisePointDeVue(graphesT * graphes, float r, float psi, float phi);
+int graphesInitialisePointDeVue(graphesT * graphes, float r, float psi, float phi);
 
 int grapheInitialisation(grapheT * graphe, int nombre);
 
@@ -43,16 +46,16 @@ int graphesInitialisation(graphesT * graphes, int nombre)
 	(*graphes).fonction.ratioy = 0.33;
 	(*graphes).fourier.ratiox = 0.5;
 	(*graphes).fourier.ratioy = 0.66;
-	return 0:
+	return 0;
 	}
 
 int grapheInitialisation(grapheT * graphe, int nombre)
 	{
 	int i;
 	(*graphe).nombre=nombre;
-	for(i=0;i<NOMBRE_MAX){
-		vecteurInitialise(&(*graphe).point[i]);
-		vecteurInitialise(&(*graphe).axe[i]);
+	for(i=0;i<NOMBRE_MAX;i++){
+		vecteurInitialisePolaire(&(*graphe).point[i],0.0,0.0,0.0);
+		vecteurInitialisePolaire(&(*graphe).axe[i],0.0,0.0,0.0);
 		(*graphe).xp[i] = 0;
 		(*graphe).yp[i] = 0;
 		(*graphe).xa[i] = 0;
@@ -65,8 +68,8 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 		(*graphe).point[i].x = (float)i;
 		(*graphe).axe[i].x = (float)i;
 		}
-	for(i=0;i<SUPPORT){
-		vecteurInitialise(&(*graphe).support[i]);
+	for(i=0;i<SUPPORT;i++){
+		vecteurInitialisePolaire(&(*graphe).support[i],0.0,0.0,0.0);
 		(*graphe).supporX[i] = 0;
 		(*graphe).supporY[i] = 0;
 		}
@@ -83,21 +86,18 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	(*graphe).ratiox = 0;
 	(*graphe).ratioy = 0;
 
-	pointDeVueInitialise((*graphe).pointDeVue);
+	pointDeVueInitialise(&(*graphe).pointDeVue);
 	grapheInitialiseSupport(graphe);
 
 	return 0;
 	}
-
+/*
 int graphesInitialisePointDeVue(graphesT * graphes, float r, float psi, float phi)
 	{
 		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
 
-	grapheInitialisePointDeVue(&(*graphes).fonction, r, psi, phi);
-	grapheInitialisePointDeVue(&(*graphes).fourier, r, psi, phi);
-	
-	GrapheReinitialiseBase(&(*graphes).fonction);
-	GrapheReinitialiseBase(&(*graphes).fonction);
+	grapheInitialisePointDeVue(&(*graphes).fonction.pointDeVue, r, psi, phi);
+	grapheInitialisePointDeVue(&(*graphes).fourier.pointDeVue, r, psi, phi);
 
 	return 0;
 	}
@@ -122,7 +122,7 @@ int grapheReinitialiseBase(grapheT * graphe)
 
 	return 0;
 	}
-
+*/
 int grapheInitialiseSupport(grapheT * graphe){
 //
 //                                                Z
@@ -159,19 +159,19 @@ void grapheChangeSupport(grapheT * graphe){
 
 	// Change la représentation graphique du support
 
-	if((*graphe).support==1)
-		{(*graphe).support=0;
+	if((*graphe).modeSupport==1)
+		{(*graphe).modeSupport=0;
 		printf("Support invisible\n");}
 	else
 		{
-		if((*graphe).support==0)
+		if((*graphe).modeSupport==0)
 			{
-			(*graphe).support=-1;
+			(*graphe).modeSupport=-1;
 			printf("Support transparent\n");
 			}
 		else
 			{
-			(*graphe).support=1;
+			(*graphe).modeSupport=1;
 			printf("Support plein\n");
 			}
 		}

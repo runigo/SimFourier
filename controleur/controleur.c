@@ -117,9 +117,9 @@ int controleurProjection(controleurT * controleur)
 	commandesInitialiseSouris(&(*controleur).commandes, x, y);
 
 	projectionSystemeGraphes(&(*controleur).systeme, &(*controleur).projectionSystem, &(*controleur).graphes);
-	projectionGraphGraphes3D(&(*controleur).projectionGraph, &(*controleur).graphes);
+	projectionGraphGraphes(&(*controleur).projectionGraph, &(*controleur).graphes);
 
-	projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
+	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
 
 	projectionSystemeCommandes(&(*controleur).systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
 	projectionControleurCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
@@ -133,7 +133,7 @@ int controleurEvolutionSysteme(controleurT * controleur)
 	systemeEvolution(&(*controleur).systeme, (*controleur).options.duree);
 
 		//fprintf(stderr, "Mise à jour des observables\n");
-	observablesMiseAJour(&(*controleur).observables, &(*controleur).systeme);
+	//observablesMiseAJour(&(*controleur).observables, &(*controleur).systeme);
 
 	return 0;
 	}
@@ -175,7 +175,7 @@ int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe)
 			}
 		else
 			{
-			graphiquePenduleSupportPlein(graphique, graphe);
+			//graphiquePenduleSupportPlein(graphique, graphe);
 			}
 		}
 	return 0;
@@ -257,8 +257,8 @@ int controleurKEYDOWN(controleurT * controleur)
 void controleurPostReinitialisation(controleurT * controleur) {
 
 		//		Remise à zéro des observables
-
-	observablesInitialise(&(*controleur).observables);
+	(void)controleur;
+	//observablesInitialise(&(*controleur).observables);
 
 	return;
 	}

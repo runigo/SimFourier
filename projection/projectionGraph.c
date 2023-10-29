@@ -181,10 +181,10 @@ int projectionPerspectiveGraphe(grapheT * graphe, int centrageX, int centrageY)
 				// Coordonnees 2D de l'axe
 
 			// v = axe - point de vue
-		vecteurDifferenceCartesien(&(*graphe).axe[i], &(*graphe).pointDeVue, &v);
+		vecteurDifferenceCartesien(&(*graphe).axe[i], &(*graphe).pointDeVue.position, &v);
 			// x = X + v.Psi		 y = Y + v.Phi
-		(*graphe).xa[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).vecteurPsi);
-		(*graphe).ya[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).vecteurPhi);
+		(*graphe).xa[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
+		(*graphe).ya[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
 
 		}
 
@@ -202,10 +202,10 @@ int projectionGraphChangeFenetre(projectionGraphT * projection, int x, int y) {
 
 	(*projection).ratioXY=(float)x/(float)y;
 
-	projectionReinitialiseBase(projection);
+	//projectionReinitialiseBase(projection);
 	return 0;
 	}
-
+/*
 int projectionGraphChangeTaille(projectionGraphT * projection, float x) {
 
 		// Change la taille de la chaîne
@@ -233,7 +233,7 @@ int projectionGraphChangeTaille(projectionGraphT * projection, float x) {
 
 	return 0;
 	}
-
+*/
 
 	//-----------------    AFFICHAGE      -----------------------//
 
@@ -241,19 +241,18 @@ void projectionGraphAffiche(projectionGraphT * projection) {
 
 	//	Affiche les paramètres de la projection
 
-	printf(" Point de vue\n");
-	vecteurAffiche(&(*projection).pointDeVue);
-	printf(" Vecteur psi\n");
-	vecteurAffiche(&(*projection).vecteurPsi);
-	printf(" Vecteur phi\n");
-	vecteurAffiche(&(*projection).vecteurPhi);
-
-	printf("(*projection).rotation = %d\n", (*projection).rotation);
+/*
+	printf(" Hauteur de la fenêtre\n");
+	vecteurAffiche(&(*projection).fenetreX);
+	printf(" Largeur de la fenêtre\n");
+	vecteurAffiche(&(*projection).fenetreY);
+	printf(" Rapport largeur / hauteur\n");
+	vecteurAffiche(&(*projection).ratioXY);
+*/
 	printf("(*projection).ratioXY = %f\n", (*projection).ratioXY);
-	printf("(*projection).hauteur = %d\n", (*projection).hauteur);
-	printf("(*projection).largeur = %d\n", (*projection).largeur);
 	printf("(*projection).fenetreX = %d\n", (*projection).fenetreX);
 	printf("(*projection).fenetreY = %d\n", (*projection).fenetreY);
+
 	return ;
 	}
 

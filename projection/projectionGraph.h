@@ -52,7 +52,7 @@ typedef struct ProjectionGraphT projectionGraphT;
 int projectionGraphInitialise(projectionGraphT * projection);
 
 	//-----------------    PROJECTION      -----------------------//
-int projectionGraphGraphes3D(projectionGraphT * projection, graphesT * graphes);
+int projectionGraphGraphes(projectionGraphT * projection, graphesT * graphes);
 
 	//-----------------    CHANGE      -----------------------//
 int projectionGraphChangeFenetre(projectionGraphT * projection, int x, int y);

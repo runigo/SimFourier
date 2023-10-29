@@ -71,7 +71,7 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int 
 	//SDL_Color orange = {255, 127, 40, 255};
 	(*graphique).fond.r = fond; (*graphique).fond.g = fond; (*graphique).fond.b = fond; (*graphique).fond.a = 255;
 	(*graphique).contraste.r = 255-fond; (*graphique).contraste.g = 255-fond; (*graphique).contraste.b = 255-fond; (*graphique).contraste.a = 255;
-	(*graphique).jaune.r = 255; (*graphique).jaune.g = 255; (*graphique).jaune.b = 0; (*graphique).jaune.a = 255;
+	//(*graphique).jaune.r = 255; (*graphique).jaune.g = 255; (*graphique).jaune.b = 0; (*graphique).jaune.a = 255;
 
 	(*graphique).orange.r = 255; (*graphique).orange.g = 127; (*graphique).orange.b = 40; (*graphique).orange.a = 255;
 	(*graphique).orangeF.r = 198; (*graphique).orangeF.g = 8; (*graphique).orangeF.b = 0; (*graphique).orangeF.a = 255;
@@ -146,7 +146,7 @@ int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes)
 	{
 		// Dessine le fond et les commandes sélectionées
 	SDL_Rect coordonnee = {0, 0, (*graphique).fenetreX, (*graphique).fenetreY};
-	SDL_RenderCopy((*graphique).rendu, (*graphique).SiCP, NULL, &coordonnee);
+	SDL_RenderCopy((*graphique).rendu, (*graphique).SimFourier, NULL, &coordonnee);
 	
 	int centrage = 5;
 	coordonnee.w=10;
@@ -264,18 +264,17 @@ void graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sin
 	{
 	int decalageDroit = 0;
 	int decalageDiag = 1;
-	float sinCarre=sinT*sinT;
-	int sinusC = (int)(125*sinCarre);
+	(void)sinT;
 	(void)cosT;
 
 		// Horizontales 		    R	  V	  B
-	SDL_SetRenderDrawColor((*graphique).rendu, sinusC, 55+sinusC, 125+sinusC, 255-sinusC);
+	//SDL_SetRenderDrawColor((*graphique).rendu, sinusC, 55+sinusC, 125+sinusC, 255-sinusC);
 	//graphiqueChangeCouleur(graphique, (*graphique).cyan);
 	SDL_RenderDrawLine((*graphique).rendu, X-decalageDroit, Y-decalageDiag, x-decalageDroit, y-decalageDiag);
 	SDL_RenderDrawLine((*graphique).rendu, X+decalageDroit, Y+decalageDiag, x+decalageDroit, y+decalageDiag);
 
 		// Verticale
-	SDL_SetRenderDrawColor((*graphique).rendu, 250-sinusC, 250-sinusC, 25, 255);
+	//SDL_SetRenderDrawColor((*graphique).rendu, 250-sinusC, 250-sinusC, 25, 255);
 	//graphiqueChangeCouleur(graphique, (*graphique).jaune);
 	SDL_RenderDrawLine((*graphique).rendu, X+decalageDiag, Y+decalageDroit, x+decalageDiag, y+decalageDroit);
 	SDL_RenderDrawLine((*graphique).rendu, X-decalageDiag, Y-decalageDroit, x-decalageDiag, y-decalageDroit);
@@ -285,80 +284,23 @@ void graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sin
 
 void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe)
 	{
-//                                                J   I
-//                                             L   K
-//                                               M
-//                                               
-//                                                H   G
-//                                             F   E
-//               N
+//
+//                                                Z
+//                                          Y              X'
+//                                                O
+//                                                      Y'
+//                                                Z'
+//             X
 
-
-//             D   C
-//         B   A
-
-	int Ax, Ay, Bx, By;
-	int Ex, Ey, Fx, Fy, Gx, Gy, Hx, Hy;
-	int Ix, Iy, Jx, Jy, Kx, Ky, Lx, Ly;
-	int Nx, Ny;
 
 		//	Point du support
-	Ax = (*graphe).supporX[0]; Ay = (*graphe).supporY[0];
-	Bx = (*graphe).supporX[1]; By = (*graphe).supporY[1];
-
-	Ex = (*graphe).supporX[4]; Ey = (*graphe).supporY[4];
-	Fx = (*graphe).supporX[5]; Fy = (*graphe).supporY[5];
-	Gx = (*graphe).supporX[6]; Gy = (*graphe).supporY[6];
-	Hx = (*graphe).supporX[7]; Hy = (*graphe).supporY[7];
-	Ix = (*graphe).supporX[8]; Iy = (*graphe).supporY[8];
-	Jx = (*graphe).supporX[9]; Jy = (*graphe).supporY[9];
-	Kx = (*graphe).supporX[10]; Ky = (*graphe).supporY[10];
-	Lx = (*graphe).supporX[11]; Ly = (*graphe).supporY[11];
-
-	Nx = (*graphe).supporX[13]; Ny = (*graphe).supporY[13];
-
-
 	graphiqueChangeCouleur(graphique, (*graphique).contraste);
-		// Boitier moteur et montant avant
+		// Axes x'x, y'y, z'z
 	if((*graphe).arriere <= 0) // Vue de devant
 		{
-			// Boitier moteur	
-		//if((*graphe).gauche <= 0) // Montant gauche
-			{
-			graphiqueRectangle(graphique, Ex, Ey, Gx, Gy, Ix, Iy, Kx, Ky);
-			}
-		//else// Montant droit
-			{
-			graphiqueRectangle(graphique, Fx, Fy, Hx, Hy, Jx, Jy, Lx, Ly);
-			}
-
-			// Face avant
-		graphiqueRectangle(graphique, Fx, Fy, Ex, Ey, Kx, Ky, Lx, Ly);
-			// Face arrière
-		graphiqueRectangle(graphique, Hx, Hy, Gx, Gy, Ix, Iy, Jx, Jy);
-
-		if((*graphe).dessous <= 0) // Vue de dessus
-			{
-				// Chassis
-			graphiqueRectangle(graphique, Ax, Ay, Bx, By, Fx, Fy, Ex, Ey);
-				// Dessus moteur
-			//graphiqueRectangle(graphique, Kx, Ky, Ix, Iy, Jx, Jy, Lx, Ly);
-			}
-		}
-	else // Vue de derriere
-		{
-		if((*graphe).dessous <= 0) // Vue de dessus
-			{
-				// Chassis
-			graphiqueRectangle(graphique, Ax, Ay, Bx, By, Fx, Fy, Ex, Ey);
-				// Palier avant
-			graphiqueTriangle(graphique, Nx, Ny, Ax, Ay, Bx, By);
-			}
-		else // Vue de dessous
-			{
-				// Palier avant
-			graphiqueTriangle(graphique, Nx, Ny, Ax, Ay, Bx, By);
-			}
+		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[0], (*graphe).supporY[0], (*graphe).supporX[1], (*graphe).supporY[1]);
+		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[2], (*graphe).supporY[2], (*graphe).supporX[3], (*graphe).supporY[3]);
+		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[4], (*graphe).supporY[4], (*graphe).supporX[5], (*graphe).supporY[5]);
 		}
 
 
@@ -367,47 +309,12 @@ void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe)
 
 	graphiqueChangeCouleur(graphique, (*graphique).contraste);
 
-		// Boitier moteur et montant avant	
+		// Axes x'x, y'y, z'z
 	if((*graphe).arriere > 0) // Vue de derrière
 		{
-			// Boitier moteur	
-		//if((*graphe).gauche <= 0) // Montant gauche
-			{
-			graphiqueRectangle(graphique, Ex, Ey, Gx, Gy, Ix, Iy, Kx, Ky);
-			}
-		//else// Montant droit
-			{
-			graphiqueRectangle(graphique, Fx, Fy, Hx, Hy, Jx, Jy, Lx, Ly);
-			}
-			// Face arrière
-		graphiqueRectangle(graphique, Hx, Hy, Gx, Gy, Ix, Iy, Jx, Jy);
-			// Face avant
-		graphiqueRectangle(graphique, Fx, Fy, Ex, Ey, Kx, Ky, Lx, Ly);
-
-		if((*graphe).dessous > 0) // Vue de dessous
-			{	// Chassis
-			//graphiqueRectangle(graphique, Ax, Ay, Bx, By, Hx, Hy, Gx, Gy);
-			graphiqueRectangle(graphique, Ax, Ay, Bx, By, Fx, Fy, Ex, Ey);
-			}
-		else
-			{	// Dessus moteur
-			//graphiqueRectangle(graphique, Kx, Ky, Ix, Iy, Jx, Jy, Lx, Ly);
-			}
-		}
-	else // Vue de devant
-		{
-		if((*graphe).dessous <= 0) // Vue de dessus
-			{	// Palier avant
-			graphiqueTriangle(graphique, Nx, Ny, Ax, Ay, Bx, By);
-			}
-		else // Vue de dessous
-			{
-				// Palier avant
-			graphiqueTriangle(graphique, Nx, Ny, Ax, Ay, Bx, By);
-				// Chassis
-			//graphiqueRectangle(graphique, Ax, Ay, Bx, By, Hx, Hy, Gx, Gy);
-			graphiqueRectangle(graphique, Ax, Ay, Bx, By, Fx, Fy, Ex, Ey);
-			}
+		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[0], (*graphe).supporY[0], (*graphe).supporX[1], (*graphe).supporY[1]);
+		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[2], (*graphe).supporY[2], (*graphe).supporX[3], (*graphe).supporY[3]);
+		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[4], (*graphe).supporY[4], (*graphe).supporX[5], (*graphe).supporY[5]);
 		}
 
 	return;
@@ -415,49 +322,25 @@ void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe)
 
 void graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 	{
-	int graphAbs, graphOrd, fixAbs, fixOrd;
-	int sortie=0;
-	//int centrage = (*graphique).taille / 2;
-	int centrage = 4;
-	pointsT *iter=(*graphe).premier;
-	//SDL_Rect coordonnee = {0, 0, (*graphique).taille, (*graphique).taille};
-	SDL_Rect coordonnee = {0, 0, 8, 8};
+	int i;
 
-	// Axe des pendules
-	graphiqueChangeCouleur(graphique, (*graphique).contraste);
-	SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[12], (*graphe).supporY[12], (*graphe).supporX[13], (*graphe).supporY[13]);
+//	if((*graphe).arriere != 0) // Vue de derrière, la chaîne est dessinée vers les précédents.
+//	else {(*graphe).arriere = 0;}
 
-	// Pendules
-	if((*graphe).arriere != 0) // Vue de derrière, la chaîne est dessinée vers les précédents.
-		{iter = iter->precedent;}
-	else {(*graphe).arriere = 0;}
-
-	do
+	for(i=0;i<(*graphe).nombre;i++)
 		{
 		//	Dessin des tiges
-		fixAbs=(*graphe).xa;
-		fixOrd=(*graphe).ya;
-		graphAbs=(*graphe).xm;
-		graphOrd=(*graphe).ym;
-		graphiqueTige(graphique, fixAbs, fixOrd, graphAbs, graphOrd, (*graphe).sinTheta, (*graphe).cosTheta);
+		graphiqueTige(graphique, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i], 0, 0);//(*graphe).sinTheta, (*graphe).cosTheta);
 
 		//	Dessin des masses
-		coordonnee.x = (*graphe).xm - centrage;
-		coordonnee.y = (*graphe).ym - centrage;
-		SDL_RenderCopy((*graphique).rendu, (*graphique).masse, NULL, &coordonnee);
+	//	coordonnee.x = (*graphe).xm;
+	//	coordonnee.y = (*graphe).ym;
+	//	SDL_RenderCopy((*graphique).rendu, (*graphique).masse, NULL, &coordonnee);
 
-		if((*graphe).arriere == 0)
-			{iter=iter->suivant;}
-		else // Vue de derrière, la chaîne est dessinée vers les précédents.
-			{iter=iter->precedent;}
+	//	if((*graphe).arriere == 0)
+	//	else // Vue de derrière, la chaîne est dessinée vers les précédents.
 
-
-		if((*graphe).arriere == 0)
-			{if(iter==(*graphe).premier) sortie = 1;}
-		else // Vue de derrière, la chaîne est dessinée vers les précédents.
-			{if(iter==(*graphe).premier->precedent) sortie = 1;}
 		}
-	while(sortie==0);
 
 	return;
 	}

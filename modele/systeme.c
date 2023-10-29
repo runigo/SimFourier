@@ -34,6 +34,7 @@ termes.
 	//		INITIALISATION
 int systemeInitialiseHbardtSmdx2(systemeT * systeme);
 int systemeInitialisePotentielReduit(systemeT * systeme);
+int systemeInitialiseDt(systemeT * systeme, float dt);
 
 	//		ÉVOLUTION TEMPORELLE
 int systemeIncremente(systemeT * systeme);
@@ -69,7 +70,7 @@ int systemeInitialisation(systemeT * systeme, int nombre, int dt) {
 	systemeInitialisePotentiel(systeme, 1);
 
 		// Initialisation des positions
-	systemeInitialisePosition(systeme, 9) {
+	systemeInitialisePosition(systeme, 9);
 
 
 
@@ -78,13 +79,14 @@ int systemeInitialisation(systemeT * systeme, int nombre, int dt) {
 	systemeInitialiseHbardtSmdx2(systeme);
 
 		// Initialisation du moteurs
-	moteursInitialisation(moteursT * moteurs);
-
+	//moteursInitialisation(moteursT * moteurs);
+	return 0;
 }
 
 int systemeInitialisePotentiel(systemeT * systeme, int forme) {
 
 	// Réinitialisation du potentiel
+	int i;
 
 	if((*systeme).nombre==0)
 		{
@@ -98,7 +100,7 @@ int systemeInitialisePotentiel(systemeT * systeme, int forme) {
 			(*systeme).potentiel.reel[i] = ( (float)forme * i * ( (*systeme).nombre - i ) ) / (*systeme).nombre;
 			}
 		}
-	return systemeInitialisePotentielReduit(systemeT * systeme);
+	return systemeInitialisePotentielReduit(systeme);
 }
 
 int systemeInitialisePosition(systemeT * systeme, int forme) {
@@ -112,12 +114,12 @@ int systemeInitialisePosition(systemeT * systeme, int forme) {
 	return 0;
 }
 
-int systemeInitialisePoint(float ancien, float actuel, float nouveau, int i) {
+int systemeInitialisePoint(systemeT * systeme, float ancien, float actuel, float nouveau, int i) {
 
 	// Réinitialisation des positions
 
 	(*systeme).ancien.reel[i] = ancien;
-	(*systeme).actuel.reel[(i] = actuel;
+	(*systeme).actuel.reel[i] = actuel;
 	(*systeme).nouveau.reel[i] = nouveau;
 
 	return 0;
@@ -156,8 +158,8 @@ int systemeInitialiseDt(systemeT * systeme, float dt)
 		erreur=1;
 		}
 
-	erreur += systemeInitialisePotentielReduit(systemeT * systeme);
-	erreur += systemeInitialiseHbardtSmdx2(systemeT * systeme);
+	erreur += systemeInitialisePotentielReduit(systeme);
+	erreur += systemeInitialiseHbardtSmdx2(systeme);
 
 	return erreur;
 	}
@@ -178,8 +180,8 @@ int systemeInitialiseMasse(systemeT * systeme, float masse)
 		erreur=1;
 		}
 
-	erreur += systemeInitialisePotentielReduit(systemeT * systeme);
-	erreur += systemeInitialiseHbardtSmdx2(systemeT * systeme);
+	erreur += systemeInitialisePotentielReduit(systeme);
+	erreur += systemeInitialiseHbardtSmdx2(systeme);
 
 	return erreur;
 	}
@@ -188,7 +190,9 @@ int systemeInitialisePotentielReduit(systemeT * systeme) {
 
 	// Initialisation du potentiel réduit v(x) = 2 + V(x).2m/hbar
 
-	if((*systeme).hbar =! 0 )
+	int i;
+
+	if( (*systeme).hbar != 0.0 )
 		{
 		for(i=0;i<NOMBRE_MAX;i++)
 			{
@@ -212,16 +216,16 @@ int systemeInitialiseHbardtSmdx2(systemeT * systeme) {
 	// Initialisation du paramètre réduit hbardtSmdx2 = hbar dt / m dx2
 
 	float denominateur = (*systeme).masse * (*systeme).dx * (*systeme).dx;
-	if(denominateur =! 0 )
+	if(denominateur != 0.0 )
 		{
 		(*systeme).hbardtSmdx2 = (*systeme).hbar * (*systeme).dt / denominateur;
-		printf("(*systeme).hbardtSmdx2 = %d\n", (*systeme).hbardtSmdx2);
+		printf("(*systeme).hbardtSmdx2 = %f\n", (*systeme).hbardtSmdx2);
 		return 0;
 		}
 	else
 		{
-		hbardtSmdx2 = (*systeme).hbar * (*systeme).dt / MASSE / DX / DX;
-		printf("ERREUR (*systeme).hbardtSmdx2 = %d\n", (*systeme).hbardtSmdx2);
+		(*systeme).hbardtSmdx2 = (*systeme).hbar * (*systeme).dt / MASSE / DX / DX;
+		printf("ERREUR (*systeme).hbardtSmdx2 = %f\n", (*systeme).hbardtSmdx2);
 		return 1;
 		}
 }
@@ -252,12 +256,12 @@ int systemeInertie(systemeT * systeme) {
 
 		// Reste de la chaîne
 
-	for(i=1;i<N;i++)
+	for(i=1;i<N;i++)	// La partie imaginaire du potentiel (V(x)) est le potentiel réduit v(x) = 2 + V(x).2m/hbar
 		{
 			// Partie réelle
-		(*systeme).nouveau.reel[i] = (*systeme).ancien.reel[i] - (*systeme).Dt * ((*systeme).actuel.imag[i] + (*systeme).actuel.imag[i] - (*systeme).potentiel.imag[i] * (*systeme).actuel.imag[i]);
+		(*systeme).nouveau.reel[i] = (*systeme).ancien.reel[i] - (*systeme).hbardtSmdx2 * ((*systeme).actuel.imag[i] + (*systeme).actuel.imag[i] - (*systeme).potentiel.imag[i] * (*systeme).actuel.imag[i]);
 			// Partie imaginaire
-		(*systeme).nouveau.imag[i] = (*systeme).ancien.imag[i] - (*systeme).Dt * ((*systeme).actuel.reel[i] + (*systeme).actuel.reel[i] - (*systeme).potentiel.imag[i] * (*systeme).actuel.reel[i]);
+		(*systeme).nouveau.imag[i] = (*systeme).ancien.imag[i] - (*systeme).hbardtSmdx2 * ((*systeme).actuel.reel[i] + (*systeme).actuel.reel[i] - (*systeme).potentiel.imag[i] * (*systeme).actuel.reel[i]);
 		}
 
 	return 0;
@@ -266,6 +270,8 @@ int systemeInertie(systemeT * systeme) {
 int systemeIncremente(systemeT * systeme)
 	{
 		//	Incrémente l'ancien et l'actuel état du systeme
+
+	int i;
 
 	for(i=0;i<(*systeme).nombre;i++)
 		{

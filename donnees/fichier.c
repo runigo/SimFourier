@@ -90,7 +90,7 @@ int fichierEcritureParametre(systemeT * systeme, graphesT * graphes, char * nom)
 		{
 		// Moteurs
 			// Paramètres d'horloge
-		reel = (*systeme).moteurs.dt;
+	/*	reel = (*systeme).moteurs.dt;
 			fprintf(fichier, "%f\n", reel);
 		reel = (*systeme).moteurs.chrono;
 			fprintf(fichier, "%f\n", reel);
@@ -118,7 +118,7 @@ int fichierEcritureParametre(systemeT * systeme, graphesT * graphes, char * nom)
 			fprintf(fichier, "%f\n", reel);
 		reel = (*systeme).moteurs.dephasage;
 			fprintf(fichier, "%f\n", reel);
-
+*/
 		// Caractéristique de la chaîne
 		entier = (*systeme).nombre;
 			fprintf(fichier, "%d\n", entier);
@@ -160,7 +160,7 @@ int fichierLectureParametre(systemeT * systeme, graphesT * graphes, char * nom)
 		
 			fprintf(stderr, " Initialisation du système\n");
 		systemeInitialisation(systeme,NOMBRE, DT);
-		// Initialisation du moteurs
+	/*	// Initialisation du moteurs
 			// Paramètres d'horloge
 		fscanf(fichier, "%f\n", &reel);
 		moteursInitialiseDt(&(*systeme).moteurs, reel);
@@ -191,6 +191,7 @@ int fichierLectureParametre(systemeT * systeme, graphesT * graphes, char * nom)
 		fscanf(fichier, "%f\n", &reel);
 		moteursInitialiseDephasage(&(*systeme).moteurs, reel);
 
+*/
 
 		// Initialisation de la chaîne
 			// Caractéristiques
@@ -200,7 +201,6 @@ int fichierLectureParametre(systemeT * systeme, graphesT * graphes, char * nom)
 			// Paramètres physiques
 		fscanf(fichier, "%f\n", &reel);
 		systemeInitialiseMasse(systeme, reel);
-
 		fclose(fichier);
 
 			fprintf(stderr, " Initialisation des graphes\n");
@@ -280,7 +280,7 @@ int fichierLecturePosition(systemeT * systeme, char * nom)
 			actuel = 0;
 			nouveau = 0;
 			fscanf(fichier, "%f %f %f\n", &ancien, &actuel, &nouveau);
-			systemeInitialisePoint(ancien, actuel, nouveau, i);
+			systemeInitialisePoint(systeme, ancien, actuel, nouveau, i);
 			}
 
 		fclose(fichier);
@@ -359,7 +359,7 @@ int fichierFonctionNulle(systemeT * systeme, graphesT * graphes)
 
     for(i=0;i<(*systeme).nombre;i++)
 		{
-		systemeInitialisePoint(0, 0, 0, i);
+		systemeInitialisePoint(systeme, 0, 0, 0, i);
 		}
 	return 0;
 	}

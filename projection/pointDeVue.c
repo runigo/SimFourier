@@ -54,11 +54,11 @@ int pointDeVueInitialise(pointDeVueT * pointDeVue)
 	return 0;
 	}
 
-int pointDeVueReinitialiseBase(pointDeVue)
+int pointDeVueReinitialiseBase(pointDeVueT * pointDeVue)
 	{
 		// Réinitialise les vecteurs perpendiculaires
-	vecteurInitialiseVecteurPhi(&(*pointDeVue).position, &(*pointDeVue).vecteurPhi, &(*pointDeVue).position.r);
-	vecteurInitialiseVecteurPsi(&(*pointDeVue).position, &(*pointDeVue).vecteurPsi, &(*pointDeVue).position.r);
+	vecteurInitialiseVecteurPhi(&(*pointDeVue).position, &(*pointDeVue).vecteurPhi, (*pointDeVue).position.r);
+	vecteurInitialiseVecteurPsi(&(*pointDeVue).position, &(*pointDeVue).vecteurPsi, (*pointDeVue).position.r);
 	return 0;
 	}
 	//-----------------    CHANGE LE POINT DE VUE     -----------------------//
@@ -85,7 +85,7 @@ int pointDeVueChangePhi(pointDeVueT * pointDeVue, float x) {
 		phi = 0.0;
 		}
 
-	vecteurInitialisePolaire(&(*pointDeVue).pointDeVue, r, psi, phi);
+	vecteurInitialisePolaire(&(*pointDeVue).position, r, psi, phi);
 	pointDeVueReinitialiseBase(pointDeVue);
 
 	return 0;
@@ -97,9 +97,9 @@ int pointDeVueChangePsi(pointDeVueT * pointDeVue, float x) {
 
 	float r, psi, phi;
 
-	r = (*pointDeVue).r;
-	psi = (*pointDeVue).psi + x;
-	phi = (*pointDeVue).phi;
+	r = (*pointDeVue).position.r;
+	psi = (*pointDeVue).position.psi + x;
+	phi = (*pointDeVue).position.phi;
 
 	if(psi > PI)
 		{
@@ -111,7 +111,7 @@ int pointDeVueChangePsi(pointDeVueT * pointDeVue, float x) {
 		psi = psi + DEUXPI;
 		}
 
-	vecteurInitialisePolaire(&(*pointDeVue).pointDeVue, r, psi, phi);
+	vecteurInitialisePolaire(&(*pointDeVue).position, r, psi, phi);
 	pointDeVueReinitialiseBase(pointDeVue);
 
 	return 0;
@@ -136,7 +136,7 @@ int pointDeVueChangeDistance(pointDeVueT * pointDeVue, float x) {
 		else
 			{
 			(*pointDeVue).position.r = distance;
-			printf("(*pointDeVue).position.r = %d\n", (*pointDeVue).position.r);
+			printf("(*pointDeVue).position.r = %f\n", (*pointDeVue).position.r);
 			}
 		}
 	pointDeVueReinitialiseBase(pointDeVue);
@@ -152,9 +152,9 @@ int pointDeVueAffiche(pointDeVueT * pointDeVue) {
 
 	float r, psi, phi;
 
-	r = (*pointDeVue).r;
-	psi = (*pointDeVue).psi;
-	phi = (*pointDeVue).phi;
+	r = (*pointDeVue).position.r;
+	psi = (*pointDeVue).position.psi;
+	phi = (*pointDeVue).position.phi;
 
 	printf("(*projection).pointDeVue.r = %f\n", r);
 	printf("(*projection).pointDeVue.psi = %f\n", psi);

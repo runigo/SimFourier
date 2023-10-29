@@ -69,7 +69,9 @@ termes.
 
 	//	PARAMÈTRES GRAPHIQUES DE LA CHAÎNE
 #define SUPPORT 7			// Nombre de point du support (axes)
-#define LARGEUR_IMP 1900	// Longueur implicite de la chaîne
+#define LONGUEUR_IMP 1900	// Longueur implicite de la chaîne
+#define RAYON_IMP 400	// Rayon implicite de la chaîne
+
 
 #define DISTANCE_MAX 1000
 #define DISTANCE_IMP 100

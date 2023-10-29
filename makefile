@@ -28,7 +28,7 @@
 # termes.
 
 CC=gcc
-EXEC=SiCP2
+EXEC=simFourier
 CFLAGS= -Wall -Wextra -Werror --std=c99
 #SDLFKAGS= `sdl-config --libs`
 #LDFLAGS= -Wall -Wextra -Werror --std=c99 -lm -lpthread
@@ -38,8 +38,11 @@ OBJDIR = ./obj
 
 all : $(EXEC)
 
-$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleurClavier.o $(OBJDIR)/controleurSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/points.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systeme.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o
-	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleurClavier.o $(OBJDIR)/controleurSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/points.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systeme.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
+$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleurClavier.o $(OBJDIR)/controleurSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphes.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fonction.o $(OBJDIR)/systeme.o
+	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleurClavier.o $(OBJDIR)/controleurSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphes.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fonction.o $(OBJDIR)/systeme.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
+
+# $(OBJDIR)/observables.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o $(OBJDIR)/points.o $(OBJDIR)/change.o $(OBJDIR)/moteurs.o
+# $(OBJDIR)/observables.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o $(OBJDIR)/points.o $(OBJDIR)/change.o $(OBJDIR)/moteurs.o
 
 $(OBJDIR)/principale.o : controleur/principale.c controleur/principale.h
 	$(CC) -c -g controleur/principale.c $(CFLAGS) -o $@
@@ -77,6 +80,9 @@ $(OBJDIR)/interface.o : interface/interface.c interface/interface.h
 $(OBJDIR)/graphique.o : interface/graphique.c interface/graphique.h
 	$(CC) -c -g interface/graphique.c $(CFLAGS) -o $@
 
+$(OBJDIR)/pointDeVue.o : projection/pointDeVue.c projection/pointDeVue.h
+	$(CC) -c -g projection/pointDeVue.c $(CFLAGS) -o $@
+
 $(OBJDIR)/graphes.o : projection/graphes.c projection/graphes.h
 	$(CC) -c -g projection/graphes.c $(CFLAGS) -o $@
 
@@ -86,17 +92,20 @@ $(OBJDIR)/commandes.o : interface/commandes.c interface/commandes.h
 $(OBJDIR)/capteurs.o : interface/capteurs.c interface/capteurs.h
 	$(CC) -c -g interface/capteurs.c $(CFLAGS) -o $@
 
-$(OBJDIR)/points.o : projection/points.c projection/points.h
-	$(CC) -c -g projection/points.c $(CFLAGS) -o $@
+#$(OBJDIR)/points.o : projection/points.c projection/points.h
+#	$(CC) -c -g projection/points.c $(CFLAGS) -o $@
 
 $(OBJDIR)/vecteur.o : projection/vecteur.c projection/vecteur.h
 	$(CC) -c -g projection/vecteur.c $(CFLAGS) -o $@
 
-$(OBJDIR)/observables.o : modele/observables.c modele/observables.h
-	$(CC) -c -g modele/observables.c $(CFLAGS) -o $@
+#$(OBJDIR)/observables.o : modele/observables.c modele/observables.h
+#	$(CC) -c -g modele/observables.c $(CFLAGS) -o $@
 
-$(OBJDIR)/change.o : modele/change.c modele/change.h
-	$(CC) -c -g modele/change.c $(CFLAGS) -o $@
+#$(OBJDIR)/change.o : modele/change.c modele/change.h
+#	$(CC) -c -g modele/change.c $(CFLAGS) -o $@
+
+$(OBJDIR)/fonction.o : modele/fonction.c modele/fonction.h
+	$(CC) -c -g modele/fonction.c $(CFLAGS) -o $@
 
 $(OBJDIR)/systeme.o : modele/systeme.c modele/systeme.h
 	$(CC) -c -g modele/systeme.c $(CFLAGS) -o $@
@@ -104,11 +113,11 @@ $(OBJDIR)/systeme.o : modele/systeme.c modele/systeme.h
 $(OBJDIR)/moteurs.o : modele/moteurs.c modele/moteurs.h
 	$(CC) -c -g modele/moteurs.c $(CFLAGS) -o $@
 
-$(OBJDIR)/chaine.o : modele/chaine.c modele/chaine.h
-	$(CC) -c -g modele/chaine.c $(CFLAGS) -o $@
+#$(OBJDIR)/chaine.o : modele/chaine.c modele/chaine.h
+#	$(CC) -c -g modele/chaine.c $(CFLAGS) -o $@
 
-$(OBJDIR)/pendule.o : modele/pendule.c modele/pendule.h
-	$(CC) -c -g modele/pendule.c $(CFLAGS) -o $@
+#$(OBJDIR)/pendule.o : modele/pendule.c modele/pendule.h
+#	$(CC) -c -g modele/pendule.c $(CFLAGS) -o $@
 
 clean :
 	rm $(OBJDIR)/*.o

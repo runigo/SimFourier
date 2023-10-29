@@ -36,7 +36,8 @@ termes.
 #include "../controleur/options.h"			//	Options de la ligne de commande
 #include "../projection/projectionSystem.h"		//	Projection du systeme vers le graphisme.
 #include "../projection/projectionGraph.h"		//	Projection des graphes 3D sur les graphes 2D.
-#include "../modele/observables.h"			//	Observables du système
+//#include "../modele/observables.h"			//	Observables du système
+#include "../modele/systeme.h"			//	Système
 #include "../interface/graphique.h"			//	Librairie SDL et représentation graphique
 #include "../interface/horloge.h"			//	Librairie SDL et représentation graphique
 #include "../donnees/fichier.h"
@@ -49,7 +50,7 @@ typedef struct ControleurT controleurT;
 
 		systemeT systeme;	//	Modélisation du système
 
-		observablesT observables;	//	Grandeurs physique du système
+		//observablesT observables;	//	Grandeurs physique du système
 
 		projectionSystemT projectionSystem;	//	Projection du système et des observables sur le graphisme
 

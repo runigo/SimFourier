@@ -33,7 +33,7 @@ termes.
 #define _SYSTEME_
 
 #include "fonction.h"
-#include "moteurs.h"
+//#include "moteurs.h"
 
 typedef struct SystemeT systemeT;
 	struct SystemeT
@@ -48,7 +48,7 @@ typedef struct SystemeT systemeT;
 		
 		int nombre;			//	Nombre de points
 
-		moteursT moteurs;				// Moteur périodique et impulsion
+		//moteursT moteurs;				// Moteur périodique et impulsion
 
 		float masse;		//	Masse du quanton
 		float dt;			//	Pas temporel
@@ -72,7 +72,7 @@ int systemeInitialisePotentiel(systemeT * systeme, int forme);
 
 	//	Réinitialisation des positions
 int systemeInitialisePosition(systemeT * systeme, int forme);
-int systemeInitialisePoint(float ancien, float actuel, float nouveau, int i);
+int systemeInitialisePoint(systemeT * systeme, float ancien, float actuel, float nouveau, int i);
 
 	//	Évolution temporelle du système
 int systemeEvolution(systemeT * systeme, int duree);

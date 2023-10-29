@@ -46,6 +46,7 @@ int fonctionInitialise(fonctionT * f, int nombre)
 		{
 		(*f).reel[i] = 0;
 		(*f).imag[i] = 0;
+		(*f).module[i] = 0;
 		}
 
 	return 0;

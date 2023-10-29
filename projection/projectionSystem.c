@@ -54,7 +54,7 @@ int projectionPerspectiveSupport(projectionSystemT * projection, grapheT * graph
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialise(projectionSystemT * projection)
+int projectionSystemInitialise(projectionSystemT * projection)
 	{
 
 	(*projection).fenetreX = FENETRE_X;	// hauteur de la fenêtre
@@ -88,8 +88,8 @@ int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projectio
 (void)projection;
 (void)commandes;
 
-	float theta;
-	float ratioRotatif = 0.9;
+	//float theta;
+	//float ratioRotatif = 0.9;
 	//float courantJosephson = projectionValeurAbsolue((*systeme).moteurs.courantJosephson);
 
 				//	Projection sur les boutons rotatifs
@@ -107,7 +107,6 @@ int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projectio
 	theta = DEUXPI * (*projection).logJosephson * log( projectionValeurAbsolue(courantJosephson/JOSEPHSON_MIN) );
 	(*commandes).rotatifPositionX[2]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[2]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
-*/
 	//	Amplitude du moteur périodique
 	theta = DEUXPI * (*projection).logAmplitude * log( (*systeme).moteurs.amplitude/AMPLITUDE_MIN );
 	(*commandes).rotatifPositionX[3]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
@@ -117,6 +116,7 @@ int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projectio
 	theta = DEUXPI * (*projection).logFrequence * log( (*systeme).moteurs.frequence/FREQUENCE_MIN );
 	(*commandes).rotatifPositionX[4]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[4]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
+*/
 
 
 				//	Projection sur les petits boutons de droite
@@ -335,7 +335,7 @@ int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y) 
 
 	(*projection).ratioXY=(float)x/(float)y;
 
-	projectionReinitialiseBase(projection);
+	//projectionReinitialiseBase(projection);
 	return 0;
 	}
 

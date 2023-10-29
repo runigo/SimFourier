@@ -66,15 +66,15 @@ int controleurClavier(controleurT * controleur)
 		case SDLK_F1:
 			projectionSystemAffiche(&(*controleur).projectionSystem);break;
   // Afficher les observables
-		case SDLK_F2: // Harmoniques
-			observablesAffiche(&(*controleur).observables);break;
+	//	case SDLK_F2: // Harmoniques
+		//	observablesAffiche(&(*controleur).observables);break;
 
 		case SDLK_F4: // Corde asymétrique
 			controleurSourisAffiche(controleur);break;
-		case SDLK_F5:
-			observablesAfficheEnergie(&(*controleur).systeme);break;
-		case SDLK_F6:
-			moteursAfficheHorloge(&(*controleur).systeme.moteurs);break;
+	//	case SDLK_F5:
+		//	observablesAfficheEnergie(&(*controleur).systeme);break;
+	//	case SDLK_F6:
+		//	moteursAfficheHorloge(&(*controleur).systeme.moteurs);break;
 		case SDLK_F7:
 			projectionGraphAffiche(&(*controleur).projectionGraph);break;
 	// Support
