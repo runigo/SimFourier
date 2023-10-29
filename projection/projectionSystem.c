@@ -217,14 +217,14 @@ int projectionControleurCommandes(projectionSystemT * projection, commandesT * c
 (void)mode;
 
 		//	Vitesse de la simulation
-	if(duree<DUREE)
+	if(duree<DUREE_IMP)
 		{
 			if(duree==1) (*commandes).triangleEtat[5]=-1; else (*commandes).triangleEtat[6]=-1;
 			(*commandes).lineairePositionX=(int)((*commandes).a * duree + (*commandes).b);
 		}
 	else
 		{
-		if(duree>DUREE)
+		if(duree>DUREE_IMP)
 			{
 			if(duree==DUREE_MAX) (*commandes).triangleEtat[10]=-1; else (*commandes).triangleEtat[9]=-1;
 			(*commandes).lineairePositionX=(int)((*commandes).A * duree + (*commandes).B);

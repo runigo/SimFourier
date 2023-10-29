@@ -201,7 +201,7 @@ void optionsChangeVitesse(optionsT * options, float facteur) {
 
 	if(facteur < 0.0)
 		{
-		(*options).duree = DUREE;
+		(*options).duree = DUREE_IMP;
 		}
 	else
 		{

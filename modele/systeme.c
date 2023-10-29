@@ -55,9 +55,9 @@ int systemeInitialisation(systemeT * systeme, int nombre, int dt) {
 	systemeInitialiseDt(systeme, dt);			//	Pas temporel
 
 		// Initialisation des paramètres avec les valeurs implicites
-	(*systeme).masse = MASSE;	//	Masse du quanton
-	(*systeme).dx = DX;			//	Pas spatial
-	(*systeme).hbar = HBAR;		//	Constante de Planck réduite
+	(*systeme).masse = MASSE_IMP;	//	Masse du quanton
+	(*systeme).dx = DX_IMP;			//	Pas spatial
+	(*systeme).hbar = HBAR_IMP;		//	Constante de Planck réduite
 
 		// Initialisation des fonctions
 	fonctionInitialise(&(*systeme).ancien, nombre);
@@ -135,7 +135,7 @@ int systemeInitialiseNombre(systemeT * systeme, int nombre)
 		}
 	else
 		{
-		(*systeme).nombre = NOMBRE;
+		(*systeme).nombre = NOMBRE_IMP;
 		printf("ERREUR systemeInitialiseNombre(%d) (*systeme).nombre = %d\n", nombre, (*systeme).nombre);
 		}
 	return 1;
@@ -153,7 +153,7 @@ int systemeInitialiseDt(systemeT * systeme, float dt)
 		}
 	else
 		{
-		(*systeme).dt = DT;
+		(*systeme).dt = DT_IMP;
 		printf("ERREUR systemeInitialiseDt(%f) (*systeme).dt = %f\n", dt, (*systeme).dt);
 		erreur=1;
 		}
@@ -175,7 +175,7 @@ int systemeInitialiseMasse(systemeT * systeme, float masse)
 		}
 	else
 		{
-		(*systeme).masse = MASSE;
+		(*systeme).masse = MASSE_IMP;
 		printf("ERREUR systemeInitialiseMasse(%f) (*systeme).masse = %f\n", masse, (*systeme).masse);
 		erreur=1;
 		}
@@ -224,7 +224,7 @@ int systemeInitialiseHbardtSmdx2(systemeT * systeme) {
 		}
 	else
 		{
-		(*systeme).hbardtSmdx2 = (*systeme).hbar * (*systeme).dt / MASSE / DX / DX;
+		(*systeme).hbardtSmdx2 = (*systeme).hbar * (*systeme).dt / MASSE_IMP / DX_IMP / DX_IMP;
 		printf("ERREUR (*systeme).hbardtSmdx2 = %f\n", (*systeme).hbardtSmdx2);
 		return 1;
 		}

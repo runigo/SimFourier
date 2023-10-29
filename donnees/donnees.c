@@ -46,14 +46,14 @@ int donneesOptions(optionsT * options)
 	(*options).modeMenu = 0;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
 
 	(*options).modePause = 1;		// avec ou sans attente
-	(*options).duree = DUREE;		// 100 : temps réèl.
+	(*options).duree = DUREE_IMP;		// 100 : temps réèl.
 
 	(*options).fond=240;		// couleur du fond de l'affichage
 	(*options).support=-1;		// Graphisme du support de la chaîne
 
 
-	(*options).dt=DT;		// discrétisation du temps
-	(*options).nombre=NOMBRE;		// Nombre implicite de points
+	(*options).dt=DT_IMP;		// discrétisation du temps
+	(*options).nombre=NOMBRE_IMP;		// Nombre implicite de points
 	(*options).equation=1;		// 1 : pendule, 2 : linéarisation,
 							//	 3 : corde, 4 : dioptre
 

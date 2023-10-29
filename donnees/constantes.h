@@ -91,32 +91,33 @@ termes.
 
 #define TEMPS_AFFICHAGE 110	// Durée entre les affichages en ms
 
-#define DUREE 100			// Nombre implicite d'incrémentation du système entre deux affichages.
+#define DUREE_MIN 1			// Nombre implicite d'incrémentation du système entre deux affichages.
+#define DUREE_IMP 100			// Nombre implicite d'incrémentation du système entre deux affichages.
 #define DUREE_MAX 599		// Nombre maximal d'incrémentation du système entre deux affichages.
 
 #define DT_MIN 0.00003		// Discrétisation minimale du temps
-#define DT 0.0011			// Discrétisation implicite du temps
+#define DT_IMP 0.0011			// Discrétisation implicite du temps
 #define DT_MAX 0.003		// Discrétisation maximale du temps
 
 
 		//---------------- PARAMÈTRES DE LA CORDE ---------------------
 
 #define NOMBRE_MIN 8 	//	Nombre minimal de points
-#define NOMBRE 1024		//	Nombre implicite de points
+#define NOMBRE_IMP 1024		//	Nombre implicite de points
 #define NOMBRE_MAX 8192 //	Nombre maximal de points
 
 	//	PARAMÈTRES QUANTIQUE
 
 #define MASSE_MAX 77.7	//	Masse maximale
-#define MASSE 1.0		//	Masse implicite
+#define MASSE_IMP 1.0		//	Masse implicite
 #define MASSE_MIN 0.7	//	Masse minimale
 
 #define HBAR_MAX 10.0	//	hbar maximale
-#define HBAR 1.0		//	hbar implicite
+#define HBAR_IMP 1.0		//	hbar implicite
 #define HBAR_MIN 0.01	//	hbar minimale
 
 #define DX_MAX 10.0		//	Pas spatial maximale
-#define DX 1.0			//	Pas spatial implicite
+#define DX_IMP 1.0			//	Pas spatial implicite
 #define DX_MIN 0.01		//	Pas spatial minimale
 
 

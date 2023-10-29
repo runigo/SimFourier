@@ -159,7 +159,7 @@ int fichierLectureParametre(systemeT * systeme, graphesT * graphes, char * nom)
 		{
 		
 			fprintf(stderr, " Initialisation du système\n");
-		systemeInitialisation(systeme,NOMBRE, DT);
+		systemeInitialisation(systeme,NOMBRE_IMP, DT_IMP);
 	/*	// Initialisation du moteurs
 			// Paramètres d'horloge
 		fscanf(fichier, "%f\n", &reel);
