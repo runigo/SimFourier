@@ -69,8 +69,8 @@ termes.
 
 	//	PARAMÈTRES GRAPHIQUES DE LA CHAÎNE
 #define SUPPORT 7			// Nombre de point du support (axes)
-#define LONGUEUR_IMP 1900	// Longueur implicite de la chaîne
-#define RAYON_IMP 400	// Rayon implicite de la chaîne
+#define LONGUEUR_IMP 1	// Longueur implicite de la chaîne
+#define RAYON_IMP 1	// Rayon implicite de la chaîne
 
 
 #define DISTANCE_MAX 1000
@@ -89,7 +89,8 @@ termes.
 
 	//	DT * DUREE = TEMPS_AFFICHAGE => temps réel
 
-#define TEMPS_AFFICHAGE 110	// Durée entre les affichages en ms
+//#define TEMPS_AFFICHAGE 110	// Durée entre les affichages en ms
+#define TEMPS_AFFICHAGE 210	// Durée entre les affichages en ms
 
 #define DUREE_MIN 1			// Nombre implicite d'incrémentation du système entre deux affichages.
 #define DUREE_IMP 100			// Nombre implicite d'incrémentation du système entre deux affichages.

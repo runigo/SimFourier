@@ -121,8 +121,8 @@ int controleurProjection(controleurT * controleur)
 
 	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
 
-	projectionSystemeCommandes(&(*controleur).systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
-	projectionControleurCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
+	//projectionSystemeCommandes(&(*controleur).systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
+	//projectionControleurCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
 
 	return (*controleur).sortie;
 	}
@@ -142,13 +142,13 @@ int controleurConstructionGraphique(controleurT * controleur)
 	{
 
 		//fprintf(stderr, "Nettoyage de l'affichage\n");
-	//graphiqueNettoyage(&(*controleur).graphique);
+	graphiqueNettoyage(&(*controleur).graphique);
 
 		//fprintf(stderr, "Dessin des Commandes\n");
-	graphiqueCommandes(&(*controleur).graphique, &(*controleur).commandes);
+	//graphiqueCommandes(&(*controleur).graphique, &(*controleur).commandes);
 
 		//fprintf(stderr, "Dessin des capteurs\n");
-	graphiqueCapteurs(&(*controleur).graphique, &(*controleur).capteurs);
+	//graphiqueCapteurs(&(*controleur).graphique, &(*controleur).capteurs);
 
 		//fprintf(stderr, "Dessin des graphes\n");
 	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).graphes.fonction);

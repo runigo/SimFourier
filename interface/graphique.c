@@ -137,7 +137,7 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int 
 }
 
 int graphiqueNettoyage(graphiqueT * graphique)
-	{
+	{SDL_SetRenderDrawColor((*graphique).rendu, 255, 255, 255, 0);
 	SDL_RenderClear((*graphique).rendu);
 	return 0;
 	}

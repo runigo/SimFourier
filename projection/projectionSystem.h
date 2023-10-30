@@ -47,7 +47,7 @@ typedef struct ProjectionSystemT projectionSystemT;
 		{
 		int fenetreX;	// hauteur de la fenêtre
 		int fenetreY;	// largeur de la fenêtre
-		float ratioXY;	// rapport largeur / hauteur
+		//float ratioXY;	// rapport largeur / hauteur
 
 			// facteurs entre les grandeurs et la position des boutons rotatifs
 		float logCouplage;

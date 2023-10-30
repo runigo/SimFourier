@@ -44,7 +44,6 @@ typedef struct ProjectionGraphT projectionGraphT;
 
 		int fenetreX;	// hauteur de la fenêtre
 		int fenetreY;	// largeur de la fenêtre
-		float ratioXY;	// rapport largeur / hauteur
 
 		};
 

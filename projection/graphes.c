@@ -34,7 +34,7 @@ termes.
 
 int grapheInitialiseSupport(grapheT * graphe);
 int grapheInitialisePointDeVue(graphesT * graphes, float r, float psi, float phi);
-int graphesInitialisePointDeVue(graphesT * graphes, float r, float psi, float phi);
+//int graphesInitialisePointDeVue(graphesT * graphes, float r, float psi, float phi);
 
 int grapheInitialisation(grapheT * graphe, int nombre);
 

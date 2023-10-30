@@ -60,7 +60,7 @@ int projectionSystemInitialise(projectionSystemT * projection)
 	(*projection).fenetreX = FENETRE_X;	// hauteur de la fenêtre
 	(*projection).fenetreY = FENETRE_Y;	// largeur de la fenêtre
 
-	(*projection).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
+	//(*projection).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
 
 	(*projection).logCouplage = 1.0;// / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
 	(*projection).logDissipation = 1.0;// / log( DISSIPATION_MAX/DISSIPATION_MIN );
@@ -87,14 +87,14 @@ int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projectio
 (void)systeme;
 (void)projection;
 (void)commandes;
-
+/*
 	//float theta;
 	//float ratioRotatif = 0.9;
 	//float courantJosephson = projectionValeurAbsolue((*systeme).moteurs.courantJosephson);
 
 				//	Projection sur les boutons rotatifs
 	 //	Couplage
-/*	theta = DEUXPI * (*projection).logCouplage * log( (*systeme).couplage / (COUPLAGE_MIN * (*systeme).nombre) );
+	theta = DEUXPI * (*projection).logCouplage * log( (*systeme).couplage / (COUPLAGE_MIN * (*systeme).nombre) );
 	(*commandes).rotatifPositionX[0]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[0]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
@@ -116,15 +116,15 @@ int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projectio
 	theta = DEUXPI * (*projection).logFrequence * log( (*systeme).moteurs.frequence/FREQUENCE_MIN );
 	(*commandes).rotatifPositionX[4]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[4]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
-*/
+
 
 
 				//	Projection sur les petits boutons de droite
-	int i;
-	for(i=0;i<BOUTON_COMMANDES;i++) (*commandes).boutonEtat[i]=0;
+	//int i;
+	//for(i=0;i<BOUTON_COMMANDES;i++) (*commandes).boutonEtat[i]=0;
 
 			//	Conditions aux limites
-/*	switch((*systeme).libreFixe) {
+	switch((*systeme).libreFixe) {
 		case 0:
 			(*commandes).boutonEtat[0]=1;break; //	Périodique
 		case 1:
@@ -215,7 +215,7 @@ int projectionControleurCommandes(projectionSystemT * projection, commandesT * c
 (void)commandes;
 (void)duree;
 (void)mode;
-
+/*
 		//	Vitesse de la simulation
 	if(duree<DUREE_IMP)
 		{
@@ -239,10 +239,11 @@ int projectionControleurCommandes(projectionSystemT * projection, commandesT * c
 		{
 		(*commandes).triangleEtat[7]=2;
 		}
-
+*/
 	return 0;
 	}
 
+/*
 int projectionObservablesCapteurs(observablesT * observables, projectionSystemT * projection, capteursT * capteurs) {
 
 		//	Projette les observables sur les capteurs
@@ -288,9 +289,9 @@ int projectionObservablesCapteurs(observablesT * observables, projectionSystemT 
 		(*capteurs).capteur[3].droite[i].y = (int)(a*(*observables).observable[0].droite[k]) + y0;
 		(*capteurs).capteur[3].somme[i].y = (int)(a*(*observables).observable[0].somme[k]) + y0;
 		}
-
 	return 0;
 	}
+*/
 
 int projectionSystemeGraphes(systemeT * systeme, projectionSystemT * projection, graphesT * graphes) {
 
@@ -333,9 +334,6 @@ int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y) 
 	(*projection).fenetreX=x;
 	(*projection).fenetreY=y;
 
-	(*projection).ratioXY=(float)x/(float)y;
-
-	//projectionReinitialiseBase(projection);
 	return 0;
 	}
 
@@ -346,7 +344,7 @@ void projectionSystemAffiche(projectionSystemT * projection) {
 
 	//	Affiche les paramètres de la projection
 
-	printf("(*projection).ratioXY = %f\n", (*projection).ratioXY);
+	//printf("(*projection).ratioXY = %f\n", (*projection).ratioXY);
 	//printf("(*projection).hauteur = %d\n", (*projection).hauteur);
 	//printf("(*projection).largeur = %d\n", (*projection).largeur);
 	printf("(*projection).fenetreX = %d\n", (*projection).fenetreX);

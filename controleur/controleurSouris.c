@@ -33,8 +33,7 @@ termes.
 #include "controleurSouris.h"
 
 int controleurSourisCommandes(controleurT * controleur, int zone);
-int controleurSourisDefilePointDeVueFonction(controleurT * controleur);
-int controleurSourisDefilePointDeVueFourier(controleurT * controleur);
+int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe);
 int controleurSourisDefileCommandes(controleurT * controleur, int zone);
 void controleurSourisInitialisePosition(controleurT * controleur, int position);
 
@@ -79,44 +78,28 @@ int controleurSourisDefile(controleurT * controleur)
 			{
 			if((*controleur).commandes.sourisY>(*controleur).commandes.fourier)
 				{
-				controleurSourisDefilePointDeVueFourier(controleur);
+				controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fourier);
 				}
 			else
 				{
-				controleurSourisDefilePointDeVueFonction(controleur);
+				controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fonction);
 				}
 			}
 		}
 	return 0;
 	}
 
-int controleurSourisDefilePointDeVueFonction(controleurT * controleur)
+int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe)
 	{
 				// Action des mouvements de la mollette dans la zone 0
 
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
-		pointDeVueChangeDistance(&(*controleur).graphes.fonction.pointDeVue, 1.03);
+		pointDeVueChangeDistance(&(*graphe).pointDeVue, 1.03);
 		}
 	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
 		{
-		pointDeVueChangeDistance(&(*controleur).graphes.fonction.pointDeVue, 0.97);
-		}
-
-	return 0;
-	}
-
-int controleurSourisDefilePointDeVueFourier(controleurT * controleur)
-	{
-				// Action des mouvements de la mollette dans la zone 1
-
-	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
-		{
-		pointDeVueChangeDistance(&(*controleur).graphes.fourier.pointDeVue, 1.03);
-		}
-	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
-		{
-		pointDeVueChangeDistance(&(*controleur).graphes.fourier.pointDeVue, 0.97);
+		pointDeVueChangeDistance(&(*graphe).pointDeVue, 0.97);
 		}
 
 	return 0;

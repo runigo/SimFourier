@@ -36,17 +36,10 @@ termes.
 				//		 sur les graphes 2D
 
 	//	INITIALISATION
-int projectionInitialisePointDeVue(projectionGraphT * projection,  float r,float psi, float phi);
-int projectionReinitialiseBase(projectionGraphT * projection);
 
 	//	PROJECTION
-//float projectionValeurAbsolue(float valeur);
-int projectionPerspectiveGraphe(grapheT * graphe, int centrageX, int centrageY);
 int projectionPerspectiveGraphes(projectionGraphT * projection, graphesT * graphes);
-//int projectionSystemeChaine3D(systemeT * systeme, projectionGraphT * projection, grapheT * graphe);
-//int projectionSystemeGraphes3D(systemeT * systeme, projectionGraphT * projection, graphesT * graphes);
-
-int projectionInitialiseSupport(projectionGraphT * projection, int nombre);
+int projectionPerspectiveGraphe(grapheT * graphe, int centrageX, int centrageY);
 int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe);
 
 	//	CHANGE
@@ -61,26 +54,12 @@ int projectionGraphInitialise(projectionGraphT * projection)
 	(*projection).fenetreX = FENETRE_X;	// hauteur de la fenêtre
 	(*projection).fenetreY = FENETRE_Y;	// largeur de la fenêtre
 
-	(*projection).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
-/*
-	(*projection).rotation = 0;
-	(*projection).logCouplage = 1.0 / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
-	(*projection).logDissipation = 1.0 / log( DISSIPATION_MAX/DISSIPATION_MIN );
-	(*projection).logJosephson = 1.0 / log( JOSEPHSON_MAX/JOSEPHSON_MIN );
-	(*projection).logAmplitude = 1.0 / log( AMPLITUDE_MAX/AMPLITUDE_MIN );
-	(*projection).logFrequence = 1.0 / log( FREQUENCE_MAX/FREQUENCE_MIN );
-*/
+	//(*projection).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
 
 	return 0;
 	}
 
 	//-----------------    PROJECTION      -----------------------//
-
-float projectionGraphValeurAbsolue(float valeur) {
-
-	if(valeur<0) return -valeur;
-	return valeur;
-	}
 
 int projectionGraphGraphes(projectionGraphT * projection, graphesT * graphes) {
 
@@ -93,7 +72,9 @@ int projectionGraphGraphes(projectionGraphT * projection, graphesT * graphes) {
 		// Projection en 2D de la représentation 3D
 	projectionPerspectiveSupport(projection, &(*graphes).fonction);
 	projectionPerspectiveSupport(projection, &(*graphes).fourier);
-	projectionPerspectiveGraphes(projection, graphes);
+	//projectionPerspectiveGraphes(projection, graphes);
+	projectionPerspectiveGraphe(&(*graphes).fonction, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_Q ) );
+	projectionPerspectiveGraphe(&(*graphes).fourier, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_F ) );
 	return 0;
 	}
 
@@ -113,6 +94,7 @@ int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe
 		(*graphe).supporX[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
 		(*graphe).supporY[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
 		}
+
 	if((*graphe).pointDeVue.position.psi<0)
 		{
 		(*graphe).gauche=1;
@@ -200,7 +182,7 @@ int projectionGraphChangeFenetre(projectionGraphT * projection, int x, int y) {
 	(*projection).fenetreX=x;
 	(*projection).fenetreY=y;
 
-	(*projection).ratioXY=(float)x/(float)y;
+	//(*projection).ratioXY=(float)x/(float)y;
 
 	//projectionReinitialiseBase(projection);
 	return 0;
@@ -249,7 +231,7 @@ void projectionGraphAffiche(projectionGraphT * projection) {
 	printf(" Rapport largeur / hauteur\n");
 	vecteurAffiche(&(*projection).ratioXY);
 */
-	printf("(*projection).ratioXY = %f\n", (*projection).ratioXY);
+	//printf("(*projection).ratioXY = %f\n", (*projection).ratioXY);
 	printf("(*projection).fenetreX = %d\n", (*projection).fenetreX);
 	printf("(*projection).fenetreY = %d\n", (*projection).fenetreY);
 

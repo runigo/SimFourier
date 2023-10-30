@@ -82,6 +82,6 @@ typedef struct GraphesT graphesT;
 		};
 
 int graphesInitialisation(graphesT * graphes, int nombre);
-void grapheChangeSupport(grapheT * graphe);
+//void grapheChangeSupport(grapheT * graphe);
 
 #endif
