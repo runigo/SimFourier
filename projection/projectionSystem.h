@@ -45,8 +45,8 @@ termes.
 typedef struct ProjectionSystemT projectionSystemT;
 	struct ProjectionSystemT
 		{
-		int fenetreX;	// hauteur de la fenêtre
-		int fenetreY;	// largeur de la fenêtre
+	//	int fenetreX;	// hauteur de la fenêtre
+	//	int fenetreY;	// largeur de la fenêtre
 		//float ratioXY;	// rapport largeur / hauteur
 
 			// facteurs entre les grandeurs et la position des boutons rotatifs
@@ -61,6 +61,7 @@ typedef struct ProjectionSystemT projectionSystemT;
 int projectionSystemInitialise(projectionSystemT * projection);
 
 	//-----------------    PROJECTION      -----------------------//
+int projectionSystemeFourier(systemeT * systeme, fourierT * fourier);
 int projectionSystemeGraphes(systemeT * systeme, projectionSystemT * projection, graphesT * graphes);
 int projectionObservablesCapteurs(observablesT * observables, projectionSystemT * projection, capteursT * capteurs);
 int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes);

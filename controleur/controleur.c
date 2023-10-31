@@ -67,6 +67,32 @@ int controleurSimulationGraphique(controleurT * controleur)
 	return 0;
 	}
 
+int controleurTraiteEvenement(controleurT * controleur)
+	{
+	int sortie = 0;
+	switch((*controleur).interface.evenement.type)
+		{
+		case SDL_QUIT:
+			(*controleur).sortie = 1;break;
+		case SDL_MOUSEWHEEL:
+			controleurSourisDefile(controleur);break;
+		case SDL_MOUSEMOTION:
+			controleurSouris(controleur);break;
+		case SDL_MOUSEBUTTONDOWN:
+			controleurSourisBouton(controleur, 1);break;
+		case SDL_MOUSEBUTTONUP:
+			controleurSourisBouton(controleur, 0);break;
+		case SDL_USEREVENT:
+			controleurEvolution(controleur);break;
+		case SDL_KEYDOWN:
+			controleurKEYDOWN(controleur);break;
+		default:
+			;
+		}
+	if(sortie!=0) (*controleur).sortie = 1;
+	return (*controleur).sortie;
+	}
+
 int controleurEvolution(controleurT * controleur)
 	{
 
@@ -129,8 +155,15 @@ int controleurProjection(controleurT * controleur)
 
 int controleurEvolutionSysteme(controleurT * controleur)
 	{
+	(void)controleur;
 		//fprintf(stderr, "Evolution temporelle du système\n");
 	systemeEvolution(&(*controleur).systeme, (*controleur).options.duree);
+
+		//fprintf(stderr, "Projection du système sur les spectres\n");
+	projectionSystemeFourier(&(*controleur).systeme, &(*controleur).systeme.fourier);
+
+		//fprintf(stderr, "Calcul des spectres\n");
+	fourierCalcule(&(*controleur).systeme.fourier);
 
 		//fprintf(stderr, "Mise à jour des observables\n");
 	//observablesMiseAJour(&(*controleur).observables, &(*controleur).systeme);
@@ -179,32 +212,6 @@ int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe)
 			}
 		}
 	return 0;
-	}
-
-int controleurTraiteEvenement(controleurT * controleur)
-	{
-	int sortie = 0;
-	switch((*controleur).interface.evenement.type)
-		{
-		case SDL_QUIT:
-			(*controleur).sortie = 1;break;
-		case SDL_MOUSEWHEEL:
-			controleurSourisDefile(controleur);break;
-		case SDL_MOUSEMOTION:
-			controleurSouris(controleur);break;
-		case SDL_MOUSEBUTTONDOWN:
-			controleurSourisBouton(controleur, 1);break;
-		case SDL_MOUSEBUTTONUP:
-			controleurSourisBouton(controleur, 0);break;
-		case SDL_USEREVENT:
-			controleurEvolution(controleur);break;
-		case SDL_KEYDOWN:
-			controleurKEYDOWN(controleur);break;
-		default:
-			;
-		}
-	if(sortie!=0) (*controleur).sortie = 1;
-	return (*controleur).sortie;
 	}
 
 int controleurKEYDOWN(controleurT * controleur)

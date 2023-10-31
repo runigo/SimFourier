@@ -57,8 +57,8 @@ int projectionPerspectiveSupport(projectionSystemT * projection, grapheT * graph
 int projectionSystemInitialise(projectionSystemT * projection)
 	{
 
-	(*projection).fenetreX = FENETRE_X;	// hauteur de la fenêtre
-	(*projection).fenetreY = FENETRE_Y;	// largeur de la fenêtre
+	//(*projection).fenetreX = FENETRE_X;	// hauteur de la fenêtre
+	//(*projection).fenetreY = FENETRE_Y;	// largeur de la fenêtre
 
 	//(*projection).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
 
@@ -78,6 +78,31 @@ float projectionValeurAbsolue(float valeur) {
 
 	if(valeur<0) return -valeur;
 	return valeur;
+	}
+
+int projectionSystemeFourier(systemeT * systeme, fourierT * fourier)
+	{
+		//	Projection du système sur les fonctions de fourier
+	int i;
+	int j = (*systeme).nombre;
+
+	for(i=0;i<j;i++)
+		{
+		(*fourier).spectre.reel[i]=(*systeme).actuel.reel[i];
+		(*fourier).spectre.imag[i]=(*systeme).actuel.imag[i];
+		}
+
+	j = (*systeme).nombre/2;
+
+	for(i=0;i<j;i++)
+		{
+		(*fourier).gauche.reel[i]=(*systeme).actuel.reel[i];
+		(*fourier).gauche.imag[i]=(*systeme).actuel.imag[i];
+		(*fourier).droite.reel[i]=(*systeme).actuel.reel[i+j];
+		(*fourier).droite.imag[i]=(*systeme).actuel.imag[i+j];
+		}
+
+	return 0;
 	}
 
 int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes) {
@@ -317,8 +342,8 @@ int projectionSystemeGraphes3D(systemeT * systeme, projectionSystemT * projectio
 		(*graphes).fonction.point[i].y = (*systeme).actuel.reel[i];//(*projection).fonction.hauteur * 
 		(*graphes).fonction.point[i].z = (*systeme).actuel.imag[i];//(*projection).fonction.hauteur * 
 		//(*graphes).fourier.point[i].x = (*graphes).fourier.axe[i].x;
-		(*graphes).fourier.point[i].y = (*systeme).fourier.reel[i];//(*projection).fourier.hauteur * 
-		(*graphes).fourier.point[i].z = (*systeme).fourier.imag[i];//(*projection).fourier.hauteur * 
+		(*graphes).fourier.point[i].y = (*systeme).fourier.spectre.reel[i];//(*projection).fourier.hauteur * 
+		(*graphes).fourier.point[i].z = (*systeme).fourier.spectre.imag[i];//(*projection).fourier.hauteur * 
 		}
 
 	return 0;
@@ -330,9 +355,11 @@ int projectionSystemeGraphes3D(systemeT * systeme, projectionSystemT * projectio
 int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
-
-	(*projection).fenetreX=x;
-	(*projection).fenetreY=y;
+	(void)projection;
+	(void)x;
+	(void)y;
+	//(*projection).fenetreX=x;
+	//(*projection).fenetreY=y;
 
 	return 0;
 	}
@@ -343,12 +370,13 @@ int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y) 
 void projectionSystemAffiche(projectionSystemT * projection) {
 
 	//	Affiche les paramètres de la projection
+	(void)projection;
 
 	//printf("(*projection).ratioXY = %f\n", (*projection).ratioXY);
 	//printf("(*projection).hauteur = %d\n", (*projection).hauteur);
 	//printf("(*projection).largeur = %d\n", (*projection).largeur);
-	printf("(*projection).fenetreX = %d\n", (*projection).fenetreX);
-	printf("(*projection).fenetreY = %d\n", (*projection).fenetreY);
+	//printf("(*projection).fenetreX = %d\n", (*projection).fenetreX);
+	//printf("(*projection).fenetreY = %d\n", (*projection).fenetreY);
 	return ;
 	}
 

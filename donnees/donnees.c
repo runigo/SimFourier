@@ -112,11 +112,14 @@ int donneesSysteme(systemeT * systeme, optionsT * options)
 		// Initialisation du système
 	systemeInitialisation(systeme, (*options).nombre, (*options).dt);
 
+		//fprintf(stderr, " Initialisation de fourier\n");
+	//fourierInitialise(&(*systeme).fourier, (*options).nombre);
+
 		// Initialisation du potentiel
 	systemeInitialisePotentiel(systeme, 9);
 
 		// Initialisation des positions
-	systemeInitialisePosition(systeme, 10);
+	systemeInitialisePosition(systeme, 5);
 
 	return 0;
 	}

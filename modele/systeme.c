@@ -54,6 +54,9 @@ int systemeInitialisation(systemeT * systeme, int nombre, int dt) {
 	systemeInitialiseNombre(systeme, nombre);	//	Nombre de points
 	systemeInitialiseDt(systeme, dt);			//	Pas temporel
 
+		//fprintf(stderr, " Initialisation de fourier\n");
+	fourierInitialise(&(*systeme).fourier, nombre);
+
 		// Initialisation des paramètres avec les valeurs implicites
 	(*systeme).masse = MASSE_IMP;	//	Masse du quanton
 	(*systeme).dx = DX_IMP;			//	Pas spatial
@@ -63,7 +66,6 @@ int systemeInitialisation(systemeT * systeme, int nombre, int dt) {
 	fonctionInitialise(&(*systeme).ancien, nombre);
 	fonctionInitialise(&(*systeme).actuel, nombre);
 	fonctionInitialise(&(*systeme).nouveau, nombre);
-	fonctionInitialise(&(*systeme).fourier, nombre);
 	fonctionInitialise(&(*systeme).potentiel, nombre);
 
 		// Initialisation du potentiel
@@ -105,11 +107,18 @@ int systemeInitialisePotentiel(systemeT * systeme, int forme) {
 
 int systemeInitialisePosition(systemeT * systeme, int forme) {
 
-	// Réinitialisation des positions
+	// Initialisation des positions
+	int i;
+	float posi;
+	float position = forme * (float)(*systeme).nombre/300;
 
-	(*systeme).ancien.reel[(*systeme).nombre/3] = forme;
-	(*systeme).actuel.reel[(*systeme).nombre/3] = forme;
-	(*systeme).nouveau.reel[(*systeme).nombre/3] = forme;
+	for(i=0;i<(*systeme).nombre;i++)
+		{
+		posi = position * (i-(*systeme).nombre/2);
+		(*systeme).ancien.reel[i] = posi;
+		(*systeme).actuel.reel[i] = posi;
+		(*systeme).nouveau.reel[i] = posi;
+		}
 
 	return 0;
 }

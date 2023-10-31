@@ -32,7 +32,7 @@ termes.
 #ifndef _SYSTEME_
 #define _SYSTEME_
 
-#include "fonction.h"
+#include "fourier.h"
 //#include "moteurs.h"
 
 typedef struct SystemeT systemeT;
@@ -42,7 +42,8 @@ typedef struct SystemeT systemeT;
 		fonctionT actuel;
 		fonctionT nouveau;
 
-		fonctionT fourier;
+	//	fonctionT fourier;
+		fourierT fourier;
 
 		fonctionT potentiel;	// Partie réelle : potentiel V(x) ; partie imaginaire : potentiel réduit v(x) = 2 + V(x).2m/hbar
 		

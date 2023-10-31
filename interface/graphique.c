@@ -267,6 +267,8 @@ void graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sin
 	(void)sinT;
 	(void)cosT;
 
+	SDL_SetRenderDrawColor((*graphique).rendu, 25, 25, 25, 255);
+
 		// Horizontales 		    R	  V	  B
 	//SDL_SetRenderDrawColor((*graphique).rendu, sinusC, 55+sinusC, 125+sinusC, 255-sinusC);
 	//graphiqueChangeCouleur(graphique, (*graphique).cyan);
