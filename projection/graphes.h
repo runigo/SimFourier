@@ -78,7 +78,6 @@ typedef struct GraphesT graphesT;
 		{
 		grapheT fonction;
 		grapheT fourier;
-		int nombre;
 		};
 
 int graphesInitialisation(graphesT * graphes, int nombre);

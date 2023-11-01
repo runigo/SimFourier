@@ -40,7 +40,6 @@ int projectionInitialisePointDeVue(projectionSystemT * projection,  float r,floa
 int projectionReinitialiseBase(projectionSystemT * projection);
 
 	//	PROJECTION
-float projectionValeurAbsolue(float valeur);
 int projectionPerspectiveChaine(projectionSystemT * projection, grapheT * graphe);
 //int projectionSystemeChaine3D(systemeT * systeme, projectionSystemT * projection, grapheT * graphe);
 int projectionSystemeGraphes3D(systemeT * systeme, projectionSystemT * projection, graphesT * graphes);
@@ -73,12 +72,6 @@ int projectionSystemInitialise(projectionSystemT * projection)
 	}
 
 	//-----------------    PROJECTION      -----------------------//
-
-float projectionValeurAbsolue(float valeur) {
-
-	if(valeur<0) return -valeur;
-	return valeur;
-	}
 
 int projectionSystemeFourier(systemeT * systeme, fourierT * fourier)
 	{

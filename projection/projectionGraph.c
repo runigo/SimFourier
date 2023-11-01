@@ -187,35 +187,6 @@ int projectionGraphChangeFenetre(projectionGraphT * projection, int x, int y) {
 	//projectionReinitialiseBase(projection);
 	return 0;
 	}
-/*
-int projectionGraphChangeTaille(projectionGraphT * projection, float x) {
-
-		// Change la taille de la chaîne
-
-	int largeur = (*projection).largeur * x;
-
-	if(largeur > LARGEUR_MAX)
-		{
-		printf("Maximum de la taille ateinte\n");
-		}
-	else
-		{
-		if(largeur < LARGEUR_MIN)
-			{
-			printf("Minimum de la taille ateinte\n");
-			}
-		else
-			{
-			(*projection).largeur = largeur;
-			(*projection).hauteur = (int)(largeur/(*projection).ratioLH);
-			printf("(*projection).hauteur = %d\n", (*projection).hauteur);
-			printf("(*projection).largeur = %d\n", (*projection).largeur);
-			}
-		}
-
-	return 0;
-	}
-*/
 
 	//-----------------    AFFICHAGE      -----------------------//
 

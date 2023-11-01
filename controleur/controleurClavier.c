@@ -69,6 +69,9 @@ int controleurClavier(controleurT * controleur)
 	//	case SDLK_F2: // Harmoniques
 		//	observablesAffiche(&(*controleur).observables);break;
 
+		case SDLK_F3: // Point de vue
+			pointDeVueAffiche(&(*controleur).graphes.fonction.pointDeVue);break;
+
 		case SDLK_F4: // Corde asymétrique
 			controleurSourisAffiche(controleur);break;
 	//	case SDLK_F5:

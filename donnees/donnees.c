@@ -70,7 +70,7 @@ int donneesControleur(controleurT * controleur)
 		fprintf(stderr, " Initialisation du système\n");
 	donneesSysteme(&(*controleur).systeme, &(*controleur).options);
 
-		fprintf(stderr, " Initialisation des graphe\n");
+		fprintf(stderr, " Initialisation des graphes\n");
 	graphesInitialisation(&(*controleur).graphes, (*controleur).options.nombre);
 
 		//fprintf(stderr, " Initialisation des capteurs\n");
@@ -119,7 +119,7 @@ int donneesSysteme(systemeT * systeme, optionsT * options)
 	systemeInitialisePotentiel(systeme, 9);
 
 		// Initialisation des positions
-	systemeInitialisePosition(systeme, 5);
+	systemeInitialisePosition(systeme, 1);
 
 	return 0;
 	}

@@ -62,11 +62,11 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 		(*graphe).ya[i] = 0;
 		}
 
-	int Ns2=nombre/2;
-	for(i=-Ns2;i<Ns2;i++)
+	//int Ns2=nombre/2;
+	for(i=0;i<nombre;i++)
 		{
-		(*graphe).point[i].x = (float)i;
-		(*graphe).axe[i].x = (float)i;
+		(*graphe).point[i].x = (float)i/nombre*10;
+		(*graphe).axe[i].x = (float)i/nombre*10;
 		}
 	for(i=0;i<SUPPORT;i++){
 		vecteurInitialisePolaire(&(*graphe).support[i],0.0,0.0,0.0);
@@ -141,8 +141,8 @@ int grapheInitialiseSupport(grapheT * graphe){
 		}
 
 					// AXE Ox
-	(*graphe).support[0].x = -0.2 * (*graphe).longueur;
-	(*graphe).support[1].x = 1.2 * (*graphe).longueur;
+	(*graphe).support[0].x = -1.2 * (*graphe).longueur;
+	(*graphe).support[1].x = 10.2 * (*graphe).longueur;
 
 					// AXE Oy
 	(*graphe).support[2].y = -1.2 * (*graphe).rayon;

@@ -104,7 +104,7 @@ int controleurEvolution(controleurT * controleur)
 
 	if((*controleur).options.modePause > 0)
 		{
-		controleurEvolutionSysteme(controleur);
+		//controleurEvolutionSysteme(controleur);
 		}
 
 	//horlogeChrono(&(*controleur).horloge, 2);

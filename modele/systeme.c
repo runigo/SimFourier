@@ -110,7 +110,20 @@ int systemeInitialisePosition(systemeT * systeme, int forme) {
 	// Initialisation des positions
 	int i;
 	float posi;
-	float position = forme * (float)(*systeme).nombre/300;
+	float position = (float)forme / (*systeme).nombre;
+	switch (forme)
+		{
+		case 0:
+			position = 0;break;
+		case 1:
+			position = (float)forme / (*systeme).nombre;break;
+		case 2:
+			position = (float)forme / (*systeme).nombre;break;
+		case 3:
+			position = (float)forme / (*systeme).nombre;break;
+		default:
+			;
+		}
 
 	for(i=0;i<(*systeme).nombre;i++)
 		{
