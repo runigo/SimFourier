@@ -67,11 +67,7 @@ int pointDeVueChangePhi(pointDeVueT * pointDeVue, float x) {
 
 		// Change la position de l'observateur suivant phi
 
-	float r, psi, phi;
-
-	r = (*pointDeVue).position.r;
-	psi = (*pointDeVue).position.psi;
-	phi = (*pointDeVue).position.phi + x;
+	float phi = (*pointDeVue).position.phi + x;
 
 		// phi reste inférieur à PI
 	if(phi > PI)
@@ -85,7 +81,7 @@ int pointDeVueChangePhi(pointDeVueT * pointDeVue, float x) {
 		phi = 0.0;
 		}
 
-	vecteurInitialisePolaire(&(*pointDeVue).position, r, psi, phi);
+	vecteurInitialisePolaire(&(*pointDeVue).position, (*pointDeVue).position.r, (*pointDeVue).position.psi, phi);
 	pointDeVueReinitialiseBase(pointDeVue);
 
 	return 0;
@@ -95,11 +91,7 @@ int pointDeVueChangePsi(pointDeVueT * pointDeVue, float x) {
 
 		// Change la position de l'observateur suivant psi
 
-	float r, psi, phi;
-
-	r = (*pointDeVue).position.r;
-	psi = (*pointDeVue).position.psi + x;
-	phi = (*pointDeVue).position.phi;
+	float psi = (*pointDeVue).position.psi + x;
 
 	if(psi > PI)
 		{
@@ -111,7 +103,7 @@ int pointDeVueChangePsi(pointDeVueT * pointDeVue, float x) {
 		psi = psi + DEUXPI;
 		}
 
-	vecteurInitialisePolaire(&(*pointDeVue).position, r, psi, phi);
+	vecteurInitialisePolaire(&(*pointDeVue).position, (*pointDeVue).position.r, psi, (*pointDeVue).position.phi);
 	pointDeVueReinitialiseBase(pointDeVue);
 
 	return 0;

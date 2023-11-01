@@ -95,39 +95,18 @@ int projectionPerspectiveSupport(projectionGraphT * projection, grapheT * graphe
 		(*graphe).supporY[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
 		}
 
-	if((*graphe).pointDeVue.position.psi<0)
-		{
+	if((*graphe).pointDeVue.position.psi<0){
 		(*graphe).gauche=1;
-		if((*graphe).pointDeVue.position.psi < -PI/2)
-			{
-			(*graphe).arriere=1;
-			}
-		else
-			{
-			(*graphe).arriere=0;
-			}
-		}
-	else
-		{
+		if((*graphe).pointDeVue.position.psi < -PI/2){(*graphe).arriere=1;}
+		else{(*graphe).arriere=0;}}
+	else{
 		(*graphe).gauche=0;
-		if((*graphe).pointDeVue.position.psi > PI/2)
-			{
-			(*graphe).arriere=1;
-			}
-		else
-			{
-			(*graphe).arriere=0;
-			}
-		}
+		if((*graphe).pointDeVue.position.psi > PI/2){(*graphe).arriere=1;}
+		else{(*graphe).arriere=0;}}
 
-	if((*graphe).pointDeVue.position.phi<PI/2)
-		{
-		(*graphe).dessous=1;
-		}
-	else
-		{
-		(*graphe).dessous=0;
-		}
+	if((*graphe).pointDeVue.position.phi<PI/2){
+		(*graphe).dessous=1;}
+	else{(*graphe).dessous=0;}
 
 	return 0;
 	}
