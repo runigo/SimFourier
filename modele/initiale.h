@@ -29,56 +29,38 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _SYSTEME_
-#define _SYSTEME_
+#ifndef _INITIALE_
+#define _INITIALE_
 
-#include "fourier.h"
-#include "initiale.h"
+#include "fonction.h"
 //#include "moteurs.h"
 
-typedef struct SystemeT systemeT;
-	struct SystemeT
+typedef struct InitialeT initialeT;
+	struct InitialeT
 		{
-		fonctionT ancien;
-		fonctionT actuel;
-		fonctionT nouveau;
+		fonctionT enveloppe;
+		fonctionT porteuse;
 
-		fonctionT potentiel;	// Partie réelle : potentiel V(x) ; partie imaginaire : potentiel réduit v(x) = 2 + V(x).2m/hbar
-
-		fourierT fourier;
-
-		initialeT initiale;
-		
 		int nombre;			//	Nombre de points
 
 		//moteursT moteurs;				// Moteur périodique et impulsion
 
-		float masse;		//	Masse du quanton
-		float dt;			//	Pas temporel
-		float dx;			//	Pas spatial
-		float hbar;			//	Constante de Planck réduite
+		float frequence;		//	fréquence de la porteuse
+		float amplitude;		//	amplitude de la porteuse
+		float largeur;			//	largeur de l'enveloppe
 
-		float hbardtSmdx2;		// hbar dt / m dx2 = Dt
+		int forme;
 
 		};
 
-	//	Initialisation du système
-int systemeInitialisation(systemeT * systeme, int nombre, int dt);
+	//	Initialisation de initiale
+int initialeInitialisation(initialeT * initiale, int nombre);
 
 	//	Réinitialisation des paramètres
-int systemeInitialiseNombre(systemeT * systeme, int nombre);
-int systemeInitialiseHbar(systemeT * systeme, int hbar);
-int systemeInitialiseMasse(systemeT * systeme, float masse);
+int initialeInitialiseNombre(initialeT * initiale, int nombre);
 
 	// Réinitialisation du potentiel
-int systemeInitialisePotentiel(systemeT * systeme, int forme);
-
-	//	Réinitialisation des positions
-int systemeInitialisePosition(systemeT * systeme, int forme);
-int systemeInitialisePoint(systemeT * systeme, float ancien, float actuel, float nouveau, int i);
-
-	//	Évolution temporelle du système
-int systemeEvolution(systemeT * systeme, int duree);
+int initialeInitialisePotentiel(initialeT * initiale, int forme);
 
 #endif
 

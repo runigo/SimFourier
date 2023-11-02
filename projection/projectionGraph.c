@@ -72,9 +72,7 @@ int projectionGraphGraphes(projectionGraphT * projection, graphesT * graphes) {
 		// Projection en 2D de la représentation 3D
 	projectionPerspectiveSupport(projection, &(*graphes).fonction);
 	projectionPerspectiveSupport(projection, &(*graphes).fourier);
-	//projectionPerspectiveGraphes(projection, graphes);
-	projectionPerspectiveGraphe(&(*graphes).fonction, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_Q ) );
-	projectionPerspectiveGraphe(&(*graphes).fourier, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_F ) );
+	projectionPerspectiveGraphes(projection, graphes);
 	return 0;
 	}
 
@@ -115,18 +113,21 @@ int projectionPerspectiveGraphes(projectionGraphT * projection, graphesT * graph
 	{
 			//	Projette les graphes 3D sur les graphes 2D
 
-	projectionPerspectiveGraphe(&(*graphes).fonction, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_Q ) );
-	projectionPerspectiveGraphe(&(*graphes).fourier, (int)( (*projection).fenetreX * RATIO_C_X ), (int)( (*projection).fenetreY * RATIO_C_Y_F ) );
+	projectionPerspectiveGraphe(&(*graphes).fonction, (*projection).fenetreX, (*projection).fenetreY);
+	projectionPerspectiveGraphe(&(*graphes).fourier, (*projection).fenetreX, (*projection).fenetreY);
 
 	return 0;
 	}
 
-int projectionPerspectiveGraphe(grapheT * graphe, int centrageX, int centrageY)
+int projectionPerspectiveGraphe(grapheT * graphe, int fenetreX, int fenetreY)
 	{
 						//	Projette un graphe 3D sur son graphe 2D
 	vecteurT v;
 	int i;
 	int nombre = (*graphe).nombre;
+
+	int centrageX = (int)( fenetreX * (*graphe).ratiox );
+	int centrageY = (int)( fenetreY * (*graphe).ratioy );
 
 	for(i=0;i<nombre;i++)
 		{

@@ -29,57 +29,76 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _SYSTEME_
-#define _SYSTEME_
-
-#include "fourier.h"
 #include "initiale.h"
-//#include "moteurs.h"
 
-typedef struct SystemeT systemeT;
-	struct SystemeT
+	//		INITIALISATION
+
+	//		ÉVOLUTION TEMPORELLE
+int initialeIncremente(initialeT * initiale);
+
+	//		JAUGE ET NORMALISATION
+int initialeJaugeZero(initialeT * initiale);
+
+
+/*------------------------  INITIALISATION  -------------------------*/
+
+int initialeInitialisation(initialeT * initiale, int nombre) {
+
+		fonctionInitialise(&(*initiale).enveloppe, nombre);
+		fonctionInitialise(&(*initiale).porteuse, nombre);
+
+		(*initiale).nombre = nombre;			//	Nombre de points
+
+		(*initiale).frequence = 1;		//	fréquence de la porteuse
+		(*initiale).amplitude = 1;		//	amplitude de la porteuse
+		(*initiale).largeur = 1;			//	largeur de l'enveloppe
+
+		(*initiale).forme = 0;
+
+	return 0;
+}
+
+int initialeInitialisePosition(initialeT * initiale, int forme) {
+
+	// Initialisation des positions
+(void)initiale;
+(void)forme;
+/*	switch (forme)
 		{
-		fonctionT ancien;
-		fonctionT actuel;
-		fonctionT nouveau;
+		case 0:
+			position = 0;break;
+		default:
+			;
+		}
+*/
+	return 0;
+}
 
-		fonctionT potentiel;	// Partie réelle : potentiel V(x) ; partie imaginaire : potentiel réduit v(x) = 2 + V(x).2m/hbar
+int initialeInitialiseNombre(initialeT * initiale, int nombre)
+	{
+	if(nombre>NOMBRE_MIN-1 && nombre<NOMBRE_MAX+1 && ((nombre & (nombre - 1)) == 0))
+		{
+		(*initiale).nombre = nombre;
+		printf("(*initiale).nombre = %d\n", (*initiale).nombre);
+		return 0;
+		}
+	else
+		{
+		(*initiale).nombre = NOMBRE_IMP;
+		printf("ERREUR initialeInitialiseNombre(%d) (*initiale).nombre = %d\n", nombre, (*initiale).nombre);
+		}
+	return 1;
+	}
 
-		fourierT fourier;
+/*------------------------  ÉVOLUTION TEMPORELLE  -------------------------*/
 
-		initialeT initiale;
-		
-		int nombre;			//	Nombre de points
+int initialeEvolution(initialeT * initiale, int duree) {
+(void)initiale;
+(void)duree;
 
-		//moteursT moteurs;				// Moteur périodique et impulsion
+	return 0;
+	}
 
-		float masse;		//	Masse du quanton
-		float dt;			//	Pas temporel
-		float dx;			//	Pas spatial
-		float hbar;			//	Constante de Planck réduite
+/*----------------JAUGE ET NORMALISATION-------------------*/
 
-		float hbardtSmdx2;		// hbar dt / m dx2 = Dt
-
-		};
-
-	//	Initialisation du système
-int systemeInitialisation(systemeT * systeme, int nombre, int dt);
-
-	//	Réinitialisation des paramètres
-int systemeInitialiseNombre(systemeT * systeme, int nombre);
-int systemeInitialiseHbar(systemeT * systeme, int hbar);
-int systemeInitialiseMasse(systemeT * systeme, float masse);
-
-	// Réinitialisation du potentiel
-int systemeInitialisePotentiel(systemeT * systeme, int forme);
-
-	//	Réinitialisation des positions
-int systemeInitialisePosition(systemeT * systeme, int forme);
-int systemeInitialisePoint(systemeT * systeme, float ancien, float actuel, float nouveau, int i);
-
-	//	Évolution temporelle du système
-int systemeEvolution(systemeT * systeme, int duree);
-
-#endif
-
-////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////

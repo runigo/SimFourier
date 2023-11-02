@@ -80,6 +80,9 @@ int systemeInitialisation(systemeT * systeme, int nombre, int dt) {
 	systemeInitialisePotentielReduit(systeme);
 	systemeInitialiseHbardtSmdx2(systeme);
 
+		//	Initialisation de initiale
+	initialeInitialisation(&(*systeme).initiale, (*systeme).nombre);
+
 		// Initialisation du moteurs
 	//moteursInitialisation(moteursT * moteurs);
 	return 0;
