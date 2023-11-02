@@ -69,13 +69,13 @@ termes.
 
 	//	PARAMÈTRES GRAPHIQUES DE LA CHAÎNE
 #define SUPPORT 7			// Nombre de point du support (axes)
-#define LONGUEUR_IMP 1	// Longueur implicite de la chaîne
-#define RAYON_IMP 1	// Rayon implicite de la chaîne
+#define LONGUEUR_IMP 1		// Longueur implicite de la chaîne
+#define RAYON_IMP 1			// Rayon implicite de la chaîne
+#define ECHELLE_IMP 10		// Echelle des graphes
 
-
-#define DISTANCE_MAX 1000
-#define DISTANCE_IMP 100
-#define DISTANCE_MIN 10
+#define DISTANCE_MAX 100
+#define DISTANCE_IMP 10
+#define DISTANCE_MIN 1
 
 
 #define RATIO_C_X 0.399		// Ratio Centrage X

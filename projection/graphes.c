@@ -53,6 +53,20 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	{
 	int i;
 	(*graphe).nombre=nombre;
+
+	(*graphe).modeSupport = 1;
+
+	(*graphe).dessous = 0;
+	(*graphe).arriere = 0;
+	(*graphe).gauche = 0;
+
+	(*graphe).echelle = ECHELLE_IMP;
+	(*graphe).longueur = LONGUEUR_IMP;
+	(*graphe).rayon = RAYON_IMP;
+
+	(*graphe).ratiox = 0;
+	(*graphe).ratioy = 0;
+
 	for(i=0;i<NOMBRE_MAX;i++){
 		vecteurInitialisePolaire(&(*graphe).point[i],0.0,0.0,0.0);
 		vecteurInitialisePolaire(&(*graphe).axe[i],0.0,0.0,0.0);
@@ -62,29 +76,11 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 		(*graphe).ya[i] = 0;
 		}
 
-	//int Ns2=nombre/2;
-	for(i=0;i<nombre;i++)
-		{
-		(*graphe).point[i].x = (float)i/nombre*10;
-		(*graphe).axe[i].x = (float)i/nombre*10;
-		}
 	for(i=0;i<SUPPORT;i++){
 		vecteurInitialisePolaire(&(*graphe).support[i],0.0,0.0,0.0);
 		(*graphe).supporX[i] = 0;
 		(*graphe).supporY[i] = 0;
 		}
-
-	(*graphe).modeSupport = 1;
-
-	(*graphe).dessous = 0;
-	(*graphe).arriere = 0;
-	(*graphe).gauche = 0;
-
-	(*graphe).longueur = LONGUEUR_IMP;
-	(*graphe).rayon = RAYON_IMP;
-
-	(*graphe).ratiox = 0;
-	(*graphe).ratioy = 0;
 
 	pointDeVueInitialise(&(*graphe).pointDeVue);
 	grapheInitialiseSupport(graphe);
@@ -140,18 +136,33 @@ int grapheInitialiseSupport(grapheT * graphe){
 		(*graphe).support[i].z = 0;
 		}
 
-					// AXE Ox
-	(*graphe).support[0].x = -1.2 * (*graphe).longueur;
-	(*graphe).support[1].x = 10.2 * (*graphe).longueur;
+					// AXE X'X
+	(*graphe).support[0].x = -5.2 * (*graphe).echelle;
+	(*graphe).support[1].x = 3.2 * (*graphe).echelle;
 
-					// AXE Oy
-	(*graphe).support[2].y = -1.2 * (*graphe).rayon;
-	(*graphe).support[3].y = 1.2 * (*graphe).rayon;
+					// AXE Y'Y
+	(*graphe).support[2].y = -1.2 * (*graphe).echelle;
+	(*graphe).support[3].y = 1.2 * (*graphe).echelle;
+	(*graphe).support[2].x = -4.2 * (*graphe).echelle;
+	(*graphe).support[3].x = -4.2 * (*graphe).echelle;
 
-					// AXE Oz
-	(*graphe).support[4].z =-1.2 * (*graphe).rayon;
-	(*graphe).support[5].z = 1.2 * (*graphe).rayon;
+					// AXE Z'Z
+	(*graphe).support[4].z = -1.2 * (*graphe).echelle;
+	(*graphe).support[5].z = 1.2 * (*graphe).echelle;
+	(*graphe).support[4].x = -4.2 * (*graphe).echelle;
+	(*graphe).support[5].x = -4.2 * (*graphe).echelle;
 
+		// Axe X'X
+	//a=-4.2*echelle
+	//b=2.7*echelle
+	//y=a
+	//x=(b-a)/N=7.9*echelle/nombre
+	int nombre=(*graphe).nombre;
+	for(i=0;i<nombre;i++)
+		{
+		(*graphe).point[i].x = (7.9 * (float)i/nombre - 4.2) * (*graphe).echelle ;
+		(*graphe).axe[i].x = (7.9 * (float)i/nombre - 4.2) * (*graphe).echelle ;
+		}
 	return 0;
 	}
 
@@ -175,6 +186,32 @@ void grapheChangeSupport(grapheT * graphe){
 			printf("Support plein\n");
 			}
 		}
+	}
+
+	//-----------------    AFFICHAGE      -----------------------//
+
+int grapheAffiche(grapheT * graphe) {
+
+		// Affiche les valeurs de psi et phi
+
+	printf("(*graphe).pointDeVue.position :\n");
+	vecteurAffiche(&(*graphe).pointDeVue.position);
+
+	int i;
+	for(i=0;i<3;i++){
+		printf("\n(*graphe).support[%i] :\n", i);
+		vecteurAffiche(&(*graphe).support[i]);}
+	for(i=0;i<3;i++){
+		printf("\n(*graphe).point[%i] :\n", i);
+		vecteurAffiche(&(*graphe).point[i]);}
+	for(i=0;i<3;i++){
+		printf("\n(*graphe).axe[%i] :\n", i);
+		vecteurAffiche(&(*graphe).axe[i]);}
+
+//	printf("\n(*graphe).xa[0], ya[0] : %i, %i\n",(*graphe).xa[0],(*graphe).ya[0]);
+//	printf("\n(*graphe).xp[0], yp[0] : %i, %i\n\n",(*graphe).xp[0],(*graphe).yp[0]);
+
+	return 0;
 	}
 
 //////////////////////////////////////////////////////////////////

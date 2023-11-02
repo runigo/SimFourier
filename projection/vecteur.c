@@ -106,7 +106,7 @@ int vecteurInitialiseVecteurPsi(vecteurT * position, vecteurT * vecteurPsi, floa
 void vecteurAffiche(vecteurT * v)
 	{
 	printf("x, y, z : %f,%f,%f\n", (*v).x,(*v).y,(*v).z);
-	printf("r, p, f : %f,%f,%f\n", (*v).r,(*v).psi,(*v).phi);
+	printf("r, psi, phi : %f,%f,%f\n", (*v).r,(*v).psi,(*v).phi);
 	return;
 	}
 

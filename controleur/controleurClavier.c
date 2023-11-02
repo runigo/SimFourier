@@ -72,9 +72,12 @@ int controleurClavier(controleurT * controleur)
 		case SDLK_F3: // Point de vue
 			pointDeVueAffiche(&(*controleur).graphes.fonction.pointDeVue);break;
 
-		case SDLK_F4: // Corde asymétrique
-			controleurSourisAffiche(controleur);break;
-	//	case SDLK_F5:
+		case SDLK_F4: // 
+			printf("GRAPHE FONCTION :\n");
+			grapheAffiche(&(*controleur).graphes.fonction);break;
+		case SDLK_F5:
+			printf("GRAPHE FOURIER :\n");
+			grapheAffiche(&(*controleur).graphes.fourier);break;
 		//	observablesAfficheEnergie(&(*controleur).systeme);break;
 	//	case SDLK_F6:
 		//	moteursAfficheHorloge(&(*controleur).systeme.moteurs);break;

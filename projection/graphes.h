@@ -43,7 +43,6 @@ typedef struct GrapheT grapheT;
 			// Grandeurs 3D
 		vecteurT point[NOMBRE_MAX]; // Fonction ou TF
 		vecteurT axe[NOMBRE_MAX]; // Fonction ou TF
-
 		vecteurT support[SUPPORT];	// Support fixe
 
 
@@ -65,6 +64,7 @@ typedef struct GrapheT grapheT;
 		int arriere;	// Vue de derrière
 		int gauche;		// Vue de gauche
 
+		int echelle;	// Echelle du graphe
 		int longueur;	// Longueur Ox
 		int rayon;	// Longueurs Oy et Oz
 		
@@ -82,5 +82,5 @@ typedef struct GraphesT graphesT;
 
 int graphesInitialisation(graphesT * graphes, int nombre);
 //void grapheChangeSupport(grapheT * graphe);
-
+int grapheAffiche(grapheT * graphe);
 #endif
