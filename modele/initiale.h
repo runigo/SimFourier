@@ -40,28 +40,38 @@ typedef struct InitialeT initialeT;
 		{
 		fonctionT enveloppe;
 		fonctionT porteuse;
+		fonctionT potentiel;	// Partie réelle : potentiel V(x) ; partie imaginaire : potentiel réduit v(x) = 2 + V(x).2m/hbar
 
 		int nombre;			//	Nombre de points
 
 		//moteursT moteurs;				// Moteur périodique et impulsion
 
+		int periode;			//	periode de l'enveloppe
 		float frequence;		//	fréquence de la porteuse
+		float phase;			//	phase de la porteuse
 		float amplitude;		//	amplitude de la porteuse
 		float largeur;			//	largeur de l'enveloppe
+		float facteur;			//	facteur de symétrie
 
-		int forme;
+		int complexe;			//	oscillation harmonique
+		int periodique;			// périodise le carré et le triangle
+
+		int forme;			//	0 : harmonique, 1 : carrée, 2 : triangle
 
 		};
 
 	//	Initialisation de initiale
 int initialeInitialisation(initialeT * initiale, int nombre);
-
-	//	Réinitialisation des paramètres
-int initialeInitialiseNombre(initialeT * initiale, int nombre);
+int initialeInitialisePosition(initialeT * initiale, int forme);
 
 	// Réinitialisation du potentiel
 int initialeInitialisePotentiel(initialeT * initiale, int forme);
 
+	// Changement des paramètres
+int initialeChangeFrequence(initialeT * m, float facteur);
+int initialeChangeAmplitude(initialeT * m, float facteur);
+int initialeChangePorteuse(initialeT * initiale, int mode);
+int initialeChangeEnveloppe(initialeT * initiale, int mode);
 #endif
 
 ////////////////////////////////////////////////////////////

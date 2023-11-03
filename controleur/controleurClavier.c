@@ -87,6 +87,36 @@ int controleurClavier(controleurT * controleur)
 	//	case SDLK_F8:
 	//		grapheChangeSupport(&(*controleur).graphes);break;
 
+	// Paramètres porteuse
+		case SDLK_p:
+			initialeChangeFrequence(&(*controleur).systeme.initiale,1.1);break;
+		case SDLK_m:
+			initialeChangeFrequence(&(*controleur).systeme.initiale,0.91);break;
+		case SDLK_u:
+			initialeChangeAmplitude(&(*controleur).systeme.initiale,1.1);break;
+		case SDLK_j:
+			initialeChangeAmplitude(&(*controleur).systeme.initiale,0.91);break;
+		case SDLK_o:
+			initialeChangePorteuse(&(*controleur).systeme.initiale, 0);break;
+		case SDLK_i:
+			initialeChangePorteuse(&(*controleur).systeme.initiale, 1);break;
+	//	case SDLK_l:
+		//	initialeChangeEnveloppe(&(*controleur).systeme.initiale, 0);break;
+	//	case SDLK_k:
+		//	initialeChangeEnveloppe(&(*controleur).systeme.initiale, 1);break;
+		case SDLK_y:
+			initialeChangePorteuse(&(*controleur).systeme.initiale, -1);break;
+	//	case SDLK_h:
+		//	initialeChangeEnveloppe(&(*controleur).systeme.initiale, -1);break;
+
+	// Paramètres enveloppe
+		case SDLK_a:
+			initialeChangeEnveloppe(&(*controleur).systeme.initiale, 0);break;
+		case SDLK_z:
+			initialeChangeEnveloppe(&(*controleur).systeme.initiale, 1);break;
+		case SDLK_e:
+			initialeChangeEnveloppe(&(*controleur).systeme.initiale, -1);break;
+
 
 		default:
 			;

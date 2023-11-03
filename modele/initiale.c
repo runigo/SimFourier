@@ -31,7 +31,12 @@ termes.
 
 #include "initiale.h"
 
-	//		INITIALISATION
+	//		RÉINITIALISATION
+
+int initialeInitialiseEnveloppe(initialeT * initiale);
+int initialeInitialisePorteuse(initialeT * initiale);
+int initialeInitialisePorteuseHarmonique(initialeT * initiale);
+int initialeInitialiseEnveloppeCarre(initialeT * initiale);
 
 	//		ÉVOLUTION TEMPORELLE
 int initialeIncremente(initialeT * initiale);
@@ -46,23 +51,27 @@ int initialeInitialisation(initialeT * initiale, int nombre) {
 
 		fonctionInitialise(&(*initiale).enveloppe, nombre);
 		fonctionInitialise(&(*initiale).porteuse, nombre);
+		fonctionInitialise(&(*initiale).potentiel, nombre);
 
 		(*initiale).nombre = nombre;			//	Nombre de points
 
-		(*initiale).frequence = 1;		//	fréquence de la porteuse
-		(*initiale).amplitude = 1;		//	amplitude de la porteuse
-		(*initiale).largeur = 1;			//	largeur de l'enveloppe
+		(*initiale).periode=(int)nombre/8;			//	periode de l'enveloppe
+		(*initiale).frequence = 2000.0;		//	fréquence de la porteuse
+		(*initiale).phase = 1.0;			//	phase de la porteuse
+		(*initiale).amplitude = 1.0;		//	amplitude de la porteuse
+		(*initiale).largeur = 1.0;			//	largeur de l'enveloppe
+		(*initiale).facteur = 0.0;			//	facteur de disymétrie
 
-		(*initiale).forme = 0;
+		(*initiale).complexe = 1;			//	oscillation harmonique
+		(*initiale).periodique = 1;			//	périodise le carré et le triangle
+
+		(*initiale).forme = 0;			//	0 : harmonique, 1 : carrée, 2 : triangle
 
 	return 0;
 }
 
 int initialeInitialisePosition(initialeT * initiale, int forme) {
 
-	// Initialisation des positions
-(void)initiale;
-(void)forme;
 /*	switch (forme)
 		{
 		case 0:
@@ -71,25 +80,151 @@ int initialeInitialisePosition(initialeT * initiale, int forme) {
 			;
 		}
 */
+(void)forme;
+
+	initialeInitialisePorteuseHarmonique(initiale);
+	initialeInitialiseEnveloppe(initiale);
+
+	return 0;
+
+}
+
+int initialeInitialiseEnveloppe(initialeT * initiale) {
+
+	// Initialisation de l'enveloppe
+
+	initialeInitialiseEnveloppeCarre(initiale);
+
 	return 0;
 }
 
-int initialeInitialiseNombre(initialeT * initiale, int nombre)
-	{
-	if(nombre>NOMBRE_MIN-1 && nombre<NOMBRE_MAX+1 && ((nombre & (nombre - 1)) == 0))
+int initialeInitialiseEnveloppeCarre(initialeT * initiale) {
+
+	// Initialisation de l'enveloppe
+	
+	int i;
+	int nombre=(*initiale).nombre;
+	float periode=(*initiale).periode/2;
+
+
+	for(i=0;i<nombre;i++)
 		{
-		(*initiale).nombre = nombre;
-		printf("(*initiale).nombre = %d\n", (*initiale).nombre);
-		return 0;
+		if(i%(*initiale).periode > periode){
+			(*initiale).enveloppe.reel[i] = 0;
+			(*initiale).enveloppe.imag[i] = 0;}
+		else{
+			(*initiale).enveloppe.reel[i] = 5;
+			(*initiale).enveloppe.imag[i] = 0;}
+		}
+
+	return 0;
+}
+/*
+int initialeInitialisePorteuse(initialeT * initiale) {
+
+	else{
+		initialeInitialisePorteuseHarmonique(initiale);}
+
+	return 0;
+}
+*/
+int initialeInitialisePorteuseHarmonique(initialeT * initiale) {
+
+	// Initialisation de la porteuse
+	
+	int i;
+	int nombre=(*initiale).nombre;
+	float amplitude=(*initiale).amplitude;
+	float frequence=(*initiale).frequence;
+	float phase=(*initiale).phase;
+
+		for(i=0;i<nombre;i++)
+			{
+			if((*initiale).complexe == -1)
+				{(*initiale).porteuse.imag[i] = amplitude;(*initiale).porteuse.reel[i] = amplitude;}
+			else {
+				(*initiale).porteuse.reel[i] = amplitude * cos((float)i/nombre*frequence+phase);
+				if((*initiale).complexe == 1)
+					{(*initiale).porteuse.imag[i] = amplitude * sin((float)i/nombre*frequence+phase);}
+				else {(*initiale).porteuse.imag[i] = 0.0;}
+				}
+			}
+
+	return 0;
+}
+
+/*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
+
+int initialeChangeFrequence(initialeT * initiale, float facteur) {
+
+			//	Change la fréquence de la porteuse
+
+	if((*initiale).frequence * facteur < FREQUENCE_MAX && (*initiale).frequence * facteur > FREQUENCE_MIN)
+		{
+		(*initiale).frequence = (*initiale).frequence * facteur;
 		}
 	else
 		{
-		(*initiale).nombre = NOMBRE_IMP;
-		printf("ERREUR initialeInitialiseNombre(%d) (*initiale).nombre = %d\n", nombre, (*initiale).nombre);
+		printf("Fréquence limite atteinte. ");
 		}
-	return 1;
+	printf("Fréquence porteuse = %6.3f\n", (*initiale).frequence);
+
+	return 0;
 	}
 
+int initialeChangeAmplitude(initialeT * initiale, float facteur) {
+
+			//	Change l'amplitude du signal
+
+	float amplitude = (*initiale).amplitude * facteur;
+	if(amplitude < AMPLITUDE_MAX && amplitude > AMPLITUDE_MIN)
+		{
+		(*initiale).amplitude = (*initiale).amplitude * facteur;
+		}
+	else
+		{
+		printf("Amplitude limite atteinte. ");
+		}
+	printf("Amplitude générateur = %6.3f\n", (*initiale).amplitude);
+
+	return 0;
+	}
+
+int initialeChangePorteuse(initialeT * initiale, int mode){
+
+	switch (mode)
+		{
+		case -1:
+			(*initiale).complexe = -1;break;
+		case 0:
+			(*initiale).complexe = 0;break;
+		case 1:
+			(*initiale).complexe = 1;break;
+		default:
+			;
+		}
+	printf("(*initiale).complexe = %i\n", (*initiale).complexe);
+
+	return 0;
+	}
+
+int initialeChangeEnveloppe(initialeT * initiale, int mode){
+
+	switch (mode)
+		{
+		case -1:
+			(*initiale).periodique = -1;break;
+		case 0:
+			(*initiale).periodique = 0;break;
+		case 1:
+			(*initiale).periodique = 1;break;
+		default:
+			;
+		}
+	printf("(*initiale).periodique = %i\n", (*initiale).periodique);
+
+	return 0;
+	}
 /*------------------------  ÉVOLUTION TEMPORELLE  -------------------------*/
 
 int initialeEvolution(initialeT * initiale, int duree) {

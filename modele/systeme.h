@@ -43,7 +43,6 @@ typedef struct SystemeT systemeT;
 		fonctionT actuel;
 		fonctionT nouveau;
 
-		fonctionT potentiel;	// Partie réelle : potentiel V(x) ; partie imaginaire : potentiel réduit v(x) = 2 + V(x).2m/hbar
 
 		fourierT fourier;
 
@@ -64,21 +63,17 @@ typedef struct SystemeT systemeT;
 
 	//	Initialisation du système
 int systemeInitialisation(systemeT * systeme, int nombre, int dt);
+int systemeInitialisePoint(systemeT * systeme, float ancien, float actuel, float nouveau, int i);
+int systemeInitialisePosition(systemeT * systeme, int forme);
+int systemeInitialisePotentiel(systemeT * systeme, int forme);
 
 	//	Réinitialisation des paramètres
 int systemeInitialiseNombre(systemeT * systeme, int nombre);
 int systemeInitialiseHbar(systemeT * systeme, int hbar);
 int systemeInitialiseMasse(systemeT * systeme, float masse);
 
-	// Réinitialisation du potentiel
-int systemeInitialisePotentiel(systemeT * systeme, int forme);
-
-	//	Réinitialisation des positions
-int systemeInitialisePosition(systemeT * systeme, int forme);
-int systemeInitialisePoint(systemeT * systeme, float ancien, float actuel, float nouveau, int i);
-
 	//	Évolution temporelle du système
-int systemeEvolution(systemeT * systeme, int duree);
+int systemeEvolution(systemeT * systeme, int duree, int mode);
 
 #endif
 

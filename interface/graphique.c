@@ -329,19 +329,20 @@ void graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 //	if((*graphe).arriere != 0) // Vue de derrière, la chaîne est dessinée vers les précédents.
 //	else {(*graphe).arriere = 0;}
 
+	graphiqueChangeCouleur(graphique, (*graphique).orange);
 	for(i=0;i<(*graphe).nombre;i++)
 		{
 		//	Dessin des tiges
-		graphiqueTige(graphique, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i], 0, 0);//(*graphe).sinTheta, (*graphe).cosTheta);
+	SDL_RenderDrawLine((*graphique).rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
+	//	graphiqueTige(graphique, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i], 0, 0);//(*graphe).sinTheta, (*graphe).cosTheta);
+		}
 
-		//	Dessin des masses
-	//	coordonnee.x = (*graphe).xm;
-	//	coordonnee.y = (*graphe).ym;
-	//	SDL_RenderCopy((*graphique).rendu, (*graphique).masse, NULL, &coordonnee);
-
-	//	if((*graphe).arriere == 0)
-	//	else // Vue de derrière, la chaîne est dessinée vers les précédents.
-
+	graphiqueChangeCouleur(graphique, (*graphique).contraste);
+	for(i=0;i<((*graphe).nombre-1);i++)
+		{
+		//	Dessin de la courbe
+	SDL_RenderDrawLine((*graphique).rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
+	//	graphiqueTige(graphique, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i], 0, 0);//(*graphe).sinTheta, (*graphe).cosTheta);
 		}
 
 	return;

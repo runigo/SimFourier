@@ -104,7 +104,7 @@ int controleurEvolution(controleurT * controleur)
 
 	if((*controleur).options.modePause > 0)
 		{
-		//controleurEvolutionSysteme(controleur);
+		controleurEvolutionSysteme(controleur);
 		}
 
 	//horlogeChrono(&(*controleur).horloge, 2);
@@ -157,7 +157,7 @@ int controleurEvolutionSysteme(controleurT * controleur)
 	{
 	(void)controleur;
 		//fprintf(stderr, "Evolution temporelle du système\n");
-	systemeEvolution(&(*controleur).systeme, (*controleur).options.duree);
+	systemeEvolution(&(*controleur).systeme, (*controleur).options.duree, 1);
 
 		//fprintf(stderr, "Projection du système sur les spectres\n");
 	projectionSystemeFourier(&(*controleur).systeme, &(*controleur).systeme.fourier);
