@@ -1,8 +1,9 @@
-# Copyright fevrier 2020, Stephan Runigo
+# Copyright novembre 2023, Stephan Runigo
 # runigo@free.fr
-# SiCP 2.5 simulateur de chaîne de pendules
-# Ce logiciel est un programme informatique servant à simuler l'équation 
-# d'une chaîne de pendules et à en donner une représentation graphique.
+# (SiCP 2.5 simulateur de chaîne de pendules)
+# SimFourier 1.0 Transformation de Fourier
+# Ce logiciel est un programme informatique servant à donner une représentation
+# graphique de la transformation de Fourier à 1 dimension.
 # Ce logiciel est régi par la licence CeCILL soumise au droit français et 
 # respectant les principes de diffusion des logiciels libres. Vous pouvez 
 # utiliser, modifier et/ou redistribuer ce programme sous les conditions 
@@ -38,11 +39,11 @@ OBJDIR = ./obj
 
 all : $(EXEC)
 
-$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleurClavier.o $(OBJDIR)/controleurSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphes.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/fourier.o $(OBJDIR)/systeme.o
-	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleurClavier.o $(OBJDIR)/controleurSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphes.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fourier.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/systeme.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
+$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleurClavier.o $(OBJDIR)/controleurSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphes.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/fourier.o $(OBJDIR)/systeme.o $(OBJDIR)/modele.o
+	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleurClavier.o $(OBJDIR)/controleurSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphes.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fourier.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/systeme.o $(OBJDIR)/modele.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
 
-# $(OBJDIR)/observables.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o $(OBJDIR)/change.o $(OBJDIR)/moteurs.o
-# $(OBJDIR)/observables.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o $(OBJDIR)/change.o $(OBJDIR)/moteurs.o
+# $(OBJDIR)/observables.o $(OBJDIR)/chaine.o $(OBJDIR)/change.o $(OBJDIR)/moteurs.o
+# $(OBJDIR)/observables.o $(OBJDIR)/chaine.o $(OBJDIR)/change.o $(OBJDIR)/moteurs.o
 
 $(OBJDIR)/principale.o : controleur/principale.c controleur/principale.h
 	$(CC) -c -g controleur/principale.c $(CFLAGS) -o $@
@@ -116,8 +117,8 @@ $(OBJDIR)/moteurs.o : modele/moteurs.c modele/moteurs.h
 $(OBJDIR)/fourier.o : modele/fourier.c modele/fourier.h
 	$(CC) -c -g modele/fourier.c $(CFLAGS) -o $@
 
-#$(OBJDIR)/pendule.o : modele/pendule.c modele/pendule.h
-#	$(CC) -c -g modele/pendule.c $(CFLAGS) -o $@
+$(OBJDIR)/modele.o : modele/modele.c modele/modele.h
+	$(CC) -c -g modele/modele.c $(CFLAGS) -o $@
 
 clean :
 	rm $(OBJDIR)/*.o

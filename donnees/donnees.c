@@ -1,5 +1,5 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 SimFourier 1.0 Transformation de Fourier
@@ -34,7 +34,7 @@ termes.
 
 	//		Initialisation du controleur
 
-int donneesSysteme(systemeT * systeme, optionsT * options);
+int donneesModele(modeleT * modele, optionsT * options);
 int donneesGraphe(grapheT * graphe, optionsT * options);
 
 int donneesOptions(optionsT * options)
@@ -54,7 +54,7 @@ int donneesOptions(optionsT * options)
 
 	(*options).dt=DT_IMP;		// discrétisation du temps
 	(*options).nombre=NOMBRE_IMP;		// Nombre implicite de points
-	(*options).equation=1;		// 1 : pendule, 2 : linéarisation,
+	(*options).echelle=11.0;		// 1 : pendule, 2 : linéarisation,
 							//	 3 : corde, 4 : dioptre
 
 	return 0;
@@ -67,25 +67,25 @@ int donneesControleur(controleurT * controleur)
 	(*controleur).appui = 0;	// Appuie sur la souris
 	(*controleur).modeMenu = (*controleur).options.modeMenu;		// 0 : Menu, 1 SiCP, 2SiCF, 3 SiGP
 
-		fprintf(stderr, " Initialisation du système\n");
-	donneesSysteme(&(*controleur).systeme, &(*controleur).options);
+		fprintf(stderr, " Initialisation du modèle\n");
+	donneesModele(&(*controleur).modele, &(*controleur).options);
 
 		fprintf(stderr, " Initialisation des graphes\n");
 	graphesInitialisation(&(*controleur).graphes, (*controleur).options.nombre);
 
-		//fprintf(stderr, " Initialisation des capteurs\n");
+		fprintf(stderr, " Initialisation des capteurs\n");
 	capteursInitialise(&(*controleur).capteurs);
 	capteursMiseAJourLongueur(&(*controleur).capteurs, FENETRE_X, FENETRE_Y);
 
-		//fprintf(stderr, " Initialisation des projections\n");
+		fprintf(stderr, " Initialisation des projections\n");
 	projectionGraphInitialise(&(*controleur).projectionGraph);
 	projectionSystemInitialise(&(*controleur).projectionSystem);
 
 		fprintf(stderr, " Initialisation SDL\n");
 	interfaceInitialisationSDL();
-		//fprintf(stderr, " Création de l'interface SDL\n");
+		fprintf(stderr, " Création de l'interface SDL\n");
 	interfaceCreation(&(*controleur).interface);
-		//fprintf(stderr, " Création du rendu\n");
+		fprintf(stderr, " Création du rendu\n");
 	graphiqueInitialisation(&(*controleur).graphique, &(*controleur).interface, (*controleur).options.fond);
 
 	int fenetreX;
@@ -101,25 +101,16 @@ int donneesControleur(controleurT * controleur)
 	SDL_GetMouseState(&x,&y);
 	commandesInitialiseSouris(&(*controleur).commandes, x, y);
 
-		fprintf(stderr, " Initialisation horloge SDL\n");
+		fprintf(stderr, " Initialisation de l'horloge SDL\n");
 	horlogeCreation(&(*controleur).horloge);
 
 	return 0;
 	}
 
-int donneesSysteme(systemeT * systeme, optionsT * options)
+int donneesModele(modeleT * modele, optionsT * options)
 	{
-		// Initialisation du système
-	systemeInitialisation(systeme, (*options).nombre, (*options).dt);
-
-		//fprintf(stderr, " Initialisation de fourier\n");
-	//fourierInitialise(&(*systeme).fourier, (*options).nombre);
-
-		// Initialisation du potentiel
-	systemeInitialisePotentiel(systeme, 9);
-
-		// Initialisation des positions
-	systemeInitialisePosition(systeme, 1);
+		// Initialisation du modèle
+	modeleInitialisation(modele, (*options).nombre, (*options).dt);
 
 	return 0;
 	}

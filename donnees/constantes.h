@@ -1,5 +1,5 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
 (SiCF 2.2 simulateur de chaîne de pendules, octobre 2020)
 SimFourier 1.0 Transformation de Fourier
@@ -112,6 +112,9 @@ termes.
 
 #define AMPLITUDE_MAX 77.7	//	Valeur maximale de l'amplitude de la porteuse
 #define AMPLITUDE_MIN 0.077	//	Valeur minimale de l'amplitude de la porteuse
+
+#define ECHELLE_MAX 77.7	//	Valeur maximale de l'echelle de la TF
+#define ECHELLE_MIN 0.077	//	Valeur minimale de l'echelle de la TF
 
 	//	PARAMÈTRES QUANTIQUE
 

@@ -1,10 +1,10 @@
 /*
-Copyright avril 2019, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
-SiCF 2.0  simulateur de corde vibrante et spectre
-Ce logiciel est un programme informatique servant à simuler l'équation
-d'une corde vibrante, à calculer sa transformée de fourier, et à donner
-une représentation graphique de ces fonctions.
+(SiCF 2.0  simulateur de corde vibrante et spectre, mars 2019)
+SimFourier 0.1 Transformation de Fourier
+Ce logiciel est un programme informatique servant à donner une représentation
+graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -33,6 +33,7 @@ termes.
 #include "fonction.h"
 
 double fonctionMaximum(fonctionT * fonction);
+double fonctionCarreMax(fonctionT * f);
 int fonctionModule(fonctionT * fonction);
 int fonctionModuleCarre(fonctionT * fonction);
 
@@ -218,35 +219,34 @@ void fonctionReplier(fonctionT * spectre, int diviseur)
 
 	return;
 	}
-
-void fonctionNormale(fonctionT * f, fonctionT * nf)
+*/
+void fonctionNormalise(fonctionT * f,  float max)
+//void fonctionNormale(fonctionT * f, fonctionT * nf)
 	{
 	int i;
-	double module;
+	double module = sqrt(fonctionCarreMax(f));
 
-	module = sqrt(fonctionSommeModuleCarre(f));
-
-	for(i=0;i<N;i++)
+	for(i=0;i<(*f).nombre;i++)
 		{
-		(*nf).reel[i]=(*f).reel[i]/module;
-		(*nf).imag[i]=(*f).imag[i]/module;
+		(*f).reel[i]=(*f).reel[i]/module*max;
+		(*f).imag[i]=(*f).imag[i]/module*max;
 		}
 
 	return;
 	}
 
-double fonctionMaximum(fonctionT * f)
+double fonctionCarreMax(fonctionT * f)
 	{
 	int i;
 	double x,y;
 	double max=0.0;
 	double module;
 
-	for(i=0;i<N;i++)
+	for(i=0;i<(*f).nombre;i++)
 		{
 		x=(*f).reel[i];
 		y=(*f).imag[i];
-		module=sqrt(x*x+y*y);
+		module=x*x+y*y;
 		if(module > max)
 			{
 			max=module;
@@ -255,7 +255,7 @@ double fonctionMaximum(fonctionT * f)
 
 	return max;
 	}
-
+/*
 double fonctionSommeModuleCarre(fonctionT * f)
 	{
 	int i;

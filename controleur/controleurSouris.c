@@ -1,8 +1,8 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 0.1 Transformation de Fourier
+SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -185,19 +185,19 @@ int controleurSourisCommandes(controleurT * controleur, int zone)
 				controleurSourisInitialisePosition(controleur, 6);
 				reinitialisation = 1; break;
 			case 17:
-			    fichierLecture(&(*controleur).systeme, &(*controleur).graphes, "aaa");
+			    fichierLecture(&(*controleur).modele.systeme, &(*controleur).graphes, "aaa");
 				reinitialisation = 1; break;
 				//controleurInitialiseNombre(controleur, 1);break;
 			case 18:
-			    fichierLecture(&(*controleur).systeme, &(*controleur).graphes, "bbb");
+			    fichierLecture(&(*controleur).modele.systeme, &(*controleur).graphes, "bbb");
 				reinitialisation = 1; break;
 				//controleurInitialiseNombre(controleur, 2);break;
 			case 19:
-			    fichierLecture(&(*controleur).systeme, &(*controleur).graphes, "ccc");
+			    fichierLecture(&(*controleur).modele.systeme, &(*controleur).graphes, "ccc");
 				reinitialisation = 1; break;
 				//controleurInitialiseNombre(controleur, 3);break;
 			case 20:
-			    fichierLecture(&(*controleur).systeme, &(*controleur).graphes, "ddd");
+			    fichierLecture(&(*controleur).modele.systeme, &(*controleur).graphes, "ddd");
 				reinitialisation = 1; break;
 				//controleurInitialiseNombre(controleur, 4);break;
 			default:
@@ -210,8 +210,8 @@ int controleurSourisCommandes(controleurT * controleur, int zone)
 void controleurSourisInitialisePosition(controleurT * controleur, int position) {
 
 		//		Réinitialise les positions.
-
-	systemeInitialisePosition(&(*controleur).systeme, position);
+(void)position;
+	modeleProjectionInitiale(&(*controleur).modele);
 
 	return;
 	}
@@ -227,9 +227,9 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 			switch(commande)
 				{
 				case 0:
-					(&(*controleur).systeme, 1.1);break;
+					(&(*controleur).modele.systeme, 1.1);break;
 				case 1:
-					(&(*controleur).systeme, 1.1);break;
+					(&(*controleur).modele.systeme, 1.1);break;
 				default:
 					;
 				}
@@ -239,9 +239,9 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 			switch(commande)	
 				{
 				case 0:
-					(&(*controleur).systeme, 0.91);break;
+					(&(*controleur).modele.systeme, 0.91);break;
 				case 1:
-					(&(*controleur).systeme, 0.91);break;
+					(&(*controleur).modele.systeme, 0.91);break;
 				default:
 					;
 				}

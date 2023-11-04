@@ -1,7 +1,6 @@
 /*
 Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
-(SiCP 1.3.7 simulateur de chaîne de pendules, septembre 2017)
 SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
@@ -12,16 +11,16 @@ de la licence CeCILL telle que diffusée par le CEA, le CNRS et l'INRIA
 sur le site "http://www.cecill.info".
 En contrepartie de l'accessibilité au code source et des droits de copie,
 de modification et de redistribution accordés par cette licence, il n'est
-offert aux utilisateurs qu'une garantie limitée.  Pour les mêmes raisons,
+offert aux utilisateurs qu'une garantie limitée. Pour les mêmes raisons,
 seule une responsabilité restreinte pèse sur l'auteur du programme, le
 titulaire des droits patrimoniaux et les concédants successifs.
-A cet égard  l'attention de l'utilisateur est attirée sur les risques
-associés au chargement,  à l'utilisation,  à la modification et/ou au
+A cet égard l'attention de l'utilisateur est attirée sur les risques
+associés au chargement, à l'utilisation, à la modification et/ou au
 développement et à la reproduction du logiciel par l'utilisateur étant
 donné sa spécificité de logiciel libre, qui peut le rendre complexe à
 manipuler et qui le réserve donc à des développeurs et des professionnels
-avertis possédant  des  connaissances  informatiques approfondies. Les
-utilisateurs sont donc invités à charger  et  tester  l'adéquation du
+avertis possédant des connaissances informatiques approfondies. Les
+utilisateurs sont donc invités à charger et tester l'adéquation du
 logiciel à leurs besoins dans des conditions permettant d'assurer la
 sécurité de leurs systèmes et ou de leurs données et, plus généralement,
 à l'utiliser et l'exploiter dans les mêmes conditions de sécurité.
@@ -30,34 +29,43 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _OPTIONS_
-#define _OPTIONS_
+#ifndef _MODELE_
+#define _MODELE_
 
-#include "../donnees/constantes.h"
-#include "string.h"
+#include "fourier.h"
+#include "systeme.h"
+#include "initiale.h"
+//#include "moteurs.h"
 
-typedef struct OptionsT optionsT;
-	struct OptionsT
+typedef struct ModeleT modeleT;
+	struct ModeleT
 		{
-			// OPTIONS CONTROLEUR
-		int fond;		// couleur du fond de l'affichage
-		int modeDemo;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
-		int modeClavier;	// Ctrl F1 :  SiCP, Ctrl F2 : Graphiques, Ctrl F3 : Paramètres, Ctrl F4 : moteurs
-		int modePause;		// Evolution système
-		int modeMenu;		// Option menu : 0, SiCP : 1, SiCF : 2, SiGP : 3
-		int duree;		// Nombre d'évolution du système entre les affichages
+		systemeT systeme;
 
-			// OPTIONS MODELE
-		float dt;		// discrétisation du temps
-		float echelle;		// échelle de l'amplitude de la TF
-		int nombre;		// nombre de pendule
-		int support;		// Chaîne avec ou sans support
-		int equation;		// équation simulée
+		fourierT fourier;
+
+		initialeT initiale;
+		
+		int nombre;			//	Nombre de points
+
+		//moteursT moteurs;				// Moteur périodique et impulsion
 
 		};
 
-int optionsTraitement(optionsT * opt, int nbOpt, char *option[]);
-void optionsChangeMode(optionsT * opt);
-void optionsChangeVitesse(optionsT * opt, float facteur);
-int optionsChangeEchelle(optionsT * options, float facteur);
+	//	Initialisation du système
+int modeleInitialisation(modeleT * modele, int nombre, int dt);
+int modeleInitialisePoint(modeleT * modele, float ancien, float actuel, float nouveau, int i);
+int modeleInitialisePosition(modeleT * modele, int forme);
+int modeleInitialisePotentiel(modeleT * modele, int forme);
+
+	//	Réinitialisation des paramètres
+int modeleInitialiseNombre(modeleT * modele, int nombre);
+int modeleInitialiseHbar(modeleT * modele, int hbar);
+int modeleInitialiseMasse(modeleT * modele, float masse);
+
+	//	Évolution temporelle du système
+int modeleEvolution(modeleT * modele, int duree, int mode);
+int modeleProjectionInitiale(modeleT * modele);
 #endif
+
+////////////////////////////////////////////////////////////

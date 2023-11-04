@@ -1,5 +1,5 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
 (SiCF 2.0  simulateur de corde vibrante et spectre, mars 2019)
 SimFourier 0.1 Transformation de Fourier
@@ -65,6 +65,7 @@ void fonctionTest(fonctionT * f);
 void fonctionEgale(fonctionT * fonction, fonctionT * resultat);
 void fonctionReplier(fonctionT * spectre, int diviseur);
 void fonctionNormale(fonctionT * f, fonctionT * nf);
+void fonctionNormalise(fonctionT * f,  float max);
 
 //void fonctionModuleCarre(fonctionT * f, fonctionT * modCar);
 void fonctionModuleCarreMax1(fonctionT * f, fonctionT * modCar);

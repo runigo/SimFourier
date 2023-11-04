@@ -1,5 +1,5 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
 SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -38,9 +38,8 @@ termes.
 typedef struct InitialeT initialeT;
 	struct InitialeT
 		{
-		fonctionT enveloppe;
-		fonctionT porteuse;
-		fonctionT potentiel;	// Partie réelle : potentiel V(x) ; partie imaginaire : potentiel réduit v(x) = 2 + V(x).2m/hbar
+		fonctionT enveloppe;	// Enveloppe initiale
+		fonctionT porteuse;		// Porteuse initiale
 
 		int nombre;			//	Nombre de points
 
@@ -62,7 +61,7 @@ typedef struct InitialeT initialeT;
 
 	//	Initialisation de initiale
 int initialeInitialisation(initialeT * initiale, int nombre);
-int initialeInitialisePosition(initialeT * initiale, int forme);
+int initialeCreationPosition(initialeT * initiale, int forme);
 
 	// Réinitialisation du potentiel
 int initialeInitialisePotentiel(initialeT * initiale, int forme);

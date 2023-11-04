@@ -1,5 +1,5 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 SimFourier 1.0 Transformation de Fourier
@@ -142,12 +142,12 @@ int controleurProjection(controleurT * controleur)
 	SDL_GetMouseState(&x,&y);
 	commandesInitialiseSouris(&(*controleur).commandes, x, y);
 
-	projectionSystemeGraphes(&(*controleur).systeme, &(*controleur).projectionSystem, &(*controleur).graphes);
+	projectionSystemeGraphes(&(*controleur).modele, &(*controleur).graphes);
 	projectionGraphGraphes(&(*controleur).projectionGraph, &(*controleur).graphes);
 
 	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
 
-	//projectionSystemeCommandes(&(*controleur).systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
+	//projectionSystemeCommandes(&(*controleur).modele.systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
 	//projectionControleurCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
 
 	return (*controleur).sortie;
@@ -157,16 +157,22 @@ int controleurEvolutionSysteme(controleurT * controleur)
 	{
 	(void)controleur;
 		//fprintf(stderr, "Evolution temporelle du système\n");
-	systemeEvolution(&(*controleur).systeme, (*controleur).options.duree, 1);
+	//systemeEvolution(&(*controleur).modele.systeme, (*controleur).options.duree, 1);
+	modeleProjectionInitiale(&(*controleur).modele);
 
 		//fprintf(stderr, "Projection du système sur les spectres\n");
-	projectionSystemeFourier(&(*controleur).systeme, &(*controleur).systeme.fourier);
+	projectionSystemeFourier(&(*controleur).modele);
 
 		//fprintf(stderr, "Calcul des spectres\n");
-	fourierCalcule(&(*controleur).systeme.fourier);
+	fourierCalcule(&(*controleur).modele.fourier);
+
+		//fprintf(stderr, "Normalisation des spectres\n");
+	fonctionNormalise(&(*controleur).modele.fourier.spectre, (*controleur).options.echelle);
+	fonctionNormalise(&(*controleur).modele.fourier.gauche, (*controleur).options.echelle);
+	fonctionNormalise(&(*controleur).modele.fourier.droite, (*controleur).options.echelle);
 
 		//fprintf(stderr, "Mise à jour des observables\n");
-	//observablesMiseAJour(&(*controleur).observables, &(*controleur).systeme);
+	//observablesMiseAJour(&(*controleur).observables, &(*controleur).modele.systeme);
 
 	return 0;
 	}

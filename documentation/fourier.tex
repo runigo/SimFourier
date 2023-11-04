@@ -1,0 +1,33 @@
+
+%%%%%%%%%%%%%%%%%%%%%
+\chapter{Transformation de fourier}
+%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Série de fourier}
+%%%%%%%%%%%%%%%%%%%%%%%%%\mt{}
+Une fonction périodique (de période $T$) est égale à une somme discrète de sinusoïde :
+\[
+f_T(x)=a_0 + \sum_{n=1}^\infty \left( a_n \cos \frac{2 \pi n x}{T} + b_n \sin \frac{2 \pi n x}{T} \right)
+\]
+$a_n$ et $b_n$ sont les coefficients de fourier de $f_T(x)$.
+En posant $\omega=\frac{2\pi}{T}$,
+les coefficients de fourier sont donnés par :
+\[
+a_0=\frac{1}{T}\int_0^Tf(t)\mt{ d}t \hspace{3cm} \mt{et pour n>0 :}
+\]
+\[
+a_n=\frac{2}{T}\int_0^Tf(t)\cos n \omega t\mt{ d}t \hspace{2cm} \mt{et} \hspace{2cm} b_n=\frac{2}{T}\int_0^Tf(t)\sin n \omega t\mt{ d}t
+\]
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Transformé de fourier}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+Une fonction (respectant certaines conditions) est égale à une somme continue d'exponentiel complexe :
+\[
+f(x) = \int_{-\infty}^\infty e^{2 i \pi \nu x}\widehat{f}(\nu) d\nu
+\]
+$\widehat{f}(\nu)$ est la transformé de fourier de $f(x)$. Elle est donnée par :
+\[
+\widehat{f}(\nu) = \int_{-\infty}^\infty e^{-2 i \pi \nu x}f(x) dx
+\]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

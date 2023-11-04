@@ -1,7 +1,6 @@
 /*
 Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
@@ -30,47 +29,60 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTIONSYSTEM_
-#define _PROJECTIONSYSTEM_
+#include "modele.h"
 
-#include "../modele/modele.h"
-#include "../modele/observables.h"
-#include "../projection/graphes.h"
-#include "../interface/commandes.h"
-#include "../interface/capteurs.h"
+	//		INITIALISATION
 
-				//		Projections du systeme sur les commandes
-				//		les capteurs et les graphes
+	//		ÉVOLUTION TEMPORELLE
 
-typedef struct ProjectionSystemT projectionSystemT;
-	struct ProjectionSystemT
+	//		JAUGE ET NORMALISATION
+int modeleJaugeZero(modeleT * modele);
+
+
+/*------------------------  INITIALISATION  -------------------------*/
+
+int modeleInitialisation(modeleT * modele, int nombre, int dt) {
+
+		(*modele).nombre =nombre;			//	Nombre de points
+
+		//fprintf(stderr, " Initialisation du système\n");
+	systemeInitialisation(&(*modele).systeme, nombre, dt);
+
+		//fprintf(stderr, " Initialisation de fourier\n");
+	fourierInitialise(&(*modele).fourier, nombre);
+
+		//	Initialisation de initiale
+	initialeInitialisation(&(*modele).initiale, (*modele).nombre);
+
+		// Initialisation du moteurs
+	//moteursInitialisation(moteursT * moteurs);
+	return 0;
+}
+
+int modeleProjectionInitiale(modeleT * modele) {
+
+	// Projette les positions initiales sur le système
+
+		// Mise à jour des positions initiales
+	initialeCreationPosition(&(*modele).initiale,1);
+
+		// Projection sur le système
+	int i;
+	for(i=0;i<(*modele).nombre;i++)
 		{
-	//	int fenetreX;	// hauteur de la fenêtre
-	//	int fenetreY;	// largeur de la fenêtre
-		//float ratioXY;	// rapport largeur / hauteur
+		(*modele).systeme.actuel.reel[i] = (*modele).initiale.enveloppe.reel[i] * (*modele).initiale.porteuse.reel[i];
+		(*modele).systeme.actuel.imag[i] = (*modele).initiale.enveloppe.imag[i] * (*modele).initiale.porteuse.imag[i];
+		}
 
-			// facteurs entre les grandeurs et la position des boutons rotatifs
-		float logCouplage;
-		float logDissipation;
-		float logJosephson;
-		float logAmplitude;
-		float logFrequence;
-		};
+	return 0;
+}
 
-	//-----------------    INITIALISATION      -----------------------//
-int projectionSystemInitialise(projectionSystemT * projection);
 
-	//-----------------    PROJECTION      -----------------------//
-int projectionSystemeFourier(modeleT * modele);
-int projectionSystemeGraphes(modeleT * modele, graphesT * graphes);
-int projectionObservablesCapteurs(observablesT * observables, projectionSystemT * projection, capteursT * capteurs);
-int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes);
-int projectionControleurCommandes(projectionSystemT * projection, commandesT * commandes, int duree, int mode);
+/*----------------JAUGE ET NORMALISATION-------------------*/
 
-	//-----------------    CHANGE      -----------------------//
-int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y);
+int modeleJaugeZero(modeleT * modele) {
+	(void)modele;
+	return 0;
+	}
 
-	//-----------------    AFFICHAGE      -----------------------//
-void projectionSystemAffiche(projectionSystemT * projection);
-
-#endif
+//////////////////////////////////////////////////////////////////////////

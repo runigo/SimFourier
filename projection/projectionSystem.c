@@ -1,5 +1,5 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 SimFourier 1.0 Transformation de Fourier
@@ -42,7 +42,7 @@ int projectionReinitialiseBase(projectionSystemT * projection);
 	//	PROJECTION
 int projectionPerspectiveChaine(projectionSystemT * projection, grapheT * graphe);
 //int projectionSystemeChaine3D(systemeT * systeme, projectionSystemT * projection, grapheT * graphe);
-int projectionSystemeGraphes3D(systemeT * systeme, projectionSystemT * projection, graphesT * graphes);
+int projectionSystemeGraphes3D(modeleT * modele, graphesT * graphes);
 
 int projectionInitialiseSupport(projectionSystemT * projection, int nombre);
 int projectionPerspectiveSupport(projectionSystemT * projection, grapheT * graphe);
@@ -73,26 +73,26 @@ int projectionSystemInitialise(projectionSystemT * projection)
 
 	//-----------------    PROJECTION      -----------------------//
 
-int projectionSystemeFourier(systemeT * systeme, fourierT * fourier)
+int projectionSystemeFourier(modeleT * modele)
 	{
 		//	Projection du système sur les fonctions de fourier
 	int i;
-	int j = (*systeme).nombre;
+	int j = (*modele).systeme.nombre;
 
 	for(i=0;i<j;i++)
 		{
-		(*fourier).spectre.reel[i]=(*systeme).actuel.reel[i];
-		(*fourier).spectre.imag[i]=(*systeme).actuel.imag[i];
+		(*modele).fourier.spectre.reel[i]=(*modele).systeme.actuel.reel[i];
+		(*modele).fourier.spectre.imag[i]=(*modele).systeme.actuel.imag[i];
 		}
 
-	j = (*systeme).nombre/2;
+	j = (*modele).systeme.nombre/2;
 
 	for(i=0;i<j;i++)
 		{
-		(*fourier).gauche.reel[i]=(*systeme).actuel.reel[i];
-		(*fourier).gauche.imag[i]=(*systeme).actuel.imag[i];
-		(*fourier).droite.reel[i]=(*systeme).actuel.reel[i+j];
-		(*fourier).droite.imag[i]=(*systeme).actuel.imag[i+j];
+		(*modele).fourier.gauche.reel[i]=(*modele).systeme.actuel.reel[i];
+		(*modele).fourier.gauche.imag[i]=(*modele).systeme.actuel.imag[i];
+		(*modele).fourier.droite.reel[i]=(*modele).systeme.actuel.reel[i+j];
+		(*modele).fourier.droite.imag[i]=(*modele).systeme.actuel.imag[i+j];
 		}
 
 	return 0;
@@ -311,32 +311,39 @@ int projectionObservablesCapteurs(observablesT * observables, projectionSystemT 
 	}
 */
 
-int projectionSystemeGraphes(systemeT * systeme, projectionSystemT * projection, graphesT * graphes) {
+int projectionSystemeGraphes(modeleT * modele, graphesT * graphes) {
 
 		// Projection du système sur les graphes en perspective
 
 		//		Projection du système sur les graphes 3D
-	projectionSystemeGraphes3D(systeme, projection, graphes);
+	projectionSystemeGraphes3D(modele, graphes);
 
 	return 0;
 	}
 
-int projectionSystemeGraphes3D(systemeT * systeme, projectionSystemT * projection, graphesT * graphes){
+int projectionSystemeGraphes3D(modeleT * modele, graphesT * graphes){
 
 			//	Projette le système sur les graphes en 3 Dimensions
 
 	int i;
-	int nombre = (*systeme).nombre;
-	(void)projection;
+	int nombre = (*modele).systeme.nombre;
 
 	for(i=0;i<nombre;i++)
 		{
-		//(*graphes).fonction.point[i].x = (*graphes).fonction.axe[i].x;
-		(*graphes).fonction.point[i].y = (*systeme).actuel.reel[i];//(*projection).fonction.hauteur * 
-		(*graphes).fonction.point[i].z = (*systeme).actuel.imag[i];//(*projection).fonction.hauteur * 
-		//(*graphes).fourier.point[i].x = (*graphes).fourier.axe[i].x;
-		(*graphes).fourier.point[i].y = (*systeme).fourier.spectre.reel[i];//(*projection).fourier.hauteur * 
-		(*graphes).fourier.point[i].z = (*systeme).fourier.spectre.imag[i];//(*projection).fourier.hauteur * 
+		(*graphes).fonction.point[i].y = (*modele).systeme.actuel.reel[i];//(*projection).fonction.hauteur * 
+		(*graphes).fonction.point[i].z = (*modele).systeme.actuel.imag[i];//(*projection).fonction.hauteur * 
+		//(*graphes).fourier.point[i].y = (*modele).fourier.spectre.reel[i];//(*projection).fourier.hauteur * 
+		//(*graphes).fourier.point[i].z = (*modele).fourier.spectre.imag[i];//(*projection).fourier.hauteur * 
+		}
+
+	int j=nombre/2;
+
+	for(i=0;i<j;i++)
+		{
+		(*graphes).fourier.point[i].y = (*modele).fourier.spectre.reel[j-i];		//[2*i]
+		(*graphes).fourier.point[i].z = (*modele).fourier.spectre.imag[j-i];		//[2*i]
+		(*graphes).fourier.point[nombre-i].y = (*modele).fourier.spectre.reel[j+i]; //[2*i+1]
+		(*graphes).fourier.point[nombre-i].z = (*modele).fourier.spectre.imag[j+i]; //[2*i+1]
 		}
 
 	return 0;

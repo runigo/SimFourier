@@ -1,5 +1,5 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
 SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -32,8 +32,7 @@ termes.
 #ifndef _SYSTEME_
 #define _SYSTEME_
 
-#include "fourier.h"
-#include "initiale.h"
+#include "fonction.h"
 //#include "moteurs.h"
 
 typedef struct SystemeT systemeT;
@@ -43,14 +42,9 @@ typedef struct SystemeT systemeT;
 		fonctionT actuel;
 		fonctionT nouveau;
 
+		fonctionT potentiel;	// Partie réelle : potentiel V(x) ; partie imaginaire : potentiel réduit v(x) = 2 + V(x).2m/hbar
 
-		fourierT fourier;
-
-		initialeT initiale;
-		
 		int nombre;			//	Nombre de points
-
-		//moteursT moteurs;				// Moteur périodique et impulsion
 
 		float masse;		//	Masse du quanton
 		float dt;			//	Pas temporel

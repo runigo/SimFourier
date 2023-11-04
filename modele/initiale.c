@@ -1,5 +1,5 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
 SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -31,15 +31,20 @@ termes.
 
 #include "initiale.h"
 
-	//		RÉINITIALISATION
+	//		INITIALISATION
 
-int initialeInitialiseEnveloppe(initialeT * initiale);
-int initialeInitialisePorteuse(initialeT * initiale);
-int initialeInitialisePorteuseHarmonique(initialeT * initiale);
-int initialeInitialiseEnveloppeCarre(initialeT * initiale);
+	//		CRÉATION DES POSITIONS INITIALES
+
+int initialeCreationEnveloppe(initialeT * initiale);
+int initialeCreationPorteuse(initialeT * initiale);
+
+int initialeCreationPorteuseHarmonique(initialeT * initiale);
+
+int initialeCreationEnveloppeCarre(initialeT * initiale);
+int initialeCreationEnveloppeUniforme(initialeT * initiale);
 
 	//		ÉVOLUTION TEMPORELLE
-int initialeIncremente(initialeT * initiale);
+//int initialeIncremente(initialeT * initiale);
 
 	//		JAUGE ET NORMALISATION
 int initialeJaugeZero(initialeT * initiale);
@@ -51,7 +56,6 @@ int initialeInitialisation(initialeT * initiale, int nombre) {
 
 		fonctionInitialise(&(*initiale).enveloppe, nombre);
 		fonctionInitialise(&(*initiale).porteuse, nombre);
-		fonctionInitialise(&(*initiale).potentiel, nombre);
 
 		(*initiale).nombre = nombre;			//	Nombre de points
 
@@ -70,7 +74,9 @@ int initialeInitialisation(initialeT * initiale, int nombre) {
 	return 0;
 }
 
-int initialeInitialisePosition(initialeT * initiale, int forme) {
+/*--------------------  CRÉATION DES POSITIONS INITIALES  ---------------------*/
+
+int initialeCreationPosition(initialeT * initiale, int forme) {
 
 /*	switch (forme)
 		{
@@ -82,25 +88,42 @@ int initialeInitialisePosition(initialeT * initiale, int forme) {
 */
 (void)forme;
 
-	initialeInitialisePorteuseHarmonique(initiale);
-	initialeInitialiseEnveloppe(initiale);
+	initialeCreationPorteuse(initiale);
+	initialeCreationEnveloppe(initiale);
 
 	return 0;
 
 }
 
-int initialeInitialiseEnveloppe(initialeT * initiale) {
+int initialeCreationEnveloppe(initialeT * initiale) {
 
 	// Initialisation de l'enveloppe
 
-	initialeInitialiseEnveloppeCarre(initiale);
+	initialeCreationEnveloppeCarre(initiale);
+	//initialeCreationEnveloppeUniforme(initiale);
+
+	return 0;
+}
+int initialeCreationEnveloppeUniforme(initialeT * initiale) {
+
+	// Création d'une enveloppe uniforme
+	
+	int i;
+	int nombre=(*initiale).nombre;
+
+	for(i=0;i<nombre;i++)
+		{
+		(*initiale).enveloppe.reel[i] = 5;
+		(*initiale).enveloppe.imag[i] = 5;
+		}
 
 	return 0;
 }
 
-int initialeInitialiseEnveloppeCarre(initialeT * initiale) {
 
-	// Initialisation de l'enveloppe
+int initialeCreationEnveloppeCarre(initialeT * initiale) {
+
+	// Création d'une enveloppe carrée
 	
 	int i;
 	int nombre=(*initiale).nombre;
@@ -110,7 +133,7 @@ int initialeInitialiseEnveloppeCarre(initialeT * initiale) {
 	for(i=0;i<nombre;i++)
 		{
 		if(i%(*initiale).periode > periode){
-			(*initiale).enveloppe.reel[i] = 0;
+			(*initiale).enveloppe.reel[i] = -5;
 			(*initiale).enveloppe.imag[i] = 0;}
 		else{
 			(*initiale).enveloppe.reel[i] = 5;
@@ -119,16 +142,15 @@ int initialeInitialiseEnveloppeCarre(initialeT * initiale) {
 
 	return 0;
 }
-/*
-int initialeInitialisePorteuse(initialeT * initiale) {
 
-	else{
-		initialeInitialisePorteuseHarmonique(initiale);}
+int initialeCreationPorteuse(initialeT * initiale) {
+
+	initialeCreationPorteuseHarmonique(initiale);
 
 	return 0;
 }
-*/
-int initialeInitialisePorteuseHarmonique(initialeT * initiale) {
+
+int initialeCreationPorteuseHarmonique(initialeT * initiale) {
 
 	// Initialisation de la porteuse
 	

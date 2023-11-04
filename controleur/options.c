@@ -1,5 +1,5 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 SimFourier 1.0 Transformation de Fourier
@@ -185,6 +185,24 @@ void optionsDuree(optionsT * options, char *opt) {
 	}
 
 					//	-------  CHANGE  -------  //
+
+int optionsChangeEchelle(optionsT * options, float facteur) {
+
+			//	Change l'amplitude du signal
+
+	float echelle = (*options).echelle * facteur;
+	if(echelle < ECHELLE_MAX && echelle > ECHELLE_MIN)
+		{
+		(*options).echelle = echelle;
+		}
+	else
+		{
+		printf("Échelle limite atteinte. ");
+		}
+	printf("Échelle de la TF = %6.3f\n", (*options).echelle);
+
+	return 0;
+	}
 
 void optionsChangeMode(optionsT * options) {
 

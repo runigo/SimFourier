@@ -1,8 +1,8 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright novembre 2023, Stephan Runigo
 runigo@free.fr
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 0.1 Transformation de Fourier
+SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -34,10 +34,10 @@ termes.
 #define _CONTROLEUR_
 
 #include "../controleur/options.h"			//	Options de la ligne de commande
-#include "../projection/projectionSystem.h"		//	Projection du systeme vers le graphisme.
+#include "../projection/projectionSystem.h"		//	Projection du système vers le graphisme.
 #include "../projection/projectionGraph.h"		//	Projection des graphes 3D sur les graphes 2D.
 //#include "../modele/observables.h"			//	Observables du système
-#include "../modele/systeme.h"			//	Système
+#include "../modele/modele.h"			//	Système
 #include "../interface/graphique.h"			//	Librairie SDL et représentation graphique
 #include "../interface/horloge.h"			//	Librairie SDL et représentation graphique
 #include "../donnees/fichier.h"
@@ -48,7 +48,7 @@ typedef struct ControleurT controleurT;
 
 		optionsT options;	//	Options de la ligne de commande
 
-		systemeT systeme;	//	Modélisation du système
+		modeleT modele;	//	Modélisation du système
 
 		//observablesT observables;	//	Grandeurs physique du système
 
