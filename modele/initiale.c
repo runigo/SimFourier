@@ -98,8 +98,16 @@ int initialeCreationPosition(initialeT * initiale, int forme) {
 int initialeCreationEnveloppe(initialeT * initiale) {
 
 	// Initialisation de l'enveloppe
-
-	initialeCreationEnveloppeCarre(initiale);
+	switch ((*initiale).periodique)
+		{
+		case 1:
+			initialeCreationEnveloppeCarre(initiale);break;
+		case 0:
+			initialeCreationEnveloppeUniforme(initiale);break;
+		default:
+			initialeCreationEnveloppeUniforme(initiale);
+		}
+	;
 	//initialeCreationEnveloppeUniforme(initiale);
 
 	return 0;
@@ -134,10 +142,10 @@ int initialeCreationEnveloppeCarre(initialeT * initiale) {
 		{
 		if(i%(*initiale).periode > periode){
 			(*initiale).enveloppe.reel[i] = -5;
-			(*initiale).enveloppe.imag[i] = 0;}
+			(*initiale).enveloppe.imag[i] = -5;}
 		else{
 			(*initiale).enveloppe.reel[i] = 5;
-			(*initiale).enveloppe.imag[i] = 0;}
+			(*initiale).enveloppe.imag[i] = 5;}
 		}
 
 	return 0;
