@@ -89,33 +89,41 @@ int controleurClavier(controleurT * controleur)
 
 	// Paramètres porteuse
 		case SDLK_p:
-			initialeChangeFrequence(&(*controleur).modele.initiale,1.1);break;
+			initialeChangeNombrePeriode(&(*controleur).modele.initiale.porteuse, 1);break;
 		case SDLK_m:
-			initialeChangeFrequence(&(*controleur).modele.initiale,0.91);break;
+			initialeChangeNombrePeriode(&(*controleur).modele.initiale.porteuse, -1);break;
+		case SDLK_l:
+			initialeChangeDeltaPeriode(&(*controleur).modele.initiale.porteuse, 1);break;
+		case SDLK_k:
+			initialeChangeDeltaPeriode(&(*controleur).modele.initiale.porteuse, -1);break;
 		case SDLK_o:
-			initialeChangePorteuse(&(*controleur).modele.initiale, 0);break;
+			initialeChangeComplexe(&(*controleur).modele.initiale.porteuse, 0);break;
 		case SDLK_i:
-			initialeChangePorteuse(&(*controleur).modele.initiale, 1);break;
+			initialeChangeComplexe(&(*controleur).modele.initiale.porteuse, 1);break;
 		case SDLK_u:
-			initialeChangePorteuse(&(*controleur).modele.initiale, -1);break;
-	//	case SDLK_l:
-		//	initialeChangeEnveloppe(&(*controleur).modele.initiale, 0);break;
-	//	case SDLK_k:
-		//	initialeChangeEnveloppe(&(*controleur).modele.initiale, 1);break;
+			initialeChangeComplexe(&(*controleur).modele.initiale.porteuse, -1);break;
 	//	case SDLK_j:
 		//	initialeChangeEnveloppe(&(*controleur).modele.initiale, -1);break;
 		case SDLK_y:
-			initialeChangeAmplitude(&(*controleur).modele.initiale,1.1);break;
+			initialeChangeAmplitude(&(*controleur).modele.initiale.porteuse,1.1);break;
 		case SDLK_h:
-			initialeChangeAmplitude(&(*controleur).modele.initiale,0.91);break;
+			initialeChangeAmplitude(&(*controleur).modele.initiale.porteuse,0.91);break;
 
 	// Paramètres enveloppe
 		case SDLK_a:
-			initialeChangeEnveloppe(&(*controleur).modele.initiale, 0);break;
+			initialeChangeNombrePeriode(&(*controleur).modele.initiale.enveloppe, 1);break;
+		case SDLK_q:
+			initialeChangeNombrePeriode(&(*controleur).modele.initiale.enveloppe, -1);break;
+		case SDLK_s:
+			initialeChangeDeltaPeriode(&(*controleur).modele.initiale.enveloppe, -1);break;
+		case SDLK_d:
+			initialeChangeDeltaPeriode(&(*controleur).modele.initiale.enveloppe, 1);break;
 		case SDLK_z:
-			initialeChangeEnveloppe(&(*controleur).modele.initiale, 1);break;
+			initialeChangePeriodique(&(*controleur).modele.initiale.enveloppe, 0);break;
 		case SDLK_e:
-			initialeChangeEnveloppe(&(*controleur).modele.initiale, -1);break;
+			initialeChangePeriodique(&(*controleur).modele.initiale.enveloppe, -1);break;
+		case SDLK_r:
+			initialeChangePeriodique(&(*controleur).modele.initiale.enveloppe, 1);break;
 
 	// Paramètres graphique
 		case SDLK_b:

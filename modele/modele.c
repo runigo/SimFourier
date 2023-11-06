@@ -66,12 +66,17 @@ int modeleProjectionInitiale(modeleT * modele) {
 		// Mise à jour des positions initiales
 	initialeCreationPosition(&(*modele).initiale,1);
 
-		// Projection sur le système
+
+		//fprintf(stderr, " Projection sur le système\n");
 	int i;
 	for(i=0;i<(*modele).nombre;i++)
 		{
-		(*modele).systeme.actuel.reel[i] = (*modele).initiale.enveloppe.reel[i] * (*modele).initiale.porteuse.reel[i];
-		(*modele).systeme.actuel.imag[i] = (*modele).initiale.enveloppe.imag[i] * (*modele).initiale.porteuse.imag[i];
+		(*modele).systeme.actuel.reel[i] = (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.reel[i];
+		(*modele).systeme.actuel.imag[i] = (*modele).initiale.enveloppe.fonction.imag[i] * (*modele).initiale.porteuse.fonction.imag[i];
+		(*modele).systeme.nouveau.reel[i] = (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.reel[i];
+		(*modele).systeme.nouveau.imag[i] = (*modele).initiale.enveloppe.fonction.imag[i] * (*modele).initiale.porteuse.fonction.imag[i];
+		(*modele).systeme.ancien.reel[i] = (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.reel[i];
+		(*modele).systeme.ancien.imag[i] = (*modele).initiale.enveloppe.fonction.imag[i] * (*modele).initiale.porteuse.fonction.imag[i];
 		}
 
 	return 0;

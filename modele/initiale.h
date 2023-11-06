@@ -33,44 +33,52 @@ termes.
 #define _INITIALE_
 
 #include "fonction.h"
+//#include "string.h"
 //#include "moteurs.h"
 
-typedef struct InitialeT initialeT;
-	struct InitialeT
+typedef struct PartieT partieT;
+	struct PartieT
 		{
-		fonctionT enveloppe;	// Enveloppe initiale
-		fonctionT porteuse;		// Porteuse initiale
+		fonctionT fonction;	// Enveloppe initiale
+
+		//char nom[11];
 
 		int nombre;			//	Nombre de points
 
 		//moteursT moteurs;				// Moteur périodique et impulsion
 
-		int periode;			//	periode de l'enveloppe
-		float frequence;		//	fréquence de la porteuse
-		float phase;			//	phase de la porteuse
-		float amplitude;		//	amplitude de la porteuse
-		float largeur;			//	largeur de l'enveloppe
+		int nombrePeriode;		//	Nombre de période
+		int deltaPeriode;		//	Pourcentage
+		float phase;			//	phase
+		float amplitude;		//	amplitude
 		float facteur;			//	facteur de symétrie
 
 		int complexe;			//	oscillation harmonique
-		int periodique;			// périodise le carré et le triangle
+		int periodique;			//	périodise le carré et le triangle
 
-		int forme;			//	0 : harmonique, 1 : carrée, 2 : triangle
+		int forme;			//	0 : harmonique, 1 : carrée, 2 : triangle, 3 : gaussienne
+		};
 
+typedef struct InitialeT initialeT;
+	struct InitialeT
+		{
+		partieT enveloppe;	// Enveloppe initiale
+		partieT porteuse;		// Porteuse initiale
+		//moteursT moteurs;				// Moteur périodique et impulsion
 		};
 
 	//	Initialisation de initiale
 int initialeInitialisation(initialeT * initiale, int nombre);
 int initialeCreationPosition(initialeT * initiale, int forme);
 
-	// Réinitialisation du potentiel
-int initialeInitialisePotentiel(initialeT * initiale, int forme);
+	// Changement des paramètres des fonctions initiales
+int initialeChangeForme(partieT * partie, int forme);
+int initialeChangeNombrePeriode(partieT * partie, int delta);
+int initialeChangeDeltaPeriode(partieT * partie, int delta);
+int initialeChangeAmplitude(partieT * partie, float facteur);
 
-	// Changement des paramètres
-int initialeChangeFrequence(initialeT * m, float facteur);
-int initialeChangeAmplitude(initialeT * m, float facteur);
-int initialeChangePorteuse(initialeT * initiale, int mode);
-int initialeChangeEnveloppe(initialeT * initiale, int mode);
+int initialeChangeComplexe(partieT * partie, int mode);
+int initialeChangePeriodique(partieT * partie, int mode);
 #endif
 
 ////////////////////////////////////////////////////////////
