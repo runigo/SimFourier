@@ -15,7 +15,7 @@ offert aux utilisateurs qu'une garantie limitée. Pour les mêmes raisons,
 seule une responsabilité restreinte pèse sur l'auteur du programme, le
 titulaire des droits patrimoniaux et les concédants successifs.
 A cet égard l'attention de l'utilisateur est attirée sur les risques
-associés au chargement, à l'utilisation, à la modification et/ou au
+associés au chargementpartie, à l'utilisation, à la modification et/ou au
 développement et à la reproduction du logiciel par l'utilisateur étant
 donné sa spécificité de logiciel libre, qui peut le rendre complexe à
 manipuler et qui le réserve donc à des développeurs et des professionnels
@@ -29,37 +29,41 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _INITIALE_
-#define _INITIALE_
+#ifndef _MOTIF_
+#define _MOTIF_
 
-#include "partie.h"
+#include "fonction.h"
 
-typedef struct InitialeT initialeT;
-	struct InitialeT
+typedef struct MotifT motifT;
+	struct MotifT
 		{
-		partieT enveloppe;	// Enveloppe initiale
-		partieT porteuse;	// Porteuse initiale
-		motifT motif;	// Motif initial
+		fonctionT fonction;	// Fonction motif
+
+		int nombre;			//	Nombre de points
+
+		int a;		//	Longueur horizontale (montée ou positif)
+		int b;		//	Longueur horizontale (descente ou négatif)
+		int d;		//	décalage horizontal à l'origine
+		int P;		//	Période ( = a + b = 2^eta + rho )
+		int eta;		//	puissance de deux
+		int rho;		//	dP
+
+		float A;		//	amplitude
+		float facteur;	//	facteur de symétrie (a/b)
+
+		int forme;			//	0 : harmonique, 1 : carrée, 2 : triangle, 3 : gaussienne, 4 : Lorentzienne
 		};
 
-	//	Initialisation de initiale
-int initialeInitialisation(initialeT * initiale, int nombre);
-int initialeCreationPosition(initialeT * initiale, int forme);
-int initialeCreationMotif();
-int initialeChangeComplexe(initialeT * initiale, int mode);
-int initialeChangePeriodique(initialeT * initiale, int mode);
+	//	Initialisation de motif
+int motifInitialisation(motifT * motif, int nombre);
+int motifCreationMotif();
 
-
-	// Changement des paramètres des fonctions initiales
-int initialeChangeForme(partieT * partie, int forme);
-int initialeChangeNombrePeriode(partieT * partie, int delta);
-int initialeChangeDeltaPeriode(partieT * partie, int delta);
-
-	// Changement des paramètres du motif
-int initialeChangeForme(partieT * partie, int forme);
-int initialeChangeNombrePeriode(partieT * partie, int delta);
-int initialeChangeDeltaPeriode(partieT * partie, int delta);
-int initialeChangeAmplitude(partieT * partie, float facteur);
+	// Changement des paramètres
+int motifChangeForme(motifT * motif, int forme);
+int motifChangeEta(motifT * motif, int plusMoins);
+int motifChangeRho(motifT * motif, int plusMoins);
+int motifChangeSymetrie(motifT * motif, int delta);
+int motifChangeAmplitude(motifT * motif, float facteur);
 
 #endif
 

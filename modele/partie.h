@@ -29,37 +29,47 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _INITIALE_
-#define _INITIALE_
+#ifndef _PARTIE_
+#define _PARTIE_
 
-#include "partie.h"
+#include "motif.h"
 
-typedef struct InitialeT initialeT;
-	struct InitialeT
+typedef struct PartieT partieT;
+	struct PartieT
 		{
-		partieT enveloppe;	// Enveloppe initiale
-		partieT porteuse;	// Porteuse initiale
-		motifT motif;	// Motif initial
+		fonctionT fonction;	// Enveloppe ou porteuse
+
+		int nombre;			//	Nombre de points
+
+		int nombrePeriode;		//	Nombre de période
+		int deltaPeriode;		//	Pourcentage
+		float phase;			//	phase
+		float amplitude;		//	amplitude
+		float facteur;			//	facteur de symétrie
+
+		int complexe;			//	oscillation harmonique
+		int periodique;			//	périodise le carré et le triangle
+
+		int forme;			//	0 : harmonique, 1 : carrée, 2 : triangle, 3 : gaussienne
 		};
 
-	//	Initialisation de initiale
-int initialeInitialisation(initialeT * initiale, int nombre);
-int initialeCreationPosition(initialeT * initiale, int forme);
-int initialeCreationMotif();
-int initialeChangeComplexe(initialeT * initiale, int mode);
-int initialeChangePeriodique(initialeT * initiale, int mode);
+	//	Initialisation de partie
+int partieInitialisation(partieT * partie, int nombre);
+int partieCreationPosition(partieT * partie, int forme);
+int partieChangeComplexe(partieT * partie, int mode);
+int partieChangePeriodique(partieT * partie, int mode);
 
 
-	// Changement des paramètres des fonctions initiales
-int initialeChangeForme(partieT * partie, int forme);
-int initialeChangeNombrePeriode(partieT * partie, int delta);
-int initialeChangeDeltaPeriode(partieT * partie, int delta);
+	// Changement des paramètres
+int partieChangeForme(partieT * partie, int forme);
+int partieChangeNombrePeriode(partieT * partie, int delta);
+int partieChangeDeltaPeriode(partieT * partie, int delta);
 
 	// Changement des paramètres du motif
-int initialeChangeForme(partieT * partie, int forme);
-int initialeChangeNombrePeriode(partieT * partie, int delta);
-int initialeChangeDeltaPeriode(partieT * partie, int delta);
-int initialeChangeAmplitude(partieT * partie, float facteur);
+int partieChangeForme(partieT * partie, int forme);
+int partieChangeNombrePeriode(partieT * partie, int delta);
+int partieChangeDeltaPeriode(partieT * partie, int delta);
+int partieChangeAmplitude(partieT * partie, float facteur);
 
 #endif
 

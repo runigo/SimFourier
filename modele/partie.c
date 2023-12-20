@@ -29,47 +29,35 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "initiale.h"
+#include "partie.h"
 
 	//		INITIALISATION
-int initialeInitialisationPartie(partieT * partie, int nombre);
+int partieInitialisationPartie(partieT * partie, int nombre);
 
-	//		CRÉATION DES POSITIONS INITIALES
+	//		CRÉATION DES POSITIONS partieS
 
-int initialeCreationPartie(partieT * partie);
+int partieCreationPartie(partieT * partie);
 
-int initialeCreationCarre(partieT * partie);
-int initialeCreationUniforme(partieT * partie);
-int initialeCreationHarmonique(partieT * partie);
+int partieCreationCarre(partieT * partie);
+int partieCreationUniforme(partieT * partie);
+int partieCreationHarmonique(partieT * partie);
 /*
-int initialeCreationEnveloppe(initialeT * initiale);
-int initialeCreationPorteuse(initialeT * initiale);
-int initialeCreationPorteuseHarmonique(initialeT * initiale);
-int initialeCreationEnveloppeCarre(initialeT * initiale);
-int initialeCreationEnveloppeUniforme(initialeT * initiale);
+int partieCreationEnveloppe(partieT * partie);
+int partieCreationPorteuse(partieT * partie);
+int partieCreationPorteuseHarmonique(partieT * partie);
+int partieCreationEnveloppeCarre(partieT * partie);
+int partieCreationEnveloppeUniforme(partieT * partie);
 */
 	//		ÉVOLUTION TEMPORELLE
-//int initialeIncremente(initialeT * initiale);
+//int partieIncremente(partieT * partie);
 
 	//		JAUGE ET NORMALISATION
-int initialeJaugeZero(initialeT * initiale);
+int partieJaugeZero(partieT * partie);
 
 
 /*------------------------  INITIALISATION  -------------------------*/
 
-int initialeInitialisation(initialeT * initiale, int nombre) {
-
-		initialeInitialisationPartie(&(*initiale).enveloppe, nombre);
-		initialeInitialisationPartie(&(*initiale).porteuse, nombre);
-		initialeInitialisationMotif(&(*initiale).motif, nombre);
-
-		(*initiale).enveloppe.periodique = 0;	//	Enveloppe non périodique
-		(*initiale).porteuse.complexe = 0;		//	Porteuse non complexe
-
-	return 0;
-}
-
-int initialeInitialisationPartie(partieT * partie, int nombre) {
+int partieInitialisationPartie(partieT * partie, int nombre) {
 
 		fonctionInitialise(&(*partie).fonction, nombre);
 
@@ -89,9 +77,9 @@ int initialeInitialisationPartie(partieT * partie, int nombre) {
 	return 0;
 }
 
-/*--------------------  CRÉATION DES POSITIONS INITIALES  ---------------------*/
+/*--------------------  CRÉATION DES POSITIONS partieS  ---------------------*/
 
-int initialeCreationPosition(initialeT * initiale, int forme) {
+int partieCreationPosition(partieT * partie, int forme) {
 
 /*	switch (forme)
 		{
@@ -103,26 +91,23 @@ int initialeCreationPosition(initialeT * initiale, int forme) {
 */
 (void)forme;
 
-		//fprintf(stderr, "initialeCreationPosition\n");
-	initialeCreationPartie(&(*initiale).enveloppe);
-	initialeCreationPartie(&(*initiale).porteuse);
-
-	//initialeCreationCarre(&(*initiale).enveloppe);
-	//initialeCreationHarmonique(&(*initiale).porteuse);
+		//fprintf(stderr, "partieCreationPosition\n");
+	partieCreationPartie(&(*partie).enveloppe);
+	partieCreationPartie(&(*partie).porteuse);
 
 	return 0;
 
 }
 
-int initialeCreationPartie(partieT * partie) {
+int partieCreationPartie(partieT * partie) {
 	switch ((*partie).complexe)
 		{
 		case -1:
-			initialeCreationUniforme(partie);break;
+			partieCreationUniforme(partie);break;
 		case 0:
-			initialeCreationHarmonique(partie);break;
+			partieCreationHarmonique(partie);break;
 		case 1:
-			initialeCreationHarmonique(partie);break;
+			partieCreationHarmonique(partie);break;
 		default:
 			;
 		}
@@ -130,23 +115,23 @@ int initialeCreationPartie(partieT * partie) {
 	switch ((*partie).periodique)
 		{
 		case -1:
-			initialeCreationUniforme(partie);break;
+			partieCreationUniforme(partie);break;
 		case 0:
-			initialeCreationUniforme(partie);break;
+			partieCreationUniforme(partie);break;
 		case 1:
-			initialeCreationCarre(partie);break;
+			partieCreationCarre(partie);break;
 		default:
 			;
 		}
 	// Initialisation de l'enveloppe
 
-//	initialeCreationCarre(partie);
+//	partieCreationCarre(partie);
 	//partieCreationEnveloppeUniforme(partie);
 
 	return 0;
 }
 
-int initialeCreationUniforme(partieT * partie) {
+int partieCreationUniforme(partieT * partie) {
 
 	// Création d'une enveloppe uniforme
 	
@@ -162,7 +147,7 @@ int initialeCreationUniforme(partieT * partie) {
 	return 0;
 }
 
-int initialeCreationCarre(partieT * partie) {
+int partieCreationCarre(partieT * partie) {
 
 	// Création d'une enveloppe carrée
 	
@@ -184,7 +169,7 @@ int initialeCreationCarre(partieT * partie) {
 	return 0;
 }
 
-int initialeCreationHarmonique(partieT * partie) {
+int partieCreationHarmonique(partieT * partie) {
 
 	// Initialisation de la partie
 	
@@ -217,7 +202,7 @@ int initialeCreationHarmonique(partieT * partie) {
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
 
-int initialeChangeNombrePeriode(partieT * partie, int delta) {
+int partieChangeNombrePeriode(partieT * partie, int delta) {
 (void)delta; // -1 : divise par 2 ; 0 : réglage nombrePeriode ; 1 multiplie par 2
 			//	Change la fréquence de la partie
 int nombrePeriode = (*partie).nombrePeriode;
@@ -245,7 +230,7 @@ int nombrePeriode = (*partie).nombrePeriode;
 	return 0;
 	}
 
-int initialeChangeDeltaPeriode(partieT * partie, int delta) {
+int partieChangeDeltaPeriode(partieT * partie, int delta) {
 (void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
 			//	Change la fréquence de la partie
 int deltaPeriode = (*partie).deltaPeriode;
@@ -273,7 +258,7 @@ int deltaPeriode = (*partie).deltaPeriode;
 	return 0;
 	}
 
-int initialeChangeFrequence(partieT * partie, int delta, float facteur) {
+int partieChangeFrequence(partieT * partie, int delta, float facteur) {
 (void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
 			//	Change la fréquence de la partie
 	switch (delta)
@@ -300,7 +285,7 @@ int initialeChangeFrequence(partieT * partie, int delta, float facteur) {
 	return 0;
 	}
 
-int initialeChangeAmplitude(partieT * partie, float facteur) {
+int partieChangeAmplitude(partieT * partie, float facteur) {
 
 			//	Change l'amplitude du signal
 
@@ -318,14 +303,14 @@ int initialeChangeAmplitude(partieT * partie, float facteur) {
 	return 0;
 	}
 
-int initialeChangeComplexe(initialeT * initiale, int mode){
+int partieChangeComplexe(partieT * partie, int mode){
 
 	switch (mode)
 		{
 		case 0:
-			(*initiale).porteuse.complexe = 0;break;
+			(*partie).porteuse.complexe = 0;break;
 		case 1:
-			(*initiale).porteuse.complexe = 1;break;
+			(*partie).porteuse.complexe = 1;break;
 		default:
 			;
 		}
@@ -334,14 +319,14 @@ int initialeChangeComplexe(initialeT * initiale, int mode){
 	return 0;
 	}
 
-int initialeChangePeriodique(initialeT * initiale, int mode){
+int partieChangePeriodique(partieT * partie, int mode){
 
 	switch (mode)
 		{
 		case 0:
-			(*initiale).enveloppe.periodique = 0;break;
+			(*partie).enveloppe.periodique = 0;break;
 		case 1:
-			(*initiale).enveloppe.periodique = 1;break;
+			(*partie).enveloppe.periodique = 1;break;
 		default:
 			;
 		}
@@ -349,17 +334,5 @@ int initialeChangePeriodique(initialeT * initiale, int mode){
 
 	return 0;
 	}
-
-
-/*------------------------  ÉVOLUTION TEMPORELLE  -------------------------*/
-
-int initialeEvolution(initialeT * initiale, int duree) {
-(void)initiale;
-(void)duree;
-
-	return 0;
-	}
-
-/*----------------JAUGE ET NORMALISATION-------------------*/
 
 //////////////////////////////////////////////////////////////////////////
