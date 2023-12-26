@@ -36,7 +36,7 @@ int initialeInitialisationPartie(partieT * partie, int nombre);
 
 	//		CRÉATION DES POSITIONS INITIALES
 
-int initialeCreationPartie(partieT * partie);
+int initialeCalcule(partieT * partie);
 
 int initialeCreationCarre(partieT * partie);
 int initialeCreationUniforme(partieT * partie);
@@ -59,9 +59,9 @@ int initialeJaugeZero(initialeT * initiale);
 
 int initialeInitialisation(initialeT * initiale, int nombre) {
 
-		initialeInitialisationPartie(&(*initiale).enveloppe, nombre);
-		initialeInitialisationPartie(&(*initiale).porteuse, nombre);
-		initialeInitialisationMotif(&(*initiale).motif, nombre);
+		PartieInitialisation(&(*initiale).enveloppe, nombre);
+		PartieInitialisation(&(*initiale).porteuse, nombre);
+		MotifInitialisation(&(*initiale).motif, nombre);
 
 		(*initiale).enveloppe.periodique = 0;	//	Enveloppe non périodique
 		(*initiale).porteuse.complexe = 0;		//	Porteuse non complexe
@@ -69,38 +69,25 @@ int initialeInitialisation(initialeT * initiale, int nombre) {
 	return 0;
 }
 
-int initialeInitialisationPartie(partieT * partie, int nombre) {
-
-		fonctionInitialise(&(*partie).fonction, nombre);
-
-		(*partie).nombre = nombre;			//	Nombre de points
-
-		(*partie).nombrePeriode=nombre/2;			//	Nombre de période
-		(*partie).deltaPeriode = 0;			//	Réglage fin
-		(*partie).phase = 1.0;			//	phase
-		(*partie).amplitude = 2.0;		//	amplitude
-		(*partie).facteur = 0.0;			//	facteur de disymétrie
-
-		(*partie).complexe = -1;			//	caractéristique de l'enveloppe
-		(*partie).periodique = -1;			//	caractéristique de la porteuse
-
-		(*partie).forme = 0;			//	0 : harmonique, 1 : carrée, 2 : triangle
-
-	return 0;
-}
-
 /*--------------------  CRÉATION DES POSITIONS INITIALES  ---------------------*/
 
-int initialeCreationPosition(initialeT * initiale, int forme) {
+	//	Mise à jour de la fonction initiale
+int initialeCreationPosition(initialeT * initiale) {
 
-/*	switch (forme)
-		{
-		case 0:
-			position = 0;break;
-		default:
-			;
-		}
-*/
+		// Calcul de initial
+
+	//	Mise à jour des paramètres
+
+	//	Calcul des fonctions (motif, enveloppe, porteuse)
+
+	return 0;
+
+}
+
+int initialeCalcul(initialeT * initiale) {
+
+		//	Calcul des paramètres
+
 (void)forme;
 
 		//fprintf(stderr, "initialeCreationPosition\n");
@@ -146,177 +133,7 @@ int initialeCreationPartie(partieT * partie) {
 	return 0;
 }
 
-int initialeCreationUniforme(partieT * partie) {
-
-	// Création d'une enveloppe uniforme
-	
-	int i;
-	int nombre=(*partie).nombre;
-
-	for(i=0;i<nombre;i++)
-		{
-		(*partie).fonction.reel[i] = (*partie).amplitude;
-		(*partie).fonction.imag[i] = (*partie).amplitude;
-		}
-
-	return 0;
-}
-
-int initialeCreationCarre(partieT * partie) {
-
-	// Création d'une enveloppe carrée
-	
-	int i;
-	int nombre=(*partie).nombre;
-	float frequence = (float)((*partie).nombrePeriode) * (1.0 + 0.01*(float)((*partie).deltaPeriode))/4;
-
-
-	for(i=0;i<nombre;i++)
-		{
-		if(i%(*partie).nombrePeriode > frequence){
-			(*partie).fonction.reel[i] = -(*partie).amplitude;
-			(*partie).fonction.imag[i] = -(*partie).amplitude;}
-		else{
-			(*partie).fonction.reel[i] = (*partie).amplitude;
-			(*partie).fonction.imag[i] = (*partie).amplitude;}
-		}
-
-	return 0;
-}
-
-int initialeCreationHarmonique(partieT * partie) {
-
-	// Initialisation de la partie
-	
-	int i;
-	int nombre = (*partie).nombre;
-	float amplitude = (*partie).amplitude;
-	float frequence = (float)((*partie).nombrePeriode) * (1.0 + 0.01*(float)((*partie).deltaPeriode));
-	float phase = (*partie).phase;
-/*
-		for(i=0;i<nombre;i++)
-			{
-			if((*partie).complexe == -1)
-				{(*partie).fonction.imag[i] = amplitude;(*partie).fonction.reel[i] = amplitude;}
-			else {
-				(*partie).fonction.reel[i] = amplitude * cos((float)i/nombre*frequence+phase);
-				if((*partie).complexe == 1)
-					{(*partie).fonction.imag[i] = amplitude * sin((float)i/nombre*frequence+phase);}
-				else {(*partie).fonction.imag[i] = 0.0;}
-				}
-			}
-*/
-		for(i=0;i<nombre;i++)
-			{
-			(*partie).fonction.reel[i] = amplitude * cos((float)i/nombre*frequence+phase);
-			(*partie).fonction.imag[i] = amplitude * sin((float)i/nombre*frequence+phase);
-			}
-
-	return 0;
-}
-
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
-
-int initialeChangeNombrePeriode(partieT * partie, int delta) {
-(void)delta; // -1 : divise par 2 ; 0 : réglage nombrePeriode ; 1 multiplie par 2
-			//	Change la fréquence de la partie
-int nombrePeriode = (*partie).nombrePeriode;
-	switch (delta)
-		{
-		case -1:
-			nombrePeriode = nombrePeriode / 2;break;
-		case 0:
-			nombrePeriode = (*partie).nombre/2;break;
-		case 1:
-			nombrePeriode = nombrePeriode * 2;break;
-		default:
-			;
-		}
-	if(nombrePeriode < FREQUENCE_MAX && nombrePeriode > FREQUENCE_MIN)
-		{
-		(*partie).nombrePeriode = nombrePeriode;
-		}
-	else
-		{
-		printf("Fréquence limite atteinte. ");
-		}
-	printf("Fréquence  = %i\n", (*partie).nombrePeriode);//%s, (*partie).nom
-
-	return 0;
-	}
-
-int initialeChangeDeltaPeriode(partieT * partie, int delta) {
-(void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
-			//	Change la fréquence de la partie
-int deltaPeriode = (*partie).deltaPeriode;
-	switch (delta)
-		{
-		case -1:
-			deltaPeriode = deltaPeriode - 1;break;
-		case 0:
-			deltaPeriode = 33;break;
-		case 1:
-			deltaPeriode = deltaPeriode + 1;break;
-		default:
-			;
-		}
-	if(deltaPeriode < 100 && deltaPeriode > -1)
-		{
-		(*partie).deltaPeriode = deltaPeriode;
-		}
-	else
-		{
-		printf("Fréquence limite atteinte. ");
-		}
-	printf("Fréquence  = %i\n", (*partie).deltaPeriode);//%s, (*partie).nom
-
-	return 0;
-	}
-
-int initialeChangeFrequence(partieT * partie, int delta, float facteur) {
-(void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
-			//	Change la fréquence de la partie
-	switch (delta)
-		{
-		case 0:
-			;break;
-		case -1:
-			;break;
-		case 1:
-			;break;
-		default:
-			;
-		}
-	if((*partie).nombrePeriode * facteur < FREQUENCE_MAX && (*partie).nombrePeriode * facteur > FREQUENCE_MIN)
-		{
-		(*partie).nombrePeriode = (*partie).nombrePeriode * facteur;
-		}
-	else
-		{
-		printf("Fréquence limite atteinte. ");
-		}
-	printf("Fréquence  = %i\n", (*partie).nombrePeriode);//%s, (*partie).nom
-
-	return 0;
-	}
-
-int initialeChangeAmplitude(partieT * partie, float facteur) {
-
-			//	Change l'amplitude du signal
-
-	float amplitude = (*partie).amplitude * facteur;
-	if(amplitude < AMPLITUDE_MAX && amplitude > AMPLITUDE_MIN)
-		{
-		(*partie).amplitude = (*partie).amplitude * facteur;
-		}
-	else
-		{
-		printf("Amplitude limite atteinte. ");
-		}
-	printf("Amplitude générateur = %6.3f\n", (*partie).amplitude);
-
-	return 0;
-	}
 
 int initialeChangeComplexe(initialeT * initiale, int mode){
 
@@ -333,33 +150,5 @@ int initialeChangeComplexe(initialeT * initiale, int mode){
 
 	return 0;
 	}
-
-int initialeChangePeriodique(initialeT * initiale, int mode){
-
-	switch (mode)
-		{
-		case 0:
-			(*initiale).enveloppe.periodique = 0;break;
-		case 1:
-			(*initiale).enveloppe.periodique = 1;break;
-		default:
-			;
-		}
-	printf("(*partie).periodique = %i\n", (*partie).periodique);
-
-	return 0;
-	}
-
-
-/*------------------------  ÉVOLUTION TEMPORELLE  -------------------------*/
-
-int initialeEvolution(initialeT * initiale, int duree) {
-(void)initiale;
-(void)duree;
-
-	return 0;
-	}
-
-/*----------------JAUGE ET NORMALISATION-------------------*/
 
 //////////////////////////////////////////////////////////////////////////

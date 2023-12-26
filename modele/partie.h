@@ -1,5 +1,5 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright janvier 2024, Stephan Runigo
 runigo@free.fr
 SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -34,42 +34,39 @@ termes.
 
 #include "motif.h"
 
+/*
+		Une partie est une fonction éventuellement périodique.
+
+		La fonction initiale est le produit de deux parties : une enveloppe
+		et une porteuse.
+*/
+
 typedef struct PartieT partieT;
 	struct PartieT
 		{
-		fonctionT fonction;	// Enveloppe ou porteuse
+		fonctionT fonction;		//	Enveloppe ou porteuse
 
-		int nombre;			//	Nombre de points
+		int eta;		//	Puissance de deux dans la période
+		int rho;		//	dP
+		int P;			//	Période
+		float phase;			//	Phase
 
-		int nombrePeriode;		//	Nombre de période
-		int deltaPeriode;		//	Pourcentage
-		float phase;			//	phase
-		float amplitude;		//	amplitude
-		float facteur;			//	facteur de symétrie
-
-		int complexe;			//	oscillation harmonique
-		int periodique;			//	périodise le carré et le triangle
-
-		int forme;			//	0 : harmonique, 1 : carrée, 2 : triangle, 3 : gaussienne
+		int complexe;		//	-1 SI enveloppe, 0 porteuse réelle, 1 porteuse complexe.
+		int periodique;		//	-1 SI porteuse, 0 enveloppe non-périodique, 1 enveloppe périodique.
 		};
 
 	//	Initialisation de partie
 int partieInitialisation(partieT * partie, int nombre);
-int partieCreationPosition(partieT * partie, int forme);
-int partieChangeComplexe(partieT * partie, int mode);
-int partieChangePeriodique(partieT * partie, int mode);
 
+	//	Création des positions initiales
+int partieCreationPosition(partieT * partie, fonction * fonctionT);
 
 	// Changement des paramètres
-int partieChangeForme(partieT * partie, int forme);
-int partieChangeNombrePeriode(partieT * partie, int delta);
-int partieChangeDeltaPeriode(partieT * partie, int delta);
-
-	// Changement des paramètres du motif
-int partieChangeForme(partieT * partie, int forme);
-int partieChangeNombrePeriode(partieT * partie, int delta);
-int partieChangeDeltaPeriode(partieT * partie, int delta);
-int partieChangeAmplitude(partieT * partie, float facteur);
+int partieChangeComplexe(partieT * partie);
+int partieChangePeriodique(partieT * partie);
+int partieChangeEta(partieT * partie, int plusMoins);
+int partieChangeRho(partieT * partie, int plusMoins);
+int partieChangephase(partieT * partie, int forme);
 
 #endif
 

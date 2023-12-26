@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>20</y>
+      <w>440</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>motif ( P )
+--
+
+  Constante, harmonique, carré, triangle,
+          gaussienne, lorentzienne
+
+--
+
+  Réglage : A, sym, forme
+
+  Calcule : a ( P, sym ), b ( P, sym ), Motif (a, b, A, forme)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>50</x>
+      <y>230</y>
+      <w>520</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>partie
+--
+L'enveloppe et la porteuse sont des parties.
+--
+
+  Réglage : rho, eta, d
+
+  Calcule : P ( rho, eta )</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>50</x>
+      <y>560</y>
+      <w>720</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>initiale
+--
+
+  Enveloppe = Motif périodicisé ou non
+
+  Initiale = Porteuse x Enveloppe</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>360</y>
+      <w>220</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Enveloppe (complexe = -1)
+--
+
+  Toujours réelle
+
+--
+
+  Réglage : complexe (0 ou 1)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>360</y>
+      <w>270</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>porteuse (periodique = -1)
+--
+
+  Toujours périodique (harmonique)
+
+--
+
+  Réglage : périodique (0 ou 1)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>180</y>
+      <w>30</w>
+      <h>400</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>10.0;380.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>500</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=2</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

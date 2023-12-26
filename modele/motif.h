@@ -1,5 +1,5 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright janvier 2024, Stephan Runigo
 runigo@free.fr
 SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -15,7 +15,7 @@ offert aux utilisateurs qu'une garantie limitée. Pour les mêmes raisons,
 seule une responsabilité restreinte pèse sur l'auteur du programme, le
 titulaire des droits patrimoniaux et les concédants successifs.
 A cet égard l'attention de l'utilisateur est attirée sur les risques
-associés au chargementpartie, à l'utilisation, à la modification et/ou au
+associés au chargement, à l'utilisation, à la modification et/ou au
 développement et à la reproduction du logiciel par l'utilisateur étant
 donné sa spécificité de logiciel libre, qui peut le rendre complexe à
 manipuler et qui le réserve donc à des développeurs et des professionnels
@@ -33,36 +33,36 @@ termes.
 #define _MOTIF_
 
 #include "fonction.h"
+/*
+		Un motif est une fonction non périodique. L'enveloppe est ce motif
+		éventuellement périodicisé.
+*/
 
 typedef struct MotifT motifT;
 	struct MotifT
 		{
 		fonctionT fonction;	// Fonction motif
 
-		int nombre;			//	Nombre de points
-
 		int a;		//	Longueur horizontale (montée ou positif)
 		int b;		//	Longueur horizontale (descente ou négatif)
-		int d;		//	décalage horizontal à l'origine
-		int P;		//	Période ( = a + b = 2^eta + rho )
-		int eta;		//	puissance de deux
-		int rho;		//	dP
+		int c;		//	Longueur support (c = a + b = 2^eta + rho = période de l'enveloppe)
 
 		float A;		//	amplitude
-		float facteur;	//	facteur de symétrie (a/b)
+		float sym;	//	facteur de symétrie (a/b)
 
-		int forme;			//	0 : harmonique, 1 : carrée, 2 : triangle, 3 : gaussienne, 4 : Lorentzienne
+		int forme;			//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
+							//	4 : gaussienne, 5 : lorentzienne
 		};
 
 	//	Initialisation de motif
 int motifInitialisation(motifT * motif, int nombre);
-int motifCreationMotif();
+
+	//	Calcul du motif
+int motifCalcul(motifT * motif, int P);
 
 	// Changement des paramètres
 int motifChangeForme(motifT * motif, int forme);
-int motifChangeEta(motifT * motif, int plusMoins);
-int motifChangeRho(motifT * motif, int plusMoins);
-int motifChangeSymetrie(motifT * motif, int delta);
+int motifChangeSymetrie(motifT * motif, float facteur);
 int motifChangeAmplitude(motifT * motif, float facteur);
 
 #endif

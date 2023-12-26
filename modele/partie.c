@@ -36,11 +36,8 @@ int partieInitialisationPartie(partieT * partie, int nombre);
 
 	//		CRÉATION DES POSITIONS partieS
 
+int partieCalculPeriode(partieT * partie);
 int partieCreationPartie(partieT * partie);
-
-int partieCreationCarre(partieT * partie);
-int partieCreationUniforme(partieT * partie);
-int partieCreationHarmonique(partieT * partie);
 /*
 int partieCreationEnveloppe(partieT * partie);
 int partieCreationPorteuse(partieT * partie);
@@ -57,7 +54,7 @@ int partieJaugeZero(partieT * partie);
 
 /*------------------------  INITIALISATION  -------------------------*/
 
-int partieInitialisationPartie(partieT * partie, int nombre) {
+int partieInitialisation(partieT * partie, int nombre) {
 
 		fonctionInitialise(&(*partie).fonction, nombre);
 
@@ -72,12 +69,46 @@ int partieInitialisationPartie(partieT * partie, int nombre) {
 		(*partie).complexe = -1;			//	caractéristique de l'enveloppe
 		(*partie).periodique = -1;			//	caractéristique de la porteuse
 
-		(*partie).forme = 0;			//	0 : harmonique, 1 : carrée, 2 : triangle
-
 	return 0;
 }
 
-/*--------------------  CRÉATION DES POSITIONS partieS  ---------------------*/
+/*--------------------  CALCUL DES POSITIONS INITIALES  ---------------------*/
+
+int partieCalculPeriode(partieT * partie) {
+	int i;
+
+	(*partie).P=1;
+
+	for (i=0;i<(*partie).eta;i++)
+		{
+		(*partie).P=2*(*partie).P;
+		}
+
+	(*partie).P = (*partie).P + (*partie).rho;
+
+
+
+	return P;
+}
+
+/*int partieCalculPeriode(partieT * partie) {
+		// Calcul de la période à partir de eta et rho
+	int k=1;
+	int P=2;
+		//	P = 2^eta
+	if( (*partie).eta > 0)
+		{ while(k<(*partie).eta) { P=2*P; k++;} }
+	else { P = 1; }
+		//	P = P + dp
+	if( (*partie).rho < P )
+		{P=P+(*partie).rho;}
+	else {P=(*partie).rho}
+		//	P reste inférieur à "nombre"
+	if( P < (*partie).fonction.nombre )
+		{(*partie).P = P}
+	else {(*partie).P = (*partie).fonction.nombre}
+	return 0;
+*/}
 
 int partieCreationPosition(partieT * partie, int forme) {
 

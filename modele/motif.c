@@ -1,5 +1,5 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright janvier 2024, Stephan Runigo
 runigo@free.fr
 SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -32,24 +32,17 @@ termes.
 #include "motif.h"
 
 	//		INITIALISATION
-int motifInitialisationPartie(motifT * motif, int nombre);
+int motifInitialisation(motifT * motif, int nombre);
 
-	//		CRÉATION DES POSITIONS INITIALES
+	//		CALCUL DU MOTIF
+int motifCalculParametre(motifT * motif, int P);
 
-int motifCreationPartie(motifT * motif);
-
-int motifCreationCarre(motifT * motif);
-int motifCreationUniforme(motifT * motif);
-int motifCreationHarmonique(motifT * motif);
-/*
-int motifCreationEnveloppe(motifT * motif);
-int motifCreationPorteuse(motifT * motif);
-int motifCreationPorteuseHarmonique(motifT * motif);
-int motifCreationEnveloppeCarre(motifT * motif);
-int motifCreationEnveloppeUniforme(motifT * motif);
-*/
-	//		ÉVOLUTION TEMPORELLE
-//int motifIncremente(motifT * motif);
+int motifCalculConstante(motifT * motif);
+int motifCalculHarmonique(motifT * motif);
+int motifCalculCarre(motifT * motif);
+int motifCalculTriangle(motifT * motif);
+int motifCalculGaussienne(motifT * motif);
+int motifCalculLorentzienne(motifT * motif);
 
 	//		JAUGE ET NORMALISATION
 int motifJaugeZero(motifT * motif);
@@ -61,19 +54,18 @@ int motifInitialisation(motifT * motif, int nombre) {
 
 		fonctionInitialise(&(*motif).fonction, nombre);	// Fonction motif
 
-		(*motif).nombre = nombre;			//	Nombre de points
-
 		(*motif).d=0;			//	décalage horizontal à l'origine
-		(*motif).eta = 3;			//	puissance de deux
-		(*motif).rho = 1;			//	dP
+		(*motif).eta = 3;		//	puissance de deux
+		(*motif).rho = 1;		//	dP
 
 		(*motif).A = 3;			//	Amplitude
-		(*motif).facteur = 0.7;	//	facteur de symétrie (a/b)
+		(*motif).symetrie = 0.7;	//	facteur de symétrie (a/b)
 
 		(*motif).forme = 2;			//	0 : harmonique, 1 : carrée, 2 : triangle,
 								//	3 : gaussienne, 4 : Lorentzienne
 
 		motifCalculPosition(motif);
+		motifCalculParametres(motif);
 
 		int a;		//	Longueur horizontale (montée ou positif)
 		int b;		//	Longueur horizontale (descente ou négatif)
@@ -84,32 +76,44 @@ int motifInitialisation(motifT * motif, int nombre) {
 
 /*--------------------  CRÉATION DES POSITIONS INITIALES  ---------------------*/
 
-int motifCalculPosition(motifT * motif) {
-	int i
+int motifCalcul(motifT * motif, int P) {
 
-	(*motif).P=1;
-	for (i=0;i<(*motif).eta;i++)
-		{(*motif).P=2*(*motif).P;}
-	(*motif).P=(*motif).P+(*motif).rho;
+		// Calcul des paramètres
+	motifCalculParametres(motifT * motif, P);
+	// Calcul de la fonction
+	
 
-	(*motif).a=(*motif).P*(*motif).facteur;
-	if((*motif).facteur=!0)
-		{(*motif).b=(*motif).P/(*motif).facteur;}
-	else{(*motif).b=(*motif).P;}
+	return 0;
+}
 
-//	0 : harmonique, 1 : carrée, 2 : triangle, 3 : gaussienne, 4 : Lorentzienne
+int motifCalculParametres(motifT * motif, int P) {
+
+		// Calcul des paramètres
+
+	(*motif).a=int(P*((*motif).sym));
+	(*motif).b=P-(*motif).a;
+
+	return 0;
+}
+
+int motifCalculFonction(motifT * motif, int P) {
+
+				//	Calcul de la fonction
+
 	switch ((*motif).forme)
 		{
-		case 0:
-			motifCreationHarmonique(motif);break;
-		case 1:
-			motifCreationCarree(motif);break;
-		case 2:
-			motifCreationTriangle(motif);break;
-		case 3:
-			motifCreationGaussienne(motif);break;
-		case 4:
-			motifCreationLorentzienne(motif);break;
+		case 0: // Constante
+			motifCalculConstante(motif);break;
+		case 1: // Harmonique
+			motifCalculHarmonique(motif);break;
+		case 2: // Carrée
+			motifCalculCarree(motif);break;
+		case 3: // Triangle
+			motifCalculTriangle(motif);break;
+		case 4: // Gaussienne
+			motifCalculGaussienne(motif);break;
+		case 5: // Lorentzienne
+			motifCalculLorentzienne(motif);break;
 		default:
 			;
 		}
@@ -117,7 +121,7 @@ int motifCalculPosition(motifT * motif) {
 	return 0;
 }
 
-int motifCreationUniforme(motifT * motif) {
+int motifCalculUniforme(motifT * motif) {
 
 	// Création d'une enveloppe uniforme
 	
@@ -133,7 +137,7 @@ int motifCreationUniforme(motifT * motif) {
 	return 0;
 }
 
-int motifCreationCarre(motifT * motif) {
+int motifCalculCarre(motifT * motif) {
 
 	// Création d'une enveloppe carrée
 	
@@ -155,7 +159,7 @@ int motifCreationCarre(motifT * motif) {
 	return 0;
 }
 
-int motifCreationHarmonique(motifT * motif) {
+int motifCalculHarmonique(motifT * motif) {
 
 	// Initialisation de la motif
 	
@@ -164,24 +168,42 @@ int motifCreationHarmonique(motifT * motif) {
 	float amplitude = (*motif).amplitude;
 	float frequence = (float)((*motif).nombrePeriode) * (1.0 + 0.01*(float)((*motif).deltaPeriode));
 	float phase = (*motif).phase;
-/*
-		for(i=0;i<nombre;i++)
-			{
-			if((*motif).complexe == -1)
-				{(*motif).fonction.imag[i] = amplitude;(*motif).fonction.reel[i] = amplitude;}
-			else {
-				(*motif).fonction.reel[i] = amplitude * cos((float)i/nombre*frequence+phase);
-				if((*motif).complexe == 1)
-					{(*motif).fonction.imag[i] = amplitude * sin((float)i/nombre*frequence+phase);}
-				else {(*motif).fonction.imag[i] = 0.0;}
-				}
-			}
-*/
+
 		for(i=0;i<nombre;i++)
 			{
 			(*motif).fonction.reel[i] = amplitude * cos((float)i/nombre*frequence+phase);
 			(*motif).fonction.imag[i] = amplitude * sin((float)i/nombre*frequence+phase);
 			}
+
+	return 0;
+}
+
+int motifCalculGaussienne(motifT * motif) {
+
+	// Création d'une enveloppe gaussienne
+	
+	int i;
+
+	for(i=0;i<NOMBRE_MAX;i++)
+		{
+		(*motif).fonction.reel[i] = (*motif).amplitude;
+		(*motif).fonction.imag[i] = (*motif).amplitude;
+		}
+
+	return 0;
+}
+
+int motifCalculLorentzienne(motifT * motif) {
+
+	// Création d'une enveloppe lorentzienne
+	
+	int i;
+
+	for(i=0;i<NOMBRE_MAX;i++)
+		{
+		(*motif).fonction.reel[i] = (*motif).amplitude;
+		(*motif).fonction.imag[i] = (*motif).amplitude;
+		}
 
 	return 0;
 }

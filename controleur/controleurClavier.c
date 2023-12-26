@@ -89,41 +89,41 @@ int controleurClavier(controleurT * controleur)
 
 	// Paramètres porteuse
 		case SDLK_p:
-			initialeChangeNombrePeriode(&(*controleur).modele.initiale.porteuse, 1);break;
+			partieChangeEta(&(*controleur).modele.initiale.porteuse, 1);break;
 		case SDLK_m:
-			initialeChangeNombrePeriode(&(*controleur).modele.initiale.porteuse, -1);break;
+			partieChangeEta(&(*controleur).modele.initiale.porteuse, -1);break;
 		case SDLK_l:
-			initialeChangeDeltaPeriode(&(*controleur).modele.initiale.porteuse, 1);break;
+			partieChangeRho(&(*controleur).modele.initiale.porteuse, 1);break;
 		case SDLK_k:
-			initialeChangeDeltaPeriode(&(*controleur).modele.initiale.porteuse, -1);break;
+			partieChangeRho(&(*controleur).modele.initiale.porteuse, -1);break;
 		case SDLK_o:
-			initialeChangeComplexe(&(*controleur).modele.initiale.porteuse, 0);break;
+			partieChangeComplexe(&(*controleur).modele.initiale.porteuse, 0);break;
 		case SDLK_i:
-			initialeChangeComplexe(&(*controleur).modele.initiale.porteuse, 1);break;
+			partieChangeComplexe(&(*controleur).modele.initiale.porteuse, 1);break;
 		case SDLK_u:
-			initialeChangeComplexe(&(*controleur).modele.initiale.porteuse, -1);break;
+			partieChangeComplexe(&(*controleur).modele.initiale.porteuse);break;
 	//	case SDLK_j:
 		//	initialeChangeEnveloppe(&(*controleur).modele.initiale, -1);break;
 		case SDLK_y:
-			initialeChangeAmplitude(&(*controleur).modele.initiale.porteuse,1.1);break;
+			motifChangeAmplitude(&(*controleur).modele.initiale.porteuse,1.1);break;
 		case SDLK_h:
-			initialeChangeAmplitude(&(*controleur).modele.initiale.porteuse,0.91);break;
+			motifChangeAmplitude(&(*controleur).modele.initiale.porteuse,0.91);break;
 
 	// Paramètres enveloppe
 		case SDLK_a:
-			initialeChangeNombrePeriode(&(*controleur).modele.initiale.enveloppe, 1);break;
+			partieChangeEta(&(*controleur).modele.initiale.enveloppe, 1);break;
 		case SDLK_q:
-			initialeChangeNombrePeriode(&(*controleur).modele.initiale.enveloppe, -1);break;
+			partieChangeEta(&(*controleur).modele.initiale.enveloppe, -1);break;
 		case SDLK_s:
-			initialeChangeDeltaPeriode(&(*controleur).modele.initiale.enveloppe, -1);break;
+			partieChangeRho(&(*controleur).modele.initiale.enveloppe, -1);break;
 		case SDLK_d:
-			initialeChangeDeltaPeriode(&(*controleur).modele.initiale.enveloppe, 1);break;
+			partieChangeRho(&(*controleur).modele.initiale.enveloppe, 1);break;
 		case SDLK_z:
-			initialeChangePeriodique(&(*controleur).modele.initiale.enveloppe, 0);break;
+			partieChangePeriodique(&(*controleur).modele.initiale.enveloppe);break;
 		case SDLK_e:
-			initialeChangePeriodique(&(*controleur).modele.initiale.enveloppe, -1);break;
-		case SDLK_r:
-			initialeChangePeriodique(&(*controleur).modele.initiale.enveloppe, 1);break;
+			partieChangeForme(&(*controleur).modele.initiale.enveloppe);break;
+	//	case SDLK_r:
+		//	motifChangeForme(&(*controleur).modele.initiale.enveloppe, 1);break;
 
 	// Paramètres graphique
 		case SDLK_b:

@@ -1,5 +1,5 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright janvier 2024, Stephan Runigo
 runigo@free.fr
 SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -34,6 +34,12 @@ termes.
 
 #include "partie.h"
 
+/*
+		La fonction initiale est le produit de deux parties : une enveloppe
+		et une porteuse. L'enveloppe est un motif éventuellement périodicisé.
+*/
+
+
 typedef struct InitialeT initialeT;
 	struct InitialeT
 		{
@@ -44,22 +50,9 @@ typedef struct InitialeT initialeT;
 
 	//	Initialisation de initiale
 int initialeInitialisation(initialeT * initiale, int nombre);
-int initialeCreationPosition(initialeT * initiale, int forme);
-int initialeCreationMotif();
-int initialeChangeComplexe(initialeT * initiale, int mode);
-int initialeChangePeriodique(initialeT * initiale, int mode);
 
-
-	// Changement des paramètres des fonctions initiales
-int initialeChangeForme(partieT * partie, int forme);
-int initialeChangeNombrePeriode(partieT * partie, int delta);
-int initialeChangeDeltaPeriode(partieT * partie, int delta);
-
-	// Changement des paramètres du motif
-int initialeChangeForme(partieT * partie, int forme);
-int initialeChangeNombrePeriode(partieT * partie, int delta);
-int initialeChangeDeltaPeriode(partieT * partie, int delta);
-int initialeChangeAmplitude(partieT * partie, float facteur);
+	//	Mise à jour de la fonction initiale
+int initialeCreationPosition(initialeT * initiale);
 
 #endif
 
