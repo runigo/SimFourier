@@ -1,7 +1,7 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright janvier 2024, Stephan Runigo
 runigo@free.fr
-SimFourier 1.0 Transformation de Fourier
+SimFourier 1.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -38,13 +38,7 @@ int partieInitialisationPartie(partieT * partie, int nombre);
 
 int partieCalculPeriode(partieT * partie);
 int partieCreationPartie(partieT * partie);
-/*
-int partieCreationEnveloppe(partieT * partie);
-int partieCreationPorteuse(partieT * partie);
-int partieCreationPorteuseHarmonique(partieT * partie);
-int partieCreationEnveloppeCarre(partieT * partie);
-int partieCreationEnveloppeUniforme(partieT * partie);
-*/
+
 	//		ÉVOLUTION TEMPORELLE
 //int partieIncremente(partieT * partie);
 
@@ -58,13 +52,11 @@ int partieInitialisation(partieT * partie, int nombre) {
 
 		fonctionInitialise(&(*partie).fonction, nombre);
 
-		(*partie).nombre = nombre;			//	Nombre de points
-
-		(*partie).nombrePeriode=nombre/2;			//	Nombre de période
-		(*partie).deltaPeriode = 0;			//	Réglage fin
-		(*partie).phase = 1.0;			//	phase
-		(*partie).amplitude = 2.0;		//	amplitude
-		(*partie).facteur = 0.0;			//	facteur de disymétrie
+		(*partie).eta=nombre/2;		//	Période, réglage puissance de deux
+		(*partie).rho = 0;			//	Période, réglage fin
+		(*partie).khi = 1.0;		//	Décalage horizontale, phase à l'origine
+		(*partie).P = 1.0;			//	Période
+		(*partie).phase = 0.0;			//	facteur de disymétrie
 
 		(*partie).complexe = -1;			//	caractéristique de l'enveloppe
 		(*partie).periodique = -1;			//	caractéristique de la porteuse
@@ -76,21 +68,14 @@ int partieInitialisation(partieT * partie, int nombre) {
 
 int partieCalculPeriode(partieT * partie) {
 	int i;
-
 	(*partie).P=1;
-
 	for (i=0;i<(*partie).eta;i++)
 		{
 		(*partie).P=2*(*partie).P;
 		}
-
 	(*partie).P = (*partie).P + (*partie).rho;
-
-
-
 	return P;
 }
-
 /*int partieCalculPeriode(partieT * partie) {
 		// Calcul de la période à partir de eta et rho
 	int k=1;
@@ -133,8 +118,8 @@ int partieCreationPosition(partieT * partie, int forme) {
 int partieCreationPartie(partieT * partie) {
 	switch ((*partie).complexe)
 		{
-		case -1:
-			partieCreationUniforme(partie);break;
+	//	case -1:
+		//	partieCreationUniforme(partie);break;
 		case 0:
 			partieCreationHarmonique(partie);break;
 		case 1:
@@ -145,8 +130,8 @@ int partieCreationPartie(partieT * partie) {
 
 	switch ((*partie).periodique)
 		{
-		case -1:
-			partieCreationUniforme(partie);break;
+	//	case -1:
+		//	partieCreationUniforme(partie);break;
 		case 0:
 			partieCreationUniforme(partie);break;
 		case 1:
@@ -174,59 +159,6 @@ int partieCreationUniforme(partieT * partie) {
 		(*partie).fonction.reel[i] = (*partie).amplitude;
 		(*partie).fonction.imag[i] = (*partie).amplitude;
 		}
-
-	return 0;
-}
-
-int partieCreationCarre(partieT * partie) {
-
-	// Création d'une enveloppe carrée
-	
-	int i;
-	int nombre=(*partie).nombre;
-	float frequence = (float)((*partie).nombrePeriode) * (1.0 + 0.01*(float)((*partie).deltaPeriode))/4;
-
-
-	for(i=0;i<nombre;i++)
-		{
-		if(i%(*partie).nombrePeriode > frequence){
-			(*partie).fonction.reel[i] = -(*partie).amplitude;
-			(*partie).fonction.imag[i] = -(*partie).amplitude;}
-		else{
-			(*partie).fonction.reel[i] = (*partie).amplitude;
-			(*partie).fonction.imag[i] = (*partie).amplitude;}
-		}
-
-	return 0;
-}
-
-int partieCreationHarmonique(partieT * partie) {
-
-	// Initialisation de la partie
-	
-	int i;
-	int nombre = (*partie).nombre;
-	float amplitude = (*partie).amplitude;
-	float frequence = (float)((*partie).nombrePeriode) * (1.0 + 0.01*(float)((*partie).deltaPeriode));
-	float phase = (*partie).phase;
-/*
-		for(i=0;i<nombre;i++)
-			{
-			if((*partie).complexe == -1)
-				{(*partie).fonction.imag[i] = amplitude;(*partie).fonction.reel[i] = amplitude;}
-			else {
-				(*partie).fonction.reel[i] = amplitude * cos((float)i/nombre*frequence+phase);
-				if((*partie).complexe == 1)
-					{(*partie).fonction.imag[i] = amplitude * sin((float)i/nombre*frequence+phase);}
-				else {(*partie).fonction.imag[i] = 0.0;}
-				}
-			}
-*/
-		for(i=0;i<nombre;i++)
-			{
-			(*partie).fonction.reel[i] = amplitude * cos((float)i/nombre*frequence+phase);
-			(*partie).fonction.imag[i] = amplitude * sin((float)i/nombre*frequence+phase);
-			}
 
 	return 0;
 }
@@ -261,7 +193,7 @@ int nombrePeriode = (*partie).nombrePeriode;
 	return 0;
 	}
 
-int partieChangeDeltaPeriode(partieT * partie, int delta) {
+int partieChangeRho(partieT * partie, int delta) {
 (void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
 			//	Change la fréquence de la partie
 int deltaPeriode = (*partie).deltaPeriode;
@@ -329,39 +261,40 @@ int partieChangeAmplitude(partieT * partie, float facteur) {
 		{
 		printf("Amplitude limite atteinte. ");
 		}
-	printf("Amplitude générateur = %6.3f\n", (*partie).amplitude);
+	printf("Amplitude = %6.3f\n", (*partie).amplitude);
 
 	return 0;
 	}
 
-int partieChangeComplexe(partieT * partie, int mode){
+int partieChangeNature(partieT * partie){
 
-	switch (mode)
+		// Selon porteuse ou enveloppe, change complexe ou périodique
+
+	if((*partie).complexe < 0) // Cas de l'enveloppe
 		{
-		case 0:
-			(*partie).porteuse.complexe = 0;break;
-		case 1:
-			(*partie).porteuse.complexe = 1;break;
-		default:
-			;
+		if(*partie).periodique==0)
+			{
+			(*partie).periodique = 1;
+			}
+		else
+			{
+			(*partie).periodique = 0;
+			}
+		printf("enveloppe periodique = %i\n", (*partie).periodique);
 		}
-	printf("(*partie).complexe = %i\n", (*partie).complexe);
 
-	return 0;
-	}
-
-int partieChangePeriodique(partieT * partie, int mode){
-
-	switch (mode)
+	if((*partie).periodique < 0) // Cas de la porteuse
 		{
-		case 0:
-			(*partie).enveloppe.periodique = 0;break;
-		case 1:
-			(*partie).enveloppe.periodique = 1;break;
-		default:
-			;
+		if(*partie).periodique==0)
+			{
+			(*partie).complexe = 1;
+			}
+		else
+			{
+			(*partie).complexe = 0;
+			}
+		printf("porteuse complexe = %i\n", (*partie).complexe);
 		}
-	printf("(*partie).periodique = %i\n", (*partie).periodique);
 
 	return 0;
 	}

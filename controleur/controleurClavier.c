@@ -1,8 +1,8 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright janvier 2024, Stephan Runigo
 runigo@free.fr
+SimFourier 1.1 Transformation de Fourier
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 1.0 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -100,14 +100,14 @@ int controleurClavier(controleurT * controleur)
 			partieChangeComplexe(&(*controleur).modele.initiale.porteuse, 0);break;
 		case SDLK_i:
 			partieChangeComplexe(&(*controleur).modele.initiale.porteuse, 1);break;
-		case SDLK_u:
-			partieChangeComplexe(&(*controleur).modele.initiale.porteuse);break;
+	//	case SDLK_u:
+		//	partieChangeComplexe(&(*controleur).modele.initiale.porteuse);break;
 	//	case SDLK_j:
 		//	initialeChangeEnveloppe(&(*controleur).modele.initiale, -1);break;
-		case SDLK_y:
-			motifChangeAmplitude(&(*controleur).modele.initiale.porteuse,1.1);break;
-		case SDLK_h:
-			motifChangeAmplitude(&(*controleur).modele.initiale.porteuse,0.91);break;
+	//	case SDLK_y:
+		//	motifChangeAmplitude(&(*controleur).modele.initiale.porteuse,1.1);break;
+	//	case SDLK_h:
+		//	motifChangeAmplitude(&(*controleur).modele.initiale.porteuse,0.91);break;
 
 	// Paramètres enveloppe
 		case SDLK_a:
@@ -121,9 +121,9 @@ int controleurClavier(controleurT * controleur)
 		case SDLK_z:
 			partieChangePeriodique(&(*controleur).modele.initiale.enveloppe);break;
 		case SDLK_e:
-			partieChangeForme(&(*controleur).modele.initiale.enveloppe);break;
-	//	case SDLK_r:
-		//	motifChangeForme(&(*controleur).modele.initiale.enveloppe, 1);break;
+			motifChangeForme(&(*controleur).modele.initiale.motif, 0);break;
+		case SDLK_r:
+			motifChangeForme(&(*controleur).modele.initiale.motif, 1);break;
 
 	// Paramètres graphique
 		case SDLK_b:

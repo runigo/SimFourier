@@ -5,8 +5,8 @@
     <id>UMLClass</id>
     <coordinates>
       <x>340</x>
-      <y>20</y>
-      <w>440</w>
+      <y>0</y>
+      <w>430</w>
       <h>170</h>
     </coordinates>
     <panel_attributes>motif ( P )
@@ -17,7 +17,7 @@
 
 --
 
-  Réglage : A, sym, forme
+  Réglage : A, B, sym, forme
 
   Calcule : a ( P, sym ), b ( P, sym ), Motif (a, b, A, forme)
 </panel_attributes>
@@ -26,8 +26,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>50</x>
-      <y>230</y>
+      <x>40</x>
+      <y>210</y>
       <w>520</w>
       <h>280</h>
     </coordinates>
@@ -36,7 +36,7 @@
 L'enveloppe et la porteuse sont des parties.
 --
 
-  Réglage : rho, eta, d
+  Réglage : rho, eta, khi
 
   Calcule : P ( rho, eta )</panel_attributes>
     <additional_attributes/>
@@ -44,15 +44,17 @@ L'enveloppe et la porteuse sont des parties.
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>50</x>
-      <y>560</y>
+      <x>40</x>
+      <y>540</y>
       <w>720</w>
-      <h>110</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>initiale
 --
 
   Enveloppe = Motif périodicisé ou non
+
+  Porteuse = harmonique complexe ou non
 
   Initiale = Porteuse x Enveloppe</panel_attributes>
     <additional_attributes/>
@@ -60,8 +62,8 @@ L'enveloppe et la porteuse sont des parties.
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>340</x>
-      <y>360</y>
+      <x>330</x>
+      <y>340</y>
       <w>220</w>
       <h>140</h>
     </coordinates>
@@ -79,8 +81,8 @@ L'enveloppe et la porteuse sont des parties.
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>60</x>
-      <y>360</y>
+      <x>50</x>
+      <y>340</y>
       <w>270</w>
       <h>140</h>
     </coordinates>
@@ -97,8 +99,8 @@ L'enveloppe et la porteuse sont des parties.
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>670</x>
-      <y>180</y>
+      <x>660</x>
+      <y>160</y>
       <w>30</w>
       <h>400</h>
     </coordinates>
@@ -109,8 +111,8 @@ m1=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>240</x>
-      <y>500</y>
+      <x>230</x>
+      <y>480</y>
       <w>30</w>
       <h>80</h>
     </coordinates>

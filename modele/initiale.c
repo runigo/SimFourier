@@ -1,7 +1,7 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright janvier 2024, Stephan Runigo
 runigo@free.fr
-SimFourier 1.0 Transformation de Fourier
+SimFourier 1.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -33,6 +33,7 @@ termes.
 
 	//		INITIALISATION
 int initialeInitialisationPartie(partieT * partie, int nombre);
+int initialeCreationPartie(partieT * partie);
 
 	//		CRÉATION DES POSITIONS INITIALES
 
@@ -59,9 +60,9 @@ int initialeJaugeZero(initialeT * initiale);
 
 int initialeInitialisation(initialeT * initiale, int nombre) {
 
-		PartieInitialisation(&(*initiale).enveloppe, nombre);
-		PartieInitialisation(&(*initiale).porteuse, nombre);
-		MotifInitialisation(&(*initiale).motif, nombre);
+		partieInitialisation(&(*initiale).enveloppe, nombre);
+		partieInitialisation(&(*initiale).porteuse, nombre);
+		motifInitialisation(&(*initiale).motif, nombre);
 
 		(*initiale).enveloppe.periodique = 0;	//	Enveloppe non périodique
 		(*initiale).porteuse.complexe = 0;		//	Porteuse non complexe
@@ -73,6 +74,8 @@ int initialeInitialisation(initialeT * initiale, int nombre) {
 
 	//	Mise à jour de la fonction initiale
 int initialeCreationPosition(initialeT * initiale) {
+
+(void)initiale;
 
 		// Calcul de initial
 
@@ -87,8 +90,6 @@ int initialeCreationPosition(initialeT * initiale) {
 int initialeCalcul(initialeT * initiale) {
 
 		//	Calcul des paramètres
-
-(void)forme;
 
 		//fprintf(stderr, "initialeCreationPosition\n");
 	initialeCreationPartie(&(*initiale).enveloppe);
@@ -146,7 +147,7 @@ int initialeChangeComplexe(initialeT * initiale, int mode){
 		default:
 			;
 		}
-	printf("(*partie).complexe = %i\n", (*partie).complexe);
+	//printf("(*partie).complexe = %i\n", (*partie).complexe);
 
 	return 0;
 	}
