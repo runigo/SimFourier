@@ -47,9 +47,10 @@ typedef struct PartieT partieT;
 		fonctionT fonction;		//	Enveloppe ou porteuse
 
 		int eta;		//	Puissance de deux dans la période
-		int rho;		//	dP
+		int rho;		//	Écart à la puissance de deux de la période
+		int khi;		//	Décalage horizontal
 		int P;			//	Période
-		float phase;			//	Phase
+		//float phase;			//	Phase
 
 		int complexe;		//	-1 SI enveloppe, 0 porteuse réelle, 1 porteuse complexe.
 		int periodique;		//	-1 SI porteuse, 0 enveloppe non-périodique, 1 enveloppe périodique.
@@ -58,15 +59,16 @@ typedef struct PartieT partieT;
 	//	Initialisation de partie
 int partieInitialisation(partieT * partie, int nombre);
 
-	//	Création des positions initiales
-int partieCreationPosition(partieT * partie, fonctionT * fonction);
+	//	Création des parties initiales
+int partieCreationPosition(partieT * partie);
 
 	// Changement des paramètres
 int partieChangeComplexe(partieT * partie, int mode);
 int partieChangePeriodique(partieT * partie);
 int partieChangeEta(partieT * partie, int plusMoins);
 int partieChangeRho(partieT * partie, int plusMoins);
-int partieChangePhase(partieT * partie, int forme);
+int partieChangeKhi(partieT * partie, int plusMoins);
+//int partieChangePhase(partieT * partie, int forme);
 
 #endif
 

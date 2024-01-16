@@ -38,6 +38,9 @@ int partieInitialisationPartie(partieT * partie, int nombre);
 
 int partieCalculPeriode(partieT * partie);
 int partieCreationPartie(partieT * partie);
+int partieCreationHarmonique(partieT * partie);
+int partieCreationUniforme(partieT * partie);
+int partieCreationCarre(partieT * partie);
 
 	//		ÉVOLUTION TEMPORELLE
 //int partieIncremente(partieT * partie);
@@ -56,7 +59,6 @@ int partieInitialisation(partieT * partie, int nombre) {
 		(*partie).rho = 0;			//	Période, réglage fin
 		(*partie).khi = 1.0;		//	Décalage horizontale, phase à l'origine
 		(*partie).P = 1.0;			//	Période
-		(*partie).phase = 0.0;			//	facteur de disymétrie
 
 		(*partie).complexe = -1;			//	caractéristique de l'enveloppe
 		(*partie).periodique = -1;			//	caractéristique de la porteuse
@@ -74,7 +76,7 @@ int partieCalculPeriode(partieT * partie) {
 		(*partie).P=2*(*partie).P;
 		}
 	(*partie).P = (*partie).P + (*partie).rho;
-	return P;
+	return (*partie).P;
 }
 /*int partieCalculPeriode(partieT * partie) {
 		// Calcul de la période à partir de eta et rho
@@ -93,9 +95,9 @@ int partieCalculPeriode(partieT * partie) {
 		{(*partie).P = P}
 	else {(*partie).P = (*partie).fonction.nombre}
 	return 0;
-*/}
-
-int partieCreationPosition(partieT * partie, int forme) {
+}
+*/
+int partieCreationPosition(partieT * partie) {
 
 /*	switch (forme)
 		{
@@ -105,11 +107,11 @@ int partieCreationPosition(partieT * partie, int forme) {
 			;
 		}
 */
-(void)forme;
+(void)partie;
 
 		//fprintf(stderr, "partieCreationPosition\n");
-	partieCreationPartie(&(*partie).enveloppe);
-	partieCreationPartie(&(*partie).porteuse);
+	//partieCreationPartie(&(*partie).enveloppe);
+	//partieCreationPartie(&(*partie).porteuse);
 
 	return 0;
 
@@ -152,12 +154,12 @@ int partieCreationUniforme(partieT * partie) {
 	// Création d'une enveloppe uniforme
 	
 	int i;
-	int nombre=(*partie).nombre;
+	int nombre=(*partie).fonction.nombre;
 
 	for(i=0;i<nombre;i++)
 		{
-		(*partie).fonction.reel[i] = (*partie).amplitude;
-		(*partie).fonction.imag[i] = (*partie).amplitude;
+		(*partie).fonction.reel[i] = 1.0;
+		(*partie).fonction.imag[i] = 1.0;
 		}
 
 	return 0;
@@ -165,62 +167,62 @@ int partieCreationUniforme(partieT * partie) {
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
 
-int partieChangeNombrePeriode(partieT * partie, int delta) {
-(void)delta; // -1 : divise par 2 ; 0 : réglage nombrePeriode ; 1 multiplie par 2
-			//	Change la fréquence de la partie
-int nombrePeriode = (*partie).nombrePeriode;
+int partieChangeEta(partieT * partie, int delta) {
+// delta = -1 : divise par 2 ; 0 : réglage nombrePeriode ; 1 multiplie par 2
+
+int eta = (*partie).eta;
 	switch (delta)
 		{
 		case -1:
-			nombrePeriode = nombrePeriode / 2;break;
+			eta = eta / 2;break;
 		case 0:
-			nombrePeriode = (*partie).nombre/2;break;
+			eta = (*partie).fonction.nombre/2;break;
 		case 1:
-			nombrePeriode = nombrePeriode * 2;break;
+			eta = eta * 2;break;
 		default:
 			;
 		}
-	if(nombrePeriode < FREQUENCE_MAX && nombrePeriode > FREQUENCE_MIN)
+	if(eta < (*partie).P)
 		{
-		(*partie).nombrePeriode = nombrePeriode;
+		(*partie).eta = eta;
 		}
 	else
 		{
 		printf("Fréquence limite atteinte. ");
 		}
-	printf("Fréquence  = %i\n", (*partie).nombrePeriode);//%s, (*partie).nom
+	printf("Eta  = %i\n", (*partie).eta);//%s, (*partie).nom
 
 	return 0;
 	}
 
 int partieChangeRho(partieT * partie, int delta) {
-(void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
+(void)delta; // -1 : delta = 0 ; 0 : annule rho ; 1 réglage deltaPeriode
 			//	Change la fréquence de la partie
-int deltaPeriode = (*partie).deltaPeriode;
+int rho = (*partie).rho;
 	switch (delta)
 		{
 		case -1:
-			deltaPeriode = deltaPeriode - 1;break;
+			rho = rho - 1;break;
 		case 0:
-			deltaPeriode = 33;break;
+			rho = 0;break;
 		case 1:
-			deltaPeriode = deltaPeriode + 1;break;
+			rho = rho + 1;break;
 		default:
 			;
 		}
-	if(deltaPeriode < 100 && deltaPeriode > -1)
+	if(rho < 100 && rho > -1)
 		{
-		(*partie).deltaPeriode = deltaPeriode;
+		(*partie).rho = rho;
 		}
 	else
 		{
 		printf("Fréquence limite atteinte. ");
 		}
-	printf("Fréquence  = %i\n", (*partie).deltaPeriode);//%s, (*partie).nom
+	printf("rho  = %i\n", (*partie).rho);//%s, (*partie).nom
 
 	return 0;
 	}
-
+/*
 int partieChangeFrequence(partieT * partie, int delta, float facteur) {
 (void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
 			//	Change la fréquence de la partie
@@ -265,14 +267,14 @@ int partieChangeAmplitude(partieT * partie, float facteur) {
 
 	return 0;
 	}
-
+*/
 int partieChangeNature(partieT * partie){
 
 		// Selon porteuse ou enveloppe, change complexe ou périodique
 
 	if((*partie).complexe < 0) // Cas de l'enveloppe
 		{
-		if(*partie).periodique==0)
+		if((*partie).periodique==0)
 			{
 			(*partie).periodique = 1;
 			}
@@ -285,7 +287,7 @@ int partieChangeNature(partieT * partie){
 
 	if((*partie).periodique < 0) // Cas de la porteuse
 		{
-		if(*partie).periodique==0)
+		if((*partie).periodique==0)
 			{
 			(*partie).complexe = 1;
 			}

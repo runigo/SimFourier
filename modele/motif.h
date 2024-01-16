@@ -54,10 +54,10 @@ typedef struct MotifT motifT;
 							//	4 : gaussienne, 5 : lorentzienne
 		};
 
-	//	Initialisation de motif
+	//	Initialisation
 int motifInitialisation(motifT * motif, int nombre);
 
-	//	Calcul du motif
+	//	Calcul
 int motifCalcul(motifT * motif, int P);
 
 	// Changement des paramètres

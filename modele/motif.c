@@ -35,7 +35,7 @@ termes.
 int motifInitialisation(motifT * motif, int nombre);
 
 	//		CALCUL DU MOTIF
-int motifCalculParametre(motifT * motif, int P);
+int motifCalculParametres(motifT * motif, int P);
 
 int motifCalculConstante(motifT * motif);
 int motifCalculHarmonique(motifT * motif);
@@ -54,22 +54,18 @@ int motifInitialisation(motifT * motif, int nombre) {
 
 		fonctionInitialise(&(*motif).fonction, nombre);	// Fonction motif
 
-		(*motif).d=0;			//	décalage horizontal à l'origine
-		(*motif).eta = 3;		//	puissance de deux
-		(*motif).rho = 1;		//	dP
+		(*motif).a=10;			//	Longueur horizontale (montée ou positif)
+		(*motif).b=20;			//	Longueur horizontale (descente ou négatif)
+		(*motif).c=(*motif).a+(*motif).b;		//	Période ( = a + b = 2^eta + rho )
 
 		(*motif).A = 3;			//	Amplitude
-		(*motif).symetrie = 0.7;	//	facteur de symétrie (a/b)
+		(*motif).sym = (float)(*motif).a / (float)(*motif).b;	//	facteur de symétrie (a/b)
 
 		(*motif).forme = 2;			//	0 : harmonique, 1 : carrée, 2 : triangle,
 								//	3 : gaussienne, 4 : Lorentzienne
 
-		motifCalculPosition(motif);
-		motifCalculParametres(motif);
-
-		int a;		//	Longueur horizontale (montée ou positif)
-		int b;		//	Longueur horizontale (descente ou négatif)
-		int P;		//	Période ( = a + b = 2^eta + rho )
+		motifCalculParametres(motif, (*motif).a + (*motif).b);
+	//	motifCalculPosition(motif);
 
 	return 0;
 }
@@ -79,7 +75,7 @@ int motifInitialisation(motifT * motif, int nombre) {
 int motifCalcul(motifT * motif, int P) {
 
 		// Calcul des paramètres
-	motifCalculParametres(motifT * motif, P);
+	motifCalculParametres(motif, P);
 	// Calcul de la fonction
 	
 
@@ -90,7 +86,7 @@ int motifCalculParametres(motifT * motif, int P) {
 
 		// Calcul des paramètres
 
-	(*motif).a=int(P*((*motif).sym));
+	(*motif).a=(int)(P*((*motif).sym));
 	(*motif).b=P-(*motif).a;
 
 	return 0;
@@ -99,7 +95,7 @@ int motifCalculParametres(motifT * motif, int P) {
 int motifCalculFonction(motifT * motif, int P) {
 
 				//	Calcul de la fonction
-
+(void)P;
 	switch ((*motif).forme)
 		{
 		case 0: // Constante
@@ -107,7 +103,7 @@ int motifCalculFonction(motifT * motif, int P) {
 		case 1: // Harmonique
 			motifCalculHarmonique(motif);break;
 		case 2: // Carrée
-			motifCalculCarree(motif);break;
+			motifCalculCarre(motif);break;
 		case 3: // Triangle
 			motifCalculTriangle(motif);break;
 		case 4: // Gaussienne
@@ -126,12 +122,12 @@ int motifCalculUniforme(motifT * motif) {
 	// Création d'une enveloppe uniforme
 	
 	int i;
-	int nombre=(*motif).nombre;
+	int nombre=(*motif).a + (*motif).b;
 
 	for(i=0;i<nombre;i++)
 		{
-		(*motif).fonction.reel[i] = (*motif).amplitude;
-		(*motif).fonction.imag[i] = (*motif).amplitude;
+		(*motif).fonction.reel[i] = (*motif).A;
+		(*motif).fonction.imag[i] = (*motif).A;
 		}
 
 	return 0;
@@ -142,42 +138,43 @@ int motifCalculCarre(motifT * motif) {
 	// Création d'une enveloppe carrée
 	
 	int i;
-	int nombre=(*motif).nombre;
-	float frequence = (float)((*motif).nombrePeriode) * (1.0 + 0.01*(float)((*motif).deltaPeriode))/4;
+	int nombre = (*motif).a + (*motif).b;
 
 
-	for(i=0;i<nombre;i++)
+	for(i=0;i<(*motif).a;i++)
 		{
-		if(i%(*motif).nombrePeriode > frequence){
-			(*motif).fonction.reel[i] = -(*motif).amplitude;
-			(*motif).fonction.imag[i] = -(*motif).amplitude;}
-		else{
-			(*motif).fonction.reel[i] = (*motif).amplitude;
-			(*motif).fonction.imag[i] = (*motif).amplitude;}
+		(*motif).fonction.reel[i] = (*motif).A;
+		(*motif).fonction.imag[i] = (*motif).A;
+		}
+
+	for(i=(*motif).a;i<nombre;i++)
+		{
+		(*motif).fonction.reel[i] = -(*motif).A;
+		(*motif).fonction.imag[i] = -(*motif).A;
 		}
 
 	return 0;
 }
-
+/*
 int motifCalculHarmonique(motifT * motif) {
 
 	// Initialisation de la motif
 	
 	int i;
 	int nombre = (*motif).nombre;
-	float amplitude = (*motif).amplitude;
+	float A = (*motif).A;
 	float frequence = (float)((*motif).nombrePeriode) * (1.0 + 0.01*(float)((*motif).deltaPeriode));
 	float phase = (*motif).phase;
 
 		for(i=0;i<nombre;i++)
 			{
-			(*motif).fonction.reel[i] = amplitude * cos((float)i/nombre*frequence+phase);
-			(*motif).fonction.imag[i] = amplitude * sin((float)i/nombre*frequence+phase);
+			(*motif).fonction.reel[i] = A * cos((float)i/nombre*frequence+phase);
+			(*motif).fonction.imag[i] = A * sin((float)i/nombre*frequence+phase);
 			}
 
 	return 0;
 }
-
+*/
 int motifCalculGaussienne(motifT * motif) {
 
 	// Création d'une enveloppe gaussienne
@@ -186,8 +183,8 @@ int motifCalculGaussienne(motifT * motif) {
 
 	for(i=0;i<NOMBRE_MAX;i++)
 		{
-		(*motif).fonction.reel[i] = (*motif).amplitude;
-		(*motif).fonction.imag[i] = (*motif).amplitude;
+		(*motif).fonction.reel[i] = (*motif).A;
+		(*motif).fonction.imag[i] = (*motif).A;
 		}
 
 	return 0;
@@ -201,8 +198,8 @@ int motifCalculLorentzienne(motifT * motif) {
 
 	for(i=0;i<NOMBRE_MAX;i++)
 		{
-		(*motif).fonction.reel[i] = (*motif).amplitude;
-		(*motif).fonction.imag[i] = (*motif).amplitude;
+		(*motif).fonction.reel[i] = (*motif).A;
+		(*motif).fonction.imag[i] = (*motif).A;
 		}
 
 	return 0;
@@ -297,16 +294,16 @@ int motifChangeAmplitude(motifT * motif, float facteur) {
 
 			//	Change l'amplitude du signal
 
-	float amplitude = (*motif).amplitude * facteur;
+	float amplitude = (*motif).A * facteur;
 	if(amplitude < AMPLITUDE_MAX && amplitude > AMPLITUDE_MIN)
 		{
-		(*motif).amplitude = (*motif).amplitude * facteur;
+		(*motif).A = amplitude;
 		}
 	else
 		{
 		printf("Amplitude limite atteinte. ");
 		}
-	printf("Amplitude générateur = %6.3f\n", (*motif).amplitude);
+	printf("Amplitude générateur = %6.3f\n", (*motif).A);
 
 	return 0;
 	}
