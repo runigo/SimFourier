@@ -45,25 +45,21 @@ typedef struct MotifT motifT;
 
 		int a;		//	Longueur horizontale (montée ou positif)
 		int b;		//	Longueur horizontale (descente ou négatif)
-		int c;		//	Longueur support (c = a + b = 2^eta + rho = période de l'enveloppe)
+		int C;		//	Longueur support (c = a + b = 2^eta + rho = période de l'enveloppe)
 
-		float A;		//	amplitude
+		float A;	//	amplitude
+		float B;	//	décalage verticale
 		float sym;	//	facteur de symétrie (a/b)
 
-		int forme;			//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
-							//	4 : gaussienne, 5 : lorentzienne
+		int forme;	//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
+						//	4 : gaussienne, 5 : lorentzienne
 		};
 
 	//	Initialisation
 int motifInitialisation(motifT * motif, int nombre);
 
-	//	Calcul
-int motifCalcul(motifT * motif, int P);
-
 	// Changement des paramètres
-int motifChangeForme(motifT * motif, int forme);
-int motifChangeSymetrie(motifT * motif, float facteur);
-int motifChangeAmplitude(motifT * motif, float facteur);
+int motifChangeParametre(motifT * motif, int parametre, int variation);
 
 #endif
 

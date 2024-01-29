@@ -167,6 +167,63 @@ int partieCreationUniforme(partieT * partie) {
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
 
+int partieChangeParametre(partieT * partie, int parametre, int variation) {
+
+	// Change un paramètre de la partie
+
+	switch (parametre)
+		{
+		case 0:
+			partieChangeNature(partie, variation);break;
+		case 1:
+			partieChangeEta(partie, variation);break;
+		case 2:
+			partieChangeRho(partie, variation);break;
+		case 3:
+			partieChangeKhi(partie, variation);break;
+		default:
+			;
+		}
+
+		// Calcul de la partie
+	partieCalculPosition(&(*modele).initiale, fonction, parametre, variation);
+
+	return 0;
+}
+
+int partieChangeNature(partieT * partie){
+
+		// Selon porteuse ou enveloppe, change complexe ou périodique
+
+	if((*partie).complexe < 0) // Cas de l'enveloppe
+		{
+		if((*partie).periodique==0)
+			{
+			(*partie).periodique = 1;
+			}
+		else
+			{
+			(*partie).periodique = 0;
+			}
+		printf("enveloppe periodique = %i\n", (*partie).periodique);
+		}
+
+	if((*partie).periodique < 0) // Cas de la porteuse
+		{
+		if((*partie).periodique==0)
+			{
+			(*partie).complexe = 1;
+			}
+		else
+			{
+			(*partie).complexe = 0;
+			}
+		printf("porteuse complexe = %i\n", (*partie).complexe);
+		}
+
+	return 0;
+	}
+
 int partieChangeEta(partieT * partie, int delta) {
 // delta = -1 : divise par 2 ; 0 : réglage nombrePeriode ; 1 multiplie par 2
 
@@ -268,37 +325,4 @@ int partieChangeAmplitude(partieT * partie, float facteur) {
 	return 0;
 	}
 */
-int partieChangeNature(partieT * partie){
-
-		// Selon porteuse ou enveloppe, change complexe ou périodique
-
-	if((*partie).complexe < 0) // Cas de l'enveloppe
-		{
-		if((*partie).periodique==0)
-			{
-			(*partie).periodique = 1;
-			}
-		else
-			{
-			(*partie).periodique = 0;
-			}
-		printf("enveloppe periodique = %i\n", (*partie).periodique);
-		}
-
-	if((*partie).periodique < 0) // Cas de la porteuse
-		{
-		if((*partie).periodique==0)
-			{
-			(*partie).complexe = 1;
-			}
-		else
-			{
-			(*partie).complexe = 0;
-			}
-		printf("porteuse complexe = %i\n", (*partie).complexe);
-		}
-
-	return 0;
-	}
-
 //////////////////////////////////////////////////////////////////////////

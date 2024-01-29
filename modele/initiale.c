@@ -32,25 +32,11 @@ termes.
 #include "initiale.h"
 
 	//		INITIALISATION
-int initialeInitialisationPartie(partieT * partie, int nombre);
-int initialeCreationPartie(partieT * partie);
 
 	//		CRÉATION DES POSITIONS INITIALES
 
 int initialeCalcule(partieT * partie);
 
-int initialeCreationCarre(partieT * partie);
-int initialeCreationUniforme(partieT * partie);
-int initialeCreationHarmonique(partieT * partie);
-/*
-int initialeCreationEnveloppe(initialeT * initiale);
-int initialeCreationPorteuse(initialeT * initiale);
-int initialeCreationPorteuseHarmonique(initialeT * initiale);
-int initialeCreationEnveloppeCarre(initialeT * initiale);
-int initialeCreationEnveloppeUniforme(initialeT * initiale);
-*/
-	//		ÉVOLUTION TEMPORELLE
-//int initialeIncremente(initialeT * initiale);
 
 	//		JAUGE ET NORMALISATION
 int initialeJaugeZero(initialeT * initiale);
@@ -135,6 +121,29 @@ int initialeCreationPartie(partieT * partie) {
 }
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
+
+int initialeChangeParamètre(initialeT * initiale, int fonction, int parametre, int variation) {
+
+	// Change un paramètre de initiale et calcul la nouvelle fonction
+
+	switch (fonction)
+		{
+		case 0:
+			motifChangeParametre(&(*initiale).motif, parametre, variation);break;
+		case 1:
+			partieChangeParametre(&(*initiale).porteuse, parametre, variation);break;
+		case 2:
+			partieChangeParametre(&(*initiale).enveloppe, parametre, variation);break;
+		default:
+			;
+		}
+
+		// Calcul de la fonction initiale
+	initialeCalculPosition(&(*modele).initiale, fonction, parametre, variation);
+
+	return 0;
+}
+
 
 int initialeChangeComplexe(initialeT * initiale, int mode){
 

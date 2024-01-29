@@ -32,7 +32,11 @@ termes.
 #include "motif.h"
 
 	//		INITIALISATION
-int motifInitialisation(motifT * motif, int nombre);
+
+	//		CHANGEMENT DES PARAMÈTRES
+int motifChangeForme(motifT * motif, int forme);
+int motifChangeSymetrie(motifT * motif, float facteur);
+int motifChangeAmplitude(motifT * motif, float facteur);
 
 	//		CALCUL DU MOTIF
 int motifCalculParametres(motifT * motif, int P);
@@ -56,9 +60,10 @@ int motifInitialisation(motifT * motif, int nombre) {
 
 		(*motif).a=10;			//	Longueur horizontale (montée ou positif)
 		(*motif).b=20;			//	Longueur horizontale (descente ou négatif)
-		(*motif).c=(*motif).a+(*motif).b;		//	Période ( = a + b = 2^eta + rho )
+		(*motif).C=(*motif).a+(*motif).b;		//	Période ( = a + b = 2^eta + rho )
 
 		(*motif).A = 3;			//	Amplitude
+		(*motif).B = 1;			//	Décalage verticale
 		(*motif).sym = (float)(*motif).a / (float)(*motif).b;	//	facteur de symétrie (a/b)
 
 		(*motif).forme = 2;			//	0 : harmonique, 1 : carrée, 2 : triangle,
@@ -70,49 +75,24 @@ int motifInitialisation(motifT * motif, int nombre) {
 	return 0;
 }
 
-/*--------------------  CRÉATION DES POSITIONS INITIALES  ---------------------*/
+/*--------------------  CALCUL DU MOTIF  ---------------------*/
 
-int motifCalcul(motifT * motif, int P) {
+int motifCalcul(motifT * motif) {
 
 		// Calcul des paramètres
-	motifCalculParametres(motif, P);
+	motifCalculParametres(motif);
 	// Calcul de la fonction
 	
 
 	return 0;
 }
 
-int motifCalculParametres(motifT * motif, int P) {
+int motifCalculParametres(motifT * motif) {
 
 		// Calcul des paramètres
 
 	(*motif).a=(int)(P*((*motif).sym));
 	(*motif).b=P-(*motif).a;
-
-	return 0;
-}
-
-int motifCalculFonction(motifT * motif, int P) {
-
-				//	Calcul de la fonction
-(void)P;
-	switch ((*motif).forme)
-		{
-		case 0: // Constante
-			motifCalculConstante(motif);break;
-		case 1: // Harmonique
-			motifCalculHarmonique(motif);break;
-		case 2: // Carrée
-			motifCalculCarre(motif);break;
-		case 3: // Triangle
-			motifCalculTriangle(motif);break;
-		case 4: // Gaussienne
-			motifCalculGaussienne(motif);break;
-		case 5: // Lorentzienne
-			motifCalculLorentzienne(motif);break;
-		default:
-			;
-		}
 
 	return 0;
 }
@@ -206,11 +186,44 @@ int motifCalculLorentzienne(motifT * motif) {
 }
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
+int motifChangeParametre(motifT * motif, int parametre, int variation){
 
-int motifChangeNombrePeriode(motifT * motif, int delta) {
-(void)delta; // -1 : divise par 2 ; 0 : réglage nombrePeriode ; 1 multiplie par 2
-			//	Change la fréquence de la motif
-int nombrePeriode = (*motif).nombrePeriode;
+	switch (parametre)
+		{
+		case 0:
+			motifChangeForme(motif, variation);break;
+		case 1:
+			motifChangeSymetrie(motif, variation);break;
+		case 2:
+			motifChangeA(motif, variation);break;
+		case 3:
+			motifChangeB(motif, variation);break;
+		case 4:
+			motifChangeC(motif, variation);break;
+		default:
+			;
+		}
+	return 0;
+}
+
+int motifChangeForme(motifT * motif, int forme){
+
+	if(forme>-1 && forme<6)
+		(*motif).forme = forme;			//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
+							//	4 : gaussienne, 5 : lorentzienne
+	else printf("Erreur, ");
+
+	printf("Forme  = %i\n", (*motif).forme);//%s, (*motif).nom
+
+	return 0;
+}
+
+int motifChangeSym(motifT * motif, int variation) {
+
+	float symetrie = (*motif).sym * (1 + (float)variation/100.0);
+
+	if(symetrie 
+
 	switch (delta)
 		{
 		case -1:
@@ -235,9 +248,10 @@ int nombrePeriode = (*motif).nombrePeriode;
 	return 0;
 	}
 
-int motifChangeDeltaPeriode(motifT * motif, int delta) {
+int motifChangeA(motifT * motif, int delta) {
 (void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
-			//	Change la fréquence de la motif
+(void)motif;			//	Change la fréquence de la motif
+/*
 int deltaPeriode = (*motif).deltaPeriode;
 	switch (delta)
 		{
@@ -259,14 +273,14 @@ int deltaPeriode = (*motif).deltaPeriode;
 		printf("Fréquence limite atteinte. ");
 		}
 	printf("Fréquence  = %i\n", (*motif).deltaPeriode);//%s, (*motif).nom
-
+*/
 	return 0;
 	}
 
-int motifChangeFrequence(motifT * motif, int delta, float facteur) {
+int motifChangeB(motifT * motif, int delta, float facteur) {
 (void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
-			//	Change la fréquence de la motif
-	switch (delta)
+(void)motif;	(void)facteur;		//	Change la fréquence de la motif
+/*	switch (delta)
 		{
 		case 0:
 			;break;
@@ -286,7 +300,7 @@ int motifChangeFrequence(motifT * motif, int delta, float facteur) {
 		printf("Fréquence limite atteinte. ");
 		}
 	printf("Fréquence  = %i\n", (*motif).nombrePeriode);//%s, (*motif).nom
-
+*/
 	return 0;
 	}
 

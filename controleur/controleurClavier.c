@@ -96,10 +96,10 @@ int controleurClavier(controleurT * controleur)
 			partieChangeRho(&(*controleur).modele.initiale.porteuse, 1);break;
 		case SDLK_k:
 			partieChangeRho(&(*controleur).modele.initiale.porteuse, -1);break;
-		case SDLK_o:
-			partieChangeComplexe(&(*controleur).modele.initiale.porteuse, 0);break;
+	//	case SDLK_o:
+		//	partieChangeNature(&(*controleur).modele.initiale.porteuse, 0);break; // Complexe ou non
 		case SDLK_i:
-			partieChangeComplexe(&(*controleur).modele.initiale.porteuse, 1);break;
+			partieChangeNature(&(*controleur).modele.initiale.porteuse);break;
 	//	case SDLK_u:
 		//	partieChangeComplexe(&(*controleur).modele.initiale.porteuse);break;
 	//	case SDLK_j:
@@ -119,7 +119,7 @@ int controleurClavier(controleurT * controleur)
 		case SDLK_d:
 			partieChangeRho(&(*controleur).modele.initiale.enveloppe, 1);break;
 		case SDLK_z:
-			partieChangePeriodique(&(*controleur).modele.initiale.enveloppe);break;
+			partieChangeNature(&(*controleur).modele.initiale.enveloppe);break; // Périodique ou non
 		case SDLK_e:
 			motifChangeForme(&(*controleur).modele.initiale.motif, 0);break;
 		case SDLK_r:

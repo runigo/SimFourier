@@ -36,14 +36,14 @@ termes.
 	//		ÉVOLUTION TEMPORELLE
 
 	//		JAUGE ET NORMALISATION
-int modeleJaugeZero(modeleT * modele);
+//int modeleJaugeZero(modeleT * modele);
 
 
 /*------------------------  INITIALISATION  -------------------------*/
 
 int modeleInitialisation(modeleT * modele, int nombre, int dt) {
 
-		(*modele).nombre =nombre;			//	Nombre de points
+		(*modele).change = 1;	//	Indicateur de variation d'un paramètre
 
 		//fprintf(stderr, " Initialisation du système\n");
 	systemeInitialisation(&(*modele).systeme, nombre, dt);
@@ -52,7 +52,7 @@ int modeleInitialisation(modeleT * modele, int nombre, int dt) {
 	fourierInitialise(&(*modele).fourier, nombre);
 
 		//	Initialisation de initiale
-	initialeInitialisation(&(*modele).initiale, (*modele).nombre);
+	initialeInitialisation(&(*modele).initiale, nombre);
 
 		// Initialisation du moteurs
 	//moteursInitialisation(moteursT * moteurs);
@@ -64,19 +64,39 @@ int modeleProjectionInitiale(modeleT * modele) {
 	// Projette les positions initiales sur le système
 
 		// Mise à jour des positions initiales
-	initialeCreationPosition(&(*modele).initiale,1);
+	initialeCreationPosition(&(*modele).initiale);
 
 		//fprintf(stderr, " Projection sur le système\n");
 	int i;
-	for(i=0;i<(*modele).nombre;i++)
+	for(i=0;i<(*modele).systeme.nombre;i++)
 		{
-		(*modele).systeme.actuel.reel[i] = (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.reel[i];
-		(*modele).systeme.actuel.imag[i] = (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.imag[i];
+		(*modele).systeme.actuel.reel[i]
+			= (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.reel[i];
+		(*modele).systeme.actuel.imag[i]
+			= (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.imag[i];
 		(*modele).systeme.nouveau.reel[i] = (*modele).systeme.actuel.reel[i];
 		(*modele).systeme.nouveau.imag[i] = (*modele).systeme.actuel.imag[i];
 		(*modele).systeme.ancien.reel[i] = (*modele).systeme.actuel.reel[i];
 		(*modele).systeme.ancien.imag[i] = (*modele).systeme.actuel.imag[i];
 		}
+
+	return 0;
+}
+
+/*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
+
+int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int variation) {
+
+	// Change un paramètre de initiale et projette sur le système
+
+		// Calcul de la fonction initiale
+	initialeChangeParametre(&(*modele).initiale, fonction, parametre, variation);
+
+		// Projection sur le système
+	modeleProjectionInitiale(modele);
+
+		// Indique le changement
+	(*modele).change = 1;
 
 	return 0;
 }

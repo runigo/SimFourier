@@ -46,7 +46,7 @@ typedef struct ModeleT modeleT;
 
 		initialeT initiale;
 		
-		int nombre;			//	Nombre de points
+		int change;			//	indicateur de changement
 
 		//moteursT moteurs;				// Moteur périodique et impulsion
 
@@ -62,6 +62,9 @@ int modeleInitialisePotentiel(modeleT * modele, int forme);
 int modeleInitialiseNombre(modeleT * modele, int nombre);
 int modeleInitialiseHbar(modeleT * modele, int hbar);
 int modeleInitialiseMasse(modeleT * modele, float masse);
+
+	//	Variation d'une variable d'initiale
+int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int variation);
 
 	//	Évolution temporelle du système
 int modeleEvolution(modeleT * modele, int duree, int mode);
