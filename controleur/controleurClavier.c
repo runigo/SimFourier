@@ -88,42 +88,58 @@ int controleurClavier(controleurT * controleur)
 	//		grapheChangeSupport(&(*controleur).graphes);break;
 
 	// Paramètres porteuse
-		case SDLK_p:
-			partieChangeEta(&(*controleur).modele.initiale.porteuse, 1);break;
-		case SDLK_m:
-			partieChangeEta(&(*controleur).modele.initiale.porteuse, -1);break;
-		case SDLK_l:
-			partieChangeRho(&(*controleur).modele.initiale.porteuse, 1);break;
-		case SDLK_k:
-			partieChangeRho(&(*controleur).modele.initiale.porteuse, -1);break;
-	//	case SDLK_o:
-		//	partieChangeNature(&(*controleur).modele.initiale.porteuse, 0);break; // Complexe ou non
-		case SDLK_i:
-			partieChangeNature(&(*controleur).modele.initiale.porteuse);break;
-	//	case SDLK_u:
-		//	partieChangeComplexe(&(*controleur).modele.initiale.porteuse);break;
-	//	case SDLK_j:
-		//	initialeChangeEnveloppe(&(*controleur).modele.initiale, -1);break;
-	//	case SDLK_y:
-		//	motifChangeAmplitude(&(*controleur).modele.initiale.porteuse,1.1);break;
-	//	case SDLK_h:
-		//	motifChangeAmplitude(&(*controleur).modele.initiale.porteuse,0.91);break;
+		case SDLK_p: // Eta +
+			modeleChangeParametre(&(*controleur).modele, 1, 1, 1);break;
+		case SDLK_m: // Eta -
+			modeleChangeParametre(&(*controleur).modele, 1, 1, -1);break;
+		case SDLK_l: // Rho +
+			modeleChangeParametre(&(*controleur).modele, 1, 2, 1);break;
+		case SDLK_k: // Rho -
+			modeleChangeParametre(&(*controleur).modele, 1, 2, -1);break;
+		case SDLK_o: // Complexe
+			modeleChangeParametre(&(*controleur).modele, 1, 0, 0);break;
+		case SDLK_i: // Réel
+			modeleChangeParametre(&(*controleur).modele, 1, 0, 1);break;
+		case SDLK_u: // Khi +
+			modeleChangeParametre(&(*controleur).modele, 1, 3, 1);break;
+		case SDLK_j: // Khi -
+			modeleChangeParametre(&(*controleur).modele, 1, 3, -1);break;
+
+	// Paramètres motif
+		case SDLK_t: // Amplitude +
+			modeleChangeParametre(&(*controleur).modele, 0, 2);break;
+		case SDLK_g: // Amplitude -
+			modeleChangeParametre(&(*controleur).modele, 0, 2);break;
+		case SDLK_y: // Décalage +
+			modeleChangeParametre(&(*controleur).modele, 0, 3);break;
+		case SDLK_h: // Décalage -
+			modeleChangeParametre(&(*controleur).modele, 0, 3);break;
+		case SDLK_w: // Forme +
+			modeleChangeParametre(&(*controleur).modele, 0, 0);break;
+		case SDLK_x: // Forme -
+			modeleChangeParametre(&(*controleur).modele, 0, 0);break;
+		case SDLK_c: // Symétrie +
+			modeleChangeParametre(&(*controleur).modele, 0, 1);break;
+		case SDLK_v: // Symétrie -
+			modeleChangeParametre(&(*controleur).modele, 0, 1);break;
 
 	// Paramètres enveloppe
-		case SDLK_a:
-			partieChangeEta(&(*controleur).modele.initiale.enveloppe, 1);break;
-		case SDLK_q:
-			partieChangeEta(&(*controleur).modele.initiale.enveloppe, -1);break;
-		case SDLK_s:
-			partieChangeRho(&(*controleur).modele.initiale.enveloppe, -1);break;
-		case SDLK_d:
-			partieChangeRho(&(*controleur).modele.initiale.enveloppe, 1);break;
-		case SDLK_z:
-			partieChangeNature(&(*controleur).modele.initiale.enveloppe);break; // Périodique ou non
-		case SDLK_e:
-			motifChangeForme(&(*controleur).modele.initiale.motif, 0);break;
-		case SDLK_r:
-			motifChangeForme(&(*controleur).modele.initiale.motif, 1);break;
+		case SDLK_a: // Eta +
+			modeleChangeParametre(&(*controleur).modele, 2, 1, 1);break;
+		case SDLK_q: // Eta -
+			modeleChangeParametre(&(*controleur).modele, 2, 1, -1);break;
+		case SDLK_s: // Rho +
+			modeleChangeParametre(&(*controleur).modele, 2, 2, 1);break;
+		case SDLK_d: // Rho -
+			modeleChangeParametre(&(*controleur).modele, 2, 2, -1);break;
+		case SDLK_z: // Périodique
+			modeleChangeParametre(&(*controleur).modele, 2, 0, 1);break;
+		case SDLK_e: // Non périodique
+			modeleChangeParametre(&(*controleur).modele, 2, 0, 0);break;
+		case SDLK_r: // Khi +
+			modeleChangeParametre(&(*controleur).modele, 2, 3, 1);break;
+		case SDLK_f: // Khi -
+			modeleChangeParametre(&(*controleur).modele, 2, 3, -1);break;
 
 	// Paramètres graphique
 		case SDLK_b:

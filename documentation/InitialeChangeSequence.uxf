@@ -276,18 +276,6 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0;60.0;30.0;10.0;30.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>120</x>
-      <y>920</y>
-      <w>230</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;
-  4  motifChangeC(M, v)</panel_attributes>
-    <additional_attributes>10.0;10.0;60.0;10.0;60.0;30.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
     <type>com.baselet.element.old.element.SeqObjectActive</type>
     <coordinates>
       <x>480</x>
@@ -452,11 +440,11 @@ motifCalculPosition(M)</panel_attributes>
     <coordinates>
       <x>490</x>
       <y>780</y>
-      <w>190</w>
+      <w>250</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-  1  partieEta(P, v)</panel_attributes>
+  1  partieChangeEta(P, v)</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0;60.0;30.0;10.0;30.0</additional_attributes>
   </element>
   <element>
