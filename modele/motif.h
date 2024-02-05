@@ -1,7 +1,7 @@
 /*
-Copyright janvier 2024, Stephan Runigo
+Copyright février 2024, Stephan Runigo
 runigo@free.fr
-SimFourier 1.0 Transformation de Fourier
+SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -60,6 +60,9 @@ int motifInitialisation(motifT * motif, int nombre);
 
 	// Changement des paramètres
 int motifChangeParametre(motifT * motif, int parametre, int variation);
+
+	// Calcul du motif
+int motifCalculMotif(motifT * motif, int P);
 
 #endif
 

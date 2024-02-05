@@ -1,7 +1,7 @@
 /*
-Copyright janvier 2024, Stephan Runigo
+Copyright février 2024, Stephan Runigo
 runigo@free.fr
-SimFourier 1.1 Transformation de Fourier
+SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -58,17 +58,12 @@ typedef struct PartieT partieT;
 	//	Initialisation de partie
 int partieInitialisation(partieT * partie, int nombre);
 
-	//	Création des parties initiales
-int partieCreationPosition(partieT * partie);
+	//	Calcul des parties initiales
+int partieCalculPeriode(partieT * partie);
+int partieCalculHarmonique(partieT * partie);
 
-	// Changement des paramètres
+	// Changement d'un paramètre
 int partieChangeParametre(partieT * partie, int parametre, int variation);
-
-int partieChangeNature(partieT * partie); // complexe / périodique
-int partieChangeEta(partieT * partie, int plusMoins);
-int partieChangeRho(partieT * partie, int plusMoins);
-int partieChangeKhi(partieT * partie, int plusMoins);
-//int partieChangePhase(partieT * partie, int forme);
 
 #endif
 

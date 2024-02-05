@@ -1,7 +1,7 @@
 /*
-Copyright janvier 2024, Stephan Runigo
+Copyright février 2024, Stephan Runigo
 runigo@free.fr
-SimFourier 1.0 Transformation de Fourier
+SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -34,6 +34,8 @@ termes.
 	//		INITIALISATION
 
 	//		CHANGEMENT DES PARAMÈTRES
+int motifChangeA(motifT * motif, int delta);
+int motifChangeB(motifT * motif, int delta);
 int motifChangeForme(motifT * motif, int forme);
 int motifChangeSymetrie(motifT * motif, float facteur);
 int motifChangeAmplitude(motifT * motif, float facteur);
@@ -41,7 +43,8 @@ int motifChangeAmplitude(motifT * motif, float facteur);
 	//		CALCUL DU MOTIF
 int motifCalculParametres(motifT * motif, int P);
 
-int motifCalculConstante(motifT * motif);
+int motifCalcul(motifT * motif);
+int motifCalculUniforme(motifT * motif);
 int motifCalculHarmonique(motifT * motif);
 int motifCalculCarre(motifT * motif);
 int motifCalculTriangle(motifT * motif);
@@ -77,22 +80,58 @@ int motifInitialisation(motifT * motif, int nombre) {
 
 /*--------------------  CALCUL DU MOTIF  ---------------------*/
 
-int motifCalcul(motifT * motif) {
+int motifCalculMotif(motifT * motif, int P) {
 
 		// Calcul des paramètres
-	motifCalculParametres(motif);
+	motifCalculParametres(motif, P);
 	// Calcul de la fonction
-	
+
+	switch ((*motif).forme)
+		{
+		case -1:
+			motifCalcul(motif);break;
+		case 0:
+			motifCalculUniforme(motif);break;
+		case 1:
+			motifCalculUniforme(motif);break;
+		case 2:
+			motifCalculCarre(motif);break;
+		case 3:
+			motifCalculTriangle(motif);break;
+		case 4:
+			motifCalculGaussienne(motif);break;
+		case 5:
+			motifCalculLorentzienne(motif);break;
+		default:
+			;
+		}
 
 	return 0;
 }
 
-int motifCalculParametres(motifT * motif) {
+int motifCalculParametres(motifT * motif, int P) {
 
 		// Calcul des paramètres
 
 	(*motif).a=(int)(P*((*motif).sym));
 	(*motif).b=P-(*motif).a;
+	(*motif).C=P;
+
+	return 0;
+}
+
+int motifCalcul(motifT * motif) {
+
+	// Création d'une enveloppe uniforme
+	
+	int i;
+	int nombre=(*motif).a + (*motif).b;
+
+	for(i=0;i<nombre;i++)
+		{
+		(*motif).fonction.reel[i] = (*motif).A;
+		(*motif).fonction.imag[i] = (*motif).A;
+		}
 
 	return 0;
 }
@@ -118,8 +157,6 @@ int motifCalculCarre(motifT * motif) {
 	// Création d'une enveloppe carrée
 	
 	int i;
-	int nombre = (*motif).a + (*motif).b;
-
 
 	for(i=0;i<(*motif).a;i++)
 		{
@@ -127,7 +164,7 @@ int motifCalculCarre(motifT * motif) {
 		(*motif).fonction.imag[i] = (*motif).A;
 		}
 
-	for(i=(*motif).a;i<nombre;i++)
+	for(i=(*motif).a;i<(*motif).C;i++)
 		{
 		(*motif).fonction.reel[i] = -(*motif).A;
 		(*motif).fonction.imag[i] = -(*motif).A;
@@ -135,26 +172,32 @@ int motifCalculCarre(motifT * motif) {
 
 	return 0;
 }
-/*
-int motifCalculHarmonique(motifT * motif) {
 
-	// Initialisation de la motif
+int motifCalculTriangle(motifT * motif) {
+
+	// Création d'une enveloppe triangle
 	
 	int i;
-	int nombre = (*motif).nombre;
-	float A = (*motif).A;
-	float frequence = (float)((*motif).nombrePeriode) * (1.0 + 0.01*(float)((*motif).deltaPeriode));
-	float phase = (*motif).phase;
+	float alpha = 2*(*motif).A/(*motif).a;
 
-		for(i=0;i<nombre;i++)
-			{
-			(*motif).fonction.reel[i] = A * cos((float)i/nombre*frequence+phase);
-			(*motif).fonction.imag[i] = A * sin((float)i/nombre*frequence+phase);
-			}
+	for(i=0;i<(*motif).a;i++)
+		{
+		(*motif).fonction.reel[i] = i*alpha - (*motif).A;
+		(*motif).fonction.imag[i] = (*motif).fonction.reel[i];
+		}
+
+	alpha = 2 * (*motif).A * (float)(*motif).a / (*motif).b;
+	float beta = (*motif).A * (1 - 2 * (float)(*motif).a / (*motif).b) ;
+
+	for(i=(*motif).a;i<(*motif).C;i++)
+		{
+		(*motif).fonction.reel[i] = i*alpha - beta;
+		(*motif).fonction.imag[i] = (*motif).fonction.reel[i];
+		}
 
 	return 0;
 }
-*/
+
 int motifCalculGaussienne(motifT * motif) {
 
 	// Création d'une enveloppe gaussienne
@@ -198,8 +241,8 @@ int motifChangeParametre(motifT * motif, int parametre, int variation){
 			motifChangeA(motif, variation);break;
 		case 3:
 			motifChangeB(motif, variation);break;
-		case 4:
-			motifChangeC(motif, variation);break;
+		//case 4:
+			//motifChangeC(motif, variation);break;
 		default:
 			;
 		}
@@ -218,11 +261,12 @@ int motifChangeForme(motifT * motif, int forme){
 	return 0;
 }
 
-int motifChangeSym(motifT * motif, int variation) {
+int motifChangeSymetrie(motifT * motif, float variation) {
+(void)motif;
+(void)variation;
+	/* float symetrie = (*motif).sym * (1 + (float)variation/100.0);
 
-	float symetrie = (*motif).sym * (1 + (float)variation/100.0);
-
-	if(symetrie 
+	//if(symetrie 
 
 	switch (delta)
 		{
@@ -244,7 +288,7 @@ int motifChangeSym(motifT * motif, int variation) {
 		printf("Fréquence limite atteinte. ");
 		}
 	printf("Fréquence  = %i\n", (*motif).nombrePeriode);//%s, (*motif).nom
-
+*/
 	return 0;
 	}
 
@@ -277,9 +321,9 @@ int deltaPeriode = (*motif).deltaPeriode;
 	return 0;
 	}
 
-int motifChangeB(motifT * motif, int delta, float facteur) {
+int motifChangeB(motifT * motif, int delta) {
 (void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
-(void)motif;	(void)facteur;		//	Change la fréquence de la motif
+(void)motif;		//	Change la fréquence de la motif
 /*	switch (delta)
 		{
 		case 0:

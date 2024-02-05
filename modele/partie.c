@@ -1,7 +1,7 @@
 /*
-Copyright janvier 2024, Stephan Runigo
+Copyright février 2024, Stephan Runigo
 runigo@free.fr
-SimFourier 1.1 Transformation de Fourier
+SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -34,16 +34,18 @@ termes.
 	//		INITIALISATION
 int partieInitialisationPartie(partieT * partie, int nombre);
 
-	//		CRÉATION DES POSITIONS partieS
+	//		CALCUL DES POSITIONS
+int partieCalculPartie(partieT * partie);
+int partieCalculHarmonique(partieT * partie);
+int partieCalculUniforme(partieT * partie);
+int partieCalculCarre(partieT * partie);
 
-int partieCalculPeriode(partieT * partie);
-int partieCreationPartie(partieT * partie);
-int partieCreationHarmonique(partieT * partie);
-int partieCreationUniforme(partieT * partie);
-int partieCreationCarre(partieT * partie);
-
-	//		ÉVOLUTION TEMPORELLE
-//int partieIncremente(partieT * partie);
+	//		CHANGEMENT DES PARAMÈTRES
+int partieChangeNature(partieT * partie, int plusMoins); // complexe / périodique
+int partieChangeEta(partieT * partie, int plusMoins);
+int partieChangeRho(partieT * partie, int plusMoins);
+int partieChangeKhi(partieT * partie, int plusMoins);
+//int partieChangePhase(partieT * partie, int forme);
 
 	//		JAUGE ET NORMALISATION
 int partieJaugeZero(partieT * partie);
@@ -66,7 +68,7 @@ int partieInitialisation(partieT * partie, int nombre) {
 	return 0;
 }
 
-/*--------------------  CALCUL DES POSITIONS INITIALES  ---------------------*/
+/*--------------------  CALCUL DES PARAMETRES INITIALES  ---------------------*/
 
 int partieCalculPeriode(partieT * partie) {
 	int i;
@@ -97,7 +99,7 @@ int partieCalculPeriode(partieT * partie) {
 	return 0;
 }
 */
-int partieCreationPosition(partieT * partie) {
+int partieCalculPosition(partieT * partie) {
 
 /*	switch (forme)
 		{
@@ -109,23 +111,23 @@ int partieCreationPosition(partieT * partie) {
 */
 (void)partie;
 
-		//fprintf(stderr, "partieCreationPosition\n");
-	//partieCreationPartie(&(*partie).enveloppe);
-	//partieCreationPartie(&(*partie).porteuse);
+		//fprintf(stderr, "partieCalculPosition\n");
+	//partieCalculPartie(&(*partie).enveloppe);
+	//partieCalculPartie(&(*partie).porteuse);
 
 	return 0;
 
 }
 
-int partieCreationPartie(partieT * partie) {
+int partieCalculPartie(partieT * partie) {
 	switch ((*partie).complexe)
 		{
 	//	case -1:
-		//	partieCreationUniforme(partie);break;
+		//	partieCalculUniforme(partie);break;
 		case 0:
-			partieCreationHarmonique(partie);break;
+			partieCalculHarmonique(partie);break;
 		case 1:
-			partieCreationHarmonique(partie);break;
+			partieCalculHarmonique(partie);break;
 		default:
 			;
 		}
@@ -133,25 +135,25 @@ int partieCreationPartie(partieT * partie) {
 	switch ((*partie).periodique)
 		{
 	//	case -1:
-		//	partieCreationUniforme(partie);break;
+		//	partieCalculUniforme(partie);break;
 		case 0:
-			partieCreationUniforme(partie);break;
+			partieCalculUniforme(partie);break;
 		case 1:
-			partieCreationCarre(partie);break;
+			partieCalculHarmonique(partie);break;
 		default:
 			;
 		}
 	// Initialisation de l'enveloppe
 
-//	partieCreationCarre(partie);
-	//partieCreationEnveloppeUniforme(partie);
+//	partieCalculCarre(partie);
+	//partieCalculEnveloppeUniforme(partie);
 
 	return 0;
 }
 
-int partieCreationUniforme(partieT * partie) {
+int partieCalculUniforme(partieT * partie) {
 
-	// Création d'une enveloppe uniforme
+	// Création d'une fonction uniforme
 	
 	int i;
 	int nombre=(*partie).fonction.nombre;
@@ -160,6 +162,22 @@ int partieCreationUniforme(partieT * partie) {
 		{
 		(*partie).fonction.reel[i] = 1.0;
 		(*partie).fonction.imag[i] = 1.0;
+		}
+
+	return 0;
+}
+
+int partieCalculHarmonique(partieT * partie) {
+
+	// Création d'une fonction harmonique
+	
+	int i;
+	int nombre=(*partie).fonction.nombre;
+
+	for(i=0;i<nombre;i++)
+		{
+		(*partie).fonction.reel[i] = cos(i/(*partie).P+(*partie).khi);
+		(*partie).fonction.imag[i] = sin(i/(*partie).P+(*partie).khi);
 		}
 
 	return 0;
@@ -186,13 +204,13 @@ int partieChangeParametre(partieT * partie, int parametre, int variation) {
 		}
 
 		// Calcul de la partie
-	partieCalculPosition(&(*modele).initiale, fonction, parametre, variation);
+	partieCalculPosition(partie);
 
 	return 0;
 }
 
-int partieChangeNature(partieT * partie){
-
+int partieChangeNature(partieT * partie, int plusMoins){
+(void) plusMoins;
 		// Selon porteuse ou enveloppe, change complexe ou périodique
 
 	if((*partie).complexe < 0) // Cas de l'enveloppe
@@ -253,6 +271,34 @@ int eta = (*partie).eta;
 	}
 
 int partieChangeRho(partieT * partie, int delta) {
+(void)delta; // -1 : delta = 0 ; 0 : annule rho ; 1 réglage deltaPeriode
+			//	Change la fréquence de la partie
+int rho = (*partie).rho;
+	switch (delta)
+		{
+		case -1:
+			rho = rho - 1;break;
+		case 0:
+			rho = 0;break;
+		case 1:
+			rho = rho + 1;break;
+		default:
+			;
+		}
+	if(rho < 100 && rho > -1)
+		{
+		(*partie).rho = rho;
+		}
+	else
+		{
+		printf("Fréquence limite atteinte. ");
+		}
+	printf("rho  = %i\n", (*partie).rho);//%s, (*partie).nom
+
+	return 0;
+	}
+
+int partieChangeKhi(partieT * partie, int delta) {
 (void)delta; // -1 : delta = 0 ; 0 : annule rho ; 1 réglage deltaPeriode
 			//	Change la fréquence de la partie
 int rho = (*partie).rho;

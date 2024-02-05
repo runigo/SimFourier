@@ -1,7 +1,7 @@
 /*
-Copyright janvier 2024, Stephan Runigo
+Copyright février 2024, Stephan Runigo
 runigo@free.fr
-SimFourier 1.1 Transformation de Fourier
+SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -33,9 +33,13 @@ termes.
 
 	//		INITIALISATION
 
-	//		CRÉATION DES POSITIONS INITIALES
-
-int initialeCalcule(partieT * partie);
+	//		CALCUL DES POSITIONS INITIALES
+int initialeCalculInitiale(initialeT * initiale);
+int initialeCalculParametre(initialeT * initiale);
+//int initialeCalculPartie(partieT * partie);
+int initialeCalculEnveloppe(initialeT * initiale);
+int initialeCalculUnique(initialeT * initiale);
+int initialeCalculPeriodique(initialeT * initiale);
 
 
 	//		JAUGE ET NORMALISATION
@@ -56,73 +60,64 @@ int initialeInitialisation(initialeT * initiale, int nombre) {
 	return 0;
 }
 
-/*--------------------  CRÉATION DES POSITIONS INITIALES  ---------------------*/
+/*--------------------  CALCUL DE LA FONCTION INITIALE  ---------------------*/
 
+int initialeCalculInitiale(initialeT * initiale) {
 	//	Mise à jour de la fonction initiale
-int initialeCreationPosition(initialeT * initiale) {
 
-(void)initiale;
+		// Calcul des périodes
+	partieCalculPeriode(&(*initiale).enveloppe);
+	partieCalculPeriode(&(*initiale).porteuse);
 
-		// Calcul de initial
+		// Calcul du motif
+	motifCalculMotif(&(*initiale).motif, (*initiale).enveloppe.P);
 
-	//	Mise à jour des paramètres
-
-	//	Calcul des fonctions (motif, enveloppe, porteuse)
-
-	return 0;
-
-}
-
-int initialeCalcul(initialeT * initiale) {
-
-		//	Calcul des paramètres
-
-		//fprintf(stderr, "initialeCreationPosition\n");
-	initialeCreationPartie(&(*initiale).enveloppe);
-	initialeCreationPartie(&(*initiale).porteuse);
-
-	//initialeCreationCarre(&(*initiale).enveloppe);
-	//initialeCreationHarmonique(&(*initiale).porteuse);
+		fprintf(stderr, " Calcul des fonctions initiales \n");
+	initialeCalculEnveloppe(initiale);
+	partieCalculHarmonique(&(*initiale).porteuse);
 
 	return 0;
 
 }
 
-int initialeCreationPartie(partieT * partie) {
-	switch ((*partie).complexe)
+int initialeCalculEnveloppe(initialeT * initiale) {
+
+		//	Calcul de l'enveloppe
+
+	switch ((*initiale).enveloppe.periodique)
 		{
-		case -1:
-			initialeCreationUniforme(partie);break;
 		case 0:
-			initialeCreationHarmonique(partie);break;
+			initialeCalculUnique(initiale);break;
 		case 1:
-			initialeCreationHarmonique(partie);break;
+			initialeCalculPeriodique(initiale);break;
 		default:
 			;
 		}
 
-	switch ((*partie).periodique)
+	return 0;
+}
+
+int initialeCalculUnique(initialeT * initiale) {
+	initialeCalculPeriodique(initiale);
+	return 0;
+}
+
+int initialeCalculPeriodique(initialeT * initiale) {
+
+	int i;
+	int nombre=(*initiale).enveloppe.fonction.nombre;
+
+	for(i=0;i<nombre;i++)
 		{
-		case -1:
-			initialeCreationUniforme(partie);break;
-		case 0:
-			initialeCreationUniforme(partie);break;
-		case 1:
-			initialeCreationCarre(partie);break;
-		default:
-			;
+		(*initiale).enveloppe.fonction.reel[i] = 1.0;
+		(*initiale).enveloppe.fonction.imag[i] = 1.0;
 		}
-	// Initialisation de l'enveloppe
-
-//	initialeCreationCarre(partie);
-	//partieCreationEnveloppeUniforme(partie);
-
 	return 0;
 }
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
 
-int initialeChangeParamètre(initialeT * initiale, int fonction, int parametre, int variation) {
+int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation) {
 
 	// Change un paramètre de initiale et calcul la nouvelle fonction
 
@@ -139,26 +134,9 @@ int initialeChangeParamètre(initialeT * initiale, int fonction, int parametre, 
 		}
 
 		// Calcul de la fonction initiale
-	initialeCalculPosition(&(*modele).initiale, fonction, parametre, variation);
+	initialeCalculInitiale(initiale);
 
 	return 0;
 }
-
-
-int initialeChangeComplexe(initialeT * initiale, int mode){
-
-	switch (mode)
-		{
-		case 0:
-			(*initiale).porteuse.complexe = 0;break;
-		case 1:
-			(*initiale).porteuse.complexe = 1;break;
-		default:
-			;
-		}
-	//printf("(*partie).complexe = %i\n", (*partie).complexe);
-
-	return 0;
-	}
 
 //////////////////////////////////////////////////////////////////////////
