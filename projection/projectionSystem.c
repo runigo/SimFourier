@@ -73,31 +73,6 @@ int projectionSystemInitialise(projectionSystemT * projection)
 
 	//-----------------    PROJECTION      -----------------------//
 
-int projectionSystemeFourier(modeleT * modele)
-	{
-		//	Projection du système sur les fonctions de fourier
-	int i;
-	int j = (*modele).systeme.nombre;
-
-	for(i=0;i<j;i++)
-		{
-		(*modele).fourier.spectre.reel[i]=(*modele).systeme.actuel.reel[i];
-		(*modele).fourier.spectre.imag[i]=(*modele).systeme.actuel.imag[i];
-		}
-
-	j = (*modele).systeme.nombre/2;
-
-	for(i=0;i<j;i++)
-		{
-		(*modele).fourier.gauche.reel[i]=(*modele).systeme.actuel.reel[i];
-		(*modele).fourier.gauche.imag[i]=(*modele).systeme.actuel.imag[i];
-		(*modele).fourier.droite.reel[i]=(*modele).systeme.actuel.reel[i+j];
-		(*modele).fourier.droite.imag[i]=(*modele).systeme.actuel.imag[i+j];
-		}
-
-	return 0;
-	}
-
 int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes) {
 
 		// Projette le système sur les commandes

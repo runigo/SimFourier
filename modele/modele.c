@@ -34,6 +34,7 @@ termes.
 	//		INITIALISATION
 
 	//		ÉVOLUTION TEMPORELLE
+int modeleProjectionSystemeFourier(modeleT * modele);
 
 	//		JAUGE ET NORMALISATION
 //int modeleJaugeZero(modeleT * modele);
@@ -78,6 +79,58 @@ int modeleProjectionInitiale(modeleT * modele) {
 
 	return 0;
 }
+
+/*------------------------  ÉVOLUTION DU MODÈLE  -------------------------*/
+
+int modeleEvolution(modeleT * modele, int duree, int echelle)
+	{
+	(void)duree;
+		//fprintf(stderr, "Evolution temporelle du système\n");
+	//systemeEvolution(&(*modele).modele.systeme, duree, 1);
+	modeleProjectionInitiale(modele);
+
+		//fprintf(stderr, "Projection du système sur les spectres\n");
+	modeleProjectionSystemeFourier(modele);
+
+		//fprintf(stderr, "Calcul des spectres\n");
+	fourierCalcule(&(*modele).fourier);
+
+		//fprintf(stderr, "Normalisation des spectres\n");
+	fonctionNormalise(&(*modele).fourier.spectre, echelle);
+	fonctionNormalise(&(*modele).fourier.gauche, echelle);
+	fonctionNormalise(&(*modele).fourier.droite, echelle);
+
+		//fprintf(stderr, "Mise à jour des observables\n");
+	//observablesMiseAJour(&(*modele).observables, &(*modele).modele.systeme);
+
+	return 0;
+	}
+
+int modeleProjectionSystemeFourier(modeleT * modele)
+	{
+		//	Projection du système sur les fonctions de fourier
+	int i;
+	int j = (*modele).systeme.nombre;
+
+	for(i=0;i<j;i++)
+		{
+		(*modele).fourier.spectre.reel[i]=(*modele).systeme.actuel.reel[i];
+		(*modele).fourier.spectre.imag[i]=(*modele).systeme.actuel.imag[i];
+		}
+
+	j = (*modele).systeme.nombre/2;
+
+	for(i=0;i<j;i++)
+		{
+		(*modele).fourier.gauche.reel[i]=(*modele).systeme.actuel.reel[i];
+		(*modele).fourier.gauche.imag[i]=(*modele).systeme.actuel.imag[i];
+		(*modele).fourier.droite.reel[i]=(*modele).systeme.actuel.reel[i+j];
+		(*modele).fourier.droite.imag[i]=(*modele).systeme.actuel.imag[i+j];
+		}
+
+	return 0;
+	}
+
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
 

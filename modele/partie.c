@@ -172,12 +172,22 @@ int partieCalculHarmonique(partieT * partie) {
 	// Création d'une fonction harmonique
 	
 	int i;
+	int P=(*partie).P;
 	int nombre=(*partie).fonction.nombre;
+		//fprintf(stderr, " Projection sur le système\n");
 
-	for(i=0;i<nombre;i++)
+	if((*partie).P==0)
 		{
-		(*partie).fonction.reel[i] = cos(i/(*partie).P+(*partie).khi);
-		(*partie).fonction.imag[i] = sin(i/(*partie).P+(*partie).khi);
+		fprintf(stderr, " P=0 !!! \n");
+		P=nombre/10;
+		}
+	//else
+		{
+		for(i=0;i<nombre;i++)
+			{
+			(*partie).fonction.reel[i] = cos(i/P+(*partie).khi);
+			(*partie).fonction.imag[i] = sin(i/P+(*partie).khi);
+			}
 		}
 
 	return 0;

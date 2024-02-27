@@ -61,7 +61,6 @@ typedef struct ProjectionSystemT projectionSystemT;
 int projectionSystemInitialise(projectionSystemT * projection);
 
 	//-----------------    PROJECTION      -----------------------//
-int projectionSystemeFourier(modeleT * modele);
 int projectionSystemeGraphes(modeleT * modele, graphesT * graphes);
 int projectionObservablesCapteurs(observablesT * observables, projectionSystemT * projection, capteursT * capteurs);
 int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes);

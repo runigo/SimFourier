@@ -38,7 +38,6 @@ termes.
 int controleurEvolution(controleurT * controleur);
 
 int controleurProjection(controleurT * controleur);
-int controleurEvolutionSysteme(controleurT * controleur);
 int controleurConstructionGraphique(controleurT * controleur);
 int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe);
 
@@ -103,8 +102,10 @@ int controleurEvolution(controleurT * controleur)
 	//horlogeChrono(&(*controleur).horloge, 1);
 
 	if((*controleur).options.modePause > 0)
+	if((*controleur).modele.change==1)
 		{
-		controleurEvolutionSysteme(controleur);
+		controleurEvolutionModele(controleur);
+		(*controleur).modele.change=0;
 		}
 
 	//horlogeChrono(&(*controleur).horloge, 2);
@@ -153,26 +154,10 @@ int controleurProjection(controleurT * controleur)
 	return (*controleur).sortie;
 	}
 
-int controleurEvolutionSysteme(controleurT * controleur)
+int controleurEvolutionModele(controleurT * controleur)
 	{
-	(void)controleur;
 		//fprintf(stderr, "Evolution temporelle du système\n");
-	//systemeEvolution(&(*controleur).modele.systeme, (*controleur).options.duree, 1);
-	modeleProjectionInitiale(&(*controleur).modele);
-
-		//fprintf(stderr, "Projection du système sur les spectres\n");
-	projectionSystemeFourier(&(*controleur).modele);
-
-		//fprintf(stderr, "Calcul des spectres\n");
-	fourierCalcule(&(*controleur).modele.fourier);
-
-		//fprintf(stderr, "Normalisation des spectres\n");
-	fonctionNormalise(&(*controleur).modele.fourier.spectre, (*controleur).options.echelle);
-	fonctionNormalise(&(*controleur).modele.fourier.gauche, (*controleur).options.echelle);
-	fonctionNormalise(&(*controleur).modele.fourier.droite, (*controleur).options.echelle);
-
-		//fprintf(stderr, "Mise à jour des observables\n");
-	//observablesMiseAJour(&(*controleur).observables, &(*controleur).modele.systeme);
+	modeleEvolution(&(*controleur).modele, 1, (*controleur).options.echelle);
 
 	return 0;
 	}
