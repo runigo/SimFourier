@@ -1,5 +1,5 @@
 /*
-Copyright février 2024, Stephan Runigo
+Copyright mars 2024, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -40,6 +40,7 @@ int initialeCalculParametre(initialeT * initiale);
 int initialeCalculEnveloppe(initialeT * initiale);
 int initialeCalculUnique(initialeT * initiale);
 int initialeCalculPeriodique(initialeT * initiale);
+int initialePeriodiseEnveloppe(initialeT * initiale);
 
 
 	//		JAUGE ET NORMALISATION
@@ -82,36 +83,55 @@ int initialeCalculInitiale(initialeT * initiale) {
 
 int initialeCalculEnveloppe(initialeT * initiale) {
 
-		//	Calcul de l'enveloppe
-
-	switch ((*initiale).enveloppe.periodique)
-		{
-		case 0:
-			initialeCalculUnique(initiale);break;
-		case 1:
-			initialeCalculPeriodique(initiale);break;
-		default:
-			;
-		}
-
-	return 0;
-}
-
-int initialeCalculUnique(initialeT * initiale) {
-	initialeCalculPeriodique(initiale);
-	return 0;
-}
-
-int initialeCalculPeriodique(initialeT * initiale) {
+		// Calcul de l'enveloppe
 
 	int i;
 	int nombre=(*initiale).enveloppe.fonction.nombre;
 
-	for(i=0;i<nombre;i++)
+	if((*initiale).motif.forme == 0)
 		{
-		(*initiale).enveloppe.fonction.reel[i] = 1.0;
-		(*initiale).enveloppe.fonction.imag[i] = 1.0;
+		for(i=0;i<nombre;i++)
+			{
+			(*initiale).enveloppe.fonction.reel[i] = (*initiale).motif.A;
+			(*initiale).enveloppe.fonction.imag[i] = (*initiale).motif.A;
+			}
 		}
+	else
+		{
+		initialePeriodiseEnveloppe(initiale);
+		}
+
+	return 0;
+}
+
+int initialePeriodiseEnveloppe(initialeT * initiale) {
+
+		// Périodise (ou non) le motif
+
+	int i, j, d=0;
+	int nombre=(*initiale).enveloppe.fonction.nombre;
+
+	if((*initiale).enveloppe.periodique==0)
+		{
+		d = (*initiale).enveloppe.khi;
+		for(i=0;i<nombre;i++)
+			{
+			j = (i+d) % nombre;
+			(*initiale).enveloppe.fonction.reel[i] = (*initiale).motif.fonction.reel[j];
+			(*initiale).enveloppe.fonction.imag[i] = (*initiale).motif.fonction.imag[j];
+			}
+		}
+	else
+		{
+		d = (int)((2*PI*(*initiale).enveloppe.khi)/nombre);
+		for(i=0;i<nombre;i++)
+			{
+			j = (i+d) % (*initiale).enveloppe.P;
+			(*initiale).enveloppe.fonction.reel[i] = (*initiale).motif.fonction.reel[j];
+			(*initiale).enveloppe.fonction.imag[i] = (*initiale).motif.fonction.imag[j];
+			}
+		}
+
 	return 0;
 }
 
@@ -119,7 +139,7 @@ int initialeCalculPeriodique(initialeT * initiale) {
 
 int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation) {
 
-	// Change un paramètre de initiale et calcul la nouvelle fonction
+	// Change un paramètre de initiale et calcul la nouvelle fonction initiale
 
 	switch (fonction)
 		{

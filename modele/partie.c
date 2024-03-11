@@ -1,5 +1,5 @@
 /*
-Copyright février 2024, Stephan Runigo
+Copyright mars 2024, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -71,84 +71,25 @@ int partieInitialisation(partieT * partie, int nombre) {
 /*--------------------  CALCUL DES PARAMETRES INITIALES  ---------------------*/
 
 int partieCalculPeriode(partieT * partie) {
+
+	// Calcul de la période
+
 	int i;
+
 	(*partie).P=1;
 	for (i=0;i<(*partie).eta;i++)
 		{
 		(*partie).P=2*(*partie).P;
 		}
 	(*partie).P = (*partie).P + (*partie).rho;
+
+	if((*partie).P > (*partie).fonction.nombre)
+		{
+		printf(" P maximal ateint \n");
+		(*partie).P = (*partie).fonction.nombre;
+		}
+
 	return (*partie).P;
-}
-/*int partieCalculPeriode(partieT * partie) {
-		// Calcul de la période à partir de eta et rho
-	int k=1;
-	int P=2;
-		//	P = 2^eta
-	if( (*partie).eta > 0)
-		{ while(k<(*partie).eta) { P=2*P; k++;} }
-	else { P = 1; }
-		//	P = P + dp
-	if( (*partie).rho < P )
-		{P=P+(*partie).rho;}
-	else {P=(*partie).rho}
-		//	P reste inférieur à "nombre"
-	if( P < (*partie).fonction.nombre )
-		{(*partie).P = P}
-	else {(*partie).P = (*partie).fonction.nombre}
-	return 0;
-}
-*/
-int partieCalculPosition(partieT * partie) {
-
-/*	switch (forme)
-		{
-		case 0:
-			position = 0;break;
-		default:
-			;
-		}
-*/
-(void)partie;
-
-		//fprintf(stderr, "partieCalculPosition\n");
-	//partieCalculPartie(&(*partie).enveloppe);
-	//partieCalculPartie(&(*partie).porteuse);
-
-	return 0;
-
-}
-
-int partieCalculPartie(partieT * partie) {
-	switch ((*partie).complexe)
-		{
-	//	case -1:
-		//	partieCalculUniforme(partie);break;
-		case 0:
-			partieCalculHarmonique(partie);break;
-		case 1:
-			partieCalculHarmonique(partie);break;
-		default:
-			;
-		}
-
-	switch ((*partie).periodique)
-		{
-	//	case -1:
-		//	partieCalculUniforme(partie);break;
-		case 0:
-			partieCalculUniforme(partie);break;
-		case 1:
-			partieCalculHarmonique(partie);break;
-		default:
-			;
-		}
-	// Initialisation de l'enveloppe
-
-//	partieCalculCarre(partie);
-	//partieCalculEnveloppeUniforme(partie);
-
-	return 0;
 }
 
 int partieCalculUniforme(partieT * partie) {
@@ -173,6 +114,7 @@ int partieCalculHarmonique(partieT * partie) {
 	
 	int i;
 	int P=(*partie).P;
+	int K=(*partie).khi;
 	int nombre=(*partie).fonction.nombre;
 		//fprintf(stderr, " Projection sur le système\n");
 
@@ -185,8 +127,8 @@ int partieCalculHarmonique(partieT * partie) {
 		{
 		for(i=0;i<nombre;i++)
 			{
-			(*partie).fonction.reel[i] = cos(i/P+(*partie).khi);
-			(*partie).fonction.imag[i] = sin(i/P+(*partie).khi);
+			(*partie).fonction.reel[i] = cos( i/P + K );
+			(*partie).fonction.imag[i] = sin( i/P + K );
 			}
 		}
 
@@ -212,9 +154,6 @@ int partieChangeParametre(partieT * partie, int parametre, int variation) {
 		default:
 			;
 		}
-
-		// Calcul de la partie
-	partieCalculPosition(partie);
 
 	return 0;
 }
@@ -273,7 +212,7 @@ int eta = (*partie).eta;
 		}
 	else
 		{
-		printf("Fréquence limite atteinte. ");
+		printf("eta limite atteint. ");
 		}
 	printf("Eta  = %i\n", (*partie).eta);//%s, (*partie).nom
 
@@ -301,7 +240,7 @@ int rho = (*partie).rho;
 		}
 	else
 		{
-		printf("Fréquence limite atteinte. ");
+		printf("rho limite atteint. ");
 		}
 	printf("rho  = %i\n", (*partie).rho);//%s, (*partie).nom
 
@@ -311,27 +250,27 @@ int rho = (*partie).rho;
 int partieChangeKhi(partieT * partie, int delta) {
 (void)delta; // -1 : delta = 0 ; 0 : annule rho ; 1 réglage deltaPeriode
 			//	Change la fréquence de la partie
-int rho = (*partie).rho;
+int khi = (*partie).khi;
 	switch (delta)
 		{
 		case -1:
-			rho = rho - 1;break;
+			khi = khi - 1;break;
 		case 0:
-			rho = 0;break;
+			khi = 0;break;
 		case 1:
-			rho = rho + 1;break;
+			khi = khi + 1;break;
 		default:
 			;
 		}
-	if(rho < 100 && rho > -1)
+	if(khi < (*partie).fonction.nombre && khi > -1)
 		{
-		(*partie).rho = rho;
+		(*partie).khi = khi;
 		}
 	else
 		{
-		printf("Fréquence limite atteinte. ");
+		printf("khi limite atteint. ");
 		}
-	printf("rho  = %i\n", (*partie).rho);//%s, (*partie).nom
+	printf("khi  = %i\n", (*partie).khi);//%s, (*partie).nom
 
 	return 0;
 	}
@@ -380,5 +319,24 @@ int partieChangeAmplitude(partieT * partie, float facteur) {
 
 	return 0;
 	}
+*/
+/*int partieCalculPeriode(partieT * partie) {
+		// Calcul de la période à partir de eta et rho
+	int k=1;
+	int P=2;
+		//	P = 2^eta
+	if( (*partie).eta > 0)
+		{ while(k<(*partie).eta) { P=2*P; k++;} }
+	else { P = 1; }
+		//	P = P + dp
+	if( (*partie).rho < P )
+		{P=P+(*partie).rho;}
+	else {P=(*partie).rho}
+		//	P reste inférieur à "nombre"
+	if( P < (*partie).fonction.nombre )
+		{(*partie).P = P}
+	else {(*partie).P = (*partie).fonction.nombre}
+	return 0;
+}
 */
 //////////////////////////////////////////////////////////////////////////

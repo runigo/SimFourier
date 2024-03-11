@@ -1,5 +1,5 @@
 /*
-Copyright février 2024, Stephan Runigo
+Copyright mars 2024, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -34,8 +34,9 @@ termes.
 
 #include "fonction.h"
 /*
-		Un motif est une fonction non périodique. L'enveloppe est ce motif
-		éventuellement périodicisé.
+		Un motif est une fonction non périodique.
+		  L'enveloppe est ce motif éventuellement
+		périodicisé.
 */
 
 typedef struct MotifT motifT;
@@ -45,10 +46,10 @@ typedef struct MotifT motifT;
 
 		int a;		//	Longueur horizontale (montée ou positif)
 		int b;		//	Longueur horizontale (descente ou négatif)
-		int C;		//	Longueur support (c = a + b = 2^eta + rho = période de l'enveloppe)
 
 		float A;	//	amplitude
 		float B;	//	décalage verticale
+
 		float sym;	//	facteur de symétrie (a/b)
 
 		int forme;	//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,

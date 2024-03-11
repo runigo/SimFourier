@@ -1,5 +1,5 @@
 /*
-Copyright février 2024, Stephan Runigo
+Copyright mars 2024, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation

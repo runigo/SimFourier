@@ -1,5 +1,5 @@
 /*
-Copyright février 2024, Stephan Runigo
+Copyright mars 2024, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -37,8 +37,7 @@ termes.
 int motifChangeA(motifT * motif, int delta);
 int motifChangeB(motifT * motif, int delta);
 int motifChangeForme(motifT * motif, int forme);
-int motifChangeSymetrie(motifT * motif, float facteur);
-int motifChangeAmplitude(motifT * motif, float facteur);
+int motifChangeSymetrie(motifT * motif, int delta);
 
 	//		CALCUL DU MOTIF
 int motifCalculParametres(motifT * motif, int P);
@@ -63,16 +62,16 @@ int motifInitialisation(motifT * motif, int nombre) {
 
 		(*motif).a=10;			//	Longueur horizontale (montée ou positif)
 		(*motif).b=20;			//	Longueur horizontale (descente ou négatif)
-		(*motif).C=(*motif).a+(*motif).b;		//	Période ( = a + b = 2^eta + rho )
 
-		(*motif).A = 3;			//	Amplitude
-		(*motif).B = 1;			//	Décalage verticale
+		(*motif).A = 5.3;			//	Amplitude
+		(*motif).B = 0.0;			//	Décalage verticale
 		(*motif).sym = (float)(*motif).a / (float)(*motif).b;	//	facteur de symétrie (a/b)
 
-		(*motif).forme = 2;			//	0 : harmonique, 1 : carrée, 2 : triangle,
+		(*motif).forme = 3;			//	0 : harmonique, 1 : carrée, 2 : triangle,
 								//	3 : gaussienne, 4 : Lorentzienne
 
 		motifCalculParametres(motif, (*motif).a + (*motif).b);
+		motifCalculTriangle(motif);
 	//	motifCalculPosition(motif);
 
 	return 0;
@@ -84,12 +83,10 @@ int motifCalculMotif(motifT * motif, int P) {
 
 		// Calcul des paramètres
 	motifCalculParametres(motif, P);
-	// Calcul de la fonction
 
+		// Calcul de la fonction
 	switch ((*motif).forme)
 		{
-		case -1:
-			motifCalcul(motif);break;
 		case 0:
 			motifCalculUniforme(motif);break;
 		case 1:
@@ -115,30 +112,13 @@ int motifCalculParametres(motifT * motif, int P) {
 
 	(*motif).a=(int)(P*((*motif).sym));
 	(*motif).b=P-(*motif).a;
-	(*motif).C=P;
-
-	return 0;
-}
-
-int motifCalcul(motifT * motif) {
-
-	// Création d'une enveloppe uniforme
-	
-	int i;
-	int nombre=(*motif).a + (*motif).b;
-
-	for(i=0;i<nombre;i++)
-		{
-		(*motif).fonction.reel[i] = (*motif).A;
-		(*motif).fonction.imag[i] = (*motif).A;
-		}
 
 	return 0;
 }
 
 int motifCalculUniforme(motifT * motif) {
 
-	// Création d'une enveloppe uniforme
+	printf("Enveloppe uniforme");
 	
 	int i;
 	int nombre=(*motif).a + (*motif).b;
@@ -154,9 +134,10 @@ int motifCalculUniforme(motifT * motif) {
 
 int motifCalculCarre(motifT * motif) {
 
-	// Création d'une enveloppe carrée
-	
+	printf("Enveloppe carrée");
+
 	int i;
+	int P = (*motif).a +(*motif).b;
 
 	for(i=0;i<(*motif).a;i++)
 		{
@@ -164,7 +145,7 @@ int motifCalculCarre(motifT * motif) {
 		(*motif).fonction.imag[i] = (*motif).A;
 		}
 
-	for(i=(*motif).a;i<(*motif).C;i++)
+	for(i=(*motif).a;i<P;i++)
 		{
 		(*motif).fonction.reel[i] = -(*motif).A;
 		(*motif).fonction.imag[i] = -(*motif).A;
@@ -175,9 +156,10 @@ int motifCalculCarre(motifT * motif) {
 
 int motifCalculTriangle(motifT * motif) {
 
-	// Création d'une enveloppe triangle
+	printf("Enveloppe triangle");
 	
 	int i;
+	int P = (*motif).a +(*motif).b;
 	float alpha = 2*(*motif).A/(*motif).a;
 
 	for(i=0;i<(*motif).a;i++)
@@ -189,7 +171,7 @@ int motifCalculTriangle(motifT * motif) {
 	alpha = 2 * (*motif).A * (float)(*motif).a / (*motif).b;
 	float beta = (*motif).A * (1 - 2 * (float)(*motif).a / (*motif).b) ;
 
-	for(i=(*motif).a;i<(*motif).C;i++)
+	for(i=(*motif).a;i<P;i++)
 		{
 		(*motif).fonction.reel[i] = i*alpha - beta;
 		(*motif).fonction.imag[i] = (*motif).fonction.reel[i];
@@ -200,7 +182,7 @@ int motifCalculTriangle(motifT * motif) {
 
 int motifCalculGaussienne(motifT * motif) {
 
-	// Création d'une enveloppe gaussienne
+	printf("Enveloppe gaussienne");
 	
 	int i;
 
@@ -215,7 +197,7 @@ int motifCalculGaussienne(motifT * motif) {
 
 int motifCalculLorentzienne(motifT * motif) {
 
-	// Création d'une enveloppe lorentzienne
+	printf("Enveloppe lorentzienne");
 	
 	int i;
 
@@ -252,116 +234,100 @@ int motifChangeParametre(motifT * motif, int parametre, int variation){
 int motifChangeForme(motifT * motif, int forme){
 
 	if(forme>-1 && forme<6)
+		{
 		(*motif).forme = forme;			//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
 							//	4 : gaussienne, 5 : lorentzienne
-	else printf("Erreur, ");
+		}
+	else
+		{
+		printf("Erreur dans motifChangeForme ");
+		}
 
-	printf("Forme  = %i\n", (*motif).forme);//%s, (*motif).nom
+	printf("Forme  = %i\n", (*motif).forme);
 
 	return 0;
 }
 
-int motifChangeSymetrie(motifT * motif, float variation) {
-(void)motif;
-(void)variation;
-	/* float symetrie = (*motif).sym * (1 + (float)variation/100.0);
+int motifChangeSymetrie(motifT * motif, int delta) {
 
-	//if(symetrie 
+	// Change l'amplitude du motif
 
-	switch (delta)
+	float amplitude = ((*motif).A * delta)/100;
+
+	if(amplitude < AMPLITUDE_MIN)
 		{
-		case -1:
-			nombrePeriode = nombrePeriode / 2;break;
-		case 0:
-			nombrePeriode = (*motif).nombre/2;break;
-		case 1:
-			nombrePeriode = nombrePeriode * 2;break;
-		default:
-			;
-		}
-	if(nombrePeriode < FREQUENCE_MAX && nombrePeriode > FREQUENCE_MIN)
-		{
-		(*motif).nombrePeriode = nombrePeriode;
+		(*motif).A = AMPLITUDE_MIN;
+		printf("Amplitude minimale atteinte. ");
 		}
 	else
 		{
-		printf("Fréquence limite atteinte. ");
+		if(amplitude > AMPLITUDE_MAX)
+			{
+			(*motif).A = AMPLITUDE_MAX;
+			printf("Amplitude maximale atteinte. ");
+			}
+		else
+			{
+			(*motif).A = amplitude;
+			}
 		}
-	printf("Fréquence  = %i\n", (*motif).nombrePeriode);//%s, (*motif).nom
-*/
+	printf("Amplitude motif = %f\n", (*motif).A);
+
 	return 0;
 	}
 
 int motifChangeA(motifT * motif, int delta) {
-(void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
-(void)motif;			//	Change la fréquence de la motif
-/*
-int deltaPeriode = (*motif).deltaPeriode;
-	switch (delta)
+
+	// Change l'amplitude du motif
+
+	float amplitude = ((*motif).A * delta)/100;
+
+	if(amplitude < AMPLITUDE_MIN)
 		{
-		case -1:
-			deltaPeriode = deltaPeriode - 1;break;
-		case 0:
-			deltaPeriode = 33;break;
-		case 1:
-			deltaPeriode = deltaPeriode + 1;break;
-		default:
-			;
-		}
-	if(deltaPeriode < 100 && deltaPeriode > -1)
-		{
-		(*motif).deltaPeriode = deltaPeriode;
+		(*motif).A = AMPLITUDE_MIN;
+		printf("Amplitude minimale atteinte. ");
 		}
 	else
 		{
-		printf("Fréquence limite atteinte. ");
+		if(amplitude > AMPLITUDE_MAX)
+			{
+			(*motif).A = AMPLITUDE_MAX;
+			printf("Amplitude maximale atteinte. ");
+			}
+		else
+			{
+			(*motif).A = amplitude;
+			}
 		}
-	printf("Fréquence  = %i\n", (*motif).deltaPeriode);//%s, (*motif).nom
-*/
+	printf("Amplitude motif = %f\n", (*motif).A);
+
 	return 0;
 	}
 
 int motifChangeB(motifT * motif, int delta) {
-(void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
-(void)motif;		//	Change la fréquence de la motif
-/*	switch (delta)
+
+	// Change le décalage verticale du motif
+
+	float decalage = ((*motif).A * delta)/100;
+
+	if(decalage < AMPLITUDE_MIN)
 		{
-		case 0:
-			;break;
-		case -1:
-			;break;
-		case 1:
-			;break;
-		default:
-			;
-		}
-	if((*motif).nombrePeriode * facteur < FREQUENCE_MAX && (*motif).nombrePeriode * facteur > FREQUENCE_MIN)
-		{
-		(*motif).nombrePeriode = (*motif).nombrePeriode * facteur;
+		(*motif).A = AMPLITUDE_MIN;
+		printf("Décalage minimale atteinte. ");
 		}
 	else
 		{
-		printf("Fréquence limite atteinte. ");
+		if(decalage > AMPLITUDE_MAX)
+			{
+			(*motif).A = AMPLITUDE_MAX;
+			printf("Décalage maximale atteinte. ");
+			}
+		else
+			{
+			(*motif).A = decalage;
+			}
 		}
-	printf("Fréquence  = %i\n", (*motif).nombrePeriode);//%s, (*motif).nom
-*/
-	return 0;
-	}
-
-int motifChangeAmplitude(motifT * motif, float facteur) {
-
-			//	Change l'amplitude du signal
-
-	float amplitude = (*motif).A * facteur;
-	if(amplitude < AMPLITUDE_MAX && amplitude > AMPLITUDE_MIN)
-		{
-		(*motif).A = amplitude;
-		}
-	else
-		{
-		printf("Amplitude limite atteinte. ");
-		}
-	printf("Amplitude générateur = %6.3f\n", (*motif).A);
+	printf("Décalage verticale = %f\n", (*motif).A);
 
 	return 0;
 	}

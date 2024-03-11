@@ -1,5 +1,5 @@
 /*
-Copyright février 2023, Stephan Runigo
+Copyright mars 2023, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -60,6 +60,52 @@ int modeleInitialisation(modeleT * modele, int nombre, int dt) {
 	return 0;
 }
 
+int modeleIncrementationInitiale(modeleT * modele) {
+
+		//fprintf(stderr, " Incrémentation ancien et nouveau \n");
+
+	int i;
+	for(i=0;i<(*modele).systeme.nombre;i++)
+		{
+		(*modele).systeme.nouveau.reel[i] = (*modele).systeme.actuel.reel[i];
+		(*modele).systeme.nouveau.imag[i] = (*modele).systeme.actuel.imag[i];
+		(*modele).systeme.ancien.reel[i] = (*modele).systeme.actuel.reel[i];
+		(*modele).systeme.ancien.imag[i] = (*modele).systeme.actuel.imag[i];
+		}
+
+	return 0;
+}
+
+int modeleProjectionInitiale(modeleT * modele) {
+
+	// Projette les positions initiales sur le système
+		//fprintf(stderr, " Projection sur le système\n");
+	int i;
+	for(i=0;i<(*modele).systeme.nombre;i++)  //  Partie réelle
+		{
+		(*modele).systeme.actuel.reel[i]
+			= (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.reel[i];
+		}
+
+	if((*modele).initiale.porteuse.complexe == 1)
+		{
+		for(i=0;i<(*modele).systeme.nombre;i++)  //  Partie imaginaire
+			{
+		(*modele).systeme.actuel.imag[i]
+			= (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.imag[i];
+			}
+		}
+	else
+		{
+		for(i=0;i<(*modele).systeme.nombre;i++)  //  Partie imaginaire
+			{
+		(*modele).systeme.actuel.imag[i] = 0;
+			}
+		}
+
+	return 0;
+}
+/*
 int modeleProjectionInitiale(modeleT * modele) {
 
 	// Projette les positions initiales sur le système
@@ -79,7 +125,7 @@ int modeleProjectionInitiale(modeleT * modele) {
 
 	return 0;
 }
-
+*/
 /*------------------------  ÉVOLUTION DU MODÈLE  -------------------------*/
 
 int modeleEvolution(modeleT * modele, int duree, int echelle)

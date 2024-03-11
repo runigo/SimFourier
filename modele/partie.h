@@ -1,5 +1,5 @@
 /*
-Copyright février 2024, Stephan Runigo
+Copyright mars 2024, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -48,7 +48,7 @@ typedef struct PartieT partieT;
 
 		int eta;		//	Puissance de deux dans la période
 		int rho;		//	Écart à la puissance de deux de la période
-		int khi;		//	Décalage horizontal, déphasage
+		int khi;		//	Décalage horizontal, déphasage : [0,N[
 		int P;			//	Période
 
 		int complexe;		//	-1 SI enveloppe, 0 porteuse réelle, 1 porteuse complexe.
@@ -59,6 +59,7 @@ typedef struct PartieT partieT;
 int partieInitialisation(partieT * partie, int nombre);
 
 	//	Calcul des parties initiales
+int partieCalculPorteuse(partieT * partie);
 int partieCalculPeriode(partieT * partie);
 int partieCalculHarmonique(partieT * partie);
 
