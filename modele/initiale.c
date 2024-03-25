@@ -124,6 +124,7 @@ int initialePeriodiseEnveloppe(initialeT * initiale) {
 	else
 		{
 		d = (int)((2*PI*(*initiale).enveloppe.khi)/nombre);
+	printf("initialePeriodiseEnveloppe  (*initiale).enveloppe.P = %i\n", (*initiale).enveloppe.P);
 		for(i=0;i<nombre;i++)
 			{
 			j = (i+d) % (*initiale).enveloppe.P;
@@ -139,7 +140,7 @@ int initialePeriodiseEnveloppe(initialeT * initiale) {
 
 int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation) {
 
-	// Change un paramètre de initiale et calcul la nouvelle fonction initiale
+	// Change un paramètre de initiale
 
 	switch (fonction)
 		{
@@ -152,9 +153,6 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 		default:
 			;
 		}
-
-		// Calcul de la fonction initiale
-	initialeCalculInitiale(initiale);
 
 	return 0;
 }

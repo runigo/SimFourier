@@ -118,7 +118,7 @@ int motifCalculParametres(motifT * motif, int P) {
 
 int motifCalculUniforme(motifT * motif) {
 
-	printf("Enveloppe uniforme");
+	printf("Enveloppe uniforme \n");
 	
 	int i;
 	int nombre=(*motif).a + (*motif).b;
@@ -134,7 +134,7 @@ int motifCalculUniforme(motifT * motif) {
 
 int motifCalculCarre(motifT * motif) {
 
-	printf("Enveloppe carrée");
+	printf("Enveloppe carrée \n");
 
 	int i;
 	int P = (*motif).a +(*motif).b;
@@ -156,11 +156,22 @@ int motifCalculCarre(motifT * motif) {
 
 int motifCalculTriangle(motifT * motif) {
 
-	printf("Enveloppe triangle");
+	printf("Enveloppe triangle \n");
 	
 	int i;
 	int P = (*motif).a +(*motif).b;
-	float alpha = 2*(*motif).A/(*motif).a;
+	float alpha;
+	float beta;
+
+	if((*motif).a == 0)
+		{
+		alpha = 2*(*motif).A;
+		printf(" Erreur dans motifCalculTriangle, (*motif).a == 0 \n");
+		}
+	else
+		{
+		alpha =  (2.0*(*motif).A)/(*motif).a;
+		}
 
 	for(i=0;i<(*motif).a;i++)
 		{
@@ -168,8 +179,18 @@ int motifCalculTriangle(motifT * motif) {
 		(*motif).fonction.imag[i] = (*motif).fonction.reel[i];
 		}
 
-	alpha = 2 * (*motif).A * (float)(*motif).a / (*motif).b;
-	float beta = (*motif).A * (1 - 2 * (float)(*motif).a / (*motif).b) ;
+	if((*motif).b == 0)
+		{
+		alpha = 2 * (*motif).A * (float)(*motif).a;
+		beta = (*motif).A * (1 - 2 * (float)(*motif).a);
+		printf(" Erreur dans motifCalculTriangle, (*motif).b == 0 \n");
+		}
+	else
+		{
+		alpha =  2 * (*motif).A * (float)(*motif).a / (*motif).b;
+		beta = (*motif).A * (1 - 2 * (float)(*motif).a / (*motif).b) ;
+		}
+
 
 	for(i=(*motif).a;i<P;i++)
 		{
@@ -182,7 +203,7 @@ int motifCalculTriangle(motifT * motif) {
 
 int motifCalculGaussienne(motifT * motif) {
 
-	printf("Enveloppe gaussienne");
+	printf("Enveloppe gaussienne \n");
 	
 	int i;
 
@@ -197,7 +218,7 @@ int motifCalculGaussienne(motifT * motif) {
 
 int motifCalculLorentzienne(motifT * motif) {
 
-	printf("Enveloppe lorentzienne");
+	printf("Enveloppe lorentzienne \n");
 	
 	int i;
 

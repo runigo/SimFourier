@@ -184,8 +184,11 @@ int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int vari
 
 	// Change un paramètre de initiale et projette sur le système
 
-		// Calcul de la fonction initiale
+		// Changement du parametre
 	initialeChangeParametre(&(*modele).initiale, fonction, parametre, variation);
+
+		// Calcul de la fonction initiale
+	initialeCalculInitiale(&(*modele).initiale);
 
 		// Projection sur le système
 	modeleProjectionInitiale(modele);

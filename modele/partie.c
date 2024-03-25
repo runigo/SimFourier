@@ -57,7 +57,7 @@ int partieInitialisation(partieT * partie, int nombre) {
 
 		fonctionInitialise(&(*partie).fonction, nombre);
 
-		(*partie).eta=nombre/2;		//	Période, réglage puissance de deux
+		(*partie).eta=nombre/8;		//	Période, réglage puissance de deux
 		(*partie).rho = 0;			//	Période, réglage fin
 		(*partie).khi = 1.0;		//	Décalage horizontale, phase à l'origine
 		(*partie).P = 1.0;			//	Période
@@ -73,21 +73,34 @@ int partieInitialisation(partieT * partie, int nombre) {
 int partieCalculPeriode(partieT * partie) {
 
 	// Calcul de la période
+		//printf("partieCalculPeriode = %i\n", (*partie).P);
 
 	int i;
+	int P=1;
 
-	(*partie).P=1;
-	for (i=0;i<(*partie).eta;i++)
+	for (i=0;i<(*partie).eta;i++) // Calcul de P^eta
 		{
-		(*partie).P=2*(*partie).P;
+		P=2*P;
 		}
-	(*partie).P = (*partie).P + (*partie).rho;
 
-	if((*partie).P > (*partie).fonction.nombre)
+	if((*partie).rho < P && (*partie).rho >= 0)
 		{
-		printf(" P maximal ateint \n");
+		P = P + (*partie).rho;
+		}
+	else
+		{
+		(*partie).rho = P-1;
+		printf("  Maximum ateint, (*partie).rho= %i\n", (*partie).rho);
+		P = 2*P - 1;
+		}
+
+	if(P > (*partie).fonction.nombre)
+		{
+		printf("  P maximal atteint \n");
 		(*partie).P = (*partie).fonction.nombre;
 		}
+
+	printf("partieCalculPeriode : (*partie).P = %i\n", (*partie).P);
 
 	return (*partie).P;
 }
@@ -127,8 +140,8 @@ int partieCalculHarmonique(partieT * partie) {
 		{
 		for(i=0;i<nombre;i++)
 			{
-			(*partie).fonction.reel[i] = cos( i/P + K );
-			(*partie).fonction.imag[i] = sin( i/P + K );
+			(*partie).fonction.reel[i] = cos( ((float)i)/P + K );
+			(*partie).fonction.imag[i] = sin( ((float)i)/P + K );
 			}
 		}
 
@@ -161,6 +174,7 @@ int partieChangeParametre(partieT * partie, int parametre, int variation) {
 int partieChangeNature(partieT * partie, int plusMoins){
 (void) plusMoins;
 		// Selon porteuse ou enveloppe, change complexe ou périodique
+		printf("plusMoins = %i\n", plusMoins);
 
 	if((*partie).complexe < 0) // Cas de l'enveloppe
 		{
@@ -320,22 +334,38 @@ int partieChangeAmplitude(partieT * partie, float facteur) {
 	return 0;
 	}
 */
-/*int partieCalculPeriode(partieT * partie) {
+/*
+int partieCalculPeriode(partieT * partie) {
 		// Calcul de la période à partir de eta et rho
 	int k=1;
 	int P=2;
 		//	P = 2^eta
 	if( (*partie).eta > 0)
-		{ while(k<(*partie).eta) { P=2*P; k++;} }
+		{
+		while(k<(*partie).eta) 
+			{
+			P=2*P; k++;
+			}
+		}
 	else { P = 1; }
 		//	P = P + dp
 	if( (*partie).rho < P )
-		{P=P+(*partie).rho;}
-	else {P=(*partie).rho}
+		{
+		P=P+(*partie).rho;
+		}
+	else
+		{
+		P=(*partie).rho;
+		}
 		//	P reste inférieur à "nombre"
 	if( P < (*partie).fonction.nombre )
-		{(*partie).P = P}
-	else {(*partie).P = (*partie).fonction.nombre}
+		{
+		(*partie).P = P;
+		}
+	else
+		{
+		(*partie).P = (*partie).fonction.nombre;
+		}
 	return 0;
 }
 */

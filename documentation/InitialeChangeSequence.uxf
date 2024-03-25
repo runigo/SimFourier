@@ -5,7 +5,7 @@
     <id>UMLGeneric</id>
     <coordinates>
       <x>45</x>
-      <y>261</y>
+      <y>252</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -16,7 +16,7 @@
     <id>Relation</id>
     <coordinates>
       <x>81</x>
-      <y>279</y>
+      <y>270</y>
       <w>27</w>
       <h>324</h>
     </coordinates>
@@ -27,7 +27,7 @@
     <id>UMLGeneric</id>
     <coordinates>
       <x>477</x>
-      <y>279</y>
+      <y>270</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -38,7 +38,7 @@
     <id>Relation</id>
     <coordinates>
       <x>567</x>
-      <y>333</y>
+      <y>324</y>
       <w>27</w>
       <h>162</h>
     </coordinates>
@@ -49,7 +49,7 @@
     <id>Relation</id>
     <coordinates>
       <x>513</x>
-      <y>297</y>
+      <y>288</y>
       <w>27</w>
       <h>189</h>
     </coordinates>
@@ -60,7 +60,7 @@
     <id>Relation</id>
     <coordinates>
       <x>90</x>
-      <y>378</y>
+      <y>369</y>
       <w>495</w>
       <h>36</h>
     </coordinates>
@@ -72,7 +72,7 @@
     <id>Relation</id>
     <coordinates>
       <x>90</x>
-      <y>351</y>
+      <y>342</y>
       <w>441</w>
       <h>36</h>
     </coordinates>
@@ -83,8 +83,8 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>630</x>
-      <y>315</y>
+      <x>585</x>
+      <y>342</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -94,19 +94,19 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>666</x>
-      <y>333</y>
+      <x>621</x>
+      <y>360</y>
       <w>27</w>
-      <h>189</h>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>99</x>
-      <y>693</y>
+      <y>684</y>
       <w>243</w>
       <h>45</h>
     </coordinates>
@@ -118,7 +118,7 @@
     <id>UMLGeneric</id>
     <coordinates>
       <x>81</x>
-      <y>351</y>
+      <y>342</y>
       <w>18</w>
       <h>189</h>
     </coordinates>
@@ -130,7 +130,7 @@ bg=yellow</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>90</x>
-      <y>675</y>
+      <y>666</y>
       <w>18</w>
       <h>342</h>
     </coordinates>
@@ -142,19 +142,19 @@ bg=green</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>90</x>
-      <y>405</y>
-      <w>594</w>
+      <y>396</y>
+      <w>549</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 2  partieChangeParametre(E, p, v)</panel_attributes>
-    <additional_attributes>640.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>590.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <type>com.baselet.element.old.element.Class</type>
     <coordinates>
       <x>63</x>
-      <y>9</y>
+      <y>0</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -165,7 +165,7 @@ bg=green</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>81</x>
-      <y>9</y>
+      <y>0</y>
       <w>44</w>
       <h>251</h>
     </coordinates>
@@ -176,7 +176,7 @@ bg=green</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>90</x>
-      <y>45</y>
+      <y>36</y>
       <w>359</w>
       <h>63</h>
     </coordinates>
@@ -188,7 +188,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>414</x>
-      <y>18</y>
+      <y>9</y>
       <w>44</w>
       <h>215</h>
     </coordinates>
@@ -199,7 +199,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <type>com.baselet.element.old.element.Class</type>
     <coordinates>
       <x>396</x>
-      <y>18</y>
+      <y>9</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -210,7 +210,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>531</x>
-      <y>315</y>
+      <y>306</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -221,7 +221,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <type>com.baselet.element.old.element.Class</type>
     <coordinates>
       <x>63</x>
-      <y>621</y>
+      <y>612</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -232,7 +232,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>72</x>
-      <y>621</y>
+      <y>612</y>
       <w>44</w>
       <h>431</h>
     </coordinates>
@@ -243,7 +243,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>99</x>
-      <y>729</y>
+      <y>720</y>
       <w>261</w>
       <h>45</h>
     </coordinates>
@@ -255,7 +255,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>99</x>
-      <y>765</y>
+      <y>756</y>
       <w>207</w>
       <h>45</h>
     </coordinates>
@@ -267,7 +267,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>99</x>
-      <y>801</y>
+      <y>792</y>
       <w>207</w>
       <h>45</h>
     </coordinates>
@@ -279,7 +279,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <type>com.baselet.element.old.element.SeqObjectActive</type>
     <coordinates>
       <x>423</x>
-      <y>657</y>
+      <y>648</y>
       <w>18</w>
       <h>279</h>
     </coordinates>
@@ -290,7 +290,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <type>com.baselet.element.old.element.Class</type>
     <coordinates>
       <x>387</x>
-      <y>603</y>
+      <y>594</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -301,7 +301,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>405</x>
-      <y>603</y>
+      <y>594</y>
       <w>44</w>
       <h>395</h>
     </coordinates>
@@ -312,7 +312,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <type>com.baselet.element.old.element.SeqObjectActive</type>
     <coordinates>
       <x>99</x>
-      <y>72</y>
+      <y>63</y>
       <w>18</w>
       <h>153</h>
     </coordinates>
@@ -323,7 +323,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <type>com.baselet.element.old.element.SeqObjectActive</type>
     <coordinates>
       <x>432</x>
-      <y>72</y>
+      <y>63</y>
       <w>18</w>
       <h>63</h>
     </coordinates>
@@ -334,7 +334,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <type>com.baselet.element.old.element.SeqObjectActive</type>
     <coordinates>
       <x>513</x>
-      <y>360</y>
+      <y>351</y>
       <w>18</w>
       <h>27</h>
     </coordinates>
@@ -345,7 +345,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <type>com.baselet.element.old.element.SeqObjectActive</type>
     <coordinates>
       <x>567</x>
-      <y>387</y>
+      <y>378</y>
       <w>18</w>
       <h>27</h>
     </coordinates>
@@ -355,8 +355,8 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
   <element>
     <type>com.baselet.element.old.element.SeqObjectActive</type>
     <coordinates>
-      <x>666</x>
-      <y>414</y>
+      <x>621</x>
+      <y>405</y>
       <w>18</w>
       <h>27</h>
     </coordinates>
@@ -367,7 +367,7 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>108</x>
-      <y>144</y>
+      <y>135</y>
       <w>225</w>
       <h>45</h>
     </coordinates>
@@ -379,7 +379,7 @@ motifChangeForme(M, v)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>108</x>
-      <y>180</y>
+      <y>171</y>
       <w>144</w>
       <h>45</h>
     </coordinates>
@@ -391,19 +391,19 @@ change = 1;</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>90</x>
-      <y>441</y>
-      <w>216</w>
+      <y>486</y>
+      <w>207</w>
       <h>45</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-initialeCalculPosition(I)</panel_attributes>
+initialeCalculInitiale(I)</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0;60.0;30.0;10.0;30.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>99</x>
-      <y>918</y>
+      <y>909</y>
       <w>225</w>
       <h>45</h>
     </coordinates>
@@ -415,7 +415,7 @@ motifCalculParametre(M)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>99</x>
-      <y>954</y>
+      <y>945</y>
       <w>207</w>
       <h>45</h>
     </coordinates>
@@ -427,7 +427,7 @@ motifCalculPosition(M)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>432</x>
-      <y>675</y>
+      <y>666</y>
       <w>243</w>
       <h>45</h>
     </coordinates>
@@ -439,7 +439,7 @@ motifCalculPosition(M)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>432</x>
-      <y>711</y>
+      <y>702</y>
       <w>225</w>
       <h>45</h>
     </coordinates>
@@ -451,7 +451,7 @@ motifCalculPosition(M)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>432</x>
-      <y>747</y>
+      <y>738</y>
       <w>225</w>
       <h>45</h>
     </coordinates>
@@ -463,7 +463,7 @@ motifCalculPosition(M)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>432</x>
-      <y>783</y>
+      <y>774</y>
       <w>225</w>
       <h>45</h>
     </coordinates>
