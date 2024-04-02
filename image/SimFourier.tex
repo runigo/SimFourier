@@ -1,0 +1,66 @@
+% SimFourier
+%
+% Simulateur de transformation de fourier
+%
+% Librement inspiré de
+% TeXtronics oscilloscope
+% Author: Hugues Vermeiren
+% http://www.texample.net/tikz/examples/textronics-oscilloscope/
+\documentclass[a4paper,12pt,oneside]{article}
+\usepackage{tikz}
+%%%<
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+%\usepackage[greek, frenchb]{babel}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{0pt}%
+%%%>
+\begin{comment}
+:Title: TeXtronics oscilloscope
+:Tags: Styles;Scopes;Physics; Fun
+:Author: Hugues Vermeiren
+:Slug: textronics-oscilloscope
+The TeXtronics oscilloscope! It is a basic 2-channels oscilloscope,
+the kind of machine most students have used in their labs.
+
+Ideally, it should be parameterized so as to be able to easily change
+the signals and the positions of the different controls.
+\end{comment}
+
+\begin{document}
+\def\scl{1}%scaling factor of the picture
+\sffamily
+\begin{tikzpicture}[scale=\scl]
+
+%      Carrés gris
+  \begin{scope}[xshift=0 cm,yshift=0cm]
+  \fill[gray!50!] (0,0) rectangle (3,3);
+  \fill[gray] (1,0) rectangle (3,2);
+  \fill[gray!50!black] (2,0) rectangle (3,1);
+  \end{scope}
+
+%      Petits boutons
+\begin{scope}[xshift=0 cm,yshift=4cm]
+    \foreach \i in {0,1,...,3} {\draw[gray] (\i,0)--(\i,3);\draw[gray] (0,\i)--(3,\i);}
+  \begin{scope}[xshift=0 cm,yshift=2cm] % Constant
+  \draw[thick] (0.1,0.7)--(0.9,0.7);
+  \end{scope}
+  \begin{scope}[xshift=1 cm,yshift=2cm] % Carré
+  \draw[thick] (0.1,0.5)--(0.1,0.9)--(0.5,0.9)--(0.5,0.1)--(0.9,0.1)--(0.9,0.1);
+  \end{scope}
+  \begin{scope}[xshift=2 cm,yshift=2cm] % Triangle
+  \draw[thick] (0.1,0.5)--(0.3,0.9)--(0.7,0.1)--(0.9,0.5);
+  \end{scope}
+  \begin{scope}[xshift=0 cm,yshift=0cm]
+  \draw[thick] (0.1,0.1)--(0.9,0.9);
+  \end{scope}
+\end{scope}
+
+\end{tikzpicture}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
