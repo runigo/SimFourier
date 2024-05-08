@@ -77,7 +77,7 @@ int initialeCalculInitiale(initialeT * initiale) {
 	initialeCalculEnveloppe(initiale);
 	partieCalculHarmonique(&(*initiale).porteuse);
 
-	return 0;
+	return 0; 
 
 }
 

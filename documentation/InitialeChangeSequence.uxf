@@ -367,18 +367,6 @@ initialeChangeParametre(I, f, p, v);</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>108</x>
-      <y>135</y>
-      <w>225</w>
-      <h>45</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;
-motifChangeForme(M, v)</panel_attributes>
-    <additional_attributes>10.0;10.0;60.0;10.0;60.0;30.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>108</x>
       <y>171</y>
       <w>144</w>
       <h>45</h>
@@ -469,6 +457,18 @@ motifCalculPosition(M)</panel_attributes>
     </coordinates>
     <panel_attributes>lt=-&gt;
   3  partieChangeKhi(P, v)</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;30.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>108</x>
+      <y>135</y>
+      <w>279</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+modeleProjectionInitiale(modele)</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0;60.0;30.0;10.0;30.0</additional_attributes>
   </element>
 </diagram>
