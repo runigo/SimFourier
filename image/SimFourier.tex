@@ -8,6 +8,13 @@
 % http://www.texample.net/tikz/examples/textronics-oscilloscope/
 \documentclass[a4paper,12pt,oneside]{article}
 \usepackage{tikz}
+\usetikzlibrary{trees}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathreplacing,calligraphy}
+\usetikzlibrary{decorations.pathmorphing,calc,shapes,shapes.geometric,patterns}
+%\usetikzlibrary{decorations}
+\usetikzlibrary{angles, quotes}
 %%%<
 \usepackage{verbatim}
 \usepackage[active,tightpage]{preview}
@@ -35,16 +42,33 @@ the signals and the positions of the different controls.
 \sffamily
 \begin{tikzpicture}[scale=\scl]
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    BOUTONS ROTATIF
 %      Carrés gris
-  \begin{scope}[xshift=0 cm,yshift=0cm]
+  \begin{scope}[xshift=0 cm,yshift=0cm, scale=0.5]
   \fill[gray!50!] (0,0) rectangle (3,3);
   \fill[gray] (1,0) rectangle (3,2);
   \fill[gray!50!black] (2,0) rectangle (3,1);
   \end{scope}
 
-%      Petits boutons
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     BOUTONS SELECTIF
+%      Grille
 \begin{scope}[xshift=0 cm,yshift=4cm]
-    \foreach \i in {0,1,...,4} {\draw[gray] (\i,0)--(\i,4);\draw[gray] (0,\i)--(4,\i);}
+    \foreach \i in {0,1,...,5} {\draw[gray] (\i,0)--(\i,5);\draw[gray] (0,\i)--(4,\i);}
+
+% 1
+  \begin{scope}[xshift=0 cm,yshift=1cm] % Constant
+  \draw[thick] (0.1,0.7)--(0.9,0.7);
+  \end{scope}
+  \begin{scope}[xshift=1 cm,yshift=1cm] % Carré
+  \draw[thick] (0.1,0.5)--(0.1,0.9)--(0.5,0.9)--(0.5,0.1)--(0.9,0.1)--(0.9,0.1)--(0.9,0.5);
+  \end{scope}
+  \begin{scope}[xshift=2 cm,yshift=1cm] % Triangle
+  \draw[thick] (0.1,0.5)--(0.3,0.9)--(0.7,0.1)--(0.9,0.5);
+  \end{scope}
+  \begin{scope}[xshift=3 cm,yshift=1cm] % Sinus
+  \draw[thick] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
+  \end{scope}
+% 2
   \begin{scope}[xshift=0 cm,yshift=2cm] % Constant
   \draw[thick] (0.1,0.7)--(0.9,0.7);
   \end{scope}
@@ -55,12 +79,42 @@ the signals and the positions of the different controls.
   \draw[thick] (0.1,0.5)--(0.3,0.9)--(0.7,0.1)--(0.9,0.5);
   \end{scope}
   \begin{scope}[xshift=3 cm,yshift=2cm] % Sinus
-  \draw (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
+  \draw[thick] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
+  \end{scope}
+% 3
+  \begin{scope}[xshift=0 cm,yshift=3cm] % Constant
+  \draw[thick] (0.1,0.7)--(0.9,0.7);
+  \end{scope}
+  \begin{scope}[xshift=1 cm,yshift=3cm] % Carré NP
+  \draw[thick] (0.1,0.3)--(0.3,0.3)--(0.3,0.7)--(0.7,0.7)--(0.7,0.3)--(0.9,0.3);
+  \end{scope}
+  \begin{scope}[xshift=2 cm,yshift=3cm] % Triangle NP
+  \draw[thick] (0.1,0.3)--(0.3,0.3)--(0.5,0.7)--(0.7,0.3)--(0.9,0.3);
+  \end{scope}
+  \begin{scope}[xshift=3 cm,yshift=3cm] % Sinus NP
+  %\draw[thick] (0.1,0.5) cos (0.9,0.5);
+  \draw[thick] (0.2,0.3) cos (0.35,0.5) sin (0.5,0.7) cos (0.65,0.5) sin (0.8,0.3) ;
+  \draw[thick] (0.1,0.3)--(0.2,0.3); \draw[thick] (0.8,0.3)--(0.9,0.3);
+  \end{scope}
+% 4
+  \begin{scope}[xshift=0 cm,yshift=4cm] % Constant
+  \draw[thick] (0.1,0.5)--(0.9,0.5);
+  \end{scope}
+  \begin{scope}[xshift=1 cm,yshift=4cm] % dirac
+  \draw[thick, ->] (0.3,0.15)--(0.3,0.85);
+  \draw[thick, ->] (0.7,0.15)--(0.7,0.85);
+  \draw[thick] (0.1,0.15)--(0.9,0.15);
+  \end{scope}
+  \begin{scope}[xshift=3.3 cm,yshift=4.15cm] % spirale
+\draw [thick, domain=0.08:0.9, samples=80]
+plot (\x, {0.6+0.35*sin(15*\x r)}, {0.6+0.35*cos(15*\x r)}) ;
+  \end{scope}
+  \begin{scope}[xshift=2 cm,yshift=4cm] % Sinus
+  \draw[thick] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
   \end{scope}
 \end{scope}
 
 \end{tikzpicture}
-%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
