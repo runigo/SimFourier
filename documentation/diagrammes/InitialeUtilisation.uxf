@@ -46,7 +46,8 @@ Forme
 
 Symétrie
 
-Amplitude, décalage verticale
+Amplitude, moyenne
+Période = largeur
 valign=top</panel_attributes>
     <additional_attributes/>
   </element>
@@ -62,6 +63,7 @@ valign=top</panel_attributes>
 --
 
 Complexe ou non
+ou peigne de Dirac
 
 Fréquence : 2^eta + rho
 
@@ -113,6 +115,7 @@ halign=left</panel_attributes>
       <h>200</h>
     </coordinates>
     <panel_attributes>complexe, réel
+peigne de Dirac
 
 eta, rho
 
@@ -136,7 +139,7 @@ var 2 : A
 
 var 3 : B
 
-var 4 : 
+var 4 : C
 
 
 
@@ -183,6 +186,75 @@ var 2 : rho
 var 3 : khi
 
 var 4 : 
+
+
+
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>810</x>
+      <y>50</y>
+      <w>130</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>[0, 1, 2, 3, 4, 5]
+
+[0 .. 100]
+
+[0 .. 100]
+
+[0 .. 100]
+
+[0 .. 100]
+
+
+
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>840</x>
+      <y>260</y>
+      <w>130</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>[0, 1]
+
+[0 .. 100]
+
+[0 .. 100]
+
+[0 .. 100]
+
+[0 .. 100]
+
+
+
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>800</x>
+      <y>460</y>
+      <w>130</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>[0, 1, 2]
+
+[0 .. 100]
+
+[0 .. 100]
+
+[0 .. 100]
+
+[0 .. 100]
 
 
 

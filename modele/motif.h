@@ -1,5 +1,5 @@
 /*
-Copyright mars 2024, Stephan Runigo
+Copyright janvier 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -44,6 +44,9 @@ typedef struct MotifT motifT;
 		{
 		fonctionT fonction;	// Fonction motif
 
+		int forme;	//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
+						//	4 : gaussienne, 5 : lorentzienne
+
 		int a;		//	Longueur horizontale (montée ou positif)
 		int b;		//	Longueur horizontale (descente ou négatif)
 
@@ -51,9 +54,6 @@ typedef struct MotifT motifT;
 		float B;	//	décalage verticale
 
 		float sym;	//	facteur de symétrie (a/b)
-
-		int forme;	//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
-						//	4 : gaussienne, 5 : lorentzienne
 		};
 
 	//	Initialisation

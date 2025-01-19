@@ -1,5 +1,5 @@
 /*
-Copyright mars 2024, Stephan Runigo
+Copyright janvier 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -144,12 +144,12 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 
 	switch (fonction)
 		{
-		case 0:
+		case 0:	// Change un paramètre du motif
 			motifChangeParametre(&(*initiale).motif, parametre, variation);break;
-		case 1:
-			partieChangeParametre(&(*initiale).porteuse, parametre, variation);break;
-		case 2:
+		case 1:	// Change un paramètre de l'enveloppe
 			partieChangeParametre(&(*initiale).enveloppe, parametre, variation);break;
+		case 2:	// Change un paramètre de la porteuse
+			partieChangeParametre(&(*initiale).porteuse, parametre, variation);break;
 		default:
 			;
 		}

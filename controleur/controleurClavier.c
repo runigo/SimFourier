@@ -1,7 +1,7 @@
 /*
-Copyright janvier 2024, Stephan Runigo
+Copyright janvier 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.1 Transformation de Fourier
+SimFourier 1.2 Transformation de Fourier
 (SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
@@ -87,24 +87,6 @@ int controleurClavier(controleurT * controleur)
 	//	case SDLK_F8:
 	//		grapheChangeSupport(&(*controleur).graphes);break;
 
-	// Paramètres porteuse
-		case SDLK_p: // Eta +
-			modeleChangeInitiale(&(*controleur).modele, 1, 1, 1);break;
-		case SDLK_m: // Eta -
-			modeleChangeInitiale(&(*controleur).modele, 1, 1, -1);break;
-		case SDLK_l: // Rho +
-			modeleChangeInitiale(&(*controleur).modele, 1, 2, 1);break;
-		case SDLK_k: // Rho -
-			modeleChangeInitiale(&(*controleur).modele, 1, 2, -1);break;
-		case SDLK_o: // Complexe
-			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0);break;
-		case SDLK_i: // Réel
-			modeleChangeInitiale(&(*controleur).modele, 1, 0, 1);break;
-		case SDLK_u: // Khi +
-			modeleChangeInitiale(&(*controleur).modele, 1, 3, 1);break;
-		case SDLK_j: // Khi -
-			modeleChangeInitiale(&(*controleur).modele, 1, 3, -1);break;
-
 	// Paramètres motif
 		case SDLK_t: // Amplitude +
 			modeleChangeInitiale(&(*controleur).modele, 0, 2, 1);break;
@@ -125,20 +107,38 @@ int controleurClavier(controleurT * controleur)
 
 	// Paramètres enveloppe
 		case SDLK_a: // Eta +
-			modeleChangeInitiale(&(*controleur).modele, 2, 1, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 1, 1);break;
 		case SDLK_q: // Eta -
-			modeleChangeInitiale(&(*controleur).modele, 2, 1, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 1, -1);break;
 		case SDLK_s: // Rho +
-			modeleChangeInitiale(&(*controleur).modele, 2, 2, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 2, 1);break;
 		case SDLK_d: // Rho -
-			modeleChangeInitiale(&(*controleur).modele, 2, 2, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 2, -1);break;
 		case SDLK_z: // Périodique
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 0, 1);break;
 		case SDLK_e: // Non périodique
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0);break;
 		case SDLK_r: // Khi +
-			modeleChangeInitiale(&(*controleur).modele, 2, 3, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 3, 1);break;
 		case SDLK_f: // Khi -
+			modeleChangeInitiale(&(*controleur).modele, 1, 3, -1);break;
+
+	// Paramètres porteuse
+		case SDLK_p: // Eta +
+			modeleChangeInitiale(&(*controleur).modele, 2, 1, 1);break;
+		case SDLK_m: // Eta -
+			modeleChangeInitiale(&(*controleur).modele, 2, 1, -1);break;
+		case SDLK_l: // Rho +
+			modeleChangeInitiale(&(*controleur).modele, 2, 2, 1);break;
+		case SDLK_k: // Rho -
+			modeleChangeInitiale(&(*controleur).modele, 2, 2, -1);break;
+		case SDLK_o: // Complexe
+			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0);break;
+		case SDLK_i: // Réel
+			modeleChangeInitiale(&(*controleur).modele, 2, 0, 1);break;
+		case SDLK_u: // Khi +
+			modeleChangeInitiale(&(*controleur).modele, 2, 3, 1);break;
+		case SDLK_j: // Khi -
 			modeleChangeInitiale(&(*controleur).modele, 2, 3, -1);break;
 
 	// Paramètres graphique
