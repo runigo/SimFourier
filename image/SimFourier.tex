@@ -33,7 +33,8 @@
   styleEteint/.style={black!30!brown!20!,draw=gray,very thick},
   boutonSelect/.style={black!20!brown!10!,draw=black,thick},
   traitEteint/.style={black!30!,draw=black!10!,thick},
-  traitSelect/.style={black!70!,draw=black!30!,thick}]
+  traitSelect/.style={black!70!,draw=black!30!,thick},
+  petitbouton/.style={white,draw=black, thick}]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                          MENU  INITIAL
   \begin{scope}[xshift=-7 cm,yshift=0.0cm]
@@ -161,6 +162,105 @@
   \end{scope}
 
   \end{scope}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                          MENU  SIMULATION
+\begin{scope}[xshift=7 cm,yshift=0.0cm]
+
+                   %  Onglets et panneau
+ % \begin{scope}[xshift=0 cm,yshift=20cm]
+ %   \draw[gray!10!] (-0.1, 0.6) rectangle (5.1,-20.1); % \draw[gray!10!] (0, 0.5) rectangle (5,-20);
+ %   \shade[panneauOnglet]
+ %     (2.5, 0) -- (2.7, 0.5) -- (4.8, 0.5) -- (5, 0) -- cycle;
+ %   \draw (3.75,0.3) node [black!20!gray]{simulation};
+ %   \fill[panneauControles] 
+ %     (0, 0) -- (0.2, 0.5) -- (2.3, 0.5) -- (2.5, 0) -- (5, 0) -- (5, -20) -- (0, -20) -- cycle;
+ %   \draw (1.25,0.3) node [black]{initiale};
+ % \end{scope}
+
+                   %  Onglet
+  \begin{scope}[xshift=0 cm,yshift=20cm]
+    \draw[gray!10!] (-0.1, 0.6) rectangle (5.1,-20.1);
+    \shade[panneauOnglet]%\fill[boutonEteint] 
+      (0, 0) -- (0.2, 0.5) -- (2.3, 0.5) -- (2.5, 0) -- (5, 0) -- cycle;
+    \draw (1.25,0.3) node [black!20!gray]{initiale};
+    \fill[panneauControles] 
+      (2.5, 0) -- (2.7, 0.5) -- (4.8, 0.5) -- (5, 0) -- (5, -20) -- (0, -20) -- (0, 0) -- cycle;
+    \draw (3.75,0.3) node [black]{simulation};
+  \end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%        COUPLAGE
+  \begin{scope}[xshift=0.5 cm,yshift=16.4cm]
+    \fill[petitbouton] (3.5,-1.9) circle (0.3cm);
+    \node[scale=\scl] at (3.5,-1.20) {Mixte};
+    \fill[petitbouton] (3.5,-0.45) circle (0.3cm);
+    \node[scale=\scl] at (3.5,0.15) {Fixe};
+    \fill[petitbouton] (3.5,1.0) circle (0.3cm);
+    \node[scale=\scl] at (3.5,1.6) {Libre};
+    \fill[petitbouton] (3.5,2.35) circle (0.3cm);
+    \node[scale=\scl] at (3.5,2.95) {\footnotesize{Périodique}};
+  \end{scope}
+
+    \draw (1.2,19.5) node [black]{Couplage};
+  \begin{scope}[xshift=0.4 cm,yshift=17.1cm, scale=0.7]
+  \fill[gray!50!] (0,0) rectangle (3,3);
+  \fill[gray] (1.3,0) rectangle (3,1.7);
+  \end{scope}
+
+    \draw (1.2,16.4) node [black]{Masse};
+  \begin{scope}[xshift=0.4 cm,yshift=14cm, scale=0.7]
+  \fill[gray!50!] (0,0) rectangle (3,3);
+  \fill[gray] (1.3,0) rectangle (3,1.7);
+  \end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%        DISSIPATION
+  \begin{scope}[xshift=0.5 cm,yshift=9.4cm]
+    \fill[petitbouton] (3.5,-0.45) circle (0.3cm);
+    \node[scale=\scl] at (3.5,0.15) {\footnotesize{Extrémité}};
+    \fill[petitbouton] (3.5,1.0) circle (0.3cm);
+    \node[scale=\scl] at (3.5,1.6) {Nulle};
+    \fill[petitbouton] (3.5,2.35) circle (0.3cm);
+    \node[scale=\scl] at (3.5,2.95) {\footnotesize{Uniforme}};
+  \end{scope}
+
+    \draw (1.4,11.8) node [black]{Dissipation};
+  \begin{scope}[xshift=0.4 cm,yshift=9.3cm, scale=0.7]
+  \fill[gray!50!] (0,0) rectangle (3,3);
+  \fill[gray] (1.3,0) rectangle (3,1.7);
+  \end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%        MOTEUR
+  \begin{scope}[xshift=0.5 cm,yshift=16.4cm]
+    \fill[petitbouton] (3.5,-1.9) circle (0.3cm);
+    \node[scale=\scl] at (3.5,-1.20) {Mixte};
+    \fill[petitbouton] (3.5,-0.45) circle (0.3cm);
+    \node[scale=\scl] at (3.5,0.15) {Fixe};
+    \fill[petitbouton] (3.5,1.0) circle (0.3cm);
+    \node[scale=\scl] at (3.5,1.6) {Libre};
+    \fill[petitbouton] (3.5,2.35) circle (0.3cm);
+    \node[scale=\scl] at (3.5,2.95) {\footnotesize{Périodique}};
+  \end{scope}
+
+    \draw (1.2,19.5) node [black]{Couplage};
+  \begin{scope}[xshift=0.4 cm,yshift=17.1cm, scale=0.7]
+  \fill[gray!50!] (0,0) rectangle (3,3);
+  \fill[gray] (1.3,0) rectangle (3,1.7);
+  \end{scope}
+
+    \draw (1.2,16.4) node [black]{Masse};
+  \begin{scope}[xshift=0.4 cm,yshift=14cm, scale=0.7]
+  \fill[gray!50!] (0,0) rectangle (3,3);
+  \fill[gray] (1.3,0) rectangle (3,1.7);
+  \end{scope}
+
+
+
+
+
+\end{scope}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    BOUTONS ROTATIF
 %      Carrés gris
   \begin{scope}[xshift=0 cm,yshift=0cm, scale=0.5]
@@ -246,18 +346,6 @@
   \end{scope}
 \end{scope}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                          MENU  SIMULATION
-  \begin{scope}[xshift=7 cm,yshift=0.0cm]
-
-                   %  Onglet
-  \begin{scope}[xshift=0 cm,yshift=20cm]
-    \fill[boutonEteint] 
-      (0, 0) -- (0.2, 0.5) -- (2.3, 0.5) -- (2.5, 0) -- (5, 0) -- cycle;
-    \fill[panneauControles] 
-      (2.5, 0) -- (2.7, 0.5) -- (4.8, 0.5) -- (5, 0) -- (5, -20) -- (0, -20) -- (0, 0) -- cycle;
-  \end{scope}
-
-  \end{scope}
 
 \end{tikzpicture}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
