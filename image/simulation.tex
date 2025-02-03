@@ -3,21 +3,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                          MENU  SIMULATION
 \begin{scope}[xshift=7 cm,yshift=0.0cm]
 
-                   %  Onglets et panneau
- % \begin{scope}[xshift=0 cm,yshift=20cm]
- %   \draw[gray!10!] (-0.1, 0.6) rectangle (5.1,-20.1); % \draw[gray!10!] (0, 0.5) rectangle (5,-20);
- %   \shade[panneauOnglet]
- %     (2.5, 0) -- (2.7, 0.5) -- (4.8, 0.5) -- (5, 0) -- cycle;
- %   \draw (3.75,0.3) node [black!20!gray]{simulation};
- %   \fill[panneauControles] 
- %     (0, 0) -- (0.2, 0.5) -- (2.3, 0.5) -- (2.5, 0) -- (5, 0) -- (5, -20) -- (0, -20) -- cycle;
- %   \draw (1.25,0.3) node [black]{initiale};
- % \end{scope}
-
                    %  Onglet
   \begin{scope}[xshift=0 cm,yshift=20cm]
     \draw[gray!10!] (-0.1, 0.6) rectangle (5.1,-20.1);
-    \shade[panneauOnglet]%\fill[boutonEteint] 
+    \shade[panneauOnglet]
       (0, 0) -- (0.2, 0.5) -- (2.3, 0.5) -- (2.5, 0) -- (5, 0) -- cycle;
     \draw (1.25,0.3) node [black!20!gray]{initiale};
     \fill[panneauControles] 
