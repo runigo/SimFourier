@@ -5,7 +5,7 @@
 
                    %  Onglet
   \begin{scope}[xshift=0 cm,yshift=20cm]
-    \draw[gray!10!] (-0.1, 0.6) rectangle (5.1,-20.1);
+    \fill[gray,draw=gray!10!] (-0.1, 0.6) rectangle (5.1,-20.1);
     \shade[panneauOnglet]
       (0, 0) -- (0.2, 0.5) -- (2.3, 0.5) -- (2.5, 0) -- (5, 0) -- cycle;
     \draw (1.25,0.3) node [black!20!gray]{initiale};
@@ -38,7 +38,7 @@
   \end{scope}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%        DISSIPATION
-  \begin{scope}[xshift=0.5 cm,yshift=9.4cm]
+  \begin{scope}[xshift=0.5 cm,yshift=9.8cm]
     \fill[petitbouton] (3.5,-0.45) circle (\diametre);
     \node[scale=\scl] at (3.5,0.15) {\footnotesize{Extrémité}};
     \fill[petitbouton] (3.5,1.0) circle (\diametre);
@@ -47,32 +47,32 @@
     \node[scale=\scl] at (3.5,2.95) {\footnotesize{Uniforme}};
   \end{scope}
 
-    \draw (1.4,11.8) node [black]{Dissipation};
-  \begin{scope}[xshift=0.4 cm,yshift=9.3cm, scale=0.7]
+    \draw (1.4,12.3) node [black]{Dissipation};
+  \begin{scope}[xshift=0.4 cm,yshift=9.8cm, scale=0.7]
 \input{./fonction/rotatif.tex}
   \end{scope}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%        MOTEUR
-  \begin{scope}[xshift=0.5 cm,yshift=5.4cm]
-    \fill[petitbouton] (3.5,-1.9) circle (\diametre);
-    \node[scale=\scl] at (3.5,-1.20) {Mixte};
-    \fill[petitbouton] (3.5,-0.45) circle (\diametre);
-    \node[scale=\scl] at (3.5,0.15) {Fixe};
-    \fill[petitbouton] (3.5,1.0) circle (\diametre);
-    \node[scale=\scl] at (3.5,1.6) {Libre};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%        SIMULATION
+  \begin{scope}[xshift=0.5 cm,yshift=4.8cm]
     \fill[petitbouton] (3.5,2.35) circle (\diametre);
-    \node[scale=\scl] at (3.5,2.95) {\footnotesize{Périodique}};
+    \node[scale=\scl] at (3.5,2.95) {Pause};
+   % \fill[petitbouton] (3.5,1.0) circle (\diametre);
+   % \node[scale=\scl] at (3.5,1.6) {Min};
+   % \fill[petitbouton] (3.5,-0.45) circle (\diametre);
+   % \node[scale=\scl] at (3.5,0.15) {Max};
+    %\fill[petitbouton] (3.5,-1.9) circle (\diametre);
+    %\node[scale=\scl] at (3.5,-1.20) {Mixte};
   \end{scope}
 
-  \begin{scope}[xshift=0.4 cm,yshift=5.1cm, scale=0.7]
+  \begin{scope}[xshift=0.4 cm,yshift=5.8cm, scale=0.7]
 \input{./fonction/rotatif.tex}
-    \draw (1.2,2.5) node [black]{Couplage};
+    \draw (1.4,3.5) node [black]{Simulation};
   \end{scope}
 
-  \begin{scope}[xshift=0.4 cm,yshift=2cm, scale=0.7]
-\input{./fonction/rotatif.tex}
-    \draw (1.2,2.4) node [black]{Masse};
-  \end{scope}
+ % \begin{scope}[xshift=0.4 cm,yshift=2.6cm, scale=0.7]
+%\input{./fonction/rotatif.tex}
+ %   \draw (1.2,2.4) node [black]{Masse};
+  %\end{scope}
 
 
 
