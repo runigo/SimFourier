@@ -3,6 +3,7 @@
 % Simulateur de transformation de fourier
 %
 \documentclass[a4paper,12pt,oneside]{article}
+\usepackage{comment}
 \usepackage{tikz}
 \usetikzlibrary{trees}
 \usetikzlibrary{decorations.pathmorphing}
@@ -15,7 +16,6 @@
 \usepackage[active,tightpage]{preview}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{comment}
 %\usepackage[greek, frenchb]{babel}
 \PreviewEnvironment{tikzpicture}
 \setlength\PreviewBorder{0pt}%
@@ -30,9 +30,9 @@
   %panneauControles/.style={black!10!brown!10!,draw=black!60!brown!40!,thick},
   panneauControles/.style={black!10!brown!10!},
   panneauOnglet/.style={bottom color=black!60!brown!60!, top color=black!20!brown!20!},
-  boutonEteint/.style={black!30!brown!20!,draw=black!30!brown!40!,thick},
+  boutonEteint/.style={black!30!brown!20!,draw=black!30!brown!40!,very thick},
   styleEteint/.style={black!30!brown!20!,draw=gray,very thick},
-  boutonSelect/.style={black!20!brown!10!,draw=black,thick},
+  boutonSelect/.style={white,draw=black,very thick},
   traitEteint/.style={black!30!,draw=black!10!,thick},
   traitSelect/.style={black!70!,draw=black!30!,thick},
   petitbouton/.style={white,draw=black, thick}]

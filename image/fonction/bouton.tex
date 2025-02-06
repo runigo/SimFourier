@@ -2,32 +2,95 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    BOUTONS ROTATIF
 %      Carrés gris
-  \begin{scope}[xshift=0 cm,yshift=10cm, scale=0.5]
+\begin{comment}
+  \begin{scope}[xshift=0 cm,yshift=15cm, scale=0.5]
   \fill[gray!50!] (0,0) rectangle (3,3);
   \fill[gray] (1,0) rectangle (3,2);
   \fill[gray!50!black] (2,0) rectangle (3,1);
   \end{scope}
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%     BOUTONS SELECTIF
 %      Grille
 \begin{scope}[xshift=0 cm,yshift=4cm]
-    \foreach \i in {0,1,...,5} {\draw[gray] (\i,0)--(\i,5);\draw[gray] (0,\i)--(4,\i);}
+    \begin{scope}[xshift=3.2 cm,yshift=0.1cm] %      Grille
+      \fill[boutonSelect] (-0.075,0) rectangle (1.075,4.6);
+      \foreach \i in {0,1.15,...,5} {\draw[boutonSelect] (-0.075,\i)--(1.075,\i);}
+      \draw[boutonSelect] (-0.075,0)--(-0.075,4.6);
+      \draw[boutonSelect] (1.075,0)--(1.075,4.6);
+      \begin{scope}[yshift=3.54 cm] %              Constant
+        \draw[boutonSelect] (0.1,0.7)--(0.9,0.7);
+      \end{scope}
+      \begin{scope}[yshift=2.37 cm] %              Carré NS
+        \draw[boutonSelect] (0.1,0.5)--(0.1,0.9)--(0.6,0.9)--(0.6,0.1)--(0.9,0.1)--(0.9,0.5);
+      \end{scope}
+      \begin{scope}[yshift=1.24 cm] %           Triangle NS
+        \draw[boutonSelect] (0.1,0.5)--(0.4,0.9)--(0.6,0.1)--(0.9,0.5);
+      \end{scope}
+      \begin{scope}[yshift=0.1 cm] %               Sinus
+        \draw[boutonSelect] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
+      \end{scope}
+    \end{scope}
+\end{scope}
 
+\begin{scope}[xshift=0 cm,yshift=4cm]
+  \begin{scope}[xshift=0.2 cm,yshift=8cm]
+    \begin{scope}[xshift=3.2 cm,yshift=0cm]
+      \fill[boutonSelect] (-0.075,0) rectangle (1.075,5.8);
+      \foreach \i in {0,1.15,...,5} {\draw[boutonSelect] (-0.075,\i)--(1.075,\i);}
+      \draw[boutonSelect] (-0.075,0)--(-0.075,4.6);\draw[boutonSelect] (1.075,0)--(1.075,4.6);
+      \begin{scope}[yshift=4.7 cm] % 0
+        \draw[boutonSelect] (0.1,0.3)--(0.9,0.3);
+        \draw[boutonSelect] (0.5,0.3)--(0.5,0.7);
+      \end{scope}
+      \begin{scope}[yshift=3.5 cm] % 1
+        \draw[boutonSelect] (0.2,0.3)--(0.2,0.7);\draw[boutonSelect] (0.5,0.3)--(0.5,0.7);
+        \draw[boutonSelect] (0.8,0.3)--(0.8,0.7); 
+        \draw[boutonSelect] (0.1,0.3)--(0.9,0.3);
+      \end{scope}
+      \begin{scope}[xshift=0.1 cm,yshift=2.45 cm] % Gaussienne
+          \draw [boutonSelect, domain=-0.4:0.4, samples=80]
+            plot (\x+0.4, {0.1+0.6*exp(-100 *\x * \x)}) ;
+      \end{scope}
+      \begin{scope}[xshift=0.1 cm,yshift=1.33 cm] % Lorentzienne
+          \draw [boutonSelect, domain=-0.4:0.4, samples=80]
+            plot (\x+0.4, {0.7/(1 + 100 * \x * \x)}) ;
+      \end{scope}
+      \begin{scope}[xshift=0.1 cm,yshift=0.3 cm] % sinc
+          \draw [boutonSelect, domain=-3.55:3.55, samples=80]
+            plot (0.1*\x+0.4, {(1 - \x * \x * ( 0.31) + \x * \x * \x * \x * (0.05)
+             - \x * \x * \x * \x * \x * \x * ( 0.0023)-0.4}) ;
+      \end{scope}
+    \end{scope}
+  \end{scope}
+
+\end{scope}
+\begin{scope}[xshift=-2 cm,yshift=2cm]
+    \begin{scope}[xshift=3.2 cm]  %      Grille
+      \fill[boutonSelect] (-0.075,0) rectangle (1.075,4.6);
+      \foreach \i in {0,1.15,...,5} {\draw[boutonSelect] (-0.075,\i)--(1.075,\i);}
+      \draw[boutonSelect] (-0.075,0)--(-0.075,4.6);\draw[boutonSelect] (1.075,0)--(1.075,4.6);
+      \begin{scope}[yshift=3.8 cm] % Constant
+          \draw[boutonSelect] (0.1,0.5)--(0.9,0.5);
+      \end{scope}
+      \begin{scope}[yshift=2.4 cm] % dirac
+          \draw[boutonSelect, >=latex, ->] (0.3,0.15)--(0.3,0.85);
+          \draw[boutonSelect, >=latex, ->] (0.7,0.15)--(0.7,0.85);
+          \draw[boutonSelect] (0.1,0.15)--(0.9,0.15);
+      \end{scope}
+      \begin{scope}[yshift=1.25 cm] % Sinus
+          \draw[boutonSelect] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
+      \end{scope}
+  \begin{scope}[xshift=0.3 cm,yshift=0.15cm] % spirale
+  \draw [boutonSelect, domain=0.08:0.9, samples=80]
+  plot (\x, {0.6+0.35*sin(15*\x r)}, {0.6+0.35*cos(15*\x r)}) ;
+  \end{scope}
+    \end{scope}
+\end{scope}
 % 0
-  \begin{scope}[xshift=0 cm,yshift=0cm] % Constant
-  \draw[thick] (0.1,0.7)--(0.9,0.7);
-  \end{scope}
-  \begin{scope}[xshift=1 cm,yshift=0cm] % Carré
-  \draw[thick] (0.1,0.5)--(0.1,0.9)--(0.5,0.9)--(0.5,0.1)--(0.9,0.1)--(0.9,0.1)--(0.9,0.5);
-  \end{scope}
-  \begin{scope}[xshift=2 cm,yshift=0cm] % Triangle
-  \draw[thick] (0.1,0.5)--(0.3,0.9)--(0.7,0.1)--(0.9,0.5);
-  \end{scope}
-  \begin{scope}[xshift=3 cm,yshift=0cm] % Sinus
-  \draw[thick] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
-  \end{scope}
 % 1
-  \begin{scope}[xshift=0 cm,yshift=1cm] % Constant
+\begin{comment}
+  \begin{scope}[xshift=0 cm,yshift=1.15cm] % Constant
   \draw[thick] (0.1,0.7)--(0.9,0.7);
   \end{scope}
   \begin{scope}[xshift=1 cm,yshift=1cm] % Carré
@@ -40,20 +103,20 @@
   \draw[thick] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
   \end{scope}
 % 2
-  \begin{scope}[xshift=0 cm,yshift=2cm] % Constant
+  \begin{scope}[xshift=0 cm,yshift=0cm] % Constant
   \draw[very thick] (0.1,0.7)--(0.9,0.7);
   \end{scope}
-  \begin{scope}[xshift=1 cm,yshift=2cm] % Carré NS  --(0.2,0.5)  --(0.8,0.5)
+  \begin{scope}[xshift=1.2 cm,yshift=0.1cm] % Carré NS  --(0.2,0.5)  --(0.8,0.5)
   \draw[very thick] (0.1,0.5)--(0.1,0.9)--(0.6,0.9)--(0.6,0.1)--(0.9,0.1)--(0.9,0.5);
   \end{scope}
-  \begin{scope}[xshift=2 cm,yshift=2cm] % Triangle NS
+  \begin{scope}[xshift=2.3 cm,yshift=0cm] % Triangle NS
   \draw[very thick] (0.1,0.5)--(0.4,0.9)--(0.6,0.1)--(0.9,0.5);
   \end{scope}
-  \begin{scope}[xshift=3 cm,yshift=2cm] % Sinus
+  \begin{scope}[xshift=3.45 cm,yshift=0cm] % Sinus
   \draw[very thick] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
   \end{scope}
 % 3
-  \begin{scope}[xshift=0 cm,yshift=3cm] % Constant
+  \begin{scope}[xshift=0 cm,yshift=3.45cm] % Constant
   \draw[thick] (0.1,0.7)--(0.9,0.7);
   \end{scope}
   \begin{scope}[xshift=1 cm,yshift=3cm] % Carré NP
@@ -68,21 +131,21 @@
   \draw[thick] (0.1,0.3)--(0.2,0.3); \draw[thick] (0.8,0.3)--(0.9,0.3);
   \end{scope}
 % 4
-  \begin{scope}[xshift=0 cm,yshift=4cm] % Constant
+  \begin{scope}[xshift=0 cm,yshift=1.15cm] % Constant
   \draw[very thick] (0.1,0.5)--(0.9,0.5);
   \end{scope}
-  \begin{scope}[xshift=1 cm,yshift=4cm] % dirac
+  \begin{scope}[xshift=1.2 cm,yshift=1.2cm] % dirac
   \draw[very thick, >=latex, ->] (0.3,0.15)--(0.3,0.85);
   \draw[very thick, >=latex, ->] (0.7,0.15)--(0.7,0.85);
   \draw[very thick] (0.1,0.15)--(0.9,0.15);
   \end{scope}
-  \begin{scope}[xshift=3.3 cm,yshift=4.15cm] % spirale
+  \begin{scope}[xshift=3.7 cm,yshift=1.2cm] % spirale
   \draw [very thick, domain=0.08:0.9, samples=80]
   plot (\x, {0.6+0.35*sin(15*\x r)}, {0.6+0.35*cos(15*\x r)}) ;
   \end{scope}
-  \begin{scope}[xshift=2 cm,yshift=4cm] % Sinus
+  \begin{scope}[xshift=2.3 cm,yshift=1.2cm] % Sinus
   \draw[very thick] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
   \end{scope}
-\end{scope}
+\end{comment}
 
 
