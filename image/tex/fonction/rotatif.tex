@@ -5,4 +5,34 @@
   \fill[gray!50!] (0,0) rectangle (3,3);
   \fill[gray] (1,0) rectangle (3,2);
   \fill[gray!50!black] (2,0) rectangle (3,1);
+%%%%%%%%%
 
+
+\newcommand{\clock}[4]{%
+  \begin{scope}[xshift=2.25*#1cm,yshift=2.25*#2cm]
+  % \filldraw [fill=#3, line width=1.6pt] (0,0) circle (1cm); % simple fill (unused)
+  % \draw[fill] (0,0) circle (1mm); % border (unused)
+  \shadedraw [inner color=#3!30!white, outer color=#3!90!black, 
+    line width=1.6pt] (0,0) circle (1cm); % disk with shadow and border
+  \foreach \angle in {0, 30, ..., 330} 
+    \draw[line width=1pt] (\angle:0.82cm) -- (\angle:1cm);
+  \foreach \angle in {0,90,180,270}
+    \draw[line width=1.3pt] (\angle:0.75cm) -- (\angle:1cm);
+  \draw[line width=1.6pt] (0,0) -- (90-30*#4:0.6cm); % the hand 
+  \end{scope}
+}
+% Default on latex.ltx: \fboxsep = 3pt \fboxrule = .4pt
+\fboxsep = 3pt \fboxrule = 1.5pt 
+\newcounter{itimesj}
+\fbox{%
+\begin{tikzpicture}[scale=0.5]
+\begin{scope}[line cap=round]
+\foreach \i in {0,...,11}
+  \foreach \j in {0,...,11} {
+    % We use round by caution, because we are getting real numbers
+    \pgfmathparse{round(mod(\i*\j,12))} 
+    % \pgfmathresult = 3.0 gives itimesj = 3
+    \pgfmathsetcounter{itimesj}{\pgfmathresult} 
+    \clock{\i}{-\j}{clock\theitimesj}{\i*\j}; 
+  }
+\end{scope}
