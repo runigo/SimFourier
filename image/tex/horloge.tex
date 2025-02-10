@@ -1,13 +1,26 @@
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    BOUTONS ROTATIF
-%      Carrés gris
-  \fill[gray!50!] (0,0) rectangle (3,3);
-  \fill[gray] (1,0) rectangle (3,2);
-  \fill[gray!50!black] (2,0) rectangle (3,1);
-%%%%%%%%%
-
-\begin{comment}
+% Arithmetic of the clock
+% Author: Juan Luis Varona
+% http://www.unirioja.es/cu/jvarona/
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage[active,tightpage]{preview}
+\PreviewMacro[{{}}]{\fbox}
+\setlength\PreviewBorder{3pt}
+% Colors:
+\definecolor{clock0}{cmyk}{1,0,0,0} % cyan
+\definecolor{clock1}{cmyk}{0.75,0.25,0,0}
+\definecolor{clock2}{cmyk}{0.5,0.5,0,0}
+\definecolor{clock3}{cmyk}{0.25,0.75,0,0}
+\definecolor{clock4}{cmyk}{0,1,0,0} % magenta
+\definecolor{clock5}{cmyk}{0,0.75,0.25,0}
+\definecolor{clock6}{cmyk}{0,0.5,0.5,0}
+\definecolor{clock7}{cmyk}{0,0.25,0.75,0}
+\definecolor{clock8}{cmyk}{0,0,1,0} % yellow
+\definecolor{clock9}{cmyk}{0.25,0,0.75,0}
+\definecolor{clock10}{cmyk}{0.5,0,0.5,0}
+\definecolor{clock11}{cmyk}{0.75,0,0.25,0}
+\begin{document}
 \newcommand{\clock}[4]{%
   \begin{scope}[xshift=2.25*#1cm,yshift=2.25*#2cm]
   % \filldraw [fill=#3, line width=1.6pt] (0,0) circle (1cm); % simple fill (unused)
@@ -36,4 +49,6 @@
     \clock{\i}{-\j}{clock\theitimesj}{\i*\j}; 
   }
 \end{scope}
-\end{comment}
+\end{tikzpicture}%
+}%
+\end{document}
