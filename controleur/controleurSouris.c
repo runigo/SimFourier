@@ -1,8 +1,8 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright février 2025, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 SimFourier 1.0 Transformation de Fourier
+(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -39,7 +39,8 @@ void controleurSourisInitialisePosition(controleurT * controleur, int position);
 
 int controleurSouris(controleurT * controleur)
 	{
-				// Action des mouvements de la souris
+				// Action du mouvement de la souris :
+		//	 Si cliq appuyé et dans la zone des représentations 3D : change le point de vue.
 
 	if((*controleur).appui==1)
 		{
@@ -64,17 +65,20 @@ int controleurSourisDefile(controleurT * controleur)
 	{
 				// Action des mouvements de la mollette
 
+		//	Si dans la zone des boutons rotatif, 
 	if((*controleur).commandes.sourisX>(*controleur).commandes.rotatifs)
 		{
 		controleurSourisDefileCommandes(controleur, 1);
 		}
 	else
+		//	Si dans la zone des curseurs linéaires 
 		{
 		if((*controleur).commandes.sourisY>(*controleur).commandes.bas)
 			{
 			controleurSourisDefileCommandes(controleur, 3);
 			}
 		else
+		//	Si dans la zone des fonctions, change la distance du point de vue (zone 0).
 			{
 			if((*controleur).commandes.sourisY>(*controleur).commandes.fourier)
 				{
@@ -91,7 +95,7 @@ int controleurSourisDefile(controleurT * controleur)
 
 int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe)
 	{
-				// Action des mouvements de la mollette dans la zone 0
+				// Action des mouvements de la mollette dans la zone 0 (zone des fonctions)
 
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{

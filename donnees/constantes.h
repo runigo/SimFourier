@@ -1,8 +1,8 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright février 2025, Stephan Runigo
 runigo@free.fr
-(SiCF 2.2 simulateur de chaîne de pendules, octobre 2020)
 SimFourier 1.0 Transformation de Fourier
+(SiCF 2.2 simulateur de chaîne de pendules, octobre 2020)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -58,6 +58,7 @@ termes.
 	//  NOMBRE DE COMMANDES
 #define BOUTON_COMMANDES 16		// Nombres de petits boutons
 #define ROTATIF_COMMANDES 7		// Nombre de boutons rotatifs
+#define CARRE_COMMANDES 21	    // Nombres de boutons carré
 #define LINEAIRE_COMMANDES 4	// Nombres de commandes linéaires
 #define TRIANGLE_COMMANDES 21	// Nombres de commandes triangulaires
 

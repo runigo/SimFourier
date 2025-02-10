@@ -55,6 +55,7 @@ int controleurKEYDOWN(controleurT * controleur);
 
 int controleurSimulationGraphique(controleurT * controleur)
 	{
+				//	Boucle d'évolution temporelle du programme
 	do	{
 		if (SDL_WaitEvent(&(*controleur).interface.evenement))
 			{
@@ -68,6 +69,7 @@ int controleurSimulationGraphique(controleurT * controleur)
 
 int controleurTraiteEvenement(controleurT * controleur)
 	{
+						//	 Traitement des évenements SDL
 	int sortie = 0;
 	switch((*controleur).interface.evenement.type)
 		{
@@ -94,6 +96,7 @@ int controleurTraiteEvenement(controleurT * controleur)
 
 int controleurEvolution(controleurT * controleur)
 	{
+			//	Évolution du modèle et de l'affichage
 
 	//horlogeChrono(&(*controleur).horloge, 0);
 
@@ -157,6 +160,7 @@ int controleurProjection(controleurT * controleur)
 int controleurEvolutionModele(controleurT * controleur)
 	{
 		//fprintf(stderr, "Evolution temporelle du système\n");
+
 	modeleEvolution(&(*controleur).modele, 1, (*controleur).options.echelle);
 
 	return 0;
@@ -186,7 +190,8 @@ int controleurConstructionGraphique(controleurT * controleur)
 
 int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe)
 	{
-		//		Dessine un graphe
+		//		Dessine une fonction
+
 	if((*graphe).modeSupport==0)
 		{
 		graphiquePendule(graphique, graphe);
@@ -207,9 +212,11 @@ int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe)
 
 int controleurKEYDOWN(controleurT * controleur)
 	{
+					// Action lors de l'appuie d'une touche
 	int Maj = 0;
-	int ctrl = 0;
+	int Ctrl = 0;
 
+		//	Enregistrement de l'appuie sur les touche Maj et Ctrl
 	if ((((*controleur).interface.evenement.key.keysym.mod & KMOD_LSHIFT) == KMOD_LSHIFT)
 	|| (((*controleur).interface.evenement.key.keysym.mod & KMOD_RSHIFT) == KMOD_RSHIFT))
 		{
@@ -218,15 +225,17 @@ int controleurKEYDOWN(controleurT * controleur)
 	if ((((*controleur).interface.evenement.key.keysym.mod & KMOD_LCTRL) == KMOD_LCTRL)
 	|| (((*controleur).interface.evenement.key.keysym.mod & KMOD_RCTRL) == KMOD_RCTRL))
 		{
-		ctrl = 1;
+		Ctrl = 1;
 		}
-	if(Maj == 0 && ctrl == 0)
+			//	
+
+	if(Maj == 0 && Ctrl == 0)
 		{
 		return controleurClavier(controleur);
 		}
 	else
 		{
-		if(Maj == 1 && ctrl == 1)
+		if(Maj == 1 && Ctrl == 1)
 			{
 			return controleurClavierCtrlMaj(controleur);
 			}
