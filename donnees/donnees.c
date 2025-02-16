@@ -1,8 +1,8 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright février 2025, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 1.0 Transformation de Fourier
+SimFourier 1.2.1 Transformation de Fourier
+(d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -43,7 +43,7 @@ int donneesOptions(optionsT * options)
 
 	(*options).modeDemo = 1;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
 	(*options).modeClavier = 1;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
-	(*options).modeMenu = 0;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
+	(*options).mode = 0;		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
 
 	(*options).modePause = 1;		// avec ou sans attente
 	(*options).duree = DUREE_IMP;		// 100 : temps réèl.
@@ -65,7 +65,8 @@ int donneesControleur(controleurT * controleur)
 
 	(*controleur).sortie = 0;	// Sortie de SiCP si <> 0
 	(*controleur).appui = 0;	// Appuie sur la souris
-	(*controleur).modeMenu = (*controleur).options.modeMenu;		// 0 : Menu, 1 SiCP, 2SiCF, 3 SiGP
+	(*controleur).mode = (*controleur).options.mode;	// 0 : Initiale, 1 : Simulation
+															// 2 : énergie potentielle
 
 		fprintf(stderr, " Initialisation du modèle\n");
 	donneesModele(&(*controleur).modele, &(*controleur).options);
