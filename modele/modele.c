@@ -1,7 +1,7 @@
 /*
-Copyright mars 2023, Stephan Runigo
+Copyright février 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2 Transformation de Fourier
+SimFourier 1.2.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -188,7 +188,7 @@ int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int vari
 	initialeChangeParametre(&(*modele).initiale, fonction, parametre, variation);
 
 		// Calcul de la fonction initiale
-	initialeCalculInitiale(&(*modele).initiale);
+//	initialeCalculInitiale(&(*modele).initiale);
 
 		// Projection sur le système
 	modeleProjectionInitiale(modele);

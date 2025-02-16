@@ -1,8 +1,8 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright février 2025, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 1.0 Transformation de Fourier
+SimFourier 1.2.1 Transformation de Fourier
+(d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -70,7 +70,7 @@ int controleurSimulationGraphique(controleurT * controleur)
 int controleurTraiteEvenement(controleurT * controleur)
 	{
 						//	 Traitement des évenements SDL
-	int sortie = 0;
+
 	switch((*controleur).interface.evenement.type)
 		{
 		case SDL_QUIT:
@@ -90,7 +90,6 @@ int controleurTraiteEvenement(controleurT * controleur)
 		default:
 			;
 		}
-	if(sortie!=0) (*controleur).sortie = 1;
 	return (*controleur).sortie;
 	}
 
@@ -104,13 +103,17 @@ int controleurEvolution(controleurT * controleur)
 
 	//horlogeChrono(&(*controleur).horloge, 1);
 
-	if((*controleur).options.modePause > 0)
-	//if((*controleur).modele.change==1)
-		{
-		controleurEvolutionModele(controleur);
-		//(*controleur).modele.change=0;
+	switch((*controleur).mode)
+		{		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
+		case 0:
+			controleurEvolutionModele(controleur);break;
+		case 1:
+			controleurEvolutionModele(controleur);break;
+		case 2:
+			controleurEvolutionModele(controleur);break;
+		default:
+			;
 		}
-
 	//horlogeChrono(&(*controleur).horloge, 2);
 
 	controleurConstructionGraphique(controleur);
@@ -161,7 +164,12 @@ int controleurEvolutionModele(controleurT * controleur)
 	{
 		//fprintf(stderr, "Evolution temporelle du système\n");
 
+	if((*controleur).options.modePause > 0)
+	//if((*controleur).modele.change==1)
+		{
 	modeleEvolution(&(*controleur).modele, 1, (*controleur).options.echelle);
+		//(*controleur).modele.change=0;
+		}
 
 	return 0;
 	}
