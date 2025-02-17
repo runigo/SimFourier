@@ -1,9 +1,10 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright février 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.0 Transformation de Fourier
+SimFourier 1.2.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -66,8 +67,10 @@ int modeleInitialiseMasse(modeleT * modele, float masse);
 	//	Variation d'une variable d'initiale
 int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int variation);
 
-	//	Évolution temporelle du système
-int modeleEvolution(modeleT * modele, int duree, int mode);
+	//	Évolution du modèle
+int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle);
+int modeleEvolutionSimulation(modeleT * modele, int duree, int echelle);
+int modeleEnergiePotentielle(modeleT * modele, int duree, int echelle);
 int modeleProjectionInitiale(modeleT * modele);
 #endif
 

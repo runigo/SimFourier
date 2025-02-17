@@ -65,7 +65,7 @@ int interfaceCreation(interfaceT * interface)
 	return 0;
 	}
 
-int interfaceDestruction(interfaceT * interface)
+int interfaceSuppression(interfaceT * interface)
 	{
 	SDL_DestroyWindow((*interface).fenetre);
 	return 0;

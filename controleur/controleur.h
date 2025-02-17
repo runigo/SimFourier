@@ -75,13 +75,14 @@ typedef struct ControleurT controleurT;
 		int curseurY;	//	Position y de la souris.
 
 		int mode;		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
+						//		-1 : pause de la simulation
 
 		};
 
-int controleurSimulationGraphique(controleurT * control);
+int controleurDemarrage(controleurT * control);
 int controleurEvolutionModele(controleurT * controleur);
 
-int controleurDestruction(controleurT * control);
+int controleurSuppression(controleurT * control);
 
 int controleurInitialiseNombre(controleurT * controleur, int nombre);
 

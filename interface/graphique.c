@@ -38,7 +38,7 @@ void graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sin
 
 void graphiqueMobile(graphiqueT * graphique, grapheT * graphe);
 
-int graphiqueDestruction(graphiqueT * graphique)
+int graphiqueSuppression(graphiqueT * graphique)
 	{
 	SDL_DestroyRenderer((*graphique).rendu);
 	return 0;

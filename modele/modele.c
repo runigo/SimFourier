@@ -3,7 +3,8 @@ Copyright février 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2.1 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -33,8 +34,9 @@ termes.
 
 	//		INITIALISATION
 
-	//		ÉVOLUTION TEMPORELLE
+	//		ÉVOLUTION
 int modeleProjectionSystemeFourier(modeleT * modele);
+int modeleProjectionSystemeEnergie(modeleT * modele);
 
 	//		JAUGE ET NORMALISATION
 //int modeleJaugeZero(modeleT * modele);
@@ -128,11 +130,10 @@ int modeleProjectionInitiale(modeleT * modele) {
 */
 /*------------------------  ÉVOLUTION DU MODÈLE  -------------------------*/
 
-int modeleEvolution(modeleT * modele, int duree, int echelle)
+int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 	{
 	(void)duree;
-		//fprintf(stderr, "Evolution temporelle du système\n");
-	//systemeEvolution(&(*modele).modele.systeme, duree, 1);
+		//fprintf(stderr, "Calcul de la fonction initiale\n");
 	modeleProjectionInitiale(modele);
 
 		//fprintf(stderr, "Projection du système sur les spectres\n");
@@ -148,6 +149,45 @@ int modeleEvolution(modeleT * modele, int duree, int echelle)
 
 		//fprintf(stderr, "Mise à jour des observables\n");
 	//observablesMiseAJour(&(*modele).observables, &(*modele).modele.systeme);
+
+	return 0;
+	}
+
+int modeleEvolutionSimulation(modeleT * modele, int duree, int echelle)
+	{
+	(void)duree;
+		//fprintf(stderr, "Evolution temporelle du système\n");
+	systemeEvolution(&(*modele).systeme, duree, 1);
+
+		//fprintf(stderr, "Projection du système sur les spectres\n");
+	modeleProjectionSystemeFourier(modele);
+
+		//fprintf(stderr, "Calcul des spectres\n");
+	fourierCalcule(&(*modele).fourier);
+
+		//fprintf(stderr, "Normalisation des spectres\n");
+	fonctionNormalise(&(*modele).fourier.spectre, echelle);
+	fonctionNormalise(&(*modele).fourier.gauche, echelle);
+	fonctionNormalise(&(*modele).fourier.droite, echelle);
+
+		//fprintf(stderr, "Mise à jour des observables\n");
+	//observablesMiseAJour(&(*modele).observables, &(*modele).modele.systeme);
+
+	return 0;
+	}
+
+int modeleEnergiePotentielle(modeleT * modele, int duree, int echelle)
+	{
+	(void)duree;
+
+		//fprintf(stderr, "Calcul de la fonction initiale\n");
+	modeleProjectionInitiale(modele);
+
+		//fprintf(stderr, "Projection sur la fonction énergie potentielle\n");
+	modeleProjectionSystemeEnergie(modele);
+
+		//fprintf(stderr, "Normalisation des spectres\n");
+	fonctionNormalise(&(*modele).fourier.spectre, echelle);
 
 	return 0;
 	}
@@ -172,6 +212,21 @@ int modeleProjectionSystemeFourier(modeleT * modele)
 		(*modele).fourier.gauche.imag[i]=(*modele).systeme.actuel.imag[i];
 		(*modele).fourier.droite.reel[i]=(*modele).systeme.actuel.reel[i+j];
 		(*modele).fourier.droite.imag[i]=(*modele).systeme.actuel.imag[i+j];
+		}
+
+	return 0;
+	}
+
+int modeleProjectionSystemeEnergie(modeleT * modele)
+	{
+		//	Projection de la fonction initiale sur la fonction potentiel
+	int i;
+	int j = (*modele).systeme.nombre;
+
+	for(i=0;i<j;i++)
+		{
+		(*modele).systeme.potentiel.reel[i]=(*modele).systeme.actuel.reel[i];
+		(*modele).systeme.potentiel.imag[i]=(*modele).systeme.actuel.imag[i];
 		}
 
 	return 0;

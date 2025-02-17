@@ -4,7 +4,8 @@ runigo@free.fr
 SimFourier 1.2.1 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -53,7 +54,7 @@ int controleurKEYDOWN(controleurT * controleur);
 
 	//	-------  ÉVOLUTION  -------  //
 
-int controleurSimulationGraphique(controleurT * controleur)
+int controleurDemarrage(controleurT * controleur)
 	{
 				//	Boucle d'évolution temporelle du programme
 	do	{
@@ -164,12 +165,24 @@ int controleurEvolutionModele(controleurT * controleur)
 	{
 		//fprintf(stderr, "Evolution temporelle du système\n");
 
-	if((*controleur).options.modePause > 0)
-	//if((*controleur).modele.change==1)
-		{
-	modeleEvolution(&(*controleur).modele, 1, (*controleur).options.echelle);
-		//(*controleur).modele.change=0;
+	switch((*controleur).mode)
+		{		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
+						//		-1 : pause de la simulation
+		case 0:
+			modeleEvolutionInitiale(&(*controleur).modele, 1, (*controleur).options.echelle);break;
+		case 1:
+			modeleEvolutionSimulation(&(*controleur).modele, 1, (*controleur).options.echelle);break;
+		case 2:
+			modeleEnergiePotentielle(&(*controleur).modele, 1, (*controleur).options.echelle);break;
+		default:
+			;
 		}
+	//if((*controleur).options.modePause > 0)
+	//if((*controleur).modele.change==1)
+	//	{
+	//modeleEvolution(&(*controleur).modele, 1, (*controleur).options.echelle);
+		//(*controleur).modele.change=0;
+	//	}
 
 	return 0;
 	}
@@ -280,7 +293,7 @@ void controleurPostReinitialisation(controleurT * controleur) {
 
 	//	-------  SUPPRESSION  -------  //
 
-int controleurDestruction(controleurT * control){
+int controleurSuppression(controleurT * control){
 
 		//		Suppression du controleur
 
@@ -288,10 +301,10 @@ int controleurDestruction(controleurT * control){
 	horlogeSuppression(&(*control).horloge);
 
 	fprintf(stderr, "Suppression du rendu\n");
-	graphiqueDestruction(&(*control).graphique);
+	graphiqueSuppression(&(*control).graphique);
 
 	fprintf(stderr, "Suppression de la fenêtre\n");
-	interfaceDestruction(&(*control).interface);
+	interfaceSuppression(&(*control).interface);
 
 	fprintf(stderr, "Sortie de la SDL\n");
 	interfaceQuitteSDL();

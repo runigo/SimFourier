@@ -69,7 +69,7 @@ struct GraphiqueT {
 };
 typedef struct GraphiqueT graphiqueT;
 
-int graphiqueDestruction(graphiqueT * graphique);
+int graphiqueSuppression(graphiqueT * graphique);
 int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int fond);
 
 int graphiqueNettoyage(graphiqueT * graphique);

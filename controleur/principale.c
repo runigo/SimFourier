@@ -1,9 +1,11 @@
 /*
-Copyright mars 2018, Stephan Runigo
+Copyright février 2025, Stephan Runigo
 runigo@free.fr
-SiCP 2.0.1 simulateur de chaîne de pendules
-Ce logiciel est un programme informatique servant à simuler l'équation
-d'une chaîne de pendules et à en donner une représentation graphique.
+SimFourier 1.2.1 Transformation de Fourier
+(d'après SiCP 2.0.1 simulateur de chaîne de pendules, mars 2018)
+Ce logiciel est un programme informatique servant à donner une représentation
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -43,17 +45,17 @@ int main(int nb, char *opt[])
 	fprintf(stderr, "Traitement des options de la ligne de commande\n");
 	assert(optionsTraitement(&control.options, nb, opt)==0);
 
-	fprintf(stderr, "Initialisations du simulateur\n");
+	fprintf(stderr, "Initialisations du controleur\n");
 	assert(donneesControleur(&control)==0);
 
-	fprintf(stderr, "Démarrage de la simulation\n");
-	assert(controleurSimulationGraphique(&control)==0);
+	fprintf(stderr, "Démarrage du controleur\n");
+	assert(controleurDemarrage(&control)==0);
 
 	//fprintf(stderr, "Calcul énergétique\n");
 	//observableAfficheEnergie(&control.systeme);
 
 	fprintf(stderr, "\nSuppression du controleur\n");
-	assert(controleurDestruction(&control)==0);
+	assert(controleurSuppression(&control)==0);
 
 	fprintf(stderr, "\nSortie de SimFourier\n");
 

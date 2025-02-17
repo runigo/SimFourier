@@ -49,7 +49,7 @@ int interfaceInitialisationSDL(void);
 int interfaceQuitteSDL(void);
 
 int interfaceCreation(interfaceT * interface);
-int interfaceDestruction(interfaceT * interface);
+int interfaceSuppression(interfaceT * interface);
 
 #endif
 /////////////////////////////////////////////////////////////////////
