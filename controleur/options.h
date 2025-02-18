@@ -4,7 +4,8 @@ runigo@free.fr
 SimFourier 1.2.1 Transformation de Fourier
 (d'après SiCP 1.3.7 simulateur de chaîne de pendules, septembre 2017)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -43,8 +44,7 @@ typedef struct OptionsT optionsT;
 		int fond;		// couleur du fond de l'affichage
 		int modeDemo;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
 		int modeClavier;	// Ctrl F1 :  SiCP, Ctrl F2 : Graphiques, Ctrl F3 : Paramètres, Ctrl F4 : moteurs
-		int modePause;		// Evolution système
-		int mode;		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
+		int mode;		//	0 : initiale, 1 : simulation, -1 : pause, 2 : énergie potentielle
 		int duree;		// Nombre d'évolution du système entre les affichages
 
 			// OPTIONS MODELE
@@ -56,8 +56,9 @@ typedef struct OptionsT optionsT;
 
 		};
 
-int optionsTraitement(optionsT * opt, int nbOpt, char *option[]);
-void optionsChangeMode(optionsT * opt);
-void optionsChangeVitesse(optionsT * opt, float facteur);
+int optionsTraitement(optionsT * options, int nbOpt, char *option[]);
+void optionsChangePause(optionsT * options);
+void optionsChangeMode(optionsT * options);
+void optionsChangeVitesse(optionsT * options, float facteur);
 int optionsChangeEchelle(optionsT * options, float facteur);
 #endif

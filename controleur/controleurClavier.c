@@ -1,10 +1,11 @@
 /*
-Copyright janvier 2025, Stephan Runigo
+Copyright février 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2 Transformation de Fourier
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
+SimFourier 1.2.1 Transformation de Fourier
+(d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -36,18 +37,17 @@ int controleurClavier(controleurT * controleur)
 	{
 	switch ((*controleur).interface.evenement.key.keysym.sym)
 		{
-	// Mode : évolution du système en pause
+
 		case SDLK_RETURN:
 			controleurEvolutionModele(controleur);break;
 		case SDLK_BACKSPACE:
-			optionsChangeMode(&(*controleur).options);break;
+			optionsChangePause(&(*controleur).options);break;
 		case SDLK_SPACE:
-			optionsChangeMode(&(*controleur).options);break;
+			optionsChangePause(&(*controleur).options);break;
 		case SDLK_ESCAPE:
-			controleurSourisAffiche(controleur);break;
-			;
+			optionsChangeMode(&(*controleur).options);break;
 
-	// Vitesse de la simulation
+			// Vitesse de la simulation
 		case SDLK_KP_PLUS:
 			optionsChangeVitesse(&(*controleur).options, 1.1);break;
 		case SDLK_KP_MINUS:
@@ -62,17 +62,15 @@ int controleurClavier(controleurT * controleur)
 			optionsChangeVitesse(&(*controleur).options, 3.1);break;
 
 
+			// Afficher des informations
 
 		case SDLK_F1:
 			projectionSystemAffiche(&(*controleur).projectionSystem);break;
-  // Afficher les observables
-	//	case SDLK_F2: // Harmoniques
-		//	observablesAffiche(&(*controleur).observables);break;
-
-		case SDLK_F3: // Point de vue
+		//case SDLK_F2:
+			//observablesAffiche(&(*controleur).observables);break;
+		case SDLK_F3:
 			pointDeVueAffiche(&(*controleur).graphes.fonction.pointDeVue);break;
-
-		case SDLK_F4: // 
+		case SDLK_F4:
 			printf("GRAPHE FONCTION :\n");
 			grapheAffiche(&(*controleur).graphes.fonction);break;
 		case SDLK_F5:
@@ -146,7 +144,6 @@ int controleurClavier(controleurT * controleur)
 			optionsChangeEchelle(&(*controleur).options, 1.1);break;
 		case SDLK_n:
 			optionsChangeEchelle(&(*controleur).options, 0.91);break;
-
 
 		default:
 			;

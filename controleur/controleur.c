@@ -104,17 +104,8 @@ int controleurEvolution(controleurT * controleur)
 
 	//horlogeChrono(&(*controleur).horloge, 1);
 
-	switch((*controleur).mode)
-		{		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
-		case 0:
-			controleurEvolutionModele(controleur);break;
-		case 1:
-			controleurEvolutionModele(controleur);break;
-		case 2:
-			controleurEvolutionModele(controleur);break;
-		default:
-			;
-		}
+	controleurEvolutionModele(controleur);
+
 	//horlogeChrono(&(*controleur).horloge, 2);
 
 	controleurConstructionGraphique(controleur);
@@ -163,7 +154,7 @@ int controleurProjection(controleurT * controleur)
 
 int controleurEvolutionModele(controleurT * controleur)
 	{
-		//fprintf(stderr, "Evolution temporelle du système\n");
+		//	Évolution du modèle selon le mode
 
 	switch((*controleur).mode)
 		{		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
@@ -177,12 +168,6 @@ int controleurEvolutionModele(controleurT * controleur)
 		default:
 			;
 		}
-	//if((*controleur).options.modePause > 0)
-	//if((*controleur).modele.change==1)
-	//	{
-	//modeleEvolution(&(*controleur).modele, 1, (*controleur).options.echelle);
-		//(*controleur).modele.change=0;
-	//	}
 
 	return 0;
 	}

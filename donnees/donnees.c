@@ -45,12 +45,10 @@ int donneesOptions(optionsT * options)
 	(*options).modeClavier = 1;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
 	(*options).mode = 0;		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
 
-	(*options).modePause = 1;		// avec ou sans attente
 	(*options).duree = DUREE_IMP;		// 100 : temps réèl.
 
 	(*options).fond=240;		// couleur du fond de l'affichage
 	(*options).support=-1;		// Graphisme du support de la chaîne
-
 
 	(*options).dt=DT_IMP;		// discrétisation du temps
 	(*options).nombre=NOMBRE_IMP;		// Nombre implicite de points

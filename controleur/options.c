@@ -1,10 +1,11 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright février 2025, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 1.0 Transformation de Fourier
+SimFourier 1.2.1 Transformation de Fourier
+(d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -32,10 +33,9 @@ termes.
 
 #include "options.h"
 
-		//	Traitement des options de la ligne de commande
+
 
 void optionsDt(optionsT * options, char *opt);
-void optionsModePause(optionsT * options, char *opt);
 void optionsDuree(optionsT * options, char *opt);
 
 void optionsSupport(optionsT * options, char *opt);
@@ -46,13 +46,12 @@ void optionsAide();
 
 int optionsTraitement(optionsT * options, int nb, char *opt[])
 	{
+			//	Traitement des options de la ligne de commande
 	int i=0;
 
 
 	do
 		{
-		if(strcmp(opt[i], "modePause")==0 && opt[i+1]!=NULL)
-			optionsModePause(options, opt[i+1]);	// Mode système en pause
 		if(strcmp(opt[i], "duree")==0 && opt[i+1]!=NULL)
 			optionsDuree(options, opt[i+1]); // Nombre d'évolution du système entre les affichages
 
@@ -94,7 +93,7 @@ void optionsNombre(optionsT * options, char *opt) {
 
 void optionsDt(optionsT * options, char *opt) {
 
-    	// discrétisation du temps
+    	// Discrétisation du temps
 
 	float dt = atof(opt);
 	if(dt>=DT_MIN && dt<=DT_MAX)
@@ -113,7 +112,7 @@ void optionsDt(optionsT * options, char *opt) {
 
 void optionsEquation(optionsT * options, char *opt) {
 
-		// choix de l'équation
+		// Choix de l'équation
 
 	int equation = atoi(opt);
 	if(equation > 0 && equation <5)
@@ -143,25 +142,6 @@ void optionsSupport(optionsT * options, char *opt) {
 		{
 		printf("Option support non valide, support = %d\n", (*options).support);
 		printf("	option support = -1, +1 ou 0 : support plein, support transparent, sans support\n");
-		}
-	return;
-	}
-
-
-void optionsModePause(optionsT * options, char *opt) {
-
-		// Mode  -1 : Pause, 1 : Simulation
-
-	int modePause = atoi(opt);
-	if(modePause==1 || modePause==-1)
-		{
-		(*options).modePause = modePause;
-		printf("Option modePause valide, modePause = %d\n", (*options).modePause);
-		}
-	else
-		{
-		printf("Option modePause non valide, modePause = %d\n", (*options).modePause);
-		printf("	option modePause : modePause = + ou - 1\n");
 		}
 	return;
 	}
@@ -204,12 +184,53 @@ int optionsChangeEchelle(optionsT * options, float facteur) {
 	return 0;
 	}
 
-void optionsChangeMode(optionsT * options) {
+void optionsChangePause(optionsT * options) {
 
 		//		Change le mode pause
 
-	(*options).modePause = - (*options).modePause;
+	if((*options).mode < 2)
+		{
+		(*options).mode = - (*options).mode;
+		}
 
+	return;
+	}
+
+void optionsChangeMode(optionsT * options) {
+
+		//		Change le mode 
+
+	if((*options).mode == 0)
+		{
+		(*options).mode = -1;
+		}
+	else
+		{
+		if((*options).mode == 1 || (*options).mode == -1)
+			{
+			(*options).mode = 0;
+			}
+		else
+			{
+			//fprintf(stderr, "");
+			}
+		}
+	return;
+	}
+
+
+void optionsInitialiseMode(optionsT * options, int mode) {
+
+		//		Change le mode 
+
+	if(mode > -1 && mode < 3)
+		{
+		(*options).mode = mode;
+		}
+	else
+		{
+		fprintf(stderr, "Erreur dans optionsChangeMode()");
+		}
 	return;
 	}
 
