@@ -80,11 +80,12 @@ typedef struct ControleurT controleurT;
 		};
 
 int controleurDemarrage(controleurT * control);
-int controleurEvolutionModele(controleurT * controleur);
+
+int controleurEvolution(controleurT * controleur);
 
 int controleurSuppression(controleurT * control);
 
-int controleurInitialiseNombre(controleurT * controleur, int nombre);
+//int controleurInitialiseNombre(controleurT * controleur, int nombre);
 
 void controleurPostReinitialisation(controleurT * controleur);
 

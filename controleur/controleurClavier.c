@@ -39,7 +39,7 @@ int controleurClavier(controleurT * controleur)
 		{
 
 		case SDLK_RETURN:
-			controleurEvolutionModele(controleur);break;
+			controleurEvolution(controleur);break;
 		case SDLK_BACKSPACE:
 			optionsChangePause(&(*controleur).options);break;
 		case SDLK_SPACE:

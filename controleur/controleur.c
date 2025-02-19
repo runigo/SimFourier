@@ -35,15 +35,13 @@ termes.
 #include "controleurClavier.h"
 
 	//	ÉVOLUTION
-
 int controleurEvolution(controleurT * controleur);
-
+int controleurEvolutionModele(controleurT * controleur);
+int controleurFenetre(controleurT * controleur);
 int controleurProjection(controleurT * controleur);
 int controleurConstructionGraphique(controleurT * controleur);
 int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe);
-
 int controleurTraiteEvenement(controleurT * controleur);
-
 int controleurKEYDOWN(controleurT * controleur);
 
 	//	CHANGE
@@ -117,11 +115,31 @@ int controleurEvolution(controleurT * controleur)
 
 int controleurProjection(controleurT * controleur)
 	{
-		//		Mise à jour de la taille de la fenêtre
 		//		Projection du système sur les graphes 3D
 		//		Projection des graphes 3D sur les graphes 2D
 
-	int x, y; //  fenêtre puis souris
+	    // Mise à jour fenêtre et souris
+	controleurFenetre(controleur);
+
+        //  modele -> 3D
+	projectionSystemeGraphes(&(*controleur).modele, &(*controleur).graphes);
+        //  3D -> 2D
+	projectionGraphGraphes(&(*controleur).projectionGraph, &(*controleur).graphes);
+
+	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
+
+	//projectionSystemeCommandes(&(*controleur).modele.systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
+	//projectionControleurCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
+
+	return (*controleur).sortie;
+	}
+
+int controleurFenetre(controleurT * controleur)
+	{
+		//		Mise à jour de la taille de la fenêtre
+		//		et de la position de la souris
+
+	int x, y;
 
 		// Taille de la fenêtre
 	SDL_GetWindowSize((*controleur).interface.fenetre, &x, &y);
@@ -140,14 +158,6 @@ int controleurProjection(controleurT * controleur)
 	SDL_PumpEvents();
 	SDL_GetMouseState(&x,&y);
 	commandesInitialiseSouris(&(*controleur).commandes, x, y);
-
-	projectionSystemeGraphes(&(*controleur).modele, &(*controleur).graphes);
-	projectionGraphGraphes(&(*controleur).projectionGraph, &(*controleur).graphes);
-
-	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
-
-	//projectionSystemeCommandes(&(*controleur).modele.systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
-	//projectionControleurCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
 
 	return (*controleur).sortie;
 	}
@@ -174,6 +184,7 @@ int controleurEvolutionModele(controleurT * controleur)
 
 int controleurConstructionGraphique(controleurT * controleur)
 	{
+	        //  Construction du graphisme
 
 		//fprintf(stderr, "Nettoyage de l'affichage\n");
 	graphiqueNettoyage(&(*controleur).graphique);
@@ -233,7 +244,7 @@ int controleurKEYDOWN(controleurT * controleur)
 		{
 		Ctrl = 1;
 		}
-			//	
+			//	Traitement selon Maj et Ctrl
 
 	if(Maj == 0 && Ctrl == 0)
 		{
@@ -249,30 +260,27 @@ int controleurKEYDOWN(controleurT * controleur)
 			{
 			if(Maj == 1 )
 				{
-				if (controleurClavierMaj(controleur) == 1)
+				if(controleurClavierMaj(controleur) == 1)
 					{
 					controleurPostReinitialisation(controleur);
 					}
 				}
 			else
 				{
-				if (controleurClavierCtrl(controleur) == 1)
+				if(controleurClavierCtrl(controleur) == 1)
 					{
 					controleurPostReinitialisation(controleur);
 					}
 				}
 			}
 		}
-
 	return (*controleur).sortie;
 	}
 
 void controleurPostReinitialisation(controleurT * controleur) {
-
 		//		Remise à zéro des observables
 	(void)controleur;
 	//observablesInitialise(&(*controleur).observables);
-
 	return;
 	}
 
