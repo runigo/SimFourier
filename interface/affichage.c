@@ -31,37 +31,73 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _TEXTUREMENU_
-#define _TEXTUREMENU_
-
 #include "affichage.h"
 
-struct TextureMenuT {
+int affichageChangeCouleur(affichageT * affichage, SDL_Color couleur);
 
-	//SDL_Texture *simfoule;			//	Image du fond
-
-	SDL_Texture *construction;			//	Menu construction
-		//	 Boutons
-	SDL_Texture *boutonVide;
-	SDL_Texture *boutonMur;
-	SDL_Texture *boutonSortie;
-	//SDL_Texture *boutonEntree;
-	SDL_Texture *boutonMobile;
-	SDL_Texture *boutonPoint;
-	SDL_Texture *boutonTrait;
-	SDL_Texture *boutonRectangle;
+int affichageDestruction(affichageT * affichage)
+	{
+	SDL_DestroyRenderer((*affichage).rendu);
+	return 0;
+	}
 
 
-		//	 voyants
-	SDL_Texture *lumiereVerte;
-	SDL_Texture *lumiereRouge;
-	SDL_Texture *lumiereOrange;
-	SDL_Texture *lumiereJaune;
+int affichageInitialisation(affichageT * affichage, interfaceT * interface)
+	{
+		// Création du rendu
+	(*affichage).rendu = SDL_CreateRenderer((*interface).fenetre, -1 , 
+					SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if(NULL == (*affichage).rendu)
+		{
+		(*affichage).rendu = SDL_CreateRenderer((*interface).fenetre, -1 , 
+						SDL_RENDERER_SOFTWARE);
+		if(NULL == (*affichage).rendu)
+			{
+			fprintf(stderr, "ERREUR affichageInitialisation : Erreur SDL_CreateRenderer : %s \n", SDL_GetError());
+			return EXIT_FAILURE;
+			}
+		}
 
-};
-typedef struct TextureMenuT textureMenuT;
+	int fond = 245;
+	//SDL_Color orange = {255, 127, 40, 255};
+	(*affichage).fond.r = 255;
+	(*affichage).fond.g = 250;
+	(*affichage).fond.g = 200;
+	(*affichage).fond.g = 255;
+	(*affichage).contraste.r = 255-fond;
+	(*affichage).contraste.g = 255-fond;
+	(*affichage).contraste.b = 255-fond;
+	(*affichage).contraste.a = 255;
+	(*affichage).orange.r = 255;
+	(*affichage).orange.g = 127;
+	(*affichage).orange.b = 40;
+	(*affichage).orange.a = 255;
+	(*affichage).jaune.r = 255;
+	(*affichage).jaune.g = 255;
+	(*affichage).jaune.b = 0;
+	(*affichage).jaune.a = 255;
+	(*affichage).gris.r = 127;
+	(*affichage).gris.g = 127;
+	(*affichage).gris.b = 127;
+	(*affichage).gris.a = 255;
+	(*affichage).cyan.r = 127;
+	(*affichage).cyan.g = 40;
+	(*affichage).cyan.b = 255;
+	(*affichage).cyan.a = 255;
+	(*affichage).vert.r = 173;
+	(*affichage).vert.g = 255;
+	(*affichage).vert.b = 47;
+	(*affichage).vert.a = 255;
 
-int textureMenuInitialisation(textureMenuT * textureMenu, affichageT * affichage);
+	return 0;
+}
 
-#endif
-/////////////////////////////////////////////////////////////////
+int affichageNettoyage(affichageT * affichage)
+	{
+	SDL_SetRenderDrawColor((*affichage).rendu, (*affichage).fond.r,  (*affichage).fond.g, (*affichage).fond.g, (*affichage).fond.g);
+	SDL_RenderClear((*affichage).rendu);
+	return 0;
+	}
+
+//////////////////////////////////////////////////////////////////////////////
+

@@ -31,37 +31,34 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _TEXTUREMENU_
-#define _TEXTUREMENU_
+#ifndef _AFFICHAGE_
+#define _AFFICHAGE_
 
-#include "affichage.h"
-
-struct TextureMenuT {
-
-	//SDL_Texture *simfoule;			//	Image du fond
-
-	SDL_Texture *construction;			//	Menu construction
-		//	 Boutons
-	SDL_Texture *boutonVide;
-	SDL_Texture *boutonMur;
-	SDL_Texture *boutonSortie;
-	//SDL_Texture *boutonEntree;
-	SDL_Texture *boutonMobile;
-	SDL_Texture *boutonPoint;
-	SDL_Texture *boutonTrait;
-	SDL_Texture *boutonRectangle;
+#include "interface.h"
 
 
-		//	 voyants
-	SDL_Texture *lumiereVerte;
-	SDL_Texture *lumiereRouge;
-	SDL_Texture *lumiereOrange;
-	SDL_Texture *lumiereJaune;
+struct AffichageT {
+
+	SDL_Renderer *rendu;		// 	Rendu
+
+	SDL_Color fond;			//	Couleurs
+	SDL_Color contraste;
+	SDL_Color orange;
+	SDL_Color jaune;
+	SDL_Color gris;
+	SDL_Color cyan;
+	SDL_Color vert;
 
 };
-typedef struct TextureMenuT textureMenuT;
+typedef struct AffichageT affichageT;
 
-int textureMenuInitialisation(textureMenuT * textureMenu, affichageT * affichage);
+int affichageDestruction(affichageT * affichage);
+int affichageInitialisation(affichageT * affichage, interfaceT * interface);
+
+int affichageNettoyage(affichageT * affichage);
+int affichageMiseAJour(affichageT * affichage);
+
+int affichageFond(affichageT * affichage);
 
 #endif
 /////////////////////////////////////////////////////////////////
