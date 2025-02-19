@@ -82,8 +82,8 @@ int controleurClavier(controleurT * controleur)
 		case SDLK_F7:
 			projectionGraphAffiche(&(*controleur).projectionGraph);break;
 	// Support
-	//	case SDLK_F8:
-	//		grapheChangeSupport(&(*controleur).graphes);break;
+		case SDLK_F8:
+			optionsInitialiseMode(&(*controleur).options, 2);break;
 
 	// Paramètres motif
 		case SDLK_t: // Amplitude +

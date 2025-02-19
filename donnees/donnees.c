@@ -41,8 +41,6 @@ int donneesOptions(optionsT * options)
 	{
 		// Préréglage des valeurs optionnelles
 
-	(*options).modeDemo = 1;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
-	(*options).modeClavier = 1;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
 	(*options).mode = 0;		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
 
 	(*options).duree = DUREE_IMP;		// 100 : temps réèl.
@@ -52,7 +50,7 @@ int donneesOptions(optionsT * options)
 
 	(*options).dt=DT_IMP;		// discrétisation du temps
 	(*options).nombre=NOMBRE_IMP;		// Nombre implicite de points
-	(*options).echelle=11.0;		// 1 : pendule, 2 : linéarisation,
+	(*options).echelle=.011;		// 1 : pendule, 2 : linéarisation,
 							//	 3 : corde, 4 : dioptre
 
 	return 0;
@@ -63,8 +61,6 @@ int donneesControleur(controleurT * controleur)
 
 	(*controleur).sortie = 0;	// Sortie de SiCP si <> 0
 	(*controleur).appui = 0;	// Appuie sur la souris
-	(*controleur).mode = (*controleur).options.mode;	// 0 : Initiale, 1 : Simulation
-															// 2 : énergie potentielle
 
 		fprintf(stderr, " Initialisation du modèle\n");
 	donneesModele(&(*controleur).modele, &(*controleur).options);

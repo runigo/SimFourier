@@ -115,8 +115,8 @@ int controleurEvolution(controleurT * controleur)
 
 int controleurProjection(controleurT * controleur)
 	{
-		//		Projection du système sur les graphes 3D
-		//		Projection des graphes 3D sur les graphes 2D
+		//		Projection du système sur les graphes 3D et
+		//		projection des graphes 3D sur les graphes 2D
 
 	    // Mise à jour fenêtre et souris
 	controleurFenetre(controleur);
@@ -166,7 +166,7 @@ int controleurEvolutionModele(controleurT * controleur)
 	{
 		//	Évolution du modèle selon le mode
 
-	switch((*controleur).mode)
+	switch((*controleur).options.mode)
 		{		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
 						//		-1 : pause de la simulation
 		case 0:
@@ -174,7 +174,8 @@ int controleurEvolutionModele(controleurT * controleur)
 		case 1:
 			modeleEvolutionSimulation(&(*controleur).modele, 1, (*controleur).options.echelle);break;
 		case 2:
-			modeleEnergiePotentielle(&(*controleur).modele, 1, (*controleur).options.echelle);break;
+			modeleEnergiePotentielle(&(*controleur).modele, 1, (*controleur).options.echelle);
+			(*controleur).options.mode=0;break;
 		default:
 			;
 		}

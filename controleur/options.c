@@ -48,21 +48,16 @@ int optionsTraitement(optionsT * options, int nb, char *opt[])
 	{
 			//	Traitement des options de la ligne de commande
 	int i=0;
-
-
 	do
 		{
 		if(strcmp(opt[i], "duree")==0 && opt[i+1]!=NULL)
 			optionsDuree(options, opt[i+1]); // Nombre d'évolution du système entre les affichages
-
-			// OPTIONS SiCP
 		if(strcmp(opt[i], "dt")==0 && opt[i+1]!=NULL)
 			optionsDt(options, opt[i+1]);				// discrétisation du temps
 		if(strcmp(opt[i], "nombre")==0 && opt[i+1]!=NULL)
 			optionsNombre(options, opt[i+1]);		  // Nombre de pendules
 		if(strcmp(opt[i], "support")==0 && opt[i+1]!=NULL)
 			optionsSupport(options, opt[i+1]);			// Avec ou sans support
-
 		if(strcmp(opt[i], "aide")==0)
 			optionsAide();			// Affiche l'aide.
 		if(strcmp(opt[i], "help")==0)
@@ -192,7 +187,7 @@ void optionsChangePause(optionsT * options) {
 		{
 		(*options).mode = - (*options).mode;
 		}
-
+	fprintf(stderr, "(*options).mode = %d \n",(*options).mode);
 	return;
 	}
 
@@ -215,15 +210,16 @@ void optionsChangeMode(optionsT * options) {
 			//fprintf(stderr, "");
 			}
 		}
+	fprintf(stderr, "(*options).mode = %d \n",(*options).mode);
 	return;
 	}
 
 
 void optionsInitialiseMode(optionsT * options, int mode) {
 
-		//		Change le mode 
+		//		Initialise le mode 
 
-	if(mode > -1 && mode < 3)
+	if(mode > -2 && mode < 3)
 		{
 		(*options).mode = mode;
 		}
@@ -231,6 +227,7 @@ void optionsInitialiseMode(optionsT * options, int mode) {
 		{
 		fprintf(stderr, "Erreur dans optionsChangeMode()");
 		}
+	fprintf(stderr, "(*options).mode = %d \n",(*options).mode);
 	return;
 	}
 

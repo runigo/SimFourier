@@ -179,15 +179,17 @@ int modeleEvolutionSimulation(modeleT * modele, int duree, int echelle)
 int modeleEnergiePotentielle(modeleT * modele, int duree, int echelle)
 	{
 	(void)duree;
+	(void)echelle;
+	(void)modele;
 
-		//fprintf(stderr, "Calcul de la fonction initiale\n");
-	modeleProjectionInitiale(modele);
+		fprintf(stderr, "Enregistrement de l'énergie potentielle\n");
+	//modeleProjectionInitiale(modele);
 
 		//fprintf(stderr, "Projection sur la fonction énergie potentielle\n");
-	modeleProjectionSystemeEnergie(modele);
+	//modeleProjectionSystemeEnergie(modele);
 
 		//fprintf(stderr, "Normalisation des spectres\n");
-	fonctionNormalise(&(*modele).fourier.spectre, echelle);
+	//fonctionNormalise(&(*modele).fourier.spectre, echelle);
 
 	return 0;
 	}
