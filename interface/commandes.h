@@ -35,25 +35,36 @@ termes.
 
 #include "../donnees/constantes.h"
 
+typedef struct BoutonsT boutonsT;
+	struct BoutonsT
+		{
+		int X; // position suivant X
+		int Y; // position suivant Y
+		int dX; // dimension x
+		int dY; // dimension y
+
+		int Etat; // État du petit bouton
+
+		};
+
+typedef struct RotatifT rotatifT;
+	struct RotatifT
+		{
+		int X; // position suivant X
+		int Y; // position suivant Y
+		int dX; // dimension x
+		int dY; // dimension y
+
+		int rotatifPositionX[]; // Position du bouton rotatif
+		int rotatifPositionY[ROTATIF_COMMANDES];
+
+		};
+
 typedef struct CommandesT commandesT;
 	struct CommandesT
 		{
-		int rotatifs; // Positon X de la zone des boutons rotatifs
-		int rotatifsCentre; // Positon X des boutons rotatifs
-		int rotatifCentre[ROTATIF_COMMANDES]; // Positon Y des boutons rotatifs
-		int rotatifX; // Rayon suivant X
-		int rotatifY; // Rayon suivant Y
-
-		int rotatifPositionX[ROTATIF_COMMANDES]; // Position du bouton rotatif
-		int rotatifPositionY[ROTATIF_COMMANDES];
-
-		int boutons; // Positon X de la zone des petits boutons
-		int boutonsCentre; // Positon X des petits boutons
-		int boutonCentre[BOUTON_COMMANDES]; // Positon Y des petits boutons
-		int boutonX; // Rayon suivant X
-		int boutonY; // Rayon suivant Y
-
-		int boutonEtat[BOUTON_COMMANDES]; // État du petit bouton
+		rotatifT * rotatif[ROTATIF];
+		boutonT * boutons[BOUTON];
 
 		int sourisX; // position X de la souris
 		int sourisY; // position Y de la souris
@@ -62,33 +73,6 @@ typedef struct CommandesT commandesT;
 		int sourisDroite; // position X de la souris + demiBouton
 		int sourisHaut; // position Y de la souris - demiBouton
 		int sourisBas; // position Y de la souris + demiBouton
-
-	//	PANNEAU BAS
-
-		 // Zone du panneau
-		int fourier; // 611 / 714
-		int bas; // 611 / 714
-
-		// BOUTONS LINEAIRES SUIVANT Y
-		int lineaireY; //  Rayon suivant Y
-		int lineairesCentre; //  Position Y des boutons linéaires
-		// BOUTONS LINEAIRES SUIVANT X
-		int lineaireX; //  Rayon suivant X
-		int lineaireCentre[LINEAIRE_COMMANDES]; // Centre suivant X
-
-		// BOUTONS TRIANGULAIRES SUIVANT Y
-		int triangleY; // Rayon suivant Y
-		int trianglesCentre; //  Position Y des petits triangles
-		int trianglesLumiere; //  Position Y des lumières
-		// BOUTONS TRIANGULAIRES SUIVANT X
-		int triangleX; // Rayon suivant X 
-		int triangleCentre[TRIANGLE_COMMANDES]; // Centre suivant X
-		int triangleEtat[TRIANGLE_COMMANDES]; // État de la commande
-		int lineairePositionX; // Position de simulation <> DUREE
-		float a;
-		float b;	//	Droite duree < DUREE
-		float A;
-		float B;	//	Droite duree > DUREE
 
 		};
 

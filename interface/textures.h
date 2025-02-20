@@ -38,9 +38,8 @@ termes.
 
 struct TexturesT {
 
-	//SDL_Texture *simfoule;			//	Image du fond
-
-	SDL_Texture *construction;			//	Menu construction
+	SDL_Texture *simulation;			//	Menu simulation
+	SDL_Texture *initiale;			//	Menu initiale
 		//	 Boutons
 	SDL_Texture *mobile;
 	SDL_Texture *boutonVide;
