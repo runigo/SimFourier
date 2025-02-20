@@ -31,17 +31,18 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _TEXTUREMENU_
-#define _TEXTUREMENU_
+#ifndef _TEXTURES_
+#define _TEXTURES_
 
 #include "affichage.h"
 
-struct TextureMenuT {
+struct TexturesT {
 
 	//SDL_Texture *simfoule;			//	Image du fond
 
 	SDL_Texture *construction;			//	Menu construction
 		//	 Boutons
+	SDL_Texture *mobile;
 	SDL_Texture *boutonVide;
 	SDL_Texture *boutonMur;
 	SDL_Texture *boutonSortie;
@@ -59,9 +60,9 @@ struct TextureMenuT {
 	SDL_Texture *lumiereJaune;
 
 };
-typedef struct TextureMenuT textureMenuT;
+typedef struct TexturesT texturesT;
 
-int textureMenuInitialisation(textureMenuT * textureMenu, affichageT * affichage);
+int texturesInitialisation(texturesT * textures, affichageT * affichage);
 
 #endif
 /////////////////////////////////////////////////////////////////

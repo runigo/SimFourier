@@ -1,9 +1,11 @@
 /*
-Copyright octobre 2023, Stephan Runigo
-runigo@free.frs
-SimFourier 0.0 Transformation de Fourier
+Copyright février 2025, Stephan Runigo
+runigo@free.fr
+SimFourier 1.2.2 Transformation de Fourier
+(d'après SimFoule 2.2  simulateur de foule, décembre 2019)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -40,114 +42,70 @@ void graphiqueMobile(graphiqueT * graphique, grapheT * graphe);
 
 int graphiqueSuppression(graphiqueT * graphique)
 	{
-	SDL_DestroyRenderer((*graphique).rendu);
+	SDL_DestroyRenderer((*graphique).affichage.rendu);
 	return 0;
 	}
 
 
-int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int fond)
+int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int taille)
 	{
 	int retour = 0;
 	int fenetreX;
 	int fenetreY;
+
+	(*graphique).taille = taille;
+
 	SDL_GetWindowSize((*interface).fenetre, &fenetreX, &fenetreY);
+
 	(*graphique).fenetreX=fenetreX;
 	(*graphique).fenetreY=fenetreY;
 
-		// Création du rendu
-	(*graphique).rendu = SDL_CreateRenderer((*interface).fenetre, -1 , 
-					SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if(NULL == (*graphique).rendu)
-		{
-		(*graphique).rendu = SDL_CreateRenderer((*interface).fenetre, -1 , 
-						SDL_RENDERER_SOFTWARE);
-		if(NULL == (*graphique).rendu)
-			{
-			fprintf(stderr, "ERREUR interfaceInitialisation : Erreur SDL_CreateRenderer : %s \n", SDL_GetError());
-			return EXIT_FAILURE;
-			}
-		}
+	retour += affichageInitialisation(&(*graphique).affichage, interface);
 
-	//SDL_Color orange = {255, 127, 40, 255};
-	(*graphique).fond.r = fond; (*graphique).fond.g = fond; (*graphique).fond.b = fond; (*graphique).fond.a = 255;
-	(*graphique).contraste.r = 255-fond; (*graphique).contraste.g = 255-fond; (*graphique).contraste.b = 255-fond; (*graphique).contraste.a = 255;
-	//(*graphique).jaune.r = 255; (*graphique).jaune.g = 255; (*graphique).jaune.b = 0; (*graphique).jaune.a = 255;
-
-	(*graphique).orange.r = 255; (*graphique).orange.g = 127; (*graphique).orange.b = 40; (*graphique).orange.a = 255;
-	(*graphique).orangeF.r = 198; (*graphique).orangeF.g = 8; (*graphique).orangeF.b = 0; (*graphique).orangeF.a = 255;
-
-	(*graphique).gris.r = 127; (*graphique).gris.g = 127; (*graphique).gris.b = 127; (*graphique).gris.a = 255;
-	(*graphique).grisF.r = 27; (*graphique).grisF.g = 27; (*graphique).grisF.b = 27; (*graphique).grisF.a = 255;
-
-	(*graphique).rouge.r = 255; (*graphique).rouge.g = 0; (*graphique).rouge.b = 0; (*graphique).rouge.a = 255;
-	(*graphique).bleue.r = 0; (*graphique).bleue.g = 0; (*graphique).bleue.b = 255; (*graphique).bleue.a = 255;
-
-	//(*graphique).vert.r = 173; (*graphique).vert.g = 255; (*graphique).vert.b = 47; (*graphique).vert.a = 255;
-	(*graphique).vert.r = 0; (*graphique).vert.g = 255; (*graphique).vert.b = 0; (*graphique).vert.a = 255;
-
-	(*graphique).vertF.r = 0; (*graphique).vertF.g = 86; (*graphique).vertF.b = 27; (*graphique).vertF.a = 255;
-	//(*graphique).vertF.r = 27; (*graphique).vertF.g = 79; (*graphique).vertF.b = 8;
-
-	(*graphique).cyan.r = 127; (*graphique).cyan.g = 40; (*graphique).cyan.b = 255; (*graphique).cyan.a = 255;
-	(*graphique).aubergine.r = 55; (*graphique).aubergine.g = 0; (*graphique).aubergine.b = 40; (*graphique).aubergine.a = 255;
-
-		//(253, 63, 146) Fuschia
-		//(255, 0, 255) Magenta
-		//(52, 201, 36) Pomme
-
-	//SDL_Texture *masse;
-
-	SDL_Surface *panneau = 0;
-
-	panneau = SDL_LoadBMP("sicp.bmp");
-	if (!panneau)
-		{
-		fprintf(stderr,"ERREUR chargement image, sicp.bmp : %s\n",SDL_GetError());
-		retour = 1;
-		}
-	(*graphique).SimFourier = SDL_CreateTextureFromSurface((*graphique).rendu, panneau);
-	SDL_FreeSurface(panneau);
-	if ((*graphique).SimFourier == 0)
-		{
-		fprintf(stderr,"ERREUR grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		retour = 2;
-		}
-
-	SDL_Surface *image = 0;
-
-	image = SDL_LoadBMP("mobile.bmp");
-	if (!image)
-		{
-		fprintf(stderr,"ERREUR chargement image, mobile.bmp : %s\n",SDL_GetError());
-		retour = 3;
-		}
-	(*graphique).masse = SDL_CreateTextureFromSurface((*graphique).rendu, image);
-	SDL_FreeSurface(image);
-	if ((*graphique).masse == 0)
-		{
-		fprintf(stderr,"ERREUR grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		retour = 4;
-		}
-		// Activation de la transparence
-	//SDL_BLENDMODE_NONE || SDL_BLENDMODE_BLEND || SDL_BLENDMODE_ADD || SDL_BLENDMODE_MOD
-	if(SDL_SetTextureBlendMode((*graphique).masse, SDL_BLENDMODE_MOD) < 0)
-		fprintf(stderr, "ERREUR grapheInitialisation : Erreur SDL_SetRenderDrawBlendMode : %s.", SDL_GetError());
+	retour += texturesInitialisation(&(*graphique).textures, &(*graphique).affichage);
 
 	return retour;
 }
 
 int graphiqueNettoyage(graphiqueT * graphique)
-	{SDL_SetRenderDrawColor((*graphique).rendu, 255, 255, 255, 0);
-	SDL_RenderClear((*graphique).rendu);
+	{
+	affichageNettoyage(&(*graphique).affichage);
 	return 0;
 	}
 
-int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes)
+int graphiqueFond(graphiqueT * graphique, int modeDessin)
 	{
-		// Dessine le fond et les commandes sélectionées
-	SDL_Rect coordonnee = {0, 0, (*graphique).fenetreX, (*graphique).fenetreY};
-	SDL_RenderCopy((*graphique).rendu, (*graphique).SimFourier, NULL, &coordonnee);
+	if(modeDessin<0)		//	Menu construction
+		{
+		SDL_Rect coordonnee = {0, (*graphique).fenetreY - 35, 238, 35};
+		//SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textureSysteme.construct, NULL, &coordonnee);
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.construction, NULL, &coordonnee);
+		}
 	
+	return 0;
+	}
+
+int graphiqueMiseAJour(graphiqueT * graphique)
+	{
+	SDL_RenderPresent((*graphique).affichage.rendu);
+	return 0;
+	}
+
+int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur)
+	{
+	if(SDL_SetRenderDrawColor((*graphique).affichage.rendu, couleur.r, couleur.g, couleur.b, couleur.a) < 0)
+	return -1;
+	//if(SDL_RenderClear(renderer) < 0)
+		//return -1;
+	return 0;  
+	}
+
+
+int graphiqueCommandesSysteme(graphiqueT * graphique, commandesT * commandes)
+	{
+		// Dessine les commandes sélectionées
+	
+	SDL_Rect coordonnee = {0, 0, (*graphique).fenetreX, (*graphique).fenetreY};
 	int centrage = 5;
 	coordonnee.w=10;
 	coordonnee.h=10;
@@ -161,104 +119,156 @@ int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes)
 			{
 			coordonnee.y = (*commandes).boutonCentre[i] - centrage; // Positon Y des petits boutons
 			//	Dessin des petits boutons
-			SDL_RenderCopy((*graphique).rendu, (*graphique).masse, NULL, &coordonnee);
+			//SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textureSysteme.mobile, NULL, &coordonnee);
 			}
 		}
 
-	graphiqueChangeCouleur(graphique, (*graphique).orange);
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
 	X=(*commandes).rotatifsCentre;
 	for(i=0;i<ROTATIF_COMMANDES;i++)
 		{
 		Y=(*commandes).rotatifCentre[i];
 		x=X+(*commandes).rotatifPositionX[i];
 		y=Y+(*commandes).rotatifPositionY[i];
-		SDL_RenderDrawLine((*graphique).rendu, X-1, Y, x-1, y);
-		SDL_RenderDrawLine((*graphique).rendu, X, Y-1, x, y-1);
-		SDL_RenderDrawLine((*graphique).rendu, X+1, Y, x+1, y);
-		SDL_RenderDrawLine((*graphique).rendu, X, Y+1, x, y+1);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y+1, x, y+1);
+		}
+
+	centrage = 6;
+	coordonnee.w=12;
+	coordonnee.h=12;
+	coordonnee.y = (*commandes).trianglesLumiere - centrage;	// Positon Y de la zone du bas
+	for(i=0;i<TRIANGLE_COMMANDES;i++)
+		{
+		if((*commandes).triangleEtat[i]==1)
+			{
+			coordonnee.x = (*commandes).triangleCentre[i] - centrage; // Positon X des boutons triangulaire
+			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.lumiereVerte, NULL, &coordonnee);
+			}
+		else
+			{
+				if((*commandes).triangleEtat[i]==2)
+				{
+				coordonnee.x = (*commandes).triangleCentre[i] - centrage; // Positon X des boutons triangulaire
+				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.lumiereRouge, NULL, &coordonnee);
+				}
+				else
+					{
+					coordonnee.x=(*commandes).lineairePositionX;	//	Droite duree < DUREE
+					if((*commandes).triangleEtat[5]==-1 || (*commandes).triangleEtat[10]==-1)
+						{
+						SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.lumiereOrange, NULL, &coordonnee);
+						}
+					if((*commandes).triangleEtat[6]==-1 || (*commandes).triangleEtat[9]==-1)
+						{
+						SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.lumiereJaune, NULL, &coordonnee);
+						}
+					}
+			}
 		}
 
 	return 0;
 	}
 
-int graphiqueCapteurs(graphiqueT * graphique, capteursT * capteurs)
+int graphiqueCommandesConstruction(graphiqueT * graphique, commandesT * commandes)
 	{
-	int i, j;
+		// Dessine les menus et les commandes sélectionées
 
-		// Energie
-	//graphiqueChangeCouleur(graphique, (*graphique).grisF);
+	SDL_Rect coordonnee = {0, (*graphique).fenetreY - 35, 238, 35};
+	//SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textureSysteme.construct, NULL, &coordonnee);
+	SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.construction, NULL, &coordonnee);
 
+	int i;
+	//int X, Y, x, y;
+	int centrage = 12;
+	coordonnee.w=25;
+	coordonnee.h=25;
+	coordonnee.y = (*commandes).trianglesLumiere - centrage;	// Positon Y de la zone du bas
 
-
-	// Rouge
-	graphiqueChangeCouleur(graphique, (*graphique).rouge);
-		// Cinetique
-	SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[1].somme, DUREE_CAPTEURS);
-		// Energie Gauche
-	SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[3].somme, DUREE_CAPTEURS);
-
-
-	// Bleue
-	graphiqueChangeCouleur(graphique, (*graphique).bleue);
-		// Couplage
-	SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[2].somme, DUREE_CAPTEURS);
-		// Energie Droite
-	SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[3].droite, DUREE_CAPTEURS);
-
-	// Vert
-	graphiqueChangeCouleur(graphique, (*graphique).vert);
-		// Rappel - Gravitation
-	SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[0].somme, DUREE_CAPTEURS);
-		// Energie Gauche
-	SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[3].gauche, DUREE_CAPTEURS);
-
-						// 0 : Rappel, 1 : Cinetique, 2 : Couplage, 3 : Energie
-
-						//		0, 1, 2 : Somme, 3, 4, 5 : droite/gauche
-		// Epaississement du trait
-	for(j=0;j<CAPTEURS;j++)
+	if((*commandes).triangleEtat[0]==1)
 		{
-		for(i=0;i<DUREE_CAPTEURS;i++)
-			{
-			(*capteurs).capteur[j].droite[i].y = (*capteurs).capteur[j].droite[i].y + 1;
-			}
+		coordonnee.x = (*commandes).triangleCentre[0] - centrage;
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonVide, NULL, &coordonnee);
 		}
-		// Energie
-	graphiqueChangeCouleur(graphique, (*graphique).grisF);
 
-	//SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[0].somme, DUREE_CAPTEURS);
-	//SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[3].gauche, DUREE_CAPTEURS);
-	//SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[3].droite, DUREE_CAPTEURS);
+	if((*commandes).triangleEtat[1]==1)
+		{
+		coordonnee.x = (*commandes).triangleCentre[1] - centrage;
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonMur, NULL, &coordonnee);
+		}
+
+	if((*commandes).triangleEtat[2]==1)
+		{
+		coordonnee.x = (*commandes).triangleCentre[2] - centrage;
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonSortie, NULL, &coordonnee);
+		}
 /*
-	graphiqueChangeCouleur(graphique, (*graphique).gauche);
-	for(j=0;j<CAPTEURS;j++)
+	if((*commandes).triangleEtat[3]==1)
 		{
-		for(i=0;i<DUREE_CAPTEURS;i++)
+		coordonnee.x = (*commandes).triangleCentre[3] - centrage;
+		//SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonEntree, NULL, &coordonnee);
+		}
+*/
+	if((*commandes).triangleEtat[4]==1)
+		{
+		coordonnee.x = (*commandes).triangleCentre[4] - centrage;
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonMobile, NULL, &coordonnee);
+		}
+
+	if((*commandes).triangleEtat[5]==1)
+		{
+		coordonnee.x = (*commandes).triangleCentre[5] - centrage;
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonPoint, NULL, &coordonnee);
+		}
+
+	if((*commandes).triangleEtat[6]==1)
+		{
+		coordonnee.x = (*commandes).triangleCentre[6] - centrage;
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonTrait, NULL, &coordonnee);
+		}
+
+	if((*commandes).triangleEtat[7]==1)
+		{
+		coordonnee.x = (*commandes).triangleCentre[7] - centrage;
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonRectangle, NULL, &coordonnee);
+		}
+
+	centrage = 5;
+	coordonnee.w=10;
+	coordonnee.h=10;
+	coordonnee.x = (*commandes).boutonsCentre - centrage;	// Positon X de la zone des petits boutons
+
+		// Petits boutons de droite
+	for(i=0;i<BOUTON_COMMANDES;i++)
+		{
+		if((*commandes).boutonEtat[i]==1)
 			{
-			(*capteurs).capteur[j].gauche[i].y = (*capteurs).capteur[j].gauche[i].y + 1;
+			coordonnee.y = (*commandes).boutonCentre[i] - centrage; // Positon Y des petits boutons
+			//	Dessin des petits boutons
+			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.mobile, NULL, &coordonnee);
 			}
 		}
-	SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[0].gauche, DUREE_CAPTEURS);
-	SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[1].gauche, DUREE_CAPTEURS);
-	SDL_RenderDrawLines((*graphique).rendu, (*capteurs).capteur[2].gauche, DUREE_CAPTEURS);
+/*
+		// Boutons rotatifs
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
+	X=(*commandes).rotatifsCentre;
+	for(i=0;i<ROTATIF_COMMANDES;i++)
+		{
+		Y=(*commandes).rotatifCentre[i];
+		x=X+(*commandes).rotatifPositionX[i];
+		y=Y+(*commandes).rotatifPositionY[i];
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y+1, x, y+1);
+		}
 */
-
 	return 0;
 	}
 
-
-int graphiqueMiseAJour(graphiqueT * graphique)
-	{
-	SDL_RenderPresent((*graphique).rendu);
-	return 0;
-	}
-
-int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur)
-	{
-	if(SDL_SetRenderDrawColor((*graphique).rendu, couleur.r, couleur.g, couleur.b, couleur.a) < 0)
-	return -1;
-	return 0;  
-	}
+		//	FONCTIONS DE DESSINS GÉOMÉTRIQUES
 
 void graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT)
 	{
@@ -267,19 +277,19 @@ void graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sin
 	(void)sinT;
 	(void)cosT;
 
-	SDL_SetRenderDrawColor((*graphique).rendu, 25, 25, 25, 255);
+	SDL_SetRenderDrawColor((*graphique).affichage.rendu, 25, 25, 25, 255);
 
 		// Horizontales 		    R	  V	  B
-	//SDL_SetRenderDrawColor((*graphique).rendu, sinusC, 55+sinusC, 125+sinusC, 255-sinusC);
+	//SDL_SetRenderDrawColor((*graphique).affichage.rendu, sinusC, 55+sinusC, 125+sinusC, 255-sinusC);
 	//graphiqueChangeCouleur(graphique, (*graphique).cyan);
-	SDL_RenderDrawLine((*graphique).rendu, X-decalageDroit, Y-decalageDiag, x-decalageDroit, y-decalageDiag);
-	SDL_RenderDrawLine((*graphique).rendu, X+decalageDroit, Y+decalageDiag, x+decalageDroit, y+decalageDiag);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, X-decalageDroit, Y-decalageDiag, x-decalageDroit, y-decalageDiag);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, X+decalageDroit, Y+decalageDiag, x+decalageDroit, y+decalageDiag);
 
 		// Verticale
-	//SDL_SetRenderDrawColor((*graphique).rendu, 250-sinusC, 250-sinusC, 25, 255);
+	//SDL_SetRenderDrawColor((*graphique).affichage.rendu, 250-sinusC, 250-sinusC, 25, 255);
 	//graphiqueChangeCouleur(graphique, (*graphique).jaune);
-	SDL_RenderDrawLine((*graphique).rendu, X+decalageDiag, Y+decalageDroit, x+decalageDiag, y+decalageDroit);
-	SDL_RenderDrawLine((*graphique).rendu, X-decalageDiag, Y-decalageDroit, x-decalageDiag, y-decalageDroit);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, X+decalageDiag, Y+decalageDroit, x+decalageDiag, y+decalageDroit);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, X-decalageDiag, Y-decalageDroit, x-decalageDiag, y-decalageDroit);
 
 	return;
 	}
@@ -296,27 +306,27 @@ void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe)
 
 
 		//	Point du support
-	graphiqueChangeCouleur(graphique, (*graphique).contraste);
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
 		// Axes x'x, y'y, z'z
 	if((*graphe).arriere <= 0) // Vue de devant
 		{
-		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[0], (*graphe).supporY[0], (*graphe).supporX[1], (*graphe).supporY[1]);
-		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[2], (*graphe).supporY[2], (*graphe).supporX[3], (*graphe).supporY[3]);
-		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[4], (*graphe).supporY[4], (*graphe).supporX[5], (*graphe).supporY[5]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[0], (*graphe).supporY[0], (*graphe).supporX[1], (*graphe).supporY[1]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[2], (*graphe).supporY[2], (*graphe).supporX[3], (*graphe).supporY[3]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[4], (*graphe).supporY[4], (*graphe).supporX[5], (*graphe).supporY[5]);
 		}
 
 
 		// Chaine de pendule
 	graphiquePendule(graphique, graphe);
 
-	graphiqueChangeCouleur(graphique, (*graphique).contraste);
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
 
 		// Axes x'x, y'y, z'z
 	if((*graphe).arriere > 0) // Vue de derrière
 		{
-		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[0], (*graphe).supporY[0], (*graphe).supporX[1], (*graphe).supporY[1]);
-		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[2], (*graphe).supporY[2], (*graphe).supporX[3], (*graphe).supporY[3]);
-		SDL_RenderDrawLine((*graphique).rendu, (*graphe).supporX[4], (*graphe).supporY[4], (*graphe).supporX[5], (*graphe).supporY[5]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[0], (*graphe).supporY[0], (*graphe).supporX[1], (*graphe).supporY[1]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[2], (*graphe).supporY[2], (*graphe).supporX[3], (*graphe).supporY[3]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[4], (*graphe).supporY[4], (*graphe).supporX[5], (*graphe).supporY[5]);
 		}
 
 	return;
@@ -329,19 +339,19 @@ void graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 //	if((*graphe).arriere != 0) // Vue de derrière, la chaîne est dessinée vers les précédents.
 //	else {(*graphe).arriere = 0;}
 
-	graphiqueChangeCouleur(graphique, (*graphique).orange);
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
 	for(i=0;i<(*graphe).nombre;i++)
 		{
 		//	Dessin des tiges
-	SDL_RenderDrawLine((*graphique).rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
 	//	graphiqueTige(graphique, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i], 0, 0);//(*graphe).sinTheta, (*graphe).cosTheta);
 		}
 
-	graphiqueChangeCouleur(graphique, (*graphique).contraste);
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
 	for(i=0;i<((*graphe).nombre-1);i++)
 		{
 		//	Dessin de la courbe
-	SDL_RenderDrawLine((*graphique).rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
 	//	graphiqueTige(graphique, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i], 0, 0);//(*graphe).sinTheta, (*graphe).cosTheta);
 		}
 

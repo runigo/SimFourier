@@ -1,9 +1,11 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright février 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 0.0 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
+(d'après SimFoule 2.2  simulateur de foule, décembre 2019)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -34,50 +36,32 @@ termes.
 
 #include "../projection/graphes.h"
 #include "commandes.h"
-#include "interface.h"
-#include "capteurs.h"
+#include "textures.h"
+#include "affichage.h"
 
 
 struct GraphiqueT {
 
-	SDL_Renderer *rendu;
+	affichageT affichage;		// 	Rendu et couleurs
 
-	SDL_Color fond;
-	SDL_Color contraste;
-	
-	SDL_Color orange;
-	SDL_Color orangeF;
+	texturesT textures;         //  Textures
 
-	SDL_Color rouge;
-	SDL_Color bleue;
-
-	SDL_Color vert;
-	SDL_Color vertF;
-
-	SDL_Color gris;
-	SDL_Color grisF;
-
-	SDL_Color cyan;
-	SDL_Color aubergine;
-
-	SDL_Texture *masse;
-	SDL_Texture *SimFourier;
 	int taille;
 
-		int fenetreX;	// hauteur de la fenêtre
-		int fenetreY;	// largeur de la fenêtre
+	int fenetreX;	// hauteur de la fenêtre
+	int fenetreY;	// largeur de la fenêtre
 };
 typedef struct GraphiqueT graphiqueT;
 
 int graphiqueSuppression(graphiqueT * graphique);
-int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int fond);
+int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int taille);
 
 int graphiqueNettoyage(graphiqueT * graphique);
 int graphiqueMiseAJour(graphiqueT * graphique);
 
-int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes);
-int graphiqueCapteurs(graphiqueT * graphique, capteursT * capteurs);
-void graphiquePenduleSupportPlein(graphiqueT * graphique, grapheT * graphe);
+int graphiqueFond(graphiqueT * graphique, int modeDessin);
+
+int graphiqueCommandesSysteme(graphiqueT * graphique, commandesT * commandes);
 void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe);
 void graphiquePendule(graphiqueT * graphique, grapheT * graphe);
 
