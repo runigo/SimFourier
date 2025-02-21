@@ -35,8 +35,8 @@ termes.
 
 #include "../donnees/constantes.h"
 
-typedef struct BoutonsT boutonsT;
-	struct BoutonsT
+typedef struct BoutonT boutonT;
+	struct BoutonT
 		{
 		int X; // position suivant X
 		int Y; // position suivant Y
@@ -55,7 +55,7 @@ typedef struct RotatifT rotatifT;
 		int dX; // dimension x
 		int dY; // dimension y
 
-		int rotatifPositionX[]; // Position du bouton rotatif
+		int rotatifPositionX[ROTATIF_COMMANDES]; // Position du bouton rotatif
 		int rotatifPositionY[ROTATIF_COMMANDES];
 
 		};
@@ -63,8 +63,15 @@ typedef struct RotatifT rotatifT;
 typedef struct CommandesT commandesT;
 	struct CommandesT
 		{
-		rotatifT * rotatif[ROTATIF];
-		boutonT * boutons[BOUTON];
+		rotatifT * rotatif[ROTATIF_COMMANDES];
+		boutonT * bouton[BOUTON_COMMANDES];
+
+		int rotatifs; // Position X de la zone des boutons rotatifs
+
+		 // Zone du panneau
+		int bas; // 611 / 714
+		int fourier; // 611 / 714
+		int boutons; // 611 / 714
 
 		int sourisX; // position X de la souris
 		int sourisY; // position Y de la souris

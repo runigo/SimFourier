@@ -35,6 +35,7 @@ termes.
 int commandesInitialiseBoutons(commandesT * commandes, int largeur, int hauteur)
 	{
 
+	(*commandes).fourier=(int)(0.833333333333*largeur); // 611 / 714
 	//	PANNEAU DROIT
 
 		 // Zone des boutons rotatifs
