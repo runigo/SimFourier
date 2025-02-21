@@ -35,9 +35,9 @@ termes.
 
 #include "../controleur/controleur.h"
 
-int controleurSourisDefile(controleurT * controleur);
+int controleurSourisMolette(controleurT * controleur);
 
-int controleurSouris(controleurT * controleur);
+int controleurSourisMouvement(controleurT * controleur);
 
 void controleurSourisBouton(controleurT * controleur, int appui);
 

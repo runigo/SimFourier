@@ -37,7 +37,7 @@ int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe)
 int controleurSourisDefileCommandes(controleurT * controleur, int zone);
 void controleurSourisInitialisePosition(controleurT * controleur, int position);
 
-int controleurSouris(controleurT * controleur)
+int controleurSourisMouvement(controleurT * controleur)
 	{
 				// Action du mouvement de la souris :
 		//	 Si cliq appuyé et dans la zone des représentations 3D : change le point de vue.
@@ -61,7 +61,7 @@ int controleurSouris(controleurT * controleur)
 	return 0;
 	}
 
-int controleurSourisDefile(controleurT * controleur)
+int controleurSourisMolette(controleurT * controleur)
 	{
 				// Action des mouvements de la mollette
 
@@ -260,9 +260,9 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 			switch(commande)
 				{
 				case 0:
-					controleurSourisDefile(controleur);break;
+					controleurSourisMolette(controleur);break;
 				case 1:
-					controleurSourisDefile(controleur);break;
+					controleurSourisMolette(controleur);break;
 				case 2:
 					optionsChangeVitesse(&(*controleur).options, 1.1);break;
 				case 3:
@@ -276,9 +276,9 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 			switch(commande)	
 				{
 				case 0:
-					controleurSourisDefile(controleur);break;
+					controleurSourisMolette(controleur);break;
 				case 1:
-					controleurSourisDefile(controleur);break;
+					controleurSourisMolette(controleur);break;
 				case 2:
 					optionsChangeVitesse(&(*controleur).options, 0.91);break;
 				case 3:

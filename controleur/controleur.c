@@ -75,9 +75,9 @@ int controleurTraiteEvenement(controleurT * controleur)
 		case SDL_QUIT:
 			(*controleur).sortie = 1;break;
 		case SDL_MOUSEWHEEL:
-			controleurSourisDefile(controleur);break;
+			controleurSourisMolette(controleur);break;
 		case SDL_MOUSEMOTION:
-			controleurSouris(controleur);break;
+			controleurSourisMouvement(controleur);break;
 		case SDL_MOUSEBUTTONDOWN:
 			controleurSourisBouton(controleur, 1);break;
 		case SDL_MOUSEBUTTONUP:
