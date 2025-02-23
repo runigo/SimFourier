@@ -2,7 +2,6 @@
 Copyright février 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2.2 Transformation de Fourier
-(d'après SiCP 2.3 simulateur de chaîne de pendules, mai 2018)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
@@ -31,51 +30,26 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _COMMANDES_
-#define _COMMANDES_
+#ifndef _ROTATIF_
+#define _ROTATIF_
 
-#include "rotatif.h"
-#include "selectif.h"
+#include "../donnees/constantes.h"
 
-typedef struct CommandesT commandesT;
-	struct CommandesT
+typedef struct RotatifT rotatifT;
+	struct RotatifT
 		{
-		rotatifT * rotatif[ROTATIF_COMMANDES];
-		selectifT * selectif[BOUTON_COMMANDES];
+		int X; // position suivant X
+		int Y; // position suivant Y
+		int dX; // dimension x
+		int dY; // dimension y
 
-			// Zones suivant X des commandes
-		int rotatifsCentre;
-		int selectifsCentre;
-		int rotatifsDroite;
-		int selectifsDroite;
-		int rotatifsGauche;
-		int selectifsGauche;
-
-			// Zones suivant Y des fonctions
-		int fonctionHaut;
-		int fonctionBas;
-		int fourierHaut;
-		int fourierBas;
-		int boutons;
-			// Zone des fonctions suivant X
-		int fonctionsGauche;
-		int fonctionsdroite;
-
-		int sourisX; // position X de la souris
-		int sourisY; // position Y de la souris
-
-		int sourisGauche; // position X de la souris - demiBouton
-		int sourisDroite; // position X de la souris + demiBouton
-		int sourisHaut; // position Y de la souris - demiBouton
-		int sourisBas; // position Y de la souris + demiBouton
-
+		int centre; // centre du rotatif
 		};
 
-int commandesInitialiseBoutons(commandesT * commandes, int largeur, int hauteur);
-int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY);
-int commandeSelectifs(commandesT * commandes);
-int commandeRotatifs(commandesT * commandes);
-int commandeTriangles(commandesT * commandes);
-int commandeLineaires(commandesT * commandes);
+int rotatifInitialise(rotatifT * rotatif, int largeur, int hauteur);
+int rotatifInitialiseSouris(rotatifT * rotatif, int sourisX, int sourisY);
+int rotatifRotatifs(rotatifT * rotatif);
+int rotatifTriangles(rotatifT * rotatif);
+int rotatifLineaires(rotatifT * rotatif);
 
 #endif

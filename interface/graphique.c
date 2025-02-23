@@ -238,14 +238,14 @@ int graphiqueCommandesConstruction(graphiqueT * graphique, commandesT * commande
 	centrage = 5;
 	coordonnee.w=10;
 	coordonnee.h=10;
-	coordonnee.x = (*commandes).boutonsCentre - centrage;	// Positon X de la zone des petits boutons
+	coordonnee.x = (*commandes).boutonsX - centrage;	// Positon X de la zone des petits boutons
 
 		// Petits boutons de droite
 	for(i=0;i<BOUTON_COMMANDES;i++)
 		{
-		if((*commandes).boutonEtat[i]==1)
+		if((*commandes).bouton[i]->etat==1)
 			{
-			coordonnee.y = (*commandes).boutonCentre[i] - centrage; // Positon Y des petits boutons
+			coordonnee.y = (*commandes).bouton[i]->Y - centrage; // Positon Y des petits boutons
 			//	Dessin des petits boutons
 			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.mobile, NULL, &coordonnee);
 			}

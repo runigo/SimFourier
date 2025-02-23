@@ -44,14 +44,14 @@ int controleurSourisMouvement(controleurT * controleur)
 
 	if((*controleur).appui==1)
 		{
-		if( (*controleur).commandes.sourisX < (*controleur).commandes.rotatifs && (*controleur).commandes.sourisY < (*controleur).commandes.bas )
+		if( (*controleur).commandes.sourisX > (*controleur).commandes.fonctionsGauche && (*controleur).commandes.sourisX < (*controleur).commandes.fonctionsDroite )
 			{
-			if( (*controleur).commandes.sourisY < (*controleur).commandes.fourier )
+			if( (*controleur).commandes.sourisY < (*controleur).commandes.fonctionHaut && (*controleur).commandes.sourisY > (*controleur).commandes.fonctionBas)
 				{
 				pointDeVueChangePsi(&(*controleur).graphes.fonction.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
 				pointDeVueChangePhi(&(*controleur).graphes.fonction.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
 				}
-			else
+			else if( (*controleur).commandes.sourisY < (*controleur).commandes.fourierHaut && (*controleur).commandes.sourisY > (*controleur).commandes.fourierBas)
 				{
 				pointDeVueChangePsi(&(*controleur).graphes.fourier.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
 				pointDeVueChangePhi(&(*controleur).graphes.fourier.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
@@ -66,21 +66,15 @@ int controleurSourisMolette(controleurT * controleur)
 				// Action des mouvements de la mollette
 
 		//	Si dans la zone des boutons rotatif, 
-	if((*controleur).commandes.sourisX>(*controleur).commandes.rotatifs)
+	if((*controleur).commandes.sourisX > (*controleur).commandes.rotatifsGauche
+			&& (*controleur).commandes.sourisX < (*controleur).commandes.rotatifsDroite)
 		{
 		controleurSourisDefileCommandes(controleur, 1);
 		}
 	else
 		//	Si dans la zone des curseurs linéaires 
 		{
-		if((*controleur).commandes.sourisY>(*controleur).commandes.bas)
-			{
-			controleurSourisDefileCommandes(controleur, 3);
-			}
-		else
-		//	Si dans la zone des fonctions, change la distance du point de vue (zone 0).
-			{
-			if((*controleur).commandes.sourisY>(*controleur).commandes.fourier)
+		if((*controleur).commandes.sourisY>(*controleur).commandes.fourier)
 				{
 				controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fourier);
 				}
@@ -88,6 +82,15 @@ int controleurSourisMolette(controleurT * controleur)
 				{
 				controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fonction);
 				}
+
+		if((*controleur).commandes.sourisY>(*controleur).commandes.bas)
+			{
+			controleurSourisDefileCommandes(controleur, 3);
+			}
+		else
+		//	Si dans la zone des fonctions, change la distance du point de vue (zone 0).
+			{
+			
 			}
 		}
 	return 0;

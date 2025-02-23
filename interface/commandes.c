@@ -1,10 +1,11 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright février 2025, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 0.1 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
+(d'après SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -173,14 +174,17 @@ int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY)
 	return 0;
 	}
 
-int commandeBoutons(commandesT * commandes)
+int commandeSelectifs(commandesT * commandes)
 	{
+			// Retourne le numéro de la commandes sélectionné
 	int i;
-	if((*commandes).boutonsCentre>(*commandes).sourisGauche && (*commandes).boutonsCentre<(*commandes).sourisDroite)
+			//	Si dans la zone suivant X
+	if((*commandes).SelectifCentre>(*commandes).sourisGauche && (*commandes).SelectifCentre<(*commandes).sourisDroite)
 		{
 		for(i=0;i<BOUTON_COMMANDES;i++)
 			{
-			if((*commandes).boutonCentre[i]>(*commandes).sourisHaut && (*commandes).boutonCentre[i]<(*commandes).sourisBas)
+			//	Si dans la zone suivant Y
+			if((*commandes).Selectif[i]->Centre>(*commandes).sourisHaut && (*commandes).Selectif[i]->Centre<(*commandes).sourisBas)
 				return i;
 			}
 		}
@@ -189,18 +193,21 @@ int commandeBoutons(commandesT * commandes)
 
 int commandeRotatifs(commandesT * commandes)
 	{
+			// Retourne le numéro de la commandes sélectionné
 	int i;
+			//	Si dans la zone suivant X
 	if((*commandes).rotatifsCentre>(*commandes).sourisGauche && (*commandes).rotatifsCentre<(*commandes).sourisDroite)
 		{
 		for(i=0;i<ROTATIF_COMMANDES;i++)
 			{
-			if((*commandes).rotatifCentre[i]>(*commandes).sourisHaut && (*commandes).rotatifCentre[i]<(*commandes).sourisBas)
+			//	Si dans la zone suivant Y
+			if((*commandes).rotatif[i]->centre>(*commandes).sourisHaut && (*commandes).rotatif[i]->centre<(*commandes).sourisBas)
 				return i;
 			}
 		}
 	return -1;
 	}
-
+/*
 int commandeTriangles(commandesT * commandes)
 	{
 	int i;
@@ -228,5 +235,5 @@ int commandeLineaires(commandesT * commandes)
 		}
 	return -1;
 	}
-
+*/
 //////////////////////////////////////////////////////////////////
