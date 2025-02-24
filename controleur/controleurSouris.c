@@ -1,10 +1,11 @@
 /*
 Copyright février 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.0 Transformation de Fourier
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
+SimFourier 1.2.2 Transformation de Fourier
+(d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -32,10 +33,38 @@ termes.
 
 #include "controleurSouris.h"
 
+int controleurSourisPosition(controleurT * controleur);
+
+int controleurSourisMolette(controleurT * controleur);
+int controleurSourisMouvement(controleurT * controleur);
+int controleurSourisBouton(controleurT * controleur, int appui);
+
 int controleurSourisCommandes(controleurT * controleur, int zone);
 int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe);
 int controleurSourisDefileCommandes(controleurT * controleur, int zone);
-void controleurSourisInitialisePosition(controleurT * controleur, int position);
+int controleurSourisInitialisePosition(controleurT * controleur, int position);
+
+int controleurSouris(controleurT * controleur, int action)
+	{
+
+	int zone = commandesPositionSouris(controleur)
+
+	switch(action)	//	
+		{
+		case 0: // Molette
+			controleurSourisMolette(controleur);break;
+		case 1: // Mouvement
+			controleurSourisMouvement(controleur);break;
+		case 2: // appuie cliq gauche
+			controleurSourisBouton(controleur, 1);break;
+		case 3: // relache cliq gauche
+			controleurSourisBouton(controleur, 0);break;
+		default:
+			;
+		}
+	return 0;
+	}
+
 
 int controleurSourisMouvement(controleurT * controleur)
 	{
@@ -66,33 +95,46 @@ int controleurSourisMolette(controleurT * controleur)
 				// Action des mouvements de la mollette
 
 		//	Si dans la zone des boutons rotatif, 
-	if((*controleur).commandes.sourisX > (*controleur).commandes.rotatifsGauche
-			&& (*controleur).commandes.sourisX < (*controleur).commandes.rotatifsDroite)
+	if((*controleur).commandes.sourisX > (*controleur).commandes.rotatifsGauche && (*controleur).commandes.sourisX < (*controleur).commandes.rotatifsDroite)
 		{
 		controleurSourisDefileCommandes(controleur, 1);
 		}
 	else
-		//	Si dans la zone des curseurs linéaires 
-		{
-		if((*controleur).commandes.sourisY>(*controleur).commandes.fourier)
-				{
-				controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fourier);
-				}
-			else
+		{	//	Si dans la zone de fourier.
+		if((*controleur).commandes.sourisY > (*controleur).commandes.fourierBas && (*controleur).commandes.sourisY < (*controleur).commandes.fourierHaut)
+			{
+			controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fourier);
+			}
+		else
+			{//	Si dans la zone de la fonction.
+			if((*controleur).commandes.sourisY > (*controleur).commandes.fourierBas && (*controleur).commandes.sourisY < (*controleur).commandes.fourierHaut)
 				{
 				controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fonction);
 				}
-
-		if((*controleur).commandes.sourisY>(*controleur).commandes.bas)
+			else	//	Si dans la zone des curseurs linéaires de la fonction
+				{
+				if((*controleur).commandes.sourisY < (*controleur).commandes.fonctionHaut)
+					{
+					}
+				else	//	Si dans la zone des curseurs linéaires de fourier
+					{
+					if((*controleur).commandes.sourisY > (*controleur).commandes.fonctionBas && (*controleur).commandes.sourisY < (*controleur).commandes.fourierHaut)
+						{
+						}
+					}
+				}
+			}
+		}
+	
+		if((*controleur).commandes.sourisY>(*controleur).commandes.fourierBas)
 			{
 			controleurSourisDefileCommandes(controleur, 3);
 			}
 		else
-		//	Si dans la zone des fonctions, change la distance du point de vue (zone 0).
 			{
-			
 			}
-		}
+	
+			
 	return 0;
 	}
 
@@ -112,7 +154,7 @@ int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe)
 	return 0;
 	}
 
-void controleurSourisBouton(controleurT * controleur, int appui)
+int controleurSourisBouton(controleurT * controleur, int appui)
 	{
 				// Action du bouton gauche de la souris
 
@@ -143,7 +185,7 @@ void controleurSourisBouton(controleurT * controleur, int appui)
 				}
 			}
 		}
-	return;
+	return 0;
 	}
 
 int controleurSourisCommandes(controleurT * controleur, int zone)
@@ -214,13 +256,13 @@ int controleurSourisCommandes(controleurT * controleur, int zone)
 	return reinitialisation;
 	}
 
-void controleurSourisInitialisePosition(controleurT * controleur, int position) {
+int controleurSourisInitialisePosition(controleurT * controleur, int position) {
 
 		//		Réinitialise les positions.
 (void)position;
 	modeleProjectionInitiale(&(*controleur).modele);
 
-	return;
+	return 0;
 	}
 
 int controleurSourisDefileCommandes(controleurT * controleur, int zone)

@@ -51,15 +51,18 @@ typedef struct CommandesT commandesT;
 		int rotatifsGauche;
 		int selectifsGauche;
 
+			// Zones suivant Y du menu 1
+		int mode;
+
+			// Zone suivant X des fonctions
+		int fonctionsGauche;
+		int fonctionsDroite;
+
 			// Zones suivant Y des fonctions
 		int fonctionHaut;
 		int fonctionBas;
 		int fourierHaut;
 		int fourierBas;
-		int boutons;
-			// Zone des fonctions suivant X
-		int fonctionsGauche;
-		int fonctionsdroite;
 
 		int sourisX; // position X de la souris
 		int sourisY; // position Y de la souris

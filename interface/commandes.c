@@ -174,6 +174,67 @@ int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY)
 	return 0;
 	}
 
+int commandesSourisPosition(controleurT * controleur)
+	{
+		//	Retourne la zone où se trouve la souris
+
+	if((*commandes).sourisX < (*commandes).fonctionGauche)		//		MENU 1
+		{
+		if((*commandes).sourisY < (*commandes).mode
+			{	//	Selection initiale/simulation
+			return 1;
+			}
+		else
+			{
+			if((*commandes).sourisX < (*commandes).rotatifsDroite && (*commandes).sourisX > (*commandes).rotatifsGauche)
+				{	//	Rotatif
+				return 2;
+				}
+			else
+				{	//	Selectif
+				if((*commandes).sourisX < (*commandes).selectifsDroite && (*commandes).sourisX > (*commandes).selectifsGauche)
+					{
+					return 3;
+					}
+				}
+			}
+		}
+	else
+		{
+		if((*commandes).sourisX < (*commandes).fonctionDroite)	//		MENU 2
+			{
+			if((*commandes).sourisY < (*commandes).fonctionHaut)
+				{	//	Menu fonction
+				return 4;
+				}
+			else
+				{
+				if((*commandes).sourisY < (*commandes).fonctionBas)
+					{	//	Fonction
+					return 5;
+					}
+				else
+					{
+					if((*commandes).sourisY < (*commandes).fourierHaut)
+						{	//	Menu fourier
+						return 6;
+						}
+					else
+						{	//	Fourier
+							return 7;
+						}
+					}
+				}
+			}
+		else								//		MENU 3
+			{
+			return 8;
+			}
+		}
+	
+	return -1;
+	}
+
 int commandeSelectifs(commandesT * commandes)
 	{
 			// Retourne le numéro de la commandes sélectionné

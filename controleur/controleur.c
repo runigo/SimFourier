@@ -1,7 +1,7 @@
 /*
 Copyright février 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.1 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -75,13 +75,13 @@ int controleurTraiteEvenement(controleurT * controleur)
 		case SDL_QUIT:
 			(*controleur).sortie = 1;break;
 		case SDL_MOUSEWHEEL:
-			controleurSourisMolette(controleur);break;
+			controleurSouris(controleur, 0);break;
 		case SDL_MOUSEMOTION:
-			controleurSourisMouvement(controleur);break;
+			controleurSouris(controleur,1);break;
 		case SDL_MOUSEBUTTONDOWN:
-			controleurSourisBouton(controleur, 1);break;
+			controleurSouris(controleur, 2);break;
 		case SDL_MOUSEBUTTONUP:
-			controleurSourisBouton(controleur, 0);break;
+			controleurSouris(controleur, 3);break;
 		case SDL_USEREVENT:
 			controleurEvolution(controleur);break;
 		case SDL_KEYDOWN:
