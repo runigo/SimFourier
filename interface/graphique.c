@@ -2,7 +2,7 @@
 Copyright février 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2.2 Transformation de Fourier
-(d'après SimFoule 2.2  simulateur de foule, décembre 2019)
+(d'après SimFoule 2.2 simulateur de foule, décembre 2019)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
@@ -69,17 +69,15 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int 
 
 int graphiqueNettoyage(graphiqueT * graphique)
 	{
-	affichageNettoyage(&(*graphique).affichage);
-	return 0;
+	return affichageNettoyage(&(*graphique).affichage);
 	}
 
-int graphiqueFond(graphiqueT * graphique, int modeDessin)
+int graphiqueFond(graphiqueT * graphique, int mode)
 	{
-	if(modeDessin<0)		//	Menu construction
+	SDL_Rect coordonnee = {0, 0, 201, 812};
+	if(mode==0)		//	Menu initiale
 		{
-		SDL_Rect coordonnee = {0, (*graphique).fenetreY - 35, 238, 35};
-		//SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textureSysteme.construct, NULL, &coordonnee);
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.construction, NULL, &coordonnee);
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.initiale, NULL, &coordonnee);
 		}
 	
 	return 0;
@@ -93,117 +91,68 @@ int graphiqueMiseAJour(graphiqueT * graphique)
 
 int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur)
 	{
-	if(SDL_SetRenderDrawColor((*graphique).affichage.rendu, couleur.r, couleur.g, couleur.b, couleur.a) < 0)
-	return -1;
-	//if(SDL_RenderClear(renderer) < 0)
-		//return -1;
-	return 0;  
+	return SDL_SetRenderDrawColor((*graphique).affichage.rendu, couleur.r, couleur.g, couleur.b, couleur.a);
 	}
 
-
-int graphiqueCommandesSysteme(graphiqueT * graphique, commandesT * commandes)
+int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes)
 	{
-		// Dessine les commandes sélectionées
+		// Dessine les commandes sélectionées du menu simulation
 	
 	SDL_Rect coordonnee = {0, 0, (*graphique).fenetreX, (*graphique).fenetreY};
-	int centrage = 5;
+	//int centrage = 5;
 	coordonnee.w=10;
 	coordonnee.h=10;
-	coordonnee.x = (*commandes).boutonsCentre - centrage;	// Positon X de la zone des petits boutons
+	coordonnee.x = (*commandes).selectifsGauche;	// Positon X de la zone des petits boutons
 	int i;
 	int X, Y, x, y;
 			
-	for(i=0;i<BOUTON_COMMANDES;i++)
+	for(i=0;i<SELECTIF_COMMANDES;i++)
 		{
-		if((*commandes).boutonEtat[i]==1)
+		if( (*commandes).selectif[i].etat == 1 )
 			{
-			coordonnee.y = (*commandes).boutonCentre[i] - centrage; // Positon Y des petits boutons
+			coordonnee.y = (*commandes).selectif[i].Y; // Positon Y des petits boutons
 			//	Dessin des petits boutons
-			//SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textureSysteme.mobile, NULL, &coordonnee);
+			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.mobile, NULL, &coordonnee);
 			}
 		}
 
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-	X=(*commandes).rotatifsCentre;
+	X=(*commandes).rotatifsDroite;
 	for(i=0;i<ROTATIF_COMMANDES;i++)
 		{
-		Y=(*commandes).rotatifCentre[i];
-		x=X+(*commandes).rotatifPositionX[i];
-		y=Y+(*commandes).rotatifPositionY[i];
+		Y=(*commandes).rotatif[i].centre;
+		x=X+(*commandes).rotatif[i].X;
+		y=Y+(*commandes).rotatif[i].Y;
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y+1, x, y+1);
 		}
 
-	centrage = 6;
-	coordonnee.w=12;
-	coordonnee.h=12;
-	coordonnee.y = (*commandes).trianglesLumiere - centrage;	// Positon Y de la zone du bas
-	for(i=0;i<TRIANGLE_COMMANDES;i++)
-		{
-		if((*commandes).triangleEtat[i]==1)
-			{
-			coordonnee.x = (*commandes).triangleCentre[i] - centrage; // Positon X des boutons triangulaire
-			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.lumiereVerte, NULL, &coordonnee);
-			}
-		else
-			{
-				if((*commandes).triangleEtat[i]==2)
-				{
-				coordonnee.x = (*commandes).triangleCentre[i] - centrage; // Positon X des boutons triangulaire
-				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.lumiereRouge, NULL, &coordonnee);
-				}
-				else
-					{
-					coordonnee.x=(*commandes).lineairePositionX;	//	Droite duree < DUREE
-					if((*commandes).triangleEtat[5]==-1 || (*commandes).triangleEtat[10]==-1)
-						{
-						SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.lumiereOrange, NULL, &coordonnee);
-						}
-					if((*commandes).triangleEtat[6]==-1 || (*commandes).triangleEtat[9]==-1)
-						{
-						SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.lumiereJaune, NULL, &coordonnee);
-						}
-					}
-			}
-		}
-
 	return 0;
 	}
 
-int graphiqueCommandesConstruction(graphiqueT * graphique, commandesT * commandes)
+int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	{
 		// Dessine les menus et les commandes sélectionées
 
 	SDL_Rect coordonnee = {0, (*graphique).fenetreY - 35, 238, 35};
 	//SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textureSysteme.construct, NULL, &coordonnee);
-	SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.construction, NULL, &coordonnee);
+	SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.initiale, NULL, &coordonnee);
 
 	int i;
 	//int X, Y, x, y;
 	int centrage = 12;
 	coordonnee.w=25;
 	coordonnee.h=25;
-	coordonnee.y = (*commandes).trianglesLumiere - centrage;	// Positon Y de la zone du bas
+	coordonnee.y = (*commandes).fourierBas;	// Positon Y de la zone du bas
 
-	if((*commandes).triangleEtat[0]==1)
+	if((*commandes).selectif[0].etat == 1)
 		{
-		coordonnee.x = (*commandes).triangleCentre[0] - centrage;
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonVide, NULL, &coordonnee);
+		coordonnee.x = (*commandes).selectif[0].X - centrage;
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectif[0], NULL, &coordonnee);
 		}
 
-	if((*commandes).triangleEtat[1]==1)
-		{
-		coordonnee.x = (*commandes).triangleCentre[1] - centrage;
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonMur, NULL, &coordonnee);
-		}
-
-	if((*commandes).triangleEtat[2]==1)
-		{
-		coordonnee.x = (*commandes).triangleCentre[2] - centrage;
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonSortie, NULL, &coordonnee);
-		}
 /*
 	if((*commandes).triangleEtat[3]==1)
 		{
@@ -211,43 +160,19 @@ int graphiqueCommandesConstruction(graphiqueT * graphique, commandesT * commande
 		//SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonEntree, NULL, &coordonnee);
 		}
 */
-	if((*commandes).triangleEtat[4]==1)
-		{
-		coordonnee.x = (*commandes).triangleCentre[4] - centrage;
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonMobile, NULL, &coordonnee);
-		}
-
-	if((*commandes).triangleEtat[5]==1)
-		{
-		coordonnee.x = (*commandes).triangleCentre[5] - centrage;
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonPoint, NULL, &coordonnee);
-		}
-
-	if((*commandes).triangleEtat[6]==1)
-		{
-		coordonnee.x = (*commandes).triangleCentre[6] - centrage;
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonTrait, NULL, &coordonnee);
-		}
-
-	if((*commandes).triangleEtat[7]==1)
-		{
-		coordonnee.x = (*commandes).triangleCentre[7] - centrage;
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonRectangle, NULL, &coordonnee);
-		}
-
-	centrage = 5;
+	//centrage = 5;
 	coordonnee.w=10;
 	coordonnee.h=10;
-	coordonnee.x = (*commandes).boutonsX - centrage;	// Positon X de la zone des petits boutons
+	coordonnee.x = (*commandes).selectifsGauche;	// Positon X de la zone des petits boutons
 
 		// Petits boutons de droite
-	for(i=0;i<BOUTON_COMMANDES;i++)
+	for(i=0;i<SELECTIF_COMMANDES;i++)
 		{
-		if((*commandes).bouton[i]->etat==1)
+		if((*commandes).selectif[i].etat==1)
 			{
-			coordonnee.y = (*commandes).bouton[i]->Y - centrage; // Positon Y des petits boutons
+			coordonnee.y = (*commandes).selectif[i].Y; // Positon Y des petits boutons
 			//	Dessin des petits boutons
-			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.mobile, NULL, &coordonnee);
+			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectif[i], NULL, &coordonnee);
 			}
 		}
 /*

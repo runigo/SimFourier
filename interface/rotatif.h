@@ -38,10 +38,14 @@ termes.
 typedef struct RotatifT rotatifT;
 	struct RotatifT
 		{
-		int X; // position suivant X
-		int Y; // position suivant Y
+		int X; // coordonné suivant X
+		int Y; // coordonné suivant Y
 		int dX; // dimension x
 		int dY; // dimension y
+
+		
+		int positionX;	//	position x de l'aiguille
+		int positionY;	//	position y de l'aiguille
 
 		int centre; // centre du rotatif
 		};

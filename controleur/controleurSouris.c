@@ -186,7 +186,9 @@ int controleurSourisInitialisePosition(controleurT * controleur, int position) {
 
 int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 	{
-	int commande = -1;
+	(void)controleur;
+	(void)zone;
+	//int commande = -1;
 /*	if(zone==1)
 		{
 		commande = commandeRotatifs(&(*controleur).commandes);
@@ -215,7 +217,6 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 				}
 			}
 		}
-*/
 	if(zone==3)
 		{
 		commande = commandeLineaires(&(*controleur).commandes);
@@ -244,6 +245,7 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 				}
 			}
 		}
+*/
 	return 0;
 	}
 

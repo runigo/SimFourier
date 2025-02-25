@@ -1,7 +1,7 @@
 /*
 Copyright février 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.1 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
 (d'après SimFoule 2.2  simulateur de foule, décembre 2019)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -34,37 +34,218 @@ termes.
 #include "textures.h"
 
 
+int texturesVoyants(texturesT * textures, affichageT * affichage);
 int texturesMenus(texturesT * textures, affichageT * affichage);
-int texturesBoutons(texturesT * textures, affichageT * affichage);
+int texturesSelectifs(texturesT * textures, affichageT * affichage);
 
 
 int texturesInitialisation(texturesT * textures, affichageT * affichage)
 	{
-	texturesBoutons(textures, affichage);
+	texturesSelectifs(textures, affichage);
 	texturesMenus(textures, affichage);
+	texturesVoyants(textures, affichage);
+	return 0;
+}
+
+int texturesSelectifs(texturesT * textures, affichageT * affichage)
+	{
+		//	 Boutons selectif
+
+	SDL_Surface *image = 0;
+
+	image = SDL_LoadBMP("./image/constant.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/constant.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[0] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[0] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/rectangle.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/rectangle.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[1] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[1] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/scie.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/scie.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[2] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[2] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/sinus.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/sinus.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[3] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[3] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/aperiodiq.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/aperiodiq.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[4] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[4] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/periodique.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/periodique.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[5] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[5] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/gauss.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/gauss.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[6] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[6] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/lorentz.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/lorentz.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[7] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[7] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/sincar.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/sincar.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[8] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[8] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/constant.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/constant.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[9] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[9] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/dirac.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/dirac.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[10] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[10] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/sinus.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/sinus.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[11] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[11] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	image = SDL_LoadBMP("./image/spirale.bmp");
+	if (!image)
+		{
+		fprintf(stderr,"Erreur chargement image ./image/spirale.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).selectif[12] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	SDL_FreeSurface(image);
+	if ((*textures).selectif[12] == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
 	return 0;
 }
 
 int texturesMenus(texturesT * textures, affichageT * affichage)
 	{
-/*
+
 	SDL_Surface *panneau = 0;
 
-	panneau = SDL_LoadBMP("./image/SimFouleUniforme.bmp");
+	panneau = SDL_LoadBMP("./image/initiale.bmp");
 	if (!panneau)
 		{
-		fprintf(stderr,"ERREUR chargement image, ./image/SimFouleUniforme.bmp : %s\n",SDL_GetError());
-		retour++;
+		fprintf(stderr,"ERREUR chargement image, ./image/initiale.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).simfoule = SDL_CreateTextureFromSurface((*affichage).rendu, panneau);
+	(*textures).initiale = SDL_CreateTextureFromSurface((*affichage).rendu, panneau);
 	SDL_FreeSurface(panneau);
-	if ((*textures).simfoule == 0)
+	if ((*textures).initiale == 0)
 		{
 		fprintf(stderr,"ERREUR grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		retour++;
 		}
-*/
 
+	panneau = SDL_LoadBMP("./image/simulation.bmp");
+	if (!panneau)
+		{
+		fprintf(stderr,"ERREUR chargement image, ./image/simulation.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).simulation = SDL_CreateTextureFromSurface((*affichage).rendu, panneau);
+	SDL_FreeSurface(panneau);
+	if ((*textures).simulation == 0)
+		{
+		fprintf(stderr,"ERREUR grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
+	return 0;
+}
+
+int texturesVoyants(texturesT * textures, affichageT * affichage)
+	{
 	SDL_Surface *lumiereVerte = 0;
 
 	lumiereVerte = SDL_LoadBMP("./image/lumiereVerte.bmp");
@@ -120,110 +301,7 @@ int texturesMenus(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"ERREUR grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
-
-		fprintf(stderr,"texturesInitialisation \n");
-
-
-
-	return 0;
-}
-
-int texturesBoutons(texturesT * textures, affichageT * affichage)
-	{
-		//	 Boutons
-
-	SDL_Surface *image = 0;
-
-	image = SDL_LoadBMP("./image/aperio.bmp");
-	if (!image)
-		{
-		fprintf(stderr,"Erreur chargement image, SimFouleBoutonVide.bmp : %s\n",SDL_GetError());
-		}
-	(*textures).boutonVide = SDL_CreateTextureFromSurface((*affichage).rendu, image);
-	SDL_FreeSurface(image);
-	if ((*textures).boutonVide == 0)
-		{
-		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		}
-
-
-	image = SDL_LoadBMP("./image/constant.bmp");
-	if (!image)
-		{
-		fprintf(stderr,"Erreur chargement image, SimFouleBoutonMur.bmp : %s\n",SDL_GetError());
-		}
-	(*textures).boutonMur = SDL_CreateTextureFromSurface((*affichage).rendu, image);
-	SDL_FreeSurface(image);
-	if ((*textures).boutonMur == 0)
-		{
-		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		}
-
-
-	image = SDL_LoadBMP("./image/dirac.bmp");
-	if (!image)
-		{
-		fprintf(stderr,"Erreur chargement image, SimFouleBoutonSortie.bmp : %s\n",SDL_GetError());
-		}
-	(*textures).boutonSortie = SDL_CreateTextureFromSurface((*affichage).rendu, image);
-	SDL_FreeSurface(image);
-	if ((*textures).boutonSortie == 0)
-		{
-		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		}
-
-	image = SDL_LoadBMP("./image/gauss.bmp");
-	if (!image)
-		{
-		fprintf(stderr,"Erreur chargement image, SimFouleBoutonMobile.bmp : %s\n",SDL_GetError());
-		}
-	(*textures).boutonMobile = SDL_CreateTextureFromSurface((*affichage).rendu, image);
-	SDL_FreeSurface(image);
-	if ((*textures).boutonMobile == 0)
-		{
-		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		}
-
-
-	image = SDL_LoadBMP("./image/lorentz.bmp");
-	if (!image)
-		{
-		fprintf(stderr,"Erreur chargement image, SimFouleBoutonPoint.bmp : %s\n",SDL_GetError());
-		}
-	(*textures).boutonPoint = SDL_CreateTextureFromSurface((*affichage).rendu, image);
-	SDL_FreeSurface(image);
-	if ((*textures).boutonPoint == 0)
-		{
-		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		}
-
-
-	image = SDL_LoadBMP("./image/periodique.bmp");
-	if (!image)
-		{
-		fprintf(stderr,"Erreur chargement image, SimFouleBoutonTrait.bmp : %s\n",SDL_GetError());
-		}
-	(*textures).boutonTrait = SDL_CreateTextureFromSurface((*affichage).rendu, image);
-	SDL_FreeSurface(image);
-	if ((*textures).boutonTrait == 0)
-		{
-		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		}
-
-
-	SDL_Surface *menu = 0;
-	menu = SDL_LoadBMP("./image/rectangle.bmp");
-	if (!menu)
-		{
-		fprintf(stderr,"Erreur chargement image, SimFouleConstruction01.bmp : %s\n",SDL_GetError());
-		}
-	(*textures).boutonRectangle = SDL_CreateTextureFromSurface((*affichage).rendu, menu);
-	SDL_FreeSurface(menu);
-	if ((*textures).boutonRectangle == 0)
-		{
-		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		}
-
+	fprintf(stderr,"texturesInitialisation \n");
 	return 0;
 }
 

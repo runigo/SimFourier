@@ -95,8 +95,7 @@ int affichageInitialisation(affichageT * affichage, interfaceT * interface)
 int affichageNettoyage(affichageT * affichage)
 	{
 	SDL_SetRenderDrawColor((*affichage).rendu, (*affichage).fond.r,  (*affichage).fond.g, (*affichage).fond.g, (*affichage).fond.g);
-	SDL_RenderClear((*affichage).rendu);
-	return 0;
+	return SDL_RenderClear((*affichage).rendu);
 	}
 
 //////////////////////////////////////////////////////////////////////////////

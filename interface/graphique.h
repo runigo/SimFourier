@@ -40,6 +40,7 @@ termes.
 #include "affichage.h"
 
 
+typedef struct GraphiqueT graphiqueT;
 struct GraphiqueT {
 
 	affichageT affichage;		// 	Rendu et couleurs
@@ -51,7 +52,6 @@ struct GraphiqueT {
 	int fenetreX;	// hauteur de la fenêtre
 	int fenetreY;	// largeur de la fenêtre
 };
-typedef struct GraphiqueT graphiqueT;
 
 int graphiqueSuppression(graphiqueT * graphique);
 int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int taille);
@@ -61,7 +61,8 @@ int graphiqueMiseAJour(graphiqueT * graphique);
 
 int graphiqueFond(graphiqueT * graphique, int modeDessin);
 
-int graphiqueCommandesSysteme(graphiqueT * graphique, commandesT * commandes);
+int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes);
+int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes);
 void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe);
 void graphiquePendule(graphiqueT * graphique, grapheT * graphe);
 
