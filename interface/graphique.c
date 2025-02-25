@@ -98,7 +98,7 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 	{
 		//	Dessine les menus
 
-	SDL_Rect coordonnee = {0, 0, 150, 600};
+	SDL_Rect coordonnee = {0, 0, MENUS_X, MENUS_Y};
 	if(mode==0)		//	Menu initiale
 		{
 		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.initiale, NULL, &coordonnee);
@@ -165,26 +165,9 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	int i;
 	//int X, Y, x, y;
 	//int centrage = 12;
-	coordonnee.w=100;
-	coordonnee.h=100;
+	coordonnee.w=SELECTIF_X;
+	coordonnee.h=SELECTIF_Y;
 	coordonnee.y = (*commandes).fourierBas;	// Positon Y de la zone du bas
-
-/*
-	if((*commandes).selectif[0].etat == 1)
-		{
-		coordonnee.x = (*commandes).selectif[0].X - centrage;
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectif[0], NULL, &coordonnee);
-		}
-
-	if((*commandes).triangleEtat[3]==1)
-		{
-		coordonnee.x = (*commandes).triangleCentre[3] - centrage;
-		//SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.boutonEntree, NULL, &coordonnee);
-		}
-*/
-	//centrage = 5;
-	coordonnee.w=30;
-	coordonnee.h=30;
 	coordonnee.x = (*commandes).selectifsGauche;	// Positon X de la zone des petits boutons
 
 		// Petits boutons de droite

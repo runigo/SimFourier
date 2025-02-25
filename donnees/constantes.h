@@ -52,6 +52,14 @@ termes.
 	//  TAILLE IMPLICITE DE LA FENÊTRE
 #define FENETRE_X 938
 #define FENETRE_Y 680
+#define MENUS_X (FENETRE_Y - 100) / 4
+#define MENUS_Y (FENETRE_Y -100)
+
+	//  TAILLE IMPLICITE DES BOUTONS
+#define SELECTIF_X 50
+#define SELECTIF_Y 50
+
+
 
 	//	PARAMÈTRES DES CAPTEURS
 #define GRAPHES 2 // Nombres de graphes
