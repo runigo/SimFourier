@@ -191,7 +191,7 @@ int controleurConstructionGraphique(controleurT * controleur)
 	graphiqueNettoyage(&(*controleur).graphique);
 
 		//fprintf(stderr, "Dessin des Commandes\n");
-	//graphiqueCommandes(&(*controleur).graphique, &(*controleur).commandes);
+	graphiqueCommandes(&(*controleur).graphique, &(*controleur).commandes, (*controleur).options.mode);
 
 		//fprintf(stderr, "Dessin des capteurs\n");
 	//graphiqueCapteurs(&(*controleur).graphique, &(*controleur).capteurs);

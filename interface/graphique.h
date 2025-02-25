@@ -61,10 +61,10 @@ int graphiqueMiseAJour(graphiqueT * graphique);
 
 int graphiqueFond(graphiqueT * graphique, int modeDessin);
 
-int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes);
-int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes);
-void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe);
-void graphiquePendule(graphiqueT * graphique, grapheT * graphe);
+int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode);
+
+int graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe);
+int graphiquePendule(graphiqueT * graphique, grapheT * graphe);
 
 #endif
 /////////////////////////////////////////////////////////////////

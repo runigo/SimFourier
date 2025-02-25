@@ -33,19 +33,23 @@ termes.
 
 #include "graphique.h"
 
-int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
-void graphiqueLigne(graphiqueT * graphique, int X, int Y, int x, int y);
-void graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT);
-//void graphiqueMasse(graphiqueT * graphique, int abs, int ord);
+int graphiqueMenus(graphiqueT * graphique, int mode);
 
-void graphiqueMobile(graphiqueT * graphique, grapheT * graphe);
+int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes);
+int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes);
+
+int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
+int graphiqueLigne(graphiqueT * graphique, int X, int Y, int x, int y);
+int graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT);
+//int graphiqueMasse(graphiqueT * graphique, int abs, int ord);
+
+int graphiqueMobile(graphiqueT * graphique, grapheT * graphe);
 
 int graphiqueSuppression(graphiqueT * graphique)
 	{
 	SDL_DestroyRenderer((*graphique).affichage.rendu);
 	return 0;
 	}
-
 
 int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int taille)
 	{
@@ -72,40 +76,55 @@ int graphiqueNettoyage(graphiqueT * graphique)
 	return affichageNettoyage(&(*graphique).affichage);
 	}
 
-int graphiqueFond(graphiqueT * graphique, int mode)
+int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
 	{
-	SDL_Rect coordonnee = {0, 0, 201, 812};
-	if(mode==0)		//	Menu initiale
+		//	Dessine les menus et les commandes selon le mode
+
+	graphiqueMenus(graphique, mode);
+
+	if(mode == 0)
 		{
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.initiale, NULL, &coordonnee);
+		graphiqueCommandesInitiale(graphique, commandes);
+		}
+	else
+		{
+		graphiqueCommandesSimulation(graphique, commandes);
 		}
 	
 	return 0;
 	}
 
-int graphiqueMiseAJour(graphiqueT * graphique)
+int graphiqueMenus(graphiqueT * graphique, int mode)
 	{
-	SDL_RenderPresent((*graphique).affichage.rendu);
-	return 0;
-	}
+		//	Dessine les menus
 
-int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur)
-	{
-	return SDL_SetRenderDrawColor((*graphique).affichage.rendu, couleur.r, couleur.g, couleur.b, couleur.a);
+	SDL_Rect coordonnee = {0, 0, 150, 600};
+	if(mode==0)		//	Menu initiale
+		{
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.initiale, NULL, &coordonnee);
+		}
+	else		//	Menu simulation
+		{
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.simulation, NULL, &coordonnee);
+		}
+	return 0;
 	}
 
 int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes)
 	{
-		// Dessine les commandes sélectionées du menu simulation
-	
+		// Dessine le menu simulation et ses commandes
+
+		//	Menu
+	graphiqueMenus(graphique, 1);
+
 	SDL_Rect coordonnee = {0, 0, (*graphique).fenetreX, (*graphique).fenetreY};
 	//int centrage = 5;
-	coordonnee.w=10;
-	coordonnee.h=10;
+	coordonnee.w=20;
+	coordonnee.h=20;
 	coordonnee.x = (*commandes).selectifsGauche;	// Positon X de la zone des petits boutons
 	int i;
 	int X, Y, x, y;
-			
+
 	for(i=0;i<SELECTIF_COMMANDES;i++)
 		{
 		if( (*commandes).selectif[i].etat == 1 )
@@ -136,24 +155,27 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	{
 		// Dessine les menus et les commandes sélectionées
 
+		//	Menu
+	graphiqueMenus(graphique, 0);
+
 	SDL_Rect coordonnee = {0, (*graphique).fenetreY - 35, 238, 35};
 	//SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textureSysteme.construct, NULL, &coordonnee);
 	SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.initiale, NULL, &coordonnee);
 
 	int i;
 	//int X, Y, x, y;
-	int centrage = 12;
-	coordonnee.w=25;
-	coordonnee.h=25;
+	//int centrage = 12;
+	coordonnee.w=100;
+	coordonnee.h=100;
 	coordonnee.y = (*commandes).fourierBas;	// Positon Y de la zone du bas
 
+/*
 	if((*commandes).selectif[0].etat == 1)
 		{
 		coordonnee.x = (*commandes).selectif[0].X - centrage;
 		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectif[0], NULL, &coordonnee);
 		}
 
-/*
 	if((*commandes).triangleEtat[3]==1)
 		{
 		coordonnee.x = (*commandes).triangleCentre[3] - centrage;
@@ -161,8 +183,8 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 		}
 */
 	//centrage = 5;
-	coordonnee.w=10;
-	coordonnee.h=10;
+	coordonnee.w=30;
+	coordonnee.h=30;
 	coordonnee.x = (*commandes).selectifsGauche;	// Positon X de la zone des petits boutons
 
 		// Petits boutons de droite
@@ -195,7 +217,7 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 
 		//	FONCTIONS DE DESSINS GÉOMÉTRIQUES
 
-void graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT)
+int graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT)
 	{
 	int decalageDroit = 0;
 	int decalageDiag = 1;
@@ -216,10 +238,10 @@ void graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sin
 	SDL_RenderDrawLine((*graphique).affichage.rendu, X+decalageDiag, Y+decalageDroit, x+decalageDiag, y+decalageDroit);
 	SDL_RenderDrawLine((*graphique).affichage.rendu, X-decalageDiag, Y-decalageDroit, x-decalageDiag, y-decalageDroit);
 
-	return;
+	return 0;
 	}
 
-void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe)
+int graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe)
 	{
 //
 //                                                Z
@@ -254,10 +276,10 @@ void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe)
 		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[4], (*graphe).supporY[4], (*graphe).supporX[5], (*graphe).supporY[5]);
 		}
 
-	return;
+	return 0;
 	}
 
-void graphiquePendule(graphiqueT * graphique, grapheT * graphe)
+int graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 	{
 	int i;
 
@@ -280,7 +302,18 @@ void graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 	//	graphiqueTige(graphique, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i], 0, 0);//(*graphe).sinTheta, (*graphe).cosTheta);
 		}
 
-	return;
+	return 0;
+	}
+
+int graphiqueMiseAJour(graphiqueT * graphique)
+	{
+	SDL_RenderPresent((*graphique).affichage.rendu);
+	return 0;
+	}
+
+int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur)
+	{
+	return SDL_SetRenderDrawColor((*graphique).affichage.rendu, couleur.r, couleur.g, couleur.b, couleur.a);
 	}
 
 //////////////////////////////////////////////////////////////////////////////
