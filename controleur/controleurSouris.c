@@ -35,9 +35,9 @@ termes.
 
 int controleurSourisPosition(controleurT * controleur);
 
-int controleurSourisMolette(controleurT * controleur);
-int controleurSourisMouvement(controleurT * controleur);
-int controleurSourisBouton(controleurT * controleur, int appui);
+int controleurSourisMolette(controleurT * controleur, int zone);
+int controleurSourisMouvement(controleurT * controleur, int zone);
+int controleurSourisBouton(controleurT * controleur, int appui, int zone);
 
 int controleurSourisCommandes(controleurT * controleur, int zone);
 int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe);
@@ -46,101 +46,72 @@ int controleurSourisInitialisePosition(controleurT * controleur, int position);
 
 int controleurSouris(controleurT * controleur, int action)
 	{
+		//	Zone et action de la souris
 
-	int zone = commandesPositionSouris(controleur)
+	int zone = commandesSourisPosition(&(*controleur).commandes);
 
 	switch(action)	//	
 		{
 		case 0: // Molette
-			controleurSourisMolette(controleur);break;
+			controleurSourisMolette(controleur, zone);break;
 		case 1: // Mouvement
-			controleurSourisMouvement(controleur);break;
+			controleurSourisMouvement(controleur, zone);break;
 		case 2: // appuie cliq gauche
-			controleurSourisBouton(controleur, 1);break;
+			controleurSourisBouton(controleur, 1, zone);break;
 		case 3: // relache cliq gauche
-			controleurSourisBouton(controleur, 0);break;
+			controleurSourisBouton(controleur, 0, zone);break;
 		default:
 			;
 		}
 	return 0;
 	}
 
-
-int controleurSourisMouvement(controleurT * controleur)
+int controleurSourisMouvement(controleurT * controleur, int zone)
 	{
 				// Action du mouvement de la souris :
 		//	 Si cliq appuyé et dans la zone des représentations 3D : change le point de vue.
 
 	if((*controleur).appui==1)
 		{
-		if( (*controleur).commandes.sourisX > (*controleur).commandes.fonctionsGauche && (*controleur).commandes.sourisX < (*controleur).commandes.fonctionsDroite )
+		if(zone == 5)
 			{
-			if( (*controleur).commandes.sourisY < (*controleur).commandes.fonctionHaut && (*controleur).commandes.sourisY > (*controleur).commandes.fonctionBas)
-				{
-				pointDeVueChangePsi(&(*controleur).graphes.fonction.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
-				pointDeVueChangePhi(&(*controleur).graphes.fonction.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
-				}
-			else if( (*controleur).commandes.sourisY < (*controleur).commandes.fourierHaut && (*controleur).commandes.sourisY > (*controleur).commandes.fourierBas)
-				{
-				pointDeVueChangePsi(&(*controleur).graphes.fourier.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
-				pointDeVueChangePhi(&(*controleur).graphes.fourier.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
-				}
+			pointDeVueChangePsi(&(*controleur).graphes.fonction.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+			pointDeVueChangePhi(&(*controleur).graphes.fonction.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+			}
+		if(zone == 7)
+			{
+			pointDeVueChangePsi(&(*controleur).graphes.fourier.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+			pointDeVueChangePhi(&(*controleur).graphes.fourier.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
 			}
 		}
 	return 0;
 	}
 
-int controleurSourisMolette(controleurT * controleur)
+int controleurSourisMolette(controleurT * controleur, int zone)
 	{
 				// Action des mouvements de la mollette
 
-		//	Si dans la zone des boutons rotatif, 
-	if((*controleur).commandes.sourisX > (*controleur).commandes.rotatifsGauche && (*controleur).commandes.sourisX < (*controleur).commandes.rotatifsDroite)
+	switch(zone)	//	
 		{
-		controleurSourisDefileCommandes(controleur, 1);
+		case 2: //	Boutons rotatif
+			controleurSourisDefileCommandes(controleur, 1);break;
+		case 5: //	Zone de la fonction
+			controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fonction);break;
+		case 7: //	Zone de fourier
+			controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fourier);break;
+	//	case 4: // zone des curseurs linéaires de la fonction
+	//		;break;
+	//	case 6: // zone des curseurs linéaires de fourier
+	//		;break;
+		default:
+			;
 		}
-	else
-		{	//	Si dans la zone de fourier.
-		if((*controleur).commandes.sourisY > (*controleur).commandes.fourierBas && (*controleur).commandes.sourisY < (*controleur).commandes.fourierHaut)
-			{
-			controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fourier);
-			}
-		else
-			{//	Si dans la zone de la fonction.
-			if((*controleur).commandes.sourisY > (*controleur).commandes.fourierBas && (*controleur).commandes.sourisY < (*controleur).commandes.fourierHaut)
-				{
-				controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fonction);
-				}
-			else	//	Si dans la zone des curseurs linéaires de la fonction
-				{
-				if((*controleur).commandes.sourisY < (*controleur).commandes.fonctionHaut)
-					{
-					}
-				else	//	Si dans la zone des curseurs linéaires de fourier
-					{
-					if((*controleur).commandes.sourisY > (*controleur).commandes.fonctionBas && (*controleur).commandes.sourisY < (*controleur).commandes.fourierHaut)
-						{
-						}
-					}
-				}
-			}
-		}
-	
-		if((*controleur).commandes.sourisY>(*controleur).commandes.fourierBas)
-			{
-			controleurSourisDefileCommandes(controleur, 3);
-			}
-		else
-			{
-			}
-	
-			
 	return 0;
 	}
 
 int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe)
 	{
-				// Action des mouvements de la mollette dans la zone 0 (zone des fonctions)
+				// Action des mouvements de la mollette dans la zone des fonctions)
 
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
@@ -154,60 +125,35 @@ int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe)
 	return 0;
 	}
 
-int controleurSourisBouton(controleurT * controleur, int appui)
+int controleurSourisBouton(controleurT * controleur, int appui, int zone)
 	{
 				// Action du bouton gauche de la souris
 
+	(void)zone;
+
 	(*controleur).appui=appui;
-	
-	if(appui==1)
-		{
-		if((*controleur).commandes.sourisX>(*controleur).commandes.rotatifs)
-			{
-			if((*controleur).commandes.sourisX>(*controleur).commandes.boutons)
-				{
-				controleurSourisCommandes(controleur, 2);
-				}
-			else
-				{
-				controleurSourisCommandes(controleur, 1);
-				}
-			}
-		else
-			{
-			if((*controleur).commandes.sourisY>(*controleur).commandes.bas)
-				{
-				if(controleurSourisCommandes(controleur, 3)==1) controleurPostReinitialisation(controleur);
-				}
-			else
-				{
-				controleurSourisCommandes(controleur, 0);
-				}
-			}
-		}
+
 	return 0;
 	}
-
+/*
 int controleurSourisCommandes(controleurT * controleur, int zone)
 	{
 				// Action du bouton gauche de la souris
 				// dans les zones 2 et 3
 
 	int commande;
-/*	if(zone==2)
+	if(zone==2)
 		{
 		commande = commandeBoutons(&(*controleur).commandes);
 		switch(commande)	//	
 			{
 			case 0: // 
 				;break;
-			case 1: // 
-				;break;
 			default:
 				;
 			}
 		}
-*/
+
 	int reinitialisation;
 
 	if(zone==3)
@@ -218,33 +164,6 @@ int controleurSourisCommandes(controleurT * controleur, int zone)
 			case 11:
 				controleurSourisInitialisePosition(controleur, 1);
 				reinitialisation = 1; break;
-			case 12:
-				controleurSourisInitialisePosition(controleur, 2);
-				reinitialisation = 1; break;
-			case 13:
-				controleurSourisInitialisePosition(controleur, 3);
-				reinitialisation = 1; break;
-			case 14:
-				controleurSourisInitialisePosition(controleur, 4);
-				reinitialisation = 1; break;
-			case 15:
-				controleurSourisInitialisePosition(controleur, 5);
-				reinitialisation = 1; break;
-			case 16:
-				controleurSourisInitialisePosition(controleur, 6);
-				reinitialisation = 1; break;
-			case 17:
-			    fichierLecture(&(*controleur).modele.systeme, &(*controleur).graphes, "aaa");
-				reinitialisation = 1; break;
-				//controleurInitialiseNombre(controleur, 1);break;
-			case 18:
-			    fichierLecture(&(*controleur).modele.systeme, &(*controleur).graphes, "bbb");
-				reinitialisation = 1; break;
-				//controleurInitialiseNombre(controleur, 2);break;
-			case 19:
-			    fichierLecture(&(*controleur).modele.systeme, &(*controleur).graphes, "ccc");
-				reinitialisation = 1; break;
-				//controleurInitialiseNombre(controleur, 3);break;
 			case 20:
 			    fichierLecture(&(*controleur).modele.systeme, &(*controleur).graphes, "ddd");
 				reinitialisation = 1; break;
@@ -255,7 +174,7 @@ int controleurSourisCommandes(controleurT * controleur, int zone)
 		}
 	return reinitialisation;
 	}
-
+*/
 int controleurSourisInitialisePosition(controleurT * controleur, int position) {
 
 		//		Réinitialise les positions.
@@ -304,10 +223,6 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 			{
 			switch(commande)
 				{
-				case 0:
-					controleurSourisMolette(controleur);break;
-				case 1:
-					controleurSourisMolette(controleur);break;
 				case 2:
 					optionsChangeVitesse(&(*controleur).options, 1.1);break;
 				case 3:
@@ -318,12 +233,8 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 			}
 		else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
 			{
-			switch(commande)	
+			switch(commande)
 				{
-				case 0:
-					controleurSourisMolette(controleur);break;
-				case 1:
-					controleurSourisMolette(controleur);break;
 				case 2:
 					optionsChangeVitesse(&(*controleur).options, 0.91);break;
 				case 3:
