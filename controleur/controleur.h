@@ -71,16 +71,14 @@ typedef struct ControleurT controleurT;
 		int sortie;	//	sortie de SiCP si > 0
 
 		int appui;	//	1 si le bouton de la souris est appuyé, 0 sinon.
-		int curseurX;	//	Position x de la souris.
-		int curseurY;	//	Position y de la souris.
 
 		};
 
-int controleurDemarrage(controleurT * control);
+int controleurDemarrage(controleurT * controleur);
 
 int controleurEvolution(controleurT * controleur);
 
-int controleurSuppression(controleurT * control);
+int controleurSuppression(controleurT * controleur);
 
 //int controleurInitialiseNombre(controleurT * controleur, int nombre);
 

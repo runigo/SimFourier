@@ -43,7 +43,7 @@ int texturesInitialisation(texturesT * textures, affichageT * affichage)
 	{
 	texturesSelectifs(textures, affichage);
 	texturesMenus(textures, affichage);
-	texturesVoyants(textures, affichage);
+	//texturesVoyants(textures, affichage);
 	return 0;
 }
 

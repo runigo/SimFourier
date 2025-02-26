@@ -53,7 +53,11 @@ int graphiqueSuppression(graphiqueT * graphique)
 
 int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int taille)
 	{
-	int retour = 0;
+    if (graphique == NULL || interface == NULL)
+    	{
+        return -1; // Erreur : pointeur non valide
+	    }
+
 	int fenetreX;
 	int fenetreY;
 
@@ -64,11 +68,11 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int 
 	(*graphique).fenetreX=fenetreX;
 	(*graphique).fenetreY=fenetreY;
 
-	retour += affichageInitialisation(&(*graphique).affichage, interface);
+	affichageInitialisation(&(*graphique).affichage, interface);
 
-	retour += texturesInitialisation(&(*graphique).textures, &(*graphique).affichage);
+	texturesInitialisation(&(*graphique).textures, &(*graphique).affichage);
 
-	return retour;
+	return 0;
 }
 
 int graphiqueNettoyage(graphiqueT * graphique)
@@ -96,26 +100,29 @@ int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
 
 int graphiqueMenus(graphiqueT * graphique, int mode)
 	{
-		//	Dessine les menus
+		//	Dessine le menu correspondant au mode
 
 	SDL_Rect coordonnee = {0, 0, MENUS_X, MENUS_Y};
 	if(mode==0)		//	Menu initiale
 		{
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.initiale, NULL, &coordonnee);
+		if ((*graphique).textures.initiale != 0)
+			{
+			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.initiale, NULL, &coordonnee);
+			}
 		}
 	else		//	Menu simulation
 		{
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.simulation, NULL, &coordonnee);
+		if ((*graphique).textures.initiale != 0)
+			{
+			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.simulation, NULL, &coordonnee);
+			}
 		}
 	return 0;
 	}
 
 int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes)
 	{
-		// Dessine le menu simulation et ses commandes
-
-		//	Menu
-	graphiqueMenus(graphique, 1);
+		// Dessine les commandes du menu simulation
 
 	SDL_Rect coordonnee = {0, 0, (*graphique).fenetreX, (*graphique).fenetreY};
 	//int centrage = 5;
@@ -131,7 +138,10 @@ int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes)
 			{
 			coordonnee.y = (*commandes).selectif[i].Y; // Positon Y des petits boutons
 			//	Dessin des petits boutons
-			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.mobile, NULL, &coordonnee);
+			if ((*graphique).textures.mobile != 0)
+				{
+				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.mobile, NULL, &coordonnee);
+				}
 			}
 		}
 
@@ -153,14 +163,9 @@ int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes)
 
 int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	{
-		// Dessine les menus et les commandes sélectionées
-
-		//	Menu
-	graphiqueMenus(graphique, 0);
+		// Dessine les commandes du menu initiale
 
 	SDL_Rect coordonnee = {0, (*graphique).fenetreY - 35, 238, 35};
-	//SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textureSysteme.construct, NULL, &coordonnee);
-	SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.initiale, NULL, &coordonnee);
 
 	int i;
 	//int X, Y, x, y;
@@ -177,7 +182,10 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 			{
 			coordonnee.y = (*commandes).selectif[i].Y; // Positon Y des petits boutons
 			//	Dessin des petits boutons
-			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectif[i], NULL, &coordonnee);
+			if ((*graphique).textures.selectif[i] != 0)
+				{
+				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectif[i], NULL, &coordonnee);
+				}
 			}
 		}
 /*

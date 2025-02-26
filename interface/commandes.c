@@ -46,22 +46,22 @@ int commandesInitialiseBoutons(commandesT * commandes, int largeur, int hauteur)
 		}
 
 			// Zones suivant X des commandes
-		(*commandes).rotatifsCentre = 70;
-		(*commandes).selectifsCentre = 150;
 		(*commandes).rotatifsDroite = 100;
-		(*commandes).selectifsDroite = 180;
+		(*commandes).selectifsDroite = 177;
 		(*commandes).rotatifsGauche = 20;
-		(*commandes).selectifsGauche = 120;
+		(*commandes).selectifsGauche = 134;
+		(*commandes).rotatifsCentre = ((*commandes).rotatifsDroite+(*commandes).rotatifsGauche)/2;
+		(*commandes).selectifsCentre = ((*commandes).selectifsDroite+(*commandes).rotatifsGauche)/2;
 
 			// Zones suivant Y du menu 1
-		(*commandes).mode = 1;
+		(*commandes).mode = 24;
 
 			// Zones suivant X des fonctions
 		(*commandes).fonctionsGauche = 200;
 		(*commandes).fonctionsDroite = 600;
 
 			// Zones suivant Y des fonctions
-		(*commandes).fonctionHaut = 20;
+		(*commandes).fonctionHaut = 30;
 		(*commandes).fonctionBas = hauteur/2;
 		(*commandes).fourierHaut = hauteur/2 +20;
 		(*commandes).fourierBas = hauteur;
@@ -74,19 +74,7 @@ int commandesInitialiseBoutons(commandesT * commandes, int largeur, int hauteur)
 		(*commandes).sourisHaut = 5; // position Y de la souris - demiBouton
 		(*commandes).sourisBas = 15; // position Y de la souris + demiBouton
 
-
-
-
-	//(*commandes).fourier=(int)(0.833333333333*largeur); // 611 / 714
-	//	PANNEAU DROIT
-
-		 // Zone des boutons rotatifs
-	//(*commandes).rotatifs=(int)(0.833333333333*largeur); // 965 / 1158
-		// BOUTONS ROTATIFS SUIVANT X
-	//(*commandes).rotatifX=(int)(0.020725388601*largeur); // 823       D-G = 24 / 1158 // Rayon suivant X
-	(*commandes).rotatifsCentre=(int)(0.892918825561*largeur); // 1034 // Positon X des boutons rotatifs
 		// BOUTONS ROTATIFS SUIVANT Y
-	//(*commandes).rotatifY=(int)(0.0322128851541*hauteur); // 23 / 714	Rayon suivant Y
 	(*commandes).rotatif[0].Y=(int)(0.115*hauteur); // 97	Couplage
 	(*commandes).rotatif[1].Y=(int)(0.2939*hauteur); // 248	Dissipation Positon Y des boutons rotatifs
 	(*commandes).rotatif[2].Y=(int)(0.4760*hauteur); // 400	Josephson

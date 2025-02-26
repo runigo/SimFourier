@@ -66,8 +66,8 @@ int controleurClavier(controleurT * controleur)
 
 		case SDLK_F1:
 			projectionSystemAffiche(&(*controleur).projectionSystem);break;
-		//case SDLK_F2:
-			//observablesAffiche(&(*controleur).observables);break;
+		case SDLK_F2: // Position de la souris
+			controleurSourisAffiche(controleur);break;
 		case SDLK_F3:
 			pointDeVueAffiche(&(*controleur).graphes.fonction.pointDeVue);break;
 		case SDLK_F4:
