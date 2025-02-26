@@ -62,6 +62,9 @@ int interfaceCreation(interfaceT * interface)
 		fprintf(stderr, "interfaceInitialisation : Erreur SDL_CreateWindow : %s \n", SDL_GetError());
 		return EXIT_FAILURE;
 		}
+
+	SDL_MaximizeWindow((*interface).fenetre);  // agrandissement de la fenêtre
+
 	return 0;
 	}
 
