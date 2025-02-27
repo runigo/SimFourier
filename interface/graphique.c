@@ -183,21 +183,21 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 
 	SDL_Rect coordonnee = {0, (*graphique).fenetreY - 35, 238, 35};
 
-	int i;
 	//int X, Y, x, y;
 	//int centrage = 12;
-	coordonnee.w=SELECTIF_X;
-	coordonnee.h=SELECTIF_Y;
+	coordonnee.w=(*commandes).selectifsDroite-(*commandes).selectifsGauche;
+	coordonnee.h=coordonnee.w;
 	coordonnee.y = (*commandes).fourierBas;	// Positon Y de la zone du bas
 	coordonnee.x = (*commandes).selectifsGauche;	// Positon X de la zone des petits boutons
 
-		// Petits boutons de droite
+				// Boutons selectif
+	int i;
 	for(i=0;i<SELECTIF_COMMANDES;i++)
 		{
 		if((*commandes).selectif[i].etat==1)
 			{
-			coordonnee.y = (*commandes).selectif[i].Y; // Positon Y des petits boutons
-			//	Dessin des petits boutons
+			coordonnee.y = (*commandes).selectif[i].Y; // Positon Y des boutons
+			//	Dessin des boutons
 			if ((*graphique).textures.selectif[i] != 0)
 				{
 				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectif[i], NULL, &coordonnee);

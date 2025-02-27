@@ -74,7 +74,7 @@ typedef struct CommandesT commandesT;
 
 		};
 
-int commandesInitialiseBoutons(commandesT * commandes, int largeur, int hauteur);
+int commandesInitialise(commandesT * commandes, int largeur, int hauteur);
 int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY);
 
 int commandesSourisPosition(commandesT * commandes);

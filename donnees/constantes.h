@@ -65,7 +65,7 @@ termes.
 #define GRAPHES 2 // Nombres de graphes
 
 	//  NOMBRE DE COMMANDES
-#define SELECTIF_COMMANDES 16		// Nombres de petits boutons
+#define SELECTIF_COMMANDES 13	// Nombres de boutons selectifs
 #define ROTATIF_COMMANDES 6		// Nombre de boutons rotatifs
 #define CARRE_COMMANDES 13	    // Nombres de boutons carré
 #define LINEAIRE_COMMANDES 4	// Nombres de commandes linéaires

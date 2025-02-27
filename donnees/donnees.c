@@ -90,7 +90,7 @@ int donneesControleur(controleurT * controleur)
 	SDL_GetWindowSize((*controleur).interface.fenetre, &fenetreX, &fenetreY);
 	(*controleur).graphique.fenetreX=fenetreX;
 	(*controleur).graphique.fenetreY=fenetreY;
-	commandesInitialiseBoutons(&(*controleur).commandes, fenetreX, fenetreY);
+	commandesInitialise(&(*controleur).commandes, fenetreX, fenetreY);
 
 	SDL_PumpEvents();
 	SDL_GetMouseState(&x,&y);

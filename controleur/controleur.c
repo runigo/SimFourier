@@ -139,22 +139,22 @@ int controleurFenetre(controleurT * controleur)
 		//		Mise à jour de la taille de la fenêtre
 		//		et de la position de la souris
 
-	int x, y;
+	int x, y;	//	FENÊTRE puis SOURIS
 
 		// Taille de la fenêtre
 	SDL_GetWindowSize((*controleur).interface.fenetre, &x, &y);
 
-		// Réinitialisation des commandes si la fenêtre change de taille
+		// Réinitialisation des commandes si la FENÊTRE change de taille
 	if((*controleur).graphique.fenetreX!=x || (*controleur).graphique.fenetreY!=y)
 		{
 		(*controleur).graphique.fenetreX=x;
 		(*controleur).graphique.fenetreY=y;
 		projectionGraphChangeFenetre(&(*controleur).projectionGraph, x, y);
-		commandesInitialiseBoutons(&(*controleur).commandes, x, y);
+		commandesInitialise(&(*controleur).commandes, x, y);
 		capteursMiseAJourLongueur(&(*controleur).capteurs, x, y);
 		}
 
-		// Réinitialisation des commandes de la souris
+		// Réinitialisation des commandes de la SOURIS
 	SDL_PumpEvents();
 	SDL_GetMouseState(&x,&y);
 	commandesInitialiseSouris(&(*controleur).commandes, x, y);
@@ -175,7 +175,8 @@ int controleurEvolutionModele(controleurT * controleur)
 			modeleEvolutionSimulation(&(*controleur).modele, 1, (*controleur).options.echelle);break;
 		case 2:
 			modeleEnergiePotentielle(&(*controleur).modele, 1, (*controleur).options.echelle);
-			(*controleur).options.mode=0;break;
+			(*controleur).options.mode=0;
+			break;
 		default:
 			;
 		}
