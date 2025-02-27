@@ -32,18 +32,18 @@ termes.
 
 #include "rotatif.h"
 
-int rotatifInitialise(rotatifT * rotatif, int largeur, int hauteur)
+int rotatifInitialise(rotatifT * rotatif, int taille)
 	{
-		(*rotatif).X=largeur; // coordonné suivant X
-		(*rotatif).Y=hauteur; // coordonné suivant Y
-		(*rotatif).dX=3; // dimension x
-		(*rotatif).dY=3; // dimension y
+		(*rotatif).X=0; // coordonné suivant X
+		(*rotatif).Y=0; // coordonné suivant Y
+		(*rotatif).dX=taille; // dimension x
+		(*rotatif).dY=taille; // dimension y
 
 		
-		(*rotatif).positionX=2;	//	position x de l'aiguille
-		(*rotatif).positionY=2;	//	position y de l'aiguille
+		(*rotatif).positionX=-sqrt(0.5*taille*taille);	//	position x de l'aiguille-
+		(*rotatif).positionY=(*rotatif).positionX;	//	position y de l'aiguille
 
-		(*rotatif).centre=2; // centre du rotatif
+		(*rotatif).centre=20; // centre du rotatif
 
 	return 0;
 	}

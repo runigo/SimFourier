@@ -50,7 +50,7 @@ typedef struct RotatifT rotatifT;
 		int centre; // centre du rotatif
 		};
 
-int rotatifInitialise(rotatifT * rotatif, int largeur, int hauteur);
+int rotatifInitialise(rotatifT * rotatif, int taille);
 int rotatifInitialiseSouris(rotatifT * rotatif, int sourisX, int sourisY);
 int rotatifRotatifs(rotatifT * rotatif);
 int rotatifTriangles(rotatifT * rotatif);

@@ -61,17 +61,20 @@ int commandesInitialiseZones(commandesT * commandes, int largeur, int hauteur)
 
 int commandesInitialiseRotatifs(commandesT * commandes, int largeur, int hauteur)
 	{
+	(void)largeur;
+	(void)hauteur;
 				//	Positions des boutons rotatifs
-	int i;
-	for(i=0;i<ROTATIF_COMMANDES;i++)
-		{
-		rotatifInitialise(&(*commandes).rotatif[i], largeur, hauteur);
-		}
 
 		//	Suivant X
 	(*commandes).rotatifsGauche = 20;
 	(*commandes).rotatifsDroite = 100;
 	(*commandes).rotatifsCentre = ((*commandes).rotatifsDroite+(*commandes).rotatifsGauche)/2;
+
+	int i;
+	for(i=0;i<ROTATIF_COMMANDES;i++)
+		{
+		rotatifInitialise(&(*commandes).rotatif[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
+		}
 
 		//	Suivant Y
 	(*commandes).rotatif[0].Y = 75; 	//	Largeur

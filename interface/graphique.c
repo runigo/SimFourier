@@ -183,7 +183,6 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 
 	SDL_Rect coordonnee = {0, (*graphique).fenetreY - 35, 238, 35};
 
-	//int X, Y, x, y;
 	//int centrage = 12;
 	coordonnee.w=(*commandes).selectifsDroite-(*commandes).selectifsGauche;
 	coordonnee.h=coordonnee.w;
@@ -204,21 +203,22 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 				}
 			}
 		}
-/*
-		// Boutons rotatifs
+
+							// Boutons rotatifs
+	int X, Y, x, y;
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-	X=(*commandes).rotatifsCentre;
+	X=(*commandes).rotatifsDroite;
 	for(i=0;i<ROTATIF_COMMANDES;i++)
 		{
-		Y=(*commandes).rotatifCentre[i];
-		x=X+(*commandes).rotatifPositionX[i];
-		y=Y+(*commandes).rotatifPositionY[i];
+		Y=(*commandes).rotatif[i].Y+(*commandes).rotatif[i].dY;
+		x=X+(*commandes).rotatif[i].positionX;
+		y=Y+(*commandes).rotatif[i].positionY;
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y+1, x, y+1);
 		}
-*/
+
 	return 0;
 	}
 
