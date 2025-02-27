@@ -31,9 +31,9 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "controleurClavier.h"
+#include "controleClavier.h"
 
-int controleurClavier(controleurT * controleur)
+int controleClavier(controleurT * controleur)
 	{
 	switch ((*controleur).interface.evenement.key.keysym.sym)
 		{
@@ -67,7 +67,7 @@ int controleurClavier(controleurT * controleur)
 		case SDLK_F1:
 			projectionSystemAffiche(&(*controleur).projectionSystem);break;
 		case SDLK_F2: // Position de la souris
-			controleurSourisAffiche(controleur);break;
+			controleSourisAffiche(controleur);break;
 		case SDLK_F3:
 			pointDeVueAffiche(&(*controleur).graphes.fonction.pointDeVue);break;
 		case SDLK_F4:
@@ -151,7 +151,7 @@ int controleurClavier(controleurT * controleur)
 	return (*controleur).sortie;
 	}
 
-int controleurClavierMaj(controleurT * controleur)
+int controleClavierMaj(controleurT * controleur)
 	{
         //      Réinitialisation du système
         //          Fichiers utilisateur
@@ -221,7 +221,7 @@ int controleurClavierMaj(controleurT * controleur)
 	return reinitialisation;
 	}
 
-int controleurClavierCtrl(controleurT * controleur)
+int controleClavierCtrl(controleurT * controleur)
 	{
         //      Réinitialisation du système 
         //          Fichiers original
@@ -291,7 +291,7 @@ int controleurClavierCtrl(controleurT * controleur)
 	return reinitialisation;
 	}
 
-int controleurClavierCtrlMaj(controleurT * controleur) {
+int controleClavierCtrlMaj(controleurT * controleur) {
 
 		//		Sauvegarde du système
 

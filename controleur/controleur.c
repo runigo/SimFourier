@@ -32,7 +32,7 @@ termes.
 */
 
 #include "controleur.h"
-#include "controleurClavier.h"
+#include "controleClavier.h"
 
 	//	ÉVOLUTION
 int controleurEvolution(controleurT * controleur);
@@ -75,13 +75,13 @@ int controleurTraiteEvenement(controleurT * controleur)
 		case SDL_QUIT:
 			(*controleur).sortie = 1;break;
 		case SDL_MOUSEWHEEL:
-			controleurSouris(controleur, 0);break;
+			controleSouris(controleur, 0);break;
 		case SDL_MOUSEMOTION:
-			controleurSouris(controleur,1);break;
+			controleSouris(controleur,1);break;
 		case SDL_MOUSEBUTTONDOWN:
-			controleurSouris(controleur, 2);break;
+			controleSouris(controleur, 2);break;
 		case SDL_MOUSEBUTTONUP:
-			controleurSouris(controleur, 3);break;
+			controleSouris(controleur, 3);break;
 		case SDL_USEREVENT:
 			controleurEvolution(controleur);break;
 		case SDL_KEYDOWN:
@@ -250,26 +250,26 @@ int controleurKEYDOWN(controleurT * controleur)
 
 	if(Maj == 0 && Ctrl == 0)
 		{
-		return controleurClavier(controleur);
+		return controleClavier(controleur);
 		}
 	else
 		{
 		if(Maj == 1 && Ctrl == 1)
 			{
-			return controleurClavierCtrlMaj(controleur);
+			return controleClavierCtrlMaj(controleur);
 			}
 		else
 			{
 			if(Maj == 1 )
 				{
-				if(controleurClavierMaj(controleur) == 1)
+				if(controleClavierMaj(controleur) == 1)
 					{
 					controleurPostReinitialisation(controleur);
 					}
 				}
 			else
 				{
-				if(controleurClavierCtrl(controleur) == 1)
+				if(controleClavierCtrl(controleur) == 1)
 					{
 					controleurPostReinitialisation(controleur);
 					}

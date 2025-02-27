@@ -36,7 +36,7 @@ termes.
 
 #include "../controleur/controleur.h"
 
-int controleurSouris(controleurT * controleur, int action);
-int controleurSourisAffiche(controleurT * controleur);
+int controleSouris(controleurT * controleur, int action);
+int controleSourisAffiche(controleurT * controleur);
 
 #endif

@@ -31,20 +31,20 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "controleurSouris.h"
+#include "controleSouris.h"
 
-int controleurSourisPosition(controleurT * controleur);
+int controleSourisPosition(controleurT * controleur);
 
-int controleurSourisMolette(controleurT * controleur, int zone);
-int controleurSourisMouvement(controleurT * controleur, int zone);
-int controleurSourisBouton(controleurT * controleur, int appui, int zone);
+int controleSourisMolette(controleurT * controleur, int zone);
+int controleSourisMouvement(controleurT * controleur, int zone);
+int controleSourisBouton(controleurT * controleur, int appui, int zone);
 
-int controleurSourisCommandes(controleurT * controleur, int zone);
-int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe);
-int controleurSourisDefileCommandes(controleurT * controleur, int zone);
-int controleurSourisInitialisePosition(controleurT * controleur, int position);
+int controleSourisCommandes(controleurT * controleur, int zone);
+int controleSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe);
+int controleSourisDefileCommandes(controleurT * controleur, int zone);
+int controleSourisInitialisePosition(controleurT * controleur, int position);
 
-int controleurSouris(controleurT * controleur, int action)
+int controleSouris(controleurT * controleur, int action)
 	{
 		//	Zone et action de la souris
 
@@ -53,20 +53,20 @@ int controleurSouris(controleurT * controleur, int action)
 	switch(action)	//	
 		{
 		case 0: // Molette
-			controleurSourisMolette(controleur, zone);break;
+			controleSourisMolette(controleur, zone);break;
 		case 1: // Mouvement
-			controleurSourisMouvement(controleur, zone);break;
+			controleSourisMouvement(controleur, zone);break;
 		case 2: // appuie cliq gauche
-			controleurSourisBouton(controleur, 1, zone);break;
+			controleSourisBouton(controleur, 1, zone);break;
 		case 3: // relache cliq gauche
-			controleurSourisBouton(controleur, 0, zone);break;
+			controleSourisBouton(controleur, 0, zone);break;
 		default:
 			;
 		}
 	return 0;
 	}
 
-int controleurSourisMouvement(controleurT * controleur, int zone)
+int controleSourisMouvement(controleurT * controleur, int zone)
 	{
 				// Action du mouvement de la souris :
 		//	 Si cliq appuyé et dans la zone des représentations 3D : change le point de vue.
@@ -87,18 +87,18 @@ int controleurSourisMouvement(controleurT * controleur, int zone)
 	return 0;
 	}
 
-int controleurSourisMolette(controleurT * controleur, int zone)
+int controleSourisMolette(controleurT * controleur, int zone)
 	{
 				// Action des mouvements de la mollette
 
 	switch(zone)	//	
 		{
 		case 2: //	Boutons rotatif
-			controleurSourisDefileCommandes(controleur, 1);break;
+			controleSourisDefileCommandes(controleur, 1);break;
 		case 5: //	Zone de la fonction
-			controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fonction);break;
+			controleSourisDefilePointDeVue(controleur, &(*controleur).graphes.fonction);break;
 		case 7: //	Zone de fourier
-			controleurSourisDefilePointDeVue(controleur, &(*controleur).graphes.fourier);break;
+			controleSourisDefilePointDeVue(controleur, &(*controleur).graphes.fourier);break;
 	//	case 4: // zone des curseurs linéaires de la fonction
 	//		;break;
 	//	case 6: // zone des curseurs linéaires de fourier
@@ -109,7 +109,7 @@ int controleurSourisMolette(controleurT * controleur, int zone)
 	return 0;
 	}
 
-int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe)
+int controleSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe)
 	{
 				// Action des mouvements de la mollette dans la zone des fonctions)
 
@@ -125,7 +125,7 @@ int controleurSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe)
 	return 0;
 	}
 
-int controleurSourisBouton(controleurT * controleur, int appui, int zone)
+int controleSourisBouton(controleurT * controleur, int appui, int zone)
 	{
 				// Action du bouton gauche de la souris
 
@@ -136,7 +136,7 @@ int controleurSourisBouton(controleurT * controleur, int appui, int zone)
 	return 0;
 	}
 /*
-int controleurSourisCommandes(controleurT * controleur, int zone)
+int controleSourisCommandes(controleurT * controleur, int zone)
 	{
 				// Action du bouton gauche de la souris
 				// dans les zones 2 et 3
@@ -162,7 +162,7 @@ int controleurSourisCommandes(controleurT * controleur, int zone)
 		switch(commande)	//	
 			{
 			case 11:
-				controleurSourisInitialisePosition(controleur, 1);
+				controleSourisInitialisePosition(controleur, 1);
 				reinitialisation = 1; break;
 			case 20:
 			    fichierLecture(&(*controleur).modele.systeme, &(*controleur).graphes, "ddd");
@@ -175,7 +175,7 @@ int controleurSourisCommandes(controleurT * controleur, int zone)
 	return reinitialisation;
 	}
 */
-int controleurSourisInitialisePosition(controleurT * controleur, int position) {
+int controleSourisInitialisePosition(controleurT * controleur, int position) {
 
 		//		Réinitialise les positions.
 (void)position;
@@ -184,7 +184,7 @@ int controleurSourisInitialisePosition(controleurT * controleur, int position) {
 	return 0;
 	}
 
-int controleurSourisDefileCommandes(controleurT * controleur, int zone)
+int controleSourisDefileCommandes(controleurT * controleur, int zone)
 	{
 	(void)controleur;
 	(void)zone;
@@ -249,7 +249,7 @@ int controleurSourisDefileCommandes(controleurT * controleur, int zone)
 	return 0;
 	}
 
-int controleurSourisAffiche(controleurT * controleur)
+int controleSourisAffiche(controleurT * controleur)
 	{
 	fprintf(stderr, "(*controleur).graphique.fenetreY = %d\n", (*controleur).graphique.fenetreY);
 	fprintf(stderr, "(*controleur).commandes.sourisY = %d\n", (*controleur).commandes.sourisY);

@@ -33,11 +33,11 @@ termes.
 #ifndef _CONTROLEURCLAVIER_
 #define _CONTROLEURCLAVIER_
 
-#include "../controleur/controleurSouris.h"
+#include "../controleur/controleSouris.h"
 
-int controleurClavier(controleurT * controleur);
-int controleurClavierMaj(controleurT * controleur);
-int controleurClavierCtrl(controleurT * controleur);
-int controleurClavierCtrlMaj(controleurT * controleur);
+int controleClavier(controleurT * controleur);
+int controleClavierMaj(controleurT * controleur);
+int controleClavierCtrl(controleurT * controleur);
+int controleClavierCtrlMaj(controleurT * controleur);
 
 #endif
