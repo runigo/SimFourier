@@ -34,13 +34,37 @@ termes.
 #include "textures.h"
 
 
+int texturesNULL(texturesT * textures);
+
 int texturesVoyants(texturesT * textures, affichageT * affichage);
 int texturesMenus(texturesT * textures, affichageT * affichage);
 int texturesSelectifs(texturesT * textures, affichageT * affichage);
 
 
+int texturesNULL(texturesT * textures)
+	{
+	int i;
+	for(i=0;i<SELECTIF_COMMANDES;i++)
+		{
+		(*textures).selectif[i] = NULL;
+		}
+
+	(*textures).simulation = NULL;			//	Menu simulation
+	(*textures).mobile = NULL;
+
+	(*textures).initiale = NULL;			//	Menu initiale
+
+		//	 voyants
+	(*textures).lumiereVerte = NULL;
+	(*textures).lumiereRouge = NULL;
+	(*textures).lumiereOrange = NULL;
+	(*textures).lumiereJaune = NULL;
+	return 0;
+	}
+
 int texturesInitialisation(texturesT * textures, affichageT * affichage)
 	{
+	texturesNULL(textures);
 	texturesSelectifs(textures, affichage);
 	texturesMenus(textures, affichage);
 	//texturesVoyants(textures, affichage);
@@ -50,7 +74,6 @@ int texturesInitialisation(texturesT * textures, affichageT * affichage)
 int texturesSelectifs(texturesT * textures, affichageT * affichage)
 	{
 		//	 Boutons selectif
-
 	SDL_Surface *image = 0;
 
 	image = SDL_LoadBMP("./image/constant.bmp");

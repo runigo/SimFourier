@@ -33,23 +33,24 @@ termes.
 
 #include "graphique.h"
 
+		//		INITIALISATION ,  SUPRESSION
+
+		//		CONSTRUCTION DU GRAPHISME
 int graphiqueMenus(graphiqueT * graphique, int mode);
 
 int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes);
 int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes);
 
+		//			GRAPHISME
 int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
-int graphiqueLigne(graphiqueT * graphique, int X, int Y, int x, int y);
+//int graphiqueLigne(graphiqueT * graphique, int X, int Y, int x, int y);
 int graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT);
+int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
 //int graphiqueMasse(graphiqueT * graphique, int abs, int ord);
+//int graphiqueMobile(graphiqueT * graphique, grapheT * graphe);
 
-int graphiqueMobile(graphiqueT * graphique, grapheT * graphe);
+		//		INITIALISATION ,  SUPRESSION
 
-int graphiqueSuppression(graphiqueT * graphique)
-	{
-	SDL_DestroyRenderer((*graphique).affichage.rendu);
-	return 0;
-	}
 
 int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int taille)
 	{
@@ -75,9 +76,24 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int 
 	return 0;
 }
 
-int graphiqueNettoyage(graphiqueT * graphique)
+int graphiqueSuppression(graphiqueT * graphique)
 	{
+		// Destruction du rendu
+	SDL_DestroyRenderer((*graphique).affichage.rendu);
+	return 0;
+	}
+
+		//		CONSTRUCTION DU GRAPHISME
+
+int graphiqueNettoyage(graphiqueT * graphique)
+	{		//		Nettoyage du rendu
 	return affichageNettoyage(&(*graphique).affichage);
+	}
+
+int graphiqueMiseAJour(graphiqueT * graphique)
+	{		//		Affichage du rendu
+	SDL_RenderPresent((*graphique).affichage.rendu);
+	return 0;
 	}
 
 int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
@@ -112,7 +128,7 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 		}
 	else		//	Menu simulation
 		{
-		if ((*graphique).textures.initiale != 0)
+		if ((*graphique).textures.simulation != 0)
 			{
 			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.simulation, NULL, &coordonnee);
 			}
@@ -206,32 +222,6 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	return 0;
 	}
 
-		//	FONCTIONS DE DESSINS GÉOMÉTRIQUES
-
-int graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT)
-	{
-	int decalageDroit = 0;
-	int decalageDiag = 1;
-	(void)sinT;
-	(void)cosT;
-
-	SDL_SetRenderDrawColor((*graphique).affichage.rendu, 25, 25, 25, 255);
-
-		// Horizontales 		    R	  V	  B
-	//SDL_SetRenderDrawColor((*graphique).affichage.rendu, sinusC, 55+sinusC, 125+sinusC, 255-sinusC);
-	//graphiqueChangeCouleur(graphique, (*graphique).cyan);
-	SDL_RenderDrawLine((*graphique).affichage.rendu, X-decalageDroit, Y-decalageDiag, x-decalageDroit, y-decalageDiag);
-	SDL_RenderDrawLine((*graphique).affichage.rendu, X+decalageDroit, Y+decalageDiag, x+decalageDroit, y+decalageDiag);
-
-		// Verticale
-	//SDL_SetRenderDrawColor((*graphique).affichage.rendu, 250-sinusC, 250-sinusC, 25, 255);
-	//graphiqueChangeCouleur(graphique, (*graphique).jaune);
-	SDL_RenderDrawLine((*graphique).affichage.rendu, X+decalageDiag, Y+decalageDroit, x+decalageDiag, y+decalageDroit);
-	SDL_RenderDrawLine((*graphique).affichage.rendu, X-decalageDiag, Y-decalageDroit, x-decalageDiag, y-decalageDroit);
-
-	return 0;
-	}
-
 int graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe)
 	{
 //
@@ -296,9 +286,29 @@ int graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 	return 0;
 	}
 
-int graphiqueMiseAJour(graphiqueT * graphique)
+		//	FONCTIONS DE DESSINS GÉOMÉTRIQUES
+
+int graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT)
 	{
-	SDL_RenderPresent((*graphique).affichage.rendu);
+	int decalageDroit = 0;
+	int decalageDiag = 1;
+	(void)sinT;
+	(void)cosT;
+
+	SDL_SetRenderDrawColor((*graphique).affichage.rendu, 25, 25, 25, 255);
+
+		// Horizontales 		    R	  V	  B
+	//SDL_SetRenderDrawColor((*graphique).affichage.rendu, sinusC, 55+sinusC, 125+sinusC, 255-sinusC);
+	//graphiqueChangeCouleur(graphique, (*graphique).cyan);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, X-decalageDroit, Y-decalageDiag, x-decalageDroit, y-decalageDiag);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, X+decalageDroit, Y+decalageDiag, x+decalageDroit, y+decalageDiag);
+
+		// Verticale
+	//SDL_SetRenderDrawColor((*graphique).affichage.rendu, 250-sinusC, 250-sinusC, 25, 255);
+	//graphiqueChangeCouleur(graphique, (*graphique).jaune);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, X+decalageDiag, Y+decalageDroit, x+decalageDiag, y+decalageDroit);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, X-decalageDiag, Y-decalageDroit, x-decalageDiag, y-decalageDroit);
+
 	return 0;
 	}
 
