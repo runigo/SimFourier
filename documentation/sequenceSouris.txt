@@ -1,0 +1,26 @@
+
+  ENTRÉE		BOUTON			ACTION			
+
+controleSouris
+
+		controleSourisMolette
+		
+				controleSourisDefileCommandes
+
+				controleSourisDefilePointDeVue
+					pointDeVueChangeDistance
+
+
+		controleSourisMouvement
+
+				Change le point de vue
+
+
+		controleSourisBouton
+
+				controleSourisCliqRotatif
+	
+				controleSourisCliqSelectif
+
+
+

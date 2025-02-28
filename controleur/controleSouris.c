@@ -44,21 +44,30 @@ int controleSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe);
 int controleSourisDefileCommandes(controleurT * controleur, int zone);
 int controleSourisInitialisePosition(controleurT * controleur, int position);
 
+int controleSourisCliqRotatif(controleur);break;
+int controleSourisCliqSelectif(controleur);break;
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+
 int controleSouris(controleurT * controleur, int action)
 	{
-		//	Zone et action de la souris
+		//	Action de la souris
 
+		//	Le pointeur de la souris se trouvant dans la zone
 	int zone = commandesSourisPosition(&(*controleur).commandes);
 
-	switch(action)	//	
+	switch(action)	//	action sur la souris
 		{
 		case 0: // Molette
 			controleSourisMolette(controleur, zone);break;
 		case 1: // Mouvement
 			controleSourisMouvement(controleur, zone);break;
-		case 2: // appuie cliq gauche
+		case 2: // Appuie cliq gauche
 			controleSourisBouton(controleur, 1, zone);break;
-		case 3: // relache cliq gauche
+		case 3: // Relache cliq gauche
 			controleSourisBouton(controleur, 0, zone);break;
 		default:
 			;
@@ -111,7 +120,7 @@ int controleSourisMolette(controleurT * controleur, int zone)
 
 int controleSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe)
 	{
-				// Action des mouvements de la mollette dans la zone des fonctions)
+				// Action des mouvements de la mollette dans la zone des fonctions
 
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
@@ -129,8 +138,21 @@ int controleSourisBouton(controleurT * controleur, int appui, int zone)
 	{
 				// Action du bouton gauche de la souris
 
-	(void)zone;
+	switch(zone)	//	
+		{
+		case 2: //	Boutons rotatif
+			controleSourisCliqRotatif(controleur, 1);break;
+		case 3: //	Boutons selectif
+			controleSourisCliqSelectif(controleur, 1);break;
+	//	case 4: // zone des curseurs linéaires de la fonction
+	//		;break;
+	//	case 6: // zone des curseurs linéaires de fourier
+	//		;break;
+		default:
+			;
+		}
 
+		//	Enregistre l'appui
 	(*controleur).appui=appui;
 
 	return 0;
