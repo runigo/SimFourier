@@ -133,6 +133,7 @@ int modeleProjectionInitiale(modeleT * modele) {
 int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 	{
 	(void)duree;
+	(void)echelle;
 		//fprintf(stderr, "Calcul de la fonction initiale\n");
 	modeleProjectionInitiale(modele);
 
@@ -140,12 +141,12 @@ int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 	modeleProjectionSystemeFourier(modele);
 
 		//fprintf(stderr, "Calcul des spectres\n");
-	fourierCalcule(&(*modele).fourier);
+	//fourierCalcule(&(*modele).fourier);
 
 		//fprintf(stderr, "Normalisation des spectres\n");
-	fonctionNormalise(&(*modele).fourier.spectre, echelle);
-	fonctionNormalise(&(*modele).fourier.gauche, echelle);
-	fonctionNormalise(&(*modele).fourier.droite, echelle);
+	//fonctionNormalise(&(*modele).fourier.spectre, echelle);
+	//fonctionNormalise(&(*modele).fourier.gauche, echelle);
+	//fonctionNormalise(&(*modele).fourier.droite, echelle);
 
 		//fprintf(stderr, "Mise à jour des observables\n");
 	//observablesMiseAJour(&(*modele).observables, &(*modele).modele.systeme);
@@ -156,6 +157,7 @@ int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 int modeleEvolutionSimulation(modeleT * modele, int duree, int echelle)
 	{
 	(void)duree;
+	(void)echelle;
 		//fprintf(stderr, "Evolution temporelle du système\n");
 	systemeEvolution(&(*modele).systeme, duree, 1);
 
@@ -163,12 +165,12 @@ int modeleEvolutionSimulation(modeleT * modele, int duree, int echelle)
 	modeleProjectionSystemeFourier(modele);
 
 		//fprintf(stderr, "Calcul des spectres\n");
-	fourierCalcule(&(*modele).fourier);
+	//fourierCalcule(&(*modele).fourier);
 
 		//fprintf(stderr, "Normalisation des spectres\n");
-	fonctionNormalise(&(*modele).fourier.spectre, echelle);
-	fonctionNormalise(&(*modele).fourier.gauche, echelle);
-	fonctionNormalise(&(*modele).fourier.droite, echelle);
+	//fonctionNormalise(&(*modele).fourier.spectre, echelle);
+	//fonctionNormalise(&(*modele).fourier.gauche, echelle);
+	//fonctionNormalise(&(*modele).fourier.droite, echelle);
 
 		//fprintf(stderr, "Mise à jour des observables\n");
 	//observablesMiseAJour(&(*modele).observables, &(*modele).modele.systeme);

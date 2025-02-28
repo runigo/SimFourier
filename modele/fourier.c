@@ -62,9 +62,9 @@ int fourierCalcule(fourierT * fourier)
 	fourierEvaluer(&(*fourier).gauche, &(*fourier).echange, &(*fourier).racineNs2De1, 0, (*fourier).gauche.nombre);
 	fourierEvaluer(&(*fourier).droite, &(*fourier).echange, &(*fourier).racineNs2De1, 0, (*fourier).droite.nombre);
 
-	fourierFiltreCoupe0(fourier);
+	//fourierFiltreCoupe0(fourier);
 
-	fourierModuleMax1(fourier);
+	//fourierModuleMax1(fourier);
 
 	return 0;
 	}
