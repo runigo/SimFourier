@@ -57,15 +57,15 @@ typedef struct ProjectionInitialT projectionInitialT;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialeInitialise(projectionInitialT * projection);
+int projectionInitialInitialise(projectionInitialT * projection);
 
 	//-----------------    PROJECTION      -----------------------//
-int projectionInitialeCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes);
+int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes);
 
 	//-----------------    CHANGE      -----------------------//
-int projectionInitialeChangeFenetre(projectionInitialT * projection, int x, int y);
+int projectionInitialChangeFenetre(projectionInitialT * projection, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void projectionInitialeAffiche(projectionInitialT * projection);
+void projectionInitialAffiche(projectionInitialT * projection);
 
 #endif

@@ -75,6 +75,7 @@ int donneesControleur(controleurT * controleur)
 		fprintf(stderr, " Initialisation des projections\n");
 	projectionGraphInitialise(&(*controleur).projectionGraph);
 	projectionSystemInitialise(&(*controleur).projectionSystem);
+	projectionInitialInitialise(&(*controleur).projectionInitial);
 
 		fprintf(stderr, " Initialisation SDL\n");
 	interfaceInitialisationSDL();

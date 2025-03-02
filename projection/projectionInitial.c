@@ -65,7 +65,7 @@ int projectionInitialInitialise(projectionInitialT * projection)
 
 	//-----------------    PROJECTION      -----------------------//
 
-int projectionInitialeCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes) {
+int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes) {
 
 		// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
 
@@ -156,7 +156,7 @@ int projectionInitialeCommandes(initialeT * initiale, projectionInitialT * proje
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int projectionInitialeChangeFenetre(projectionInitialT * projection, int x, int y) {
+int projectionInitialChangeFenetre(projectionInitialT * projection, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
 	(void)projection;
@@ -171,7 +171,7 @@ int projectionInitialeChangeFenetre(projectionInitialT * projection, int x, int 
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void projectionInitialeAffiche(projectionInitialT * projection) {
+void projectionInitialAffiche(projectionInitialT * projection) {
 
 	//	Affiche les paramètres de la projection
 	(void)projection;
