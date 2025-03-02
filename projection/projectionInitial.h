@@ -5,6 +5,8 @@ SimFourier 1.2.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
+Ce logiciel est un programme informatique servant à donner une représentation
+graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -30,43 +32,40 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _MOTIF_
-#define _MOTIF_
+#ifndef _PROJECTIONINITIAL_
+#define _PROJECTIONINITIAL_
 
-#include "fonction.h"
-/*
-		Un motif est une fonction non périodique.
-		  L'enveloppe est ce motif éventuellement
-		périodicisé.
-*/
+#include "../modele/modele.h"
+#include "../interface/commandes.h"
 
-typedef struct MotifT motifT;
-	struct MotifT
+				//		Projections du systeme sur les commandes
+				//		les capteurs et les graphes
+
+typedef struct ProjectionInitialT projectionInitialT;
+	struct ProjectionInitialT
 		{
-		fonctionT fonction;	// Fonction motif
+	//	int fenetreX;	// hauteur de la fenêtre
+	//	int fenetreY;	// largeur de la fenêtre
+		//float ratioXY;	// rapport largeur / hauteur
 
-		int forme;	//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
-						//	4 : gaussienne, 5 : lorentzienne, 6 : sinus cardinale
-
-		int a;		//	Longueur horizontale (montée ou positif)
-		int b;		//	Longueur horizontale (descente ou négatif)
-
-		float A;	//	amplitude
-		float B;	//	décalage verticale
-
-		float sym;	//	facteur de symétrie (a/b)
+			// facteurs entre les grandeurs et la position des boutons rotatifs
+		float logCouplage;
+		float logDissipation;
+		float logJosephson;
+		float logAmplitude;
+		float logFrequence;
 		};
 
-	//	Initialisation
-int motifInitialisation(motifT * motif, int nombre);
+	//-----------------    INITIALISATION      -----------------------//
+int projectionInitialeInitialise(projectionInitialT * projection);
 
-	// Changement des paramètres
-int motifChangeParametre(motifT * motif, int parametre, int variation);
-int motifRegleParametre(motifT * motif, int parametre, int pourMille);
+	//-----------------    PROJECTION      -----------------------//
+int projectionInitialeCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes);
 
-	// Calcul du motif
-int motifCalculMotif(motifT * motif, int P);
+	//-----------------    CHANGE      -----------------------//
+int projectionInitialeChangeFenetre(projectionInitialT * projection, int x, int y);
+
+	//-----------------    AFFICHAGE      -----------------------//
+void projectionInitialeAffiche(projectionInitialT * projection);
 
 #endif
-
-////////////////////////////////////////////////////////////

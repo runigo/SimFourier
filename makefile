@@ -39,8 +39,8 @@ OBJDIR = ./obj
 
 all : $(EXEC)
 
-$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleClavier.o $(OBJDIR)/controleSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/affichage.o $(OBJDIR)/textures.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphes.o $(OBJDIR)/rotatif.o $(OBJDIR)/selectif.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/partie.o $(OBJDIR)/motif.o $(OBJDIR)/fourier.o $(OBJDIR)/systeme.o $(OBJDIR)/modele.o
-	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleClavier.o $(OBJDIR)/controleSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/affichage.o $(OBJDIR)/textures.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphes.o $(OBJDIR)/rotatif.o $(OBJDIR)/selectif.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fourier.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/partie.o $(OBJDIR)/motif.o $(OBJDIR)/systeme.o $(OBJDIR)/modele.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
+$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleClavier.o $(OBJDIR)/controleSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionInitial.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/affichage.o $(OBJDIR)/textures.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphes.o $(OBJDIR)/rotatif.o $(OBJDIR)/selectif.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/partie.o $(OBJDIR)/motif.o $(OBJDIR)/fourier.o $(OBJDIR)/systeme.o $(OBJDIR)/modele.o
+	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleClavier.o $(OBJDIR)/controleSouris.o $(OBJDIR)/projectionSystem.o $(OBJDIR)/projectionInitial.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/affichage.o $(OBJDIR)/textures.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphes.o $(OBJDIR)/rotatif.o $(OBJDIR)/selectif.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fourier.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/partie.o $(OBJDIR)/motif.o $(OBJDIR)/systeme.o $(OBJDIR)/modele.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
 
 # $(OBJDIR)/observables.o $(OBJDIR)/chaine.o $(OBJDIR)/change.o $(OBJDIR)/moteurs.o
 # $(OBJDIR)/observables.o $(OBJDIR)/chaine.o $(OBJDIR)/change.o $(OBJDIR)/moteurs.o
@@ -68,6 +68,9 @@ $(OBJDIR)/controleSouris.o : controleur/controleSouris.c controleur/controleSour
 
 $(OBJDIR)/projectionSystem.o : projection/projectionSystem.c projection/projectionSystem.h
 	$(CC) -c -g projection/projectionSystem.c $(CFLAGS) -o $@
+
+$(OBJDIR)/projectionInitial.o : projection/projectionInitial.c projection/projectionInitial.h
+	$(CC) -c -g projection/projectionInitial.c $(CFLAGS) -o $@
 
 $(OBJDIR)/projectionGraph.o : projection/projectionGraph.c projection/projectionGraph.h
 	$(CC) -c -g projection/projectionGraph.c $(CFLAGS) -o $@

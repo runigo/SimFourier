@@ -75,7 +75,7 @@ int projectionSystemInitialise(projectionSystemT * projection)
 
 int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes) {
 
-		// Projette le système sur les commandes
+		// Projette le système sur les commandes dans le mode simulation
 
 (void)systeme;
 (void)projection;
