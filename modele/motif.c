@@ -1,9 +1,10 @@
 /*
-Copyright mars 2024, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -38,6 +39,10 @@ int motifChangeA(motifT * motif, int delta);
 int motifChangeB(motifT * motif, int delta);
 int motifChangeForme(motifT * motif, int forme);
 int motifChangeSymetrie(motifT * motif, int delta);
+int motifRegleA(motifT * motif, int pourMille);
+int motifRegleB(motifT * motif, int pourMille);
+int motifRegleForme(motifT * motif, int forme);
+int motifRegleSymetrie(motifT * motif, int pourMille);
 
 	//		CALCUL DU MOTIF
 int motifCalculParametres(motifT * motif, int P);
@@ -252,6 +257,26 @@ int motifChangeParametre(motifT * motif, int parametre, int variation){
 	return 0;
 }
 
+int motifRegleParametre(motifT * motif, int parametre, int pourMille){
+
+	switch (parametre)
+		{
+		case 0:
+			motifRegleForme(motif, pourMille);break;
+		case 1:
+			motifRegleSymetrie(motif, pourMille);break;
+		case 2:
+			motifRegleA(motif, pourMille);break;
+		case 3:
+			motifRegleB(motif, pourMille);break;
+		//case 4:
+			//motifChangeC(motif, variation);break;
+		default:
+			;
+		}
+	return 0;
+}
+
 int motifChangeForme(motifT * motif, int forme){
 
 	if(forme>-1 && forme<6)
@@ -328,6 +353,109 @@ int motifChangeA(motifT * motif, int delta) {
 int motifChangeB(motifT * motif, int delta) {
 
 	// Change le décalage verticale du motif
+
+	float decalage = ((*motif).A * delta)/100;
+
+	if(decalage < AMPLITUDE_MIN)
+		{
+		(*motif).A = AMPLITUDE_MIN;
+		printf("Décalage minimale atteinte. ");
+		}
+	else
+		{
+		if(decalage > AMPLITUDE_MAX)
+			{
+			(*motif).A = AMPLITUDE_MAX;
+			printf("Décalage maximale atteinte. ");
+			}
+		else
+			{
+			(*motif).A = decalage;
+			}
+		}
+	printf("Décalage verticale = %f\n", (*motif).A);
+
+	return 0;
+	}
+////////////////	Réglage
+int motifRegleForme(motifT * motif, int forme){
+
+	// Règle la forme du motif
+
+	if(forme>-1 && forme<6)
+		{
+		(*motif).forme = forme;			//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
+							//	4 : gaussienne, 5 : lorentzienne
+		}
+	else
+		{
+		printf("Erreur dans motifRegleForme ");
+		}
+
+	printf("Forme  = %i\n", (*motif).forme);
+
+	return 0;
+}
+
+int motifRegleSymetrie(motifT * motif, int delta) {
+
+	// Règle l'amplitude du motif
+
+	float amplitude = ((*motif).A * delta)/100;
+
+	if(amplitude < AMPLITUDE_MIN)
+		{
+		(*motif).A = AMPLITUDE_MIN;
+		printf("Amplitude minimale atteinte. ");
+		}
+	else
+		{
+		if(amplitude > AMPLITUDE_MAX)
+			{
+			(*motif).A = AMPLITUDE_MAX;
+			printf("Amplitude maximale atteinte. ");
+			}
+		else
+			{
+			(*motif).A = amplitude;
+			}
+		}
+	printf("Amplitude motif = %f\n", (*motif).A);
+
+	return 0;
+	}
+
+int motifRegleA(motifT * motif, int delta) {
+
+	// Règle l'amplitude du motif
+
+	float amplitude = ((*motif).A * delta)/100;
+
+	if(amplitude < AMPLITUDE_MIN)
+		{
+		(*motif).A = AMPLITUDE_MIN;
+		printf("Amplitude minimale atteinte. ");
+		}
+	else
+		{
+		if(amplitude > AMPLITUDE_MAX)
+			{
+			(*motif).A = AMPLITUDE_MAX;
+			printf("Amplitude maximale atteinte. ");
+			}
+		else
+			{
+			(*motif).A = amplitude;
+			}
+		}
+	printf("Amplitude motif = %f\n", (*motif).A);
+
+	return 0;
+	}
+
+int motifRegleB(motifT * motif, int delta) {
+
+	// Règle le décalage verticale du motif
 
 	float decalage = ((*motif).A * delta)/100;
 

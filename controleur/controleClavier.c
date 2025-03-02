@@ -87,57 +87,57 @@ int controleClavier(controleurT * controleur)
 
 	// Paramètres motif
 		case SDLK_t: // Amplitude +
-			modeleChangeInitiale(&(*controleur).modele, 0, 2, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 0, 2, 1, 0);break;
 		case SDLK_g: // Amplitude -
-			modeleChangeInitiale(&(*controleur).modele, 0, 2, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 0, 2, -1, 0);break;
 		case SDLK_y: // Décalage +
-			modeleChangeInitiale(&(*controleur).modele, 0, 3, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 0, 3, 1, 0);break;
 		case SDLK_h: // Décalage -
-			modeleChangeInitiale(&(*controleur).modele, 0, 3, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 0, 3, -1, 0);break;
 		case SDLK_w: // Forme +
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 0, 0, 1, 0);break;
 		case SDLK_x: // Forme -
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 0, 0, -1, 0);break;
 		case SDLK_c: // Symétrie +
-			modeleChangeInitiale(&(*controleur).modele, 0, 1, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 0, 1, 1, 0);break;
 		case SDLK_v: // Symétrie -
-			modeleChangeInitiale(&(*controleur).modele, 0, 1, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 0, 1, -1, 0);break;
 
 	// Paramètres enveloppe
 		case SDLK_a: // Eta +
-			modeleChangeInitiale(&(*controleur).modele, 1, 1, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 1, 1, 0);break;
 		case SDLK_q: // Eta -
-			modeleChangeInitiale(&(*controleur).modele, 1, 1, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 1, -1, 0);break;
 		case SDLK_s: // Rho +
-			modeleChangeInitiale(&(*controleur).modele, 1, 2, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 2, 1, 0);break;
 		case SDLK_d: // Rho -
-			modeleChangeInitiale(&(*controleur).modele, 1, 2, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 2, -1, 0);break;
 		case SDLK_z: // Périodique
-			modeleChangeInitiale(&(*controleur).modele, 1, 0, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 0, 1, 0);break;
 		case SDLK_e: // Non périodique
-			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 0);break;
 		case SDLK_r: // Khi +
-			modeleChangeInitiale(&(*controleur).modele, 1, 3, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 3, 1, 0);break;
 		case SDLK_f: // Khi -
-			modeleChangeInitiale(&(*controleur).modele, 1, 3, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 1, 3, -1, 0);break;
 
 	// Paramètres porteuse
 		case SDLK_p: // Eta +
-			modeleChangeInitiale(&(*controleur).modele, 2, 1, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 1, 1, 0);break;
 		case SDLK_m: // Eta -
-			modeleChangeInitiale(&(*controleur).modele, 2, 1, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 1, -1, 0);break;
 		case SDLK_l: // Rho +
-			modeleChangeInitiale(&(*controleur).modele, 2, 2, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 2, 1, 0);break;
 		case SDLK_k: // Rho -
-			modeleChangeInitiale(&(*controleur).modele, 2, 2, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 2, -1, 0);break;
 		case SDLK_o: // Complexe
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 0);break;
 		case SDLK_i: // Réel
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 0, 1, 0);break;
 		case SDLK_u: // Khi +
-			modeleChangeInitiale(&(*controleur).modele, 2, 3, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 3, 1, 0);break;
 		case SDLK_j: // Khi -
-			modeleChangeInitiale(&(*controleur).modele, 2, 3, -1);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 3, -1, 0);break;
 
 	// Paramètres graphique
 		case SDLK_b:

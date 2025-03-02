@@ -176,7 +176,7 @@ int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY)
 	return 0;
 	}
 
-int commandesSourisPosition(commandesT * commandes)
+int commandesSourisZone(commandesT * commandes)
 	{
 		//	Retourne la zone où se trouve la souris
 

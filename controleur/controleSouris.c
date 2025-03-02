@@ -1,5 +1,5 @@
 /*
-Copyright février 2025, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2.2 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
@@ -33,7 +33,7 @@ termes.
 
 #include "controleSouris.h"
 
-int controleSourisPosition(controleurT * controleur);
+//int controleSourisPosition(controleurT * controleur);
 
 int controleSourisMolette(controleurT * controleur, int zone);
 int controleSourisMouvement(controleurT * controleur, int zone);
@@ -44,8 +44,8 @@ int controleSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe);
 int controleSourisDefileCommandes(controleurT * controleur, int zone);
 int controleSourisInitialisePosition(controleurT * controleur, int position);
 
-int controleSourisCliqRotatif(controleur);break;
-int controleSourisCliqSelectif(controleur);break;
+int controleSourisCliqRotatif(controleurT * controleur);
+int controleSourisCliqSelectif(controleurT * controleur);
 
 
 
@@ -57,7 +57,7 @@ int controleSouris(controleurT * controleur, int action)
 		//	Action de la souris
 
 		//	Le pointeur de la souris se trouvant dans la zone
-	int zone = commandesSourisPosition(&(*controleur).commandes);
+	int zone = commandesSourisZone(&(*controleur).commandes);
 
 	switch(action)	//	action sur la souris
 		{
@@ -141,9 +141,9 @@ int controleSourisBouton(controleurT * controleur, int appui, int zone)
 	switch(zone)	//	
 		{
 		case 2: //	Boutons rotatif
-			controleSourisCliqRotatif(controleur, 1);break;
+			controleSourisCliqRotatif(controleur);break;
 		case 3: //	Boutons selectif
-			controleSourisCliqSelectif(controleur, 1);break;
+			controleSourisCliqSelectif(controleur);break;
 	//	case 4: // zone des curseurs linéaires de la fonction
 	//		;break;
 	//	case 6: // zone des curseurs linéaires de fourier
@@ -151,12 +151,48 @@ int controleSourisBouton(controleurT * controleur, int appui, int zone)
 		default:
 			;
 		}
-
 		//	Enregistre l'appui
 	(*controleur).appui=appui;
 
 	return 0;
 	}
+
+
+int controleSourisCliqRotatif(controleurT * controleur)
+	{
+			//	Action du cliq de souris
+			//	dans le menu rotatif
+	int rotatif = commandeRotatifs(&(*controleur).commandes);
+
+		//	arctan( (gauche-sourisX) / (bas-sourisY) ).
+
+	switch(rotatif)	//	
+		{
+		case 2: //	
+			controleSourisCliqRotatif(controleur);break;
+		default:
+			;
+		}
+	return 0;
+	}
+
+int controleSourisCliqSelectif(controleurT * controleur)
+	{
+			//	Action du cliq de souris
+			//	dans le menu selectif
+	int selectif = commandeSelectifs(&(*controleur).commandes);
+
+	switch(selectif)	//	
+		{
+		case 2: //	
+			controleSourisCliqSelectif(controleur);break;
+		default:
+			;
+		}
+	return 0;
+	}
+
+
 /*
 int controleSourisCommandes(controleurT * controleur, int zone)
 	{

@@ -1,9 +1,10 @@
 /*
-Copyright janvier 2025, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.s
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -41,7 +42,6 @@ int initialeCalculEnveloppe(initialeT * initiale);
 int initialeCalculUnique(initialeT * initiale);
 int initialeCalculPeriodique(initialeT * initiale);
 int initialePeriodiseEnveloppe(initialeT * initiale);
-
 
 	//		JAUGE ET NORMALISATION
 int initialeJaugeZero(initialeT * initiale);
@@ -150,6 +150,26 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 			partieChangeParametre(&(*initiale).enveloppe, parametre, variation);break;
 		case 2:	// Change un paramètre de la porteuse
 			partieChangeParametre(&(*initiale).porteuse, parametre, variation);break;
+		default:
+			;
+		}
+
+	return 0;
+}
+
+
+int initialeRegleParametre(initialeT * initiale, int fonction, int parametre, int pourMille) {
+
+	// Règle un paramètre de initiale
+
+	switch (fonction)
+		{
+		case 0:	// Règle un paramètre du motif
+			motifRegleParametre(&(*initiale).motif, parametre, pourMille);break;
+		case 1:	// Règle un paramètre de l'enveloppe
+			partieRegleParametre(&(*initiale).enveloppe, parametre, pourMille);break;
+		case 2:	// Règle un paramètre de la porteuse
+			partieRegleParametre(&(*initiale).porteuse, parametre, pourMille);break;
 		default:
 			;
 		}

@@ -1,9 +1,10 @@
 /*
-Copyright mars 2024, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -45,6 +46,9 @@ int partieChangeNature(partieT * partie, int plusMoins); // complexe / périodiq
 int partieChangeEta(partieT * partie, int plusMoins);
 int partieChangeRho(partieT * partie, int plusMoins);
 int partieChangeKhi(partieT * partie, int plusMoins);
+int partieRegleEta(partieT * partie, int pourMille);
+int partieRegleRho(partieT * partie, int pourMille);
+int partieRegleKhi(partieT * partie, int pourMille);
 //int partieChangePhase(partieT * partie, int forme);
 
 	//		JAUGE ET NORMALISATION
@@ -150,6 +154,25 @@ int partieCalculHarmonique(partieT * partie) {
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
 
+int partieRegleParametre(partieT * partie, int parametre, int pourMille) {
+
+	// Change un paramètre de la partie
+
+	switch (parametre)
+		{
+		case 1:
+			partieRegleEta(partie, pourMille);break;
+		case 2:
+			partieRegleRho(partie, pourMille);break;
+		case 3:
+			partieRegleKhi(partie, pourMille);break;
+		default:
+			;
+		}
+
+	return 0;
+}
+
 int partieChangeParametre(partieT * partie, int parametre, int variation) {
 
 	// Change un paramètre de la partie
@@ -207,7 +230,7 @@ int partieChangeNature(partieT * partie, int plusMoins){
 
 int partieChangeEta(partieT * partie, int delta) {
 // delta = -1 : divise par 2 ; 0 : réglage nombrePeriode ; 1 multiplie par 2
-
+			//	Change la fréquence de la partie
 int eta = (*partie).eta;
 	switch (delta)
 		{
@@ -234,7 +257,7 @@ int eta = (*partie).eta;
 	}
 
 int partieChangeRho(partieT * partie, int delta) {
-(void)delta; // -1 : delta = 0 ; 0 : annule rho ; 1 réglage deltaPeriode
+	// -1 : delta = 0 ; 0 : annule rho ; 1 réglage deltaPeriode
 			//	Change la fréquence de la partie
 int rho = (*partie).rho;
 	switch (delta)
@@ -262,9 +285,10 @@ int rho = (*partie).rho;
 	}
 
 int partieChangeKhi(partieT * partie, int delta) {
-(void)delta; // -1 : delta = 0 ; 0 : annule rho ; 1 réglage deltaPeriode
+ // -1 : delta = 0 ; 0 : annule rho ; 1 réglage deltaPeriode
 			//	Change la fréquence de la partie
-int khi = (*partie).khi;
+
+	int khi = (*partie).khi;
 	switch (delta)
 		{
 		case -1:
@@ -276,6 +300,58 @@ int khi = (*partie).khi;
 		default:
 			;
 		}
+	if(khi < (*partie).fonction.nombre && khi > -1)
+		{
+		(*partie).khi = khi;
+		}
+	else
+		{
+		printf("khi limite atteint. ");
+		}
+	printf("khi  = %i\n", (*partie).khi);//%s, (*partie).nom
+
+	return 0;
+	}
+
+int partieRegleEta(partieT * partie, int pourMille) {
+
+	int eta = ((*partie).P * pourMille) / 1000;
+
+	if(eta < (*partie).P)
+		{
+		(*partie).eta = eta;
+		}
+	else
+		{
+		printf("eta limite atteint. ");
+		}
+	printf("Eta  = %i\n", (*partie).eta);//%s, (*partie).nom
+
+	return 0;
+	}
+
+int partieRegleRho(partieT * partie, int pourMille) {
+
+	int rho = pourMille / 10;
+
+	if(rho < 100 && rho > -1)
+		{
+		(*partie).rho = rho;
+		}
+	else
+		{
+		printf("rho limite atteint. ");
+		}
+	printf("rho  = %i\n", (*partie).rho);//%s, (*partie).nom
+
+	return 0;
+	}
+
+int partieRegleKhi(partieT * partie, int pourMille) {
+	//
+	//	khi = KHI_MAX * pourMille / 1000
+	int khi = ( (*partie).fonction.nombre * pourMille ) / 1000;
+
 	if(khi < (*partie).fonction.nombre && khi > -1)
 		{
 		(*partie).khi = khi;
