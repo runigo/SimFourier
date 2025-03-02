@@ -46,6 +46,7 @@ int partieChangeNature(partieT * partie, int plusMoins); // complexe / périodiq
 int partieChangeEta(partieT * partie, int plusMoins);
 int partieChangeRho(partieT * partie, int plusMoins);
 int partieChangeKhi(partieT * partie, int plusMoins);
+int partieRegleNature(partieT * partie, int etat); // complexe / périodique
 int partieRegleEta(partieT * partie, int pourMille);
 int partieRegleRho(partieT * partie, int pourMille);
 int partieRegleKhi(partieT * partie, int pourMille);
@@ -193,6 +194,31 @@ int partieChangeParametre(partieT * partie, int parametre, int variation) {
 
 	return 0;
 }
+
+int partieRegleNature(partieT * partie, int etat){
+		// Selon porteuse ou enveloppe, regle la nature complexe ou périodique
+		//printf("plusMoins = %i\n", plusMoins);
+
+	if((*partie).complexe < 0) // Cas de l'enveloppe
+		{
+		if(etat==0 || etat==1)
+			{
+			(*partie).periodique = etat;
+			printf("enveloppe periodique = %i\n", (*partie).periodique);
+			}
+		}
+
+	if((*partie).periodique < 0) // Cas de la porteuse
+		{
+		if(etat==0 || etat==1 || etat==2 || etat==3)
+			{
+			(*partie).complexe = etat;
+			printf("porteuse complexe = %i\n", (*partie).complexe);
+			}
+		}
+
+	return 0;
+	}
 
 int partieChangeNature(partieT * partie, int plusMoins){
 (void) plusMoins;

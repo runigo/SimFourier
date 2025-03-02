@@ -279,10 +279,10 @@ int motifRegleParametre(motifT * motif, int parametre, int pourMille){
 
 int motifChangeForme(motifT * motif, int forme){
 
-	if(forme>-1 && forme<6)
+	if(forme>-1 && forme<7)
 		{
 		(*motif).forme = forme;			//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
-							//	4 : gaussienne, 5 : lorentzienne
+							//	4 : gaussienne, 5 : lorentzienne, 6 : sinus cardinal
 		}
 	else
 		{
