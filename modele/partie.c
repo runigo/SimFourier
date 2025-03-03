@@ -65,7 +65,7 @@ int partieInitialisation(partieT * partie, int nombre) {
 		(*partie).eta=nombre/8;		//	Période, réglage puissance de deux
 		(*partie).rho = 0;			//	Période, réglage fin
 		(*partie).khi = 1.0;		//	Décalage horizontale, phase à l'origine
-		(*partie).P = 1.0;			//	Période
+		(*partie).periode = 1.0;			//	Période
 
 		(*partie).complexe = -1;			//	caractéristique de l'enveloppe
 		(*partie).periodique = -1;			//	caractéristique de la porteuse
@@ -78,36 +78,36 @@ int partieInitialisation(partieT * partie, int nombre) {
 int partieCalculPeriode(partieT * partie) {
 
 	// Calcul de la période
-		//printf("partieCalculPeriode = %i\n", (*partie).P);
+		//printf("partieCalculPeriode = %i\n", (*partie).periode);
 
 	int i;
-	int P=1;
+	int periode=1;
 
-	for (i=0;i<(*partie).eta;i++) // Calcul de P^eta
+	for (i=0;i<(*partie).eta;i++) // Calcul de periode^eta
 		{
-		P=2*P;
+		periode=2*periode;
 		}
 
-	if((*partie).rho < P && (*partie).rho >= 0)
+	if((*partie).rho < periode && (*partie).rho >= 0)
 		{
-		P = P + (*partie).rho;
+		periode = periode + (*partie).rho;
 		}
 	else
 		{
-		(*partie).rho = P-1;
+		(*partie).rho = periode-1;
 		printf("  Maximum ateint, (*partie).rho= %i\n", (*partie).rho);
-		P = 2*P - 1;
+		periode = 2*periode - 1;
 		}
 
-	if(P > (*partie).fonction.nombre)
+	if(periode > (*partie).fonction.nombre)
 		{
-		printf("  P maximal atteint \n");
-		(*partie).P = (*partie).fonction.nombre;
+		printf("  periode maximal atteint \n");
+		(*partie).periode = (*partie).fonction.nombre;
 		}
 
-	printf("partieCalculPeriode : (*partie).P = %i\n", (*partie).P);
+	printf("partieCalculPeriode : (*partie).periode = %i\n", (*partie).periode);
 
-	return (*partie).P;
+	return (*partie).periode;
 }
 
 int partieCalculUniforme(partieT * partie) {
@@ -131,22 +131,22 @@ int partieCalculHarmonique(partieT * partie) {
 	// Création d'une fonction harmonique
 	
 	int i;
-	int P=(*partie).P;
+	int periode=(*partie).periode;
 	int K=(*partie).khi;
 	int nombre=(*partie).fonction.nombre;
 		//fprintf(stderr, " Projection sur le système\n");
 
-	if((*partie).P==0)
+	if((*partie).periode==0)
 		{
-		fprintf(stderr, " P=0 !!! \n");
-		P=nombre/10;
+		fprintf(stderr, " periode=0 !!! \n");
+		periode=nombre/10;
 		}
 	//else
 		{
 		for(i=0;i<nombre;i++)
 			{
-			(*partie).fonction.reel[i] = cos( ((float)i)/P + K );
-			(*partie).fonction.imag[i] = sin( ((float)i)/P + K );
+			(*partie).fonction.reel[i] = cos( ((float)i)/periode + K );
+			(*partie).fonction.imag[i] = sin( ((float)i)/periode + K );
 			}
 		}
 
@@ -161,6 +161,8 @@ int partieRegleParametre(partieT * partie, int parametre, int pourMille) {
 
 	switch (parametre)
 		{
+		case 0:
+			partieRegleNature(partie, pourMille);break;
 		case 1:
 			partieRegleEta(partie, pourMille);break;
 		case 2:
@@ -196,8 +198,10 @@ int partieChangeParametre(partieT * partie, int parametre, int variation) {
 }
 
 int partieRegleNature(partieT * partie, int etat){
+
 		// Selon porteuse ou enveloppe, regle la nature complexe ou périodique
-		//printf("plusMoins = %i\n", plusMoins);
+
+	//fprintf(stderr, " partieRegleNature, %d\n", etat);
 
 	if((*partie).complexe < 0) // Cas de l'enveloppe
 		{
@@ -269,7 +273,7 @@ int eta = (*partie).eta;
 		default:
 			;
 		}
-	if(eta < (*partie).P)
+	if(eta < (*partie).periode)
 		{
 		(*partie).eta = eta;
 		}
@@ -341,9 +345,9 @@ int partieChangeKhi(partieT * partie, int delta) {
 
 int partieRegleEta(partieT * partie, int pourMille) {
 
-	int eta = ((*partie).P * pourMille) / 1000;
+	int eta = ((*partie).periode * pourMille) / 1000;
 
-	if(eta < (*partie).P)
+	if(eta < (*partie).periode)
 		{
 		(*partie).eta = eta;
 		}
@@ -440,33 +444,33 @@ int partieChangeAmplitude(partieT * partie, float facteur) {
 int partieCalculPeriode(partieT * partie) {
 		// Calcul de la période à partir de eta et rho
 	int k=1;
-	int P=2;
-		//	P = 2^eta
+	int periode=2;
+		//	periode = 2^eta
 	if( (*partie).eta > 0)
 		{
 		while(k<(*partie).eta) 
 			{
-			P=2*P; k++;
+			periode=2*periode; k++;
 			}
 		}
-	else { P = 1; }
-		//	P = P + dp
-	if( (*partie).rho < P )
+	else { periode = 1; }
+		//	periode = periode + dp
+	if( (*partie).rho < periode )
 		{
-		P=P+(*partie).rho;
+		periode=periode+(*partie).rho;
 		}
 	else
 		{
-		P=(*partie).rho;
+		periode=(*partie).rho;
 		}
-		//	P reste inférieur à "nombre"
-	if( P < (*partie).fonction.nombre )
+		//	periode reste inférieur à "nombre"
+	if( periode < (*partie).fonction.nombre )
 		{
-		(*partie).P = P;
+		(*partie).periode = periode;
 		}
 	else
 		{
-		(*partie).P = (*partie).fonction.nombre;
+		(*partie).periode = (*partie).fonction.nombre;
 		}
 	return 0;
 }

@@ -146,16 +146,12 @@ int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY)
 	int rayonX=(*commandes).selectifsDroite-(*commandes).selectifsGauche;
 	int rayonY=rayonX;
 
-/*		 
-	if(sourisX>(*commandes).rotatifs)
+	if(sourisX<(*commandes).rotatifsDroite)
 		{
-		if(sourisX<(*commandes).boutons)// Zone des boutons rotatifs
-			{
-			rayonX=(*commandes).rotatifX;
-			rayonY=(*commandes).rotatifY;
-			}
+		rayonX=(*commandes).rotatifsDroite-(*commandes).rotatifsGauche;
+		rayonY=rayonX;
 		}
-	else 
+/*	else 
 		{
 		if(sourisY>(*commandes).bas) // Zone du bas
 			{
@@ -173,6 +169,7 @@ int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY)
 	(*commandes).sourisHaut = sourisY-rayonY; // position Y de la souris - RayonBoutonY
 	(*commandes).sourisBas = sourisY+rayonY; // position Y de la souris + RayonBoutonY
 
+	//fprintf(stderr, " commandesInitialiseSouris, %d, %d\n", (*commandes).sourisX,(*commandes).sourisY);
 	return 0;
 	}
 
@@ -241,14 +238,12 @@ int commandeSelectifs(commandesT * commandes)
 	{
 			// Retourne le numéro du boutons sélectif
 	int i;
-			//	Si dans la zone suivant X
-	//if((*commandes).SelectifsCentre>(*commandes).sourisGauche && (*commandes).SelectifsCentre<(*commandes).sourisDroite)
 		{
 		for(i=0;i<SELECTIF_COMMANDES;i++)
 			{
 			//	Si dans la zone suivant Y
 			if((*commandes).selectif[i].Y>(*commandes).sourisHaut
-				&& (*commandes).selectif[i].Y+(*commandes).selectif[i].dY<(*commandes).sourisBas)
+				&& ((*commandes).selectif[i].Y+(*commandes).selectif[i].dY)<(*commandes).sourisBas)
 				return i;
 			}
 		}
@@ -259,13 +254,12 @@ int commandeRotatifs(commandesT * commandes)
 	{
 			// Retourne le numéro du boutons rotatif
 	int i;
-			//	Si dans la zone suivant X
-	if((*commandes).rotatifsCentre>(*commandes).sourisGauche && (*commandes).rotatifsCentre<(*commandes).sourisDroite)
 		{
 		for(i=0;i<ROTATIF_COMMANDES;i++)
 			{
 			//	Si dans la zone suivant Y
-			if((*commandes).rotatif[i].centre>(*commandes).sourisHaut && (*commandes).rotatif[i].centre<(*commandes).sourisBas)
+			if((*commandes).rotatif[i].Y>(*commandes).sourisHaut
+				&& ((*commandes).rotatif[i].Y+(*commandes).rotatif[i].dY)<(*commandes).sourisBas)
 				return i;
 			}
 		}

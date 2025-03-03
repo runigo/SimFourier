@@ -50,7 +50,7 @@ typedef struct PartieT partieT;
 		int eta;		//	Puissance de deux dans la période
 		int rho;		//	Écart à la puissance de deux de la période
 		int khi;		//	Décalage horizontal, déphasage : [0,N[
-		int P;			//	Période
+		int periode;			//	Période
 
 		int complexe;		//	-1 SI enveloppe,
 						// 0 porteuse réelle, 1 porteuse complexe, 2 peigne de Dirac, 3 constante/

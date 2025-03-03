@@ -71,7 +71,7 @@ int initialeCalculInitiale(initialeT * initiale) {
 	partieCalculPeriode(&(*initiale).porteuse);
 
 		// Calcul du motif
-	motifCalculMotif(&(*initiale).motif, (*initiale).enveloppe.P);
+	motifCalculMotif(&(*initiale).motif, (*initiale).enveloppe.periode);
 
 		fprintf(stderr, " Calcul des fonctions initiales \n");
 	initialeCalculEnveloppe(initiale);
@@ -124,10 +124,10 @@ int initialePeriodiseEnveloppe(initialeT * initiale) {
 	else
 		{
 		d = (int)((2*PI*(*initiale).enveloppe.khi)/nombre);
-	printf("initialePeriodiseEnveloppe  (*initiale).enveloppe.P = %i\n", (*initiale).enveloppe.P);
+	printf("initialePeriodiseEnveloppe  (*initiale).enveloppe.periode = %i\n", (*initiale).enveloppe.periode);
 		for(i=0;i<nombre;i++)
 			{
-			j = (i+d) % (*initiale).enveloppe.P;
+			j = (i+d) % (*initiale).enveloppe.periode;
 			(*initiale).enveloppe.fonction.reel[i] = (*initiale).motif.fonction.reel[j];
 			(*initiale).enveloppe.fonction.imag[i] = (*initiale).motif.fonction.imag[j];
 			}
@@ -140,8 +140,7 @@ int initialePeriodiseEnveloppe(initialeT * initiale) {
 
 int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation) {
 
-	// Change un paramètre de initiale
-
+							// Change un paramètre de initiale
 	switch (fonction)
 		{
 		case 0:	// Change un paramètre du motif
@@ -160,8 +159,7 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 
 int initialeRegleParametre(initialeT * initiale, int fonction, int parametre, int pourMille) {
 
-	// Règle un paramètre de initiale
-
+							// Règle un paramètre de initiale
 	switch (fonction)
 		{
 		case 0:	// Règle un paramètre du motif

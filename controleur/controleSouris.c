@@ -167,13 +167,32 @@ int controleSourisCliqRotatif(controleurT * controleur)
 			//	Action du cliq de souris
 			//	dans le menu rotatif
 	int rotatif = commandeRotatifs(&(*controleur).commandes);
+	(void)rotatif;
+		//	arctan( (gauche-sourisX) / (bas-sourisY) )., %d
+	fprintf(stderr, " controleSourisCliqRotatif, %d\n", rotatif);
 
-		//	arctan( (gauche-sourisX) / (bas-sourisY) ).
+	double angle = atan( (double)((*controleur).commandes.rotatif[rotatif].Y
+		+ (*controleur).commandes.rotatif[rotatif].dY - (*controleur).commandes.sourisY)
+		/ ((*controleur).commandes.rotatifsDroite - (*controleur).commandes.sourisX));
+
+	fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
+
+	int pourMille = (int)(angle*1000/PIS2);
 
 	switch(rotatif)	//	
 		{
-		case 2: //	
-			controleSourisCliqRotatif(controleur);break;
+		case 0: //	enveloppe Période 1
+			modeleChangeInitiale(&(*controleur).modele, 1, 1, 0, pourMille);break;
+		case 1: //	enveloppe Période 2
+			modeleChangeInitiale(&(*controleur).modele, 1, 2, 0, pourMille);break;
+		case 2: //	motif Symétrie
+			modeleChangeInitiale(&(*controleur).modele, 0, 1, 0, pourMille);break;
+		case 3: //	enveloppe Phase
+			modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, pourMille);break;
+		case 4: //	porteuse Période 1
+			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, pourMille);break;
+		case 5: //	porteuse Période 2
+			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, pourMille);break;
 		default:
 			;
 		}
@@ -202,18 +221,18 @@ int controleSourisCliqSelectif(controleurT * controleur)
 			modeleChangeInitiale(&(*controleur).modele, 0, 0, 5, 5);break;
 		case 8: //	motif	sinus cardinale
 			modeleChangeInitiale(&(*controleur).modele, 0, 0, 6, 6);break;
-		case 4: //	enveloppe	périodique
-			modeleChangeInitiale(&(*controleur).modele, 1, 0, 1, 1);break;
-		case 5: //	enveloppe	apériodique
+		case 4: //	enveloppe	apériodique
 			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 0);break;
+		case 5: //	enveloppe	périodique
+			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 1);break;
 		case 9: //	porteuse	constant
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 3, 3);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 3);break;
 		case 10: //	porteuse	peigne de dirac
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 2, 2);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 2);break;
 		case 11: //	porteuse	réelle
 			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 0);break;
 		case 12: //	porteuse	complexe
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 1, 1);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 1);break;
 		default:
 			;
 		}

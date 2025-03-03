@@ -397,27 +397,26 @@ int motifRegleForme(motifT * motif, int forme){
 	return 0;
 }
 
-int motifRegleSymetrie(motifT * motif, int delta) {
+int motifRegleSymetrie(motifT * motif, int pourMille) {
 
-	// Règle l'amplitude du motif
-
-	float amplitude = ((*motif).A * delta)/100;
+	// Règle l'asymétrie du motif
+	float amplitude = ((*motif).A * pourMille)/100;
 
 	if(amplitude < AMPLITUDE_MIN)
 		{
-		(*motif).A = AMPLITUDE_MIN;
+		(*motif).sym = AMPLITUDE_MIN;
 		printf("Amplitude minimale atteinte. ");
 		}
 	else
 		{
 		if(amplitude > AMPLITUDE_MAX)
 			{
-			(*motif).A = AMPLITUDE_MAX;
+			(*motif).sym = AMPLITUDE_MAX;
 			printf("Amplitude maximale atteinte. ");
 			}
 		else
 			{
-			(*motif).A = amplitude;
+			(*motif).sym = amplitude;
 			}
 		}
 	printf("Amplitude motif = %f\n", (*motif).A);

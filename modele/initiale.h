@@ -56,5 +56,8 @@ int initialeInitialisation(initialeT * initiale, int nombre);
 int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation);
 int initialeRegleParametre(initialeT * initiale, int fonction, int parametre, int pourMille);
 
+	//	Calcul la fonction initiale
+int initialeCalculInitiale(initialeT * initiale);
+
 #endif
 ////////////////////////////////////////////////////////////
