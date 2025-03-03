@@ -32,15 +32,15 @@ termes.
 
 #include "selectif.h"
 
-int selectifInitialise(selectifT * selectif, int largeur, int hauteur)
+int selectifInitialise(selectifT * selectif, int taille)
 	{
 
-		(*selectif).X=largeur; // position suivant X
-		(*selectif).Y=hauteur; // position suivant Y
-		(*selectif).dX=11; // dimension x
-		(*selectif).dY=11; // dimension y
+		(*selectif).X=0; // position suivant X
+		(*selectif).Y=0; // position suivant Y
+		(*selectif).dX=taille; // dimension x
+		(*selectif).dY=taille; // dimension y
 
-		(*selectif).etat=1; // État du petit bouton
+		(*selectif).etat=0; // État du petit bouton
 
 	return 0;
 	}

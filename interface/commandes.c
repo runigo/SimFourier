@@ -33,42 +33,49 @@ termes.
 
 #include "commandes.h"
 
-int commandesInitialiseZones(commandesT * commandes, int largeur, int hauteur);
-int commandesInitialiseRotatifs(commandesT * commandes, int largeur, int hauteur);
-int commandesInitialiseSelectifs(commandesT * commandes, int largeur, int hauteur);
-int commandesInitialise(commandesT * commandes, int largeur, int hauteur);
+int commandesInitialiseZones(commandesT * commandes, double facteur);
+int commandesInitialiseRotatifs(commandesT * commandes, double facteur);
+int commandesInitialiseSelectifs(commandesT * commandes, double facteur);
+int commandesInitialise(commandesT * commandes, double facteur);
 
-int commandesInitialiseZones(commandesT * commandes, int largeur, int hauteur)
+int commandesAjusteCommandes(commandesT * commandes, double facteur)
 	{
-	(void)largeur;
-	(void)hauteur;
+			//	Positions graphiques des zones et des commandes
 
-			// Zones suivant Y du menu 1
-		(*commandes).mode = 24;
-
-			// Zones suivant X des fonctions
-		(*commandes).fonctionsGauche = 200;
-		(*commandes).fonctionsDroite = 600;
-
-			// Zones suivant Y des fonctions
-		(*commandes).fonctionHaut = 30;
-		(*commandes).fonctionBas = hauteur/2;
-		(*commandes).fourierHaut = hauteur/2 +20;
-		(*commandes).fourierBas = hauteur;
+	commandesInitialiseRotatifs(commandes, facteur);
+	commandesInitialiseSelectifs(commandes, facteur);
+	commandesInitialiseZones(commandes, facteur);
 
 	return 0;
 	}
 
-int commandesInitialiseRotatifs(commandesT * commandes, int largeur, int hauteur)
+int commandesInitialiseZones(commandesT * commandes, double facteur)
 	{
-	(void)largeur;
-	(void)hauteur;
+
+			// Zones suivant Y du menu 1
+		(*commandes).mode = facteur * 24;
+
+			// Zones suivant X des fonctions
+		(*commandes).fonctionsGauche = facteur * 200;
+		(*commandes).fonctionsDroite = facteur * 600;
+
+			// Zones suivant Y des fonctions
+		(*commandes).fonctionHaut = 30;
+		(*commandes).fonctionBas = 300;
+		(*commandes).fourierHaut = 330;
+		(*commandes).fourierBas = 600;
+
+	return 0;
+	}
+
+int commandesInitialiseRotatifs(commandesT * commandes, double facteur)
+	{
 				//	Positions des boutons rotatifs
 
 		//	Suivant X
-	(*commandes).rotatifsGauche = 20;
-	(*commandes).rotatifsDroite = 100;
-	(*commandes).rotatifsCentre = ((*commandes).rotatifsDroite+(*commandes).rotatifsGauche)/2;
+	(*commandes).rotatifsGauche = facteur * 20;
+	(*commandes).rotatifsDroite = facteur * 100;
+	//(*commandes).rotatifsCentre = ((*commandes).rotatifsDroite+(*commandes).rotatifsGauche)/2;
 
 	int i;
 	for(i=0;i<ROTATIF_COMMANDES;i++)
@@ -77,65 +84,45 @@ int commandesInitialiseRotatifs(commandesT * commandes, int largeur, int hauteur
 		}
 
 		//	Suivant Y
-	(*commandes).rotatif[0].Y = 75; 	//	Largeur
-	(*commandes).rotatif[1].Y = 168;	//	Largeur
-	(*commandes).rotatif[2].Y = 285;	//	Symetrie
-	(*commandes).rotatif[3].Y = 404;	//	Phase
-	(*commandes).rotatif[4].Y = 548;	//	Période
-	(*commandes).rotatif[5].Y = 640;	//	Période
+	(*commandes).rotatif[0].Y = facteur * 75; 	//	Largeur
+	(*commandes).rotatif[1].Y = facteur * 168;	//	Largeur
+	(*commandes).rotatif[2].Y = facteur * 285;	//	Symetrie
+	(*commandes).rotatif[3].Y = facteur * 404;	//	Phase
+	(*commandes).rotatif[4].Y = facteur * 548;	//	Période
+	(*commandes).rotatif[5].Y = facteur * 640;	//	Période
 
 	return 0;
 	}
 
-int commandesInitialiseSelectifs(commandesT * commandes, int largeur, int hauteur)
+int commandesInitialiseSelectifs(commandesT * commandes, double facteur)
 	{
 				//	Positions des boutons selectifs
+
+		//	Suivant X
+	(*commandes).selectifsGauche = facteur * 134;
+	(*commandes).selectifsDroite = facteur * 176;
+	(*commandes).selectifsCentre = ((*commandes).selectifsDroite+(*commandes).selectifsGauche)/2;
+
 	int i;
 	for(i=0;i<SELECTIF_COMMANDES;i++)
 		{
-		selectifInitialise(&(*commandes).selectif[i], largeur, hauteur);
+		selectifInitialise(&(*commandes).selectif[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
 		}
 
-		//	Suivant X
-	(*commandes).selectifsGauche = 134;
-	(*commandes).selectifsDroite = 176;
-	(*commandes).selectifsCentre = ((*commandes).selectifsDroite+(*commandes).selectifsGauche)/2;
-
 		// BOUTONS SELECTIFS SUIVANT Y
-	(*commandes).selectif[0].Y=69;  	//	Constant
-	(*commandes).selectif[1].Y=114;		//	Rectangle
-	(*commandes).selectif[2].Y=159;		//	Scie
-	(*commandes).selectif[3].Y=203;		//	Sinus
-	(*commandes).selectif[4].Y=264;		//	Apériodique
-	(*commandes).selectif[5].Y=310;		//	Périodique
-	(*commandes).selectif[6].Y=355;		//	Gaussienne
-	(*commandes).selectif[7].Y=400;		//	Lorentzienne
-	(*commandes).selectif[8].Y=444;		//	Sin Cardinal
-	(*commandes).selectif[9].Y=543;		//	Constant
-	(*commandes).selectif[10].Y=588;	//	Dirac
-	(*commandes).selectif[11].Y=631;	//	Sinus
-	(*commandes).selectif[12].Y=677;	//	Complexe
-
-	return 0;
-	}
-
-int commandesInitialise(commandesT * commandes, int largeur, int hauteur)
-	{
-			//	Positions graphiques des zones et des commandes
-
-	commandesInitialiseRotatifs(commandes, largeur, hauteur);
-
-	commandesInitialiseSelectifs(commandes, largeur, hauteur);
-
-	commandesInitialiseZones(commandes, largeur, hauteur);
-
-		(*commandes).sourisX = 10; // position X de la souris
-		(*commandes).sourisY = 10; // position Y de la souris
-
-		(*commandes).sourisGauche = 5; // position X de la souris - demiBouton
-		(*commandes).sourisDroite = 15; // position X de la souris + demiBouton
-		(*commandes).sourisHaut = 5; // position Y de la souris - demiBouton
-		(*commandes).sourisBas = 15; // position Y de la souris + demiBouton
+	(*commandes).selectif[0].Y = facteur * 69;  	//	Constant
+	(*commandes).selectif[1].Y = facteur * 114;		//	Rectangle
+	(*commandes).selectif[2].Y = facteur * 159;		//	Scie
+	(*commandes).selectif[3].Y = facteur * 203;		//	Sinus
+	(*commandes).selectif[4].Y = facteur * 264;		//	Apériodique
+	(*commandes).selectif[5].Y = facteur * 310;		//	Périodique
+	(*commandes).selectif[6].Y = facteur * 355;		//	Gaussienne
+	(*commandes).selectif[7].Y = facteur * 400;		//	Lorentzienne
+	(*commandes).selectif[8].Y = facteur * 444;		//	Sin Cardinal
+	(*commandes).selectif[9].Y = facteur * 543;		//	Constant
+	(*commandes).selectif[10].Y = facteur * 588;	//	Dirac
+	(*commandes).selectif[11].Y = facteur * 631;	//	Sinus
+	(*commandes).selectif[12].Y = facteur * 677;	//	Complexe
 
 	return 0;
 	}

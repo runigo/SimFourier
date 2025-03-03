@@ -91,7 +91,14 @@ int donneesControleur(controleurT * controleur)
 	SDL_GetWindowSize((*controleur).interface.fenetre, &fenetreX, &fenetreY);
 	(*controleur).graphique.fenetreX=fenetreX;
 	(*controleur).graphique.fenetreY=fenetreY;
-	commandesInitialise(&(*controleur).commandes, fenetreX, fenetreY);
+		if(fenetreY>MENUS_Y)
+			{
+			commandesAjusteCommandes(&(*controleur).commandes, ((double)fenetreY)/MENUS_Y);
+			}
+		else
+			{
+			commandesAjusteCommandes(&(*controleur).commandes, 1.0);
+			}
 
 	SDL_PumpEvents();
 	SDL_GetMouseState(&x,&y);

@@ -47,7 +47,7 @@ typedef struct SelectifT selectifT;
 
 		};
 
-int selectifInitialise(selectifT * selectif, int largeur, int hauteur);
+int selectifInitialise(selectifT * selectif, int taille);
 int selectifInitialiseSouris(selectifT * selectif, int sourisX, int sourisY);
 int selectifBoutons(selectifT * selectif);
 int selectifRotatifs(selectifT * selectif);
