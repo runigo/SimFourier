@@ -46,6 +46,7 @@ struct AffichageT {
 	SDL_Color orange;
 	SDL_Color jaune;
 	SDL_Color gris;
+	SDL_Color grisClair;
 	SDL_Color cyan;
 	SDL_Color vert;
 

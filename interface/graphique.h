@@ -47,14 +47,14 @@ struct GraphiqueT {
 
 	texturesT textures;         //  Textures
 
-	int taille;
+	//int taille;
 
 	int fenetreX;	// hauteur de la fenêtre
 	int fenetreY;	// largeur de la fenêtre
 };
 
 int graphiqueSuppression(graphiqueT * graphique);
-int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int taille);
+int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface);
 
 int graphiqueNettoyage(graphiqueT * graphique);
 int graphiqueMiseAJour(graphiqueT * graphique);

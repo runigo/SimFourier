@@ -40,11 +40,11 @@ int commandesInitialise(commandesT * commandes, double facteur);
 
 int commandesAjusteCommandes(commandesT * commandes, double facteur)
 	{
-			//	Positions graphiques des zones et des commandes
+			//	Positions des zones et des commandes
 
+	commandesInitialiseZones(commandes, facteur);
 	commandesInitialiseRotatifs(commandes, facteur);
 	commandesInitialiseSelectifs(commandes, facteur);
-	commandesInitialiseZones(commandes, facteur);
 
 	return 0;
 	}
@@ -65,25 +65,26 @@ int commandesInitialiseZones(commandesT * commandes, double facteur)
 		(*commandes).fourierHaut = 330;
 		(*commandes).fourierBas = 600;
 
+			//	Zones des commandes suivant X
+	(*commandes).selectifsGauche = facteur * 134;
+	(*commandes).selectifsDroite = facteur * 176;
+	//(*commandes).selectifsCentre = ( (*commandes).selectifsDroite + (*commandes).selectifsGauche ) / 2;
+
+	(*commandes).rotatifsGauche = facteur * 20;
+	(*commandes).rotatifsDroite = facteur * 100;
+	//(*commandes).rotatifsCentre = ((*commandes).rotatifsDroite+(*commandes).rotatifsGauche)/2;
+
 	return 0;
 	}
 
 int commandesInitialiseRotatifs(commandesT * commandes, double facteur)
 	{
 				//	Positions des boutons rotatifs
-
-		//	Suivant X
-	(*commandes).rotatifsGauche = facteur * 20;
-	(*commandes).rotatifsDroite = facteur * 100;
-	//(*commandes).rotatifsCentre = ((*commandes).rotatifsDroite+(*commandes).rotatifsGauche)/2;
-
 	int i;
 	for(i=0;i<ROTATIF_COMMANDES;i++)
 		{
 		rotatifInitialise(&(*commandes).rotatif[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
 		}
-
-		//	Suivant Y
 	(*commandes).rotatif[0].Y = facteur * 75; 	//	Largeur
 	(*commandes).rotatif[1].Y = facteur * 168;	//	Largeur
 	(*commandes).rotatif[2].Y = facteur * 285;	//	Symetrie
@@ -96,20 +97,16 @@ int commandesInitialiseRotatifs(commandesT * commandes, double facteur)
 
 int commandesInitialiseSelectifs(commandesT * commandes, double facteur)
 	{
-				//	Positions des boutons selectifs
+					//	Positions des boutons selectifs
 
-		//	Suivant X
-	(*commandes).selectifsGauche = facteur * 134;
-	(*commandes).selectifsDroite = facteur * 176;
-	(*commandes).selectifsCentre = ((*commandes).selectifsDroite+(*commandes).selectifsGauche)/2;
 
+			//	Initialisation des boutons selectifs
 	int i;
 	for(i=0;i<SELECTIF_COMMANDES;i++)
 		{
 		selectifInitialise(&(*commandes).selectif[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
 		}
-
-		// BOUTONS SELECTIFS SUIVANT Y
+			// BOUTONS SELECTIFS SUIVANT Y
 	(*commandes).selectif[0].Y = facteur * 69;  	//	Constant
 	(*commandes).selectif[1].Y = facteur * 114;		//	Rectangle
 	(*commandes).selectif[2].Y = facteur * 159;		//	Scie

@@ -79,6 +79,9 @@ int affichageInitialisation(affichageT * affichage, interfaceT * interface)
 	(*affichage).gris.r = 127;
 	(*affichage).gris.g = 127;
 	(*affichage).gris.b = 127;
+	(*affichage).grisClair.r = 190;
+	(*affichage).grisClair.g = 190;
+	(*affichage).grisClair.b = 190;
 	(*affichage).gris.a = 255;
 	(*affichage).cyan.r = 127;
 	(*affichage).cyan.g = 40;

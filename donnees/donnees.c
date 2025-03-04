@@ -82,7 +82,7 @@ int donneesControleur(controleurT * controleur)
 		fprintf(stderr, " Création de l'interface SDL\n");
 	interfaceCreation(&(*controleur).interface);
 		fprintf(stderr, " Création du rendu\n");
-	graphiqueInitialisation(&(*controleur).graphique, &(*controleur).interface, (*controleur).options.fond);
+	graphiqueInitialisation(&(*controleur).graphique, &(*controleur).interface);
 
 	int fenetreX;
 	int fenetreY;

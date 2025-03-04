@@ -43,16 +43,13 @@ int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes)
 
 		//			GRAPHISME
 int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
-//int graphiqueLigne(graphiqueT * graphique, int X, int Y, int x, int y);
 int graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT);
 int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
-//int graphiqueMasse(graphiqueT * graphique, int abs, int ord);
-//int graphiqueMobile(graphiqueT * graphique, grapheT * graphe);
 
 		//		INITIALISATION ,  SUPRESSION
 
 
-int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int taille)
+int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface)
 	{
     if (graphique == NULL || interface == NULL)
     	{
@@ -62,7 +59,7 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int 
 	int fenetreX;
 	int fenetreY;
 
-	(*graphique).taille = taille;
+	//(*graphique).taille = taille;
 
 	SDL_GetWindowSize((*interface).fenetre, &fenetreX, &fenetreY);
 
@@ -186,25 +183,23 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	//int centrage = 12;
 	coordonnee.w=(*commandes).selectifsDroite-(*commandes).selectifsGauche;
 	coordonnee.h=coordonnee.w;
-	coordonnee.y = (*commandes).fourierBas;	// Positon Y de la zone du bas
-	coordonnee.x = (*commandes).selectifsGauche;	// Positon X de la zone des petits boutons
+	coordonnee.y = 0;
+	coordonnee.x = (*commandes).selectifsGauche;	// Positon X des boutons selectifs
 
-				// Boutons selectif
+						// Boutons selectifs
 	int i;
 	for(i=0;i<SELECTIF_COMMANDES;i++)
 		{
 		if((*commandes).selectif[i].etat==1)
 			{
-			coordonnee.y = (*commandes).selectif[i].Y; // Positon Y des boutons
-			//	Dessin des boutons
+			coordonnee.y = (*commandes).selectif[i].Y; // Position Y du bouton
 			if ((*graphique).textures.selectif[i] != 0)
 				{
 				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectif[i], NULL, &coordonnee);
 				}
 			}
 		}
-
-							// Boutons rotatifs
+						// Boutons rotatifs
 	int X, Y, x, y;
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
 	X=(*commandes).rotatifsDroite;
@@ -264,23 +259,18 @@ int graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 	{
 	int i;
 
-//	if((*graphe).arriere != 0) // Vue de derrière, la chaîne est dessinée vers les précédents.
-//	else {(*graphe).arriere = 0;}
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
 
-	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-	for(i=0;i<(*graphe).nombre;i++)
+	for(i=0;i<(*graphe).nombre;i++)		//	Dessin des tiges
 		{
-		//	Dessin des tiges
-	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
-	//	graphiqueTige(graphique, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i], 0, 0);//(*graphe).sinTheta, (*graphe).cosTheta);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
 		}
 
-	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
-	for(i=0;i<((*graphe).nombre-1);i++)
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
+
+	for(i=0;i<((*graphe).nombre-1);i++)		//	Dessin de la courbe
 		{
-		//	Dessin de la courbe
-	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
-	//	graphiqueTige(graphique, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i], 0, 0);//(*graphe).sinTheta, (*graphe).cosTheta);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
 		}
 
 	return 0;

@@ -45,7 +45,7 @@ typedef struct CommandesT commandesT;
 
 			// Zones suivant X des commandes
 		int rotatifsCentre;
-		int selectifsCentre;
+		//int selectifsCentre;
 		int rotatifsDroite;
 		int selectifsDroite;
 		int rotatifsGauche;
