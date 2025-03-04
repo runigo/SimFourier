@@ -46,7 +46,7 @@ int modeleProjectionSystemeEnergie(modeleT * modele);
 
 /*------------------------  INITIALISATION  -------------------------*/
 
-int modeleInitialisation(modeleT * modele, int nombre, int dt) {
+int modeleInitialisation(modeleT * modele, int nombre, float dt) {
 
 		(*modele).change = 1;	//	Indicateur de variation d'un paramètre
 

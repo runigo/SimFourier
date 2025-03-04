@@ -54,7 +54,7 @@ typedef struct ModeleT modeleT;
 		};
 
 	//	Initialisation du système
-int modeleInitialisation(modeleT * modele, int nombre, int dt);
+int modeleInitialisation(modeleT * modele, int nombre, float dt);
 int modeleInitialisePoint(modeleT * modele, float ancien, float actuel, float nouveau, int i);
 int modeleInitialisePosition(modeleT * modele, int forme);
 int modeleInitialisePotentiel(modeleT * modele, int forme);

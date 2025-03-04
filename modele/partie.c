@@ -60,15 +60,17 @@ int partieJaugeZero(partieT * partie);
 
 int partieInitialisation(partieT * partie, int nombre) {
 
-		fonctionInitialise(&(*partie).fonction, nombre);
+	fonctionInitialise(&(*partie).fonction, nombre);
 
-		(*partie).eta=nombre/8;		//	Période, réglage puissance de deux
-		(*partie).rho = 0;			//	Période, réglage fin
-		(*partie).khi = 1.0;		//	Décalage horizontale, phase à l'origine
-		(*partie).periode = 1.0;			//	Période
+	(*partie).eta = log2((*partie).fonction.nombre) / 2;	//	Période, réglage puissance de deux
+	(*partie).etaMax = log2((*partie).fonction.nombre);		//	
+	(*partie).rho = exp2((*partie).eta)/2;			//	Période, réglage fin
+	(*partie).rhoMax = exp2((*partie).eta);		//	2^eta
+	(*partie).khi = 1.0;		//	Décalage horizontale, phase à l'origine
+	(*partie).periode = 1.0;			//	Période
 
-		(*partie).complexe = -1;			//	caractéristique de l'enveloppe
-		(*partie).periodique = -1;			//	caractéristique de la porteuse
+	(*partie).complexe = -1;			//	caractéristique de l'enveloppe
+	(*partie).periodique = -1;			//	caractéristique de la porteuse
 
 	return 0;
 }
@@ -265,13 +267,18 @@ int eta = (*partie).eta;
 	switch (delta)
 		{
 		case -1:
-			eta = eta / 2;break;
+			eta = eta -1;break;
 		case 0:
-			eta = (*partie).fonction.nombre/2;break;
+			eta = 2;break;
 		case 1:
-			eta = eta * 2;break;
+			eta = eta +1;break;
 		default:
 			;
+		}
+	if(eta < 0)
+		{
+		(*partie).eta = 0;
+		printf("eta minimum atteint. ");
 		}
 	if(eta < (*partie).periode)
 		{
@@ -279,7 +286,7 @@ int eta = (*partie).eta;
 		}
 	else
 		{
-		printf("eta limite atteint. ");
+		printf("eta maximum atteint. ");
 		}
 	printf("Eta  = %i\n", (*partie).eta);//%s, (*partie).nom
 
@@ -301,7 +308,7 @@ int rho = (*partie).rho;
 		default:
 			;
 		}
-	if(rho < 100 && rho > -1)
+	if(rho < 10 && rho > -1)
 		{
 		(*partie).rho = rho;
 		}

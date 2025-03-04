@@ -43,7 +43,6 @@ typedef struct RotatifT rotatifT;
 		int dX; // dimension x
 		int dY; // dimension y
 
-		
 		int positionX;	//	position x de l'aiguille
 		int positionY;	//	position y de l'aiguille
 

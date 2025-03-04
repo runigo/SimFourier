@@ -176,10 +176,9 @@ int controleurFenetre(controleurT * controleur)
 int controleurEvolutionModele(controleurT * controleur)
 	{
 		//	Évolution du modèle selon le mode
-
+	//	0 : initiale, 1 : simulation, 2 : énergie potentielle, -1 : pause de la simulation
 	switch((*controleur).options.mode)
-		{		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
-						//		-1 : pause de la simulation
+		{
 		case 0:
 			modeleEvolutionInitiale(&(*controleur).modele, 1, (*controleur).options.echelle);break;
 		case 1:

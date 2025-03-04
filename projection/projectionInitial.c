@@ -45,65 +45,65 @@ termes.
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialInitialise(projectionInitialT * projection)
+int projectionInitialInitialise(projectionInitialT * projection, int nombre)
 	{
 
 	//(*projection).fenetreX = FENETRE_X;	// hauteur de la fenêtre
 	//(*projection).fenetreY = FENETRE_Y;	// largeur de la fenêtre
 
 	//(*projection).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
+	//(*projection).logCouplage = 1.0 / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
 
-	(*projection).logCouplage = 1.0;// / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
-	(*projection).logDissipation = 1.0;// / log( DISSIPATION_MAX/DISSIPATION_MIN );
-	(*projection).logJosephson = 1.0;// / log( JOSEPHSON_MAX/JOSEPHSON_MIN );
-	(*projection).logAmplitude = 1.0;// / log( AMPLITUDE_MAX/AMPLITUDE_MIN );
-	(*projection).logFrequence = 1.0;// / log( FREQUENCE_MAX/FREQUENCE_MIN );
-
+	(*projection).logEta = 1.0 / log( log2(nombre) );
+	(*projection).logRho = 1.0;
+	(*projection).logSym = 1.0 / log( 1000 / 0.001 );
 
 	return 0;
 	}
 
 	//-----------------    PROJECTION      -----------------------//
 
-int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes) {
-
+int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes)
+	{
 		// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
 
-(void)initiale;
-(void)projection;
-(void)commandes;
-/*
-	//float theta;
-	//float ratioRotatif = 0.9;
-	//float courantJosephson = projectionValeurAbsolue((*initiale).moteurs.courantJosephson);
+	float theta;
+	int longueur = (*commandes).rotatifsDroite - (*commandes).rotatifsGauche;
 
 				//	Projection sur les boutons rotatifs
-	 //	Couplage
-	theta = DEUXPI * (*projection).logCouplage * log( (*initiale).couplage / (COUPLAGE_MIN * (*initiale).nombre) );
-	(*commandes).rotatifPositionX[0]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
-	(*commandes).rotatifPositionY[0]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
+	if((*initiale).enveloppe.eta > 0)
+		{
+		(*projection).logRho = 1.0 / log( exp2((*initiale).enveloppe.eta) );
+		}
 
-	 //	Dissipation
-	theta = DEUXPI * (*projection).logDissipation * log( (*initiale).dissipation/DISSIPATION_MIN );
-	(*commandes).rotatifPositionX[1]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
-	(*commandes).rotatifPositionY[1]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
+	 //	Période enveloppe, eta eta_Max = (*partie).periode
+	theta = PIS2 * (*projection).logEta * log( (*initiale).enveloppe.eta );
+	(*commandes).rotatif[0].positionX=(int)(-longueur*sin(theta));
+	(*commandes).rotatif[0].positionY=(int)(-longueur*cos(theta));
 
-	//	Amplitude du moteur josephson
-	theta = DEUXPI * (*projection).logJosephson * log( projectionValeurAbsolue(courantJosephson/JOSEPHSON_MIN) );
-	(*commandes).rotatifPositionX[2]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
-	(*commandes).rotatifPositionY[2]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
-	//	Amplitude du moteur périodique
-	theta = DEUXPI * (*projection).logAmplitude * log( (*initiale).moteurs.amplitude/AMPLITUDE_MIN );
-	(*commandes).rotatifPositionX[3]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
-	(*commandes).rotatifPositionY[3]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
+	 //	Période enveloppe, rho
+	theta = PIS2 * (*projection).logRho * log( (*initiale).enveloppe.rho );
+	(*commandes).rotatif[1].positionX=(int)(-longueur*sin(theta));
+	(*commandes).rotatif[1].positionY=(int)(-longueur*cos(theta));
 
-	//	Fréquence du moteurs
-	theta = DEUXPI * (*projection).logFrequence * log( (*initiale).moteurs.frequence/FREQUENCE_MIN );
-	(*commandes).rotatifPositionX[4]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
-	(*commandes).rotatifPositionY[4]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
+	//	Symétrie motif
+	theta = PIS2 * (*projection).logSym * log( (*initiale).motif.sym / 00.1 );
+	(*commandes).rotatif[2].positionX=(int)(-longueur*sin(theta));
+	(*commandes).rotatif[2].positionY=(int)(-longueur*cos(theta));
 
+	if((*initiale).porteuse.eta > 0)
+		{
+		(*projection).logRho = 1.0 / log( exp2((*initiale).porteuse.eta) );
+		}
+	//	Période porteuse, eta eta_max = log2(nombre)
+	theta = PIS2 * (*projection).logEta * log( (*initiale).porteuse.eta );
+	(*commandes).rotatif[3].positionX=(int)(-longueur*sin(theta));
+	(*commandes).rotatif[3].positionY=(int)(-longueur*cos(theta));
 
-*/
+	//	Période porteuse, rho rho_Max = 2^eta
+	theta = DEUXPI * (*projection).logRho * log( (*initiale).porteuse.rho );
+	(*commandes).rotatif[4].positionX=(int)(-longueur*sin(theta));
+	(*commandes).rotatif[4].positionY=(int)(-longueur*cos(theta));
 
 				//	Projection sur les petits boutons de droite
 	int i;

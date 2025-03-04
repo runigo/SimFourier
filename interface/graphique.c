@@ -162,9 +162,9 @@ int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes)
 	X=(*commandes).rotatifsDroite;
 	for(i=0;i<ROTATIF_COMMANDES;i++)
 		{
-		Y=(*commandes).rotatif[i].centre;
-		x=X+(*commandes).rotatif[i].X;
-		y=Y+(*commandes).rotatif[i].Y;
+		Y=(*commandes).rotatif[i].Y+(*commandes).rotatif[i].dY;
+		x=X+(*commandes).rotatif[i].positionX;
+		y=Y+(*commandes).rotatif[i].positionY;
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);

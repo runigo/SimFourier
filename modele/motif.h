@@ -43,7 +43,7 @@ termes.
 typedef struct MotifT motifT;
 	struct MotifT
 		{
-		fonctionT fonction;	// Fonction motif
+		fonctionT fonction;	//	Fonction motif
 
 		int forme;	//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
 						//	4 : gaussienne, 5 : lorentzienne, 6 : sinus cardinale

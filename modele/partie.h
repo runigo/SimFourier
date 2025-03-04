@@ -47,8 +47,10 @@ typedef struct PartieT partieT;
 		{
 		fonctionT fonction;		//	Enveloppe ou porteuse
 
-		int eta;		//	Puissance de deux dans la période
-		int rho;		//	Écart à la puissance de deux de la période
+		int eta;		//	Puissance de deux dans la période [0,log2(nombre)]
+		int etaMax;		//	log2(nombre)
+		int rho;		//	Écart à la puissance de deux de la période [0,2^eta]
+		int rhoMax;		//	2^eta
 		int khi;		//	Décalage horizontal, déphasage : [0,N[
 		int periode;			//	Période
 

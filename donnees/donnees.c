@@ -50,9 +50,9 @@ int donneesOptions(optionsT * options)
 
 	(*options).dt=DT_IMP;		// discrétisation du temps
 	(*options).nombre=NOMBRE_IMP;		// Nombre implicite de points
-	(*options).echelle=.011;		// 1 : pendule, 2 : linéarisation,
-							//	 3 : corde, 4 : dioptre
+	(*options).echelle=.011;		// dans fonctionNormalise
 
+		fprintf(stderr, "donneesOptions, dt = %f\n", (*options).dt);
 	return 0;
 	}
 
@@ -75,7 +75,7 @@ int donneesControleur(controleurT * controleur)
 		fprintf(stderr, " Initialisation des projections\n");
 	projectionGraphInitialise(&(*controleur).projectionGraph);
 	projectionSystemInitialise(&(*controleur).projectionSystem);
-	projectionInitialInitialise(&(*controleur).projectionInitial);
+	projectionInitialInitialise(&(*controleur).projectionInitial, (*controleur).options.nombre);
 
 		fprintf(stderr, " Initialisation SDL\n");
 	interfaceInitialisationSDL();
