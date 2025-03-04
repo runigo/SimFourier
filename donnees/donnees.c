@@ -94,10 +94,12 @@ int donneesControleur(controleurT * controleur)
 		if(fenetreY>MENUS_Y)
 			{
 			commandesAjusteCommandes(&(*controleur).commandes, ((double)fenetreY)/MENUS_Y);
+			(*controleur).graphique.facteur=(double)fenetreY/MENUS_Y;
 			}
 		else
 			{
 			commandesAjusteCommandes(&(*controleur).commandes, 1.0);
+			(*controleur).graphique.facteur=1.0;
 			}
 
 	SDL_PumpEvents();

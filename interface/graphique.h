@@ -47,7 +47,8 @@ struct GraphiqueT {
 
 	texturesT textures;         //  Textures
 
-	//int taille;
+	double facteur;		//	adaptation de la taille du menu en fonction de la
+						//	hauteur de la fenetre.
 
 	int fenetreX;	// hauteur de la fenêtre
 	int fenetreY;	// largeur de la fenêtre

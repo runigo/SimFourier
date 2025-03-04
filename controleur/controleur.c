@@ -155,10 +155,12 @@ int controleurFenetre(controleurT * controleur)
 		if(y<MENUS_Y)
 			{
 			commandesAjusteCommandes(&(*controleur).commandes, ((double)y)/MENUS_Y);
+			(*controleur).graphique.facteur=(double)y/MENUS_Y;
 			}
 		else
 			{
 			commandesAjusteCommandes(&(*controleur).commandes, 1.0);
+			(*controleur).graphique.facteur=1.0;
 			}
 		capteursMiseAJourLongueur(&(*controleur).capteurs, x, y);
 		}

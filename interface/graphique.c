@@ -115,7 +115,7 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 	{
 		//	Dessine le menu correspondant au mode
 
-	SDL_Rect coordonnee = {0, 0, MENUS_X, MENUS_Y};
+	SDL_Rect coordonnee = {0, 0, (*graphique).facteur * MENUS_X, (*graphique).facteur * MENUS_Y};
 	if(mode==0)		//	Menu initiale
 		{
 		if ((*graphique).textures.initiale != 0)
