@@ -152,7 +152,7 @@ int controleurFenetre(controleurT * controleur)
 		(*controleur).graphique.fenetreX=x;
 		(*controleur).graphique.fenetreY=y;
 		projectionGraphChangeFenetre(&(*controleur).projectionGraph, x, y);
-		if(y>MENUS_Y)
+		if(y<MENUS_Y)
 			{
 			commandesAjusteCommandes(&(*controleur).commandes, ((double)y)/MENUS_Y);
 			}

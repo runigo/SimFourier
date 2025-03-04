@@ -118,7 +118,7 @@ int commandesInitialiseSelectifs(commandesT * commandes, double facteur)
 	(*commandes).selectif[5].Y = facteur * 310;		//	Périodique
 	(*commandes).selectif[6].Y = facteur * 355;		//	Gaussienne
 	(*commandes).selectif[7].Y = facteur * 400;		//	Lorentzienne
-	(*commandes).selectif[8].Y = facteur * 444;		//	Sin Cardinal
+	(*commandes).selectif[8].Y = facteur * 444;		//	Sinus Cardinal
 	(*commandes).selectif[9].Y = facteur * 543;		//	Constant
 	(*commandes).selectif[10].Y = facteur * 588;	//	Dirac
 	(*commandes).selectif[11].Y = facteur * 631;	//	Sinus
