@@ -63,7 +63,9 @@ typedef struct PartieT partieT;
 	//	Initialisation de partie
 int partieInitialisation(partieT * partie, int nombre);
 
-	//	Calcul des parties initiales
+	//	Calcul des parties
+int partieCalculParametres(partieT * partie);
+
 int partieCalculPorteuse(partieT * partie);
 int partieCalculPeriode(partieT * partie);
 int partieCalculHarmonique(partieT * partie);

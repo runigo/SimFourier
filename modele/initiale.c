@@ -67,8 +67,8 @@ int initialeCalculInitiale(initialeT * initiale) {
 	//	Mise à jour de la fonction initiale
 
 		// Calcul des périodes
-	partieCalculPeriode(&(*initiale).enveloppe);
-	partieCalculPeriode(&(*initiale).porteuse);
+	partieCalculParametres(&(*initiale).enveloppe);
+	partieCalculParametres(&(*initiale).porteuse);
 
 		// Calcul du motif
 	motifCalculMotif(&(*initiale).motif, (*initiale).enveloppe.periode);

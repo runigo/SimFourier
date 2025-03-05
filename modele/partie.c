@@ -35,7 +35,9 @@ termes.
 	//		INITIALISATION
 int partieInitialisationPartie(partieT * partie, int nombre);
 
-	//		CALCUL DES POSITIONS
+	//		CALCUL DE LA PARTIE
+
+
 int partieCalculPartie(partieT * partie);
 int partieCalculHarmonique(partieT * partie);
 int partieCalculUniforme(partieT * partie);
@@ -62,16 +64,18 @@ int partieInitialisation(partieT * partie, int nombre) {
 
 	fonctionInitialise(&(*partie).fonction, nombre);
 
-	(*partie).eta = log2((*partie).fonction.nombre) / 2;	//	Période, réglage puissance de deux
-	(*partie).etaMax = log2((*partie).fonction.nombre);		//	
+	(*partie).eta = log2((*partie).fonction.nombre) / 2;	//	Période1, réglage implicite
+	(*partie).etaMax = log2((*partie).fonction.nombre);		//	Maximum de eta
+
 	if(log2(nombre)>3)
-		{ (*partie).etaMin = 3; }
+		{ (*partie).etaMin = 3; }		//	Minimum de eta
 	else
 		{ (*partie).etaMin = 1; }
-	(*partie).rho = exp2((*partie).eta)/2;			//	Période, réglage fin
-	(*partie).rhoMax = exp2((*partie).eta);		//	2^eta
+
+	(*partie).rho = exp2((*partie).eta)/2;			//	Période2, réglage implicite
+	(*partie).rhoMax = exp2((*partie).eta);		//	Maximum de rho
 	(*partie).khi = 1.0;		//	Décalage horizontale, phase à l'origine
-	(*partie).periode = 1.0;			//	Période
+	(*partie).periode = exp2((*partie).eta) + (*partie).rho;			//	Période
 
 	(*partie).complexe = -1;			//	caractéristique de l'enveloppe
 	(*partie).periodique = -1;			//	caractéristique de la porteuse
@@ -79,6 +83,29 @@ int partieInitialisation(partieT * partie, int nombre) {
 	return 0;
 }
 
+/*--------------------  CALCUL DE LA PARTIE  ---------------------*/
+int partieCalculParametres(partieT * partie)
+	{
+			//	Calcul des paramètres de la partie
+
+	(*partie).rhoMax = exp2((*partie).eta);		//	Maximum de rho
+
+	if((*partie).rhoMax < 1)
+		{
+		(*partie).rho = 0 ;
+		}
+	else
+		{
+		while((*partie).rho > (*partie).rhoMax)
+			{
+			(*partie).rho = (*partie).rho / 2 ;
+			}
+		}
+
+	partieCalculPeriode(partie);
+
+	return 0;
+	}
 /*--------------------  CALCUL DES PARAMETRES INITIALES  ---------------------*/
 
 int partieCalculPeriode(partieT * partie) {
@@ -86,30 +113,7 @@ int partieCalculPeriode(partieT * partie) {
 	// Calcul de la période
 		//printf("partieCalculPeriode = %i\n", (*partie).periode);
 
-	int i;
-	int periode=1;
-
-	for (i=0;i<(*partie).eta;i++) // Calcul de periode^eta
-		{
-		periode=2*periode;
-		}
-
-	if((*partie).rho < periode && (*partie).rho >= 0)
-		{
-		periode = periode + (*partie).rho;
-		}
-	else
-		{
-		(*partie).rho = periode-1;
-		printf("  Maximum ateint, (*partie).rho= %i\n", (*partie).rho);
-		periode = 2*periode - 1;
-		}
-
-	if(periode > (*partie).fonction.nombre)
-		{
-		printf("  periode maximal atteint \n");
-		(*partie).periode = (*partie).fonction.nombre;
-		}
+	(*partie).periode = exp2((*partie).eta) + (*partie).rho;			//	Période
 
 	printf("partieCalculPeriode : (*partie).periode = %i\n", (*partie).periode);
 
@@ -179,6 +183,8 @@ int partieRegleParametre(partieT * partie, int parametre, int pourMille) {
 			;
 		}
 
+	partieCalculParametres(partie);
+
 	return 0;
 }
 
@@ -199,6 +205,8 @@ int partieChangeParametre(partieT * partie, int parametre, int variation) {
 		default:
 			;
 		}
+
+	partieCalculParametres(partie);
 
 	return 0;
 }
@@ -279,10 +287,10 @@ int eta = (*partie).eta;
 		default:
 			;
 		}
-	if(eta < 0)
+	if(eta < (*partie).etaMin)
 		{
-		(*partie).eta = 0;
-		printf("eta minimum atteint. ");
+		(*partie).eta = (*partie).etaMin;
+		printf("eta minimum atteint.\n");
 		}
 	if(eta < log2((*partie).fonction.nombre))
 		{
@@ -290,6 +298,7 @@ int eta = (*partie).eta;
 		}
 	else
 		{
+		(*partie).eta = (*partie).etaMax;
 		printf("eta maximum atteint. ");
 		}
 	printf("Eta  = %i\n", (*partie).eta);//%s, (*partie).nom
@@ -370,12 +379,13 @@ int partieRegleEta(partieT * partie, int pourMille) {
 			}
 		else
 			{
-			(*partie).eta = (*partie).etaMin;
+			(*partie).eta = (*partie).etaMax;
 			printf("eta maximum atteint. ");
 			}
 		}
 	else
 		{
+		(*partie).eta = (*partie).etaMin;
 		printf("eta minimum atteint. ");
 		}
 
@@ -419,33 +429,6 @@ int partieRegleKhi(partieT * partie, int pourMille) {
 	return 0;
 	}
 /*
-int partieChangeFrequence(partieT * partie, int delta, float facteur) {
-(void)delta; // -1 : delta = 0 ; 0 : réglage nombrePeriode ; 1 réglage deltaPeriode
-			//	Change la fréquence de la partie
-	switch (delta)
-		{
-		case 0:
-			;break;
-		case -1:
-			;break;
-		case 1:
-			;break;
-		default:
-			;
-		}
-	if((*partie).nombrePeriode * facteur < FREQUENCE_MAX && (*partie).nombrePeriode * facteur > FREQUENCE_MIN)
-		{
-		(*partie).nombrePeriode = (*partie).nombrePeriode * facteur;
-		}
-	else
-		{
-		printf("Fréquence limite atteinte. ");
-		}
-	printf("Fréquence  = %i\n", (*partie).nombrePeriode);//%s, (*partie).nom
-
-	return 0;
-	}
-
 int partieChangeAmplitude(partieT * partie, float facteur) {
 
 			//	Change l'amplitude du signal
@@ -463,40 +446,5 @@ int partieChangeAmplitude(partieT * partie, float facteur) {
 
 	return 0;
 	}
-*/
-/*
-int partieCalculPeriode(partieT * partie) {
-		// Calcul de la période à partir de eta et rho
-	int k=1;
-	int periode=2;
-		//	periode = 2^eta
-	if( (*partie).eta > 0)
-		{
-		while(k<(*partie).eta) 
-			{
-			periode=2*periode; k++;
-			}
-		}
-	else { periode = 1; }
-		//	periode = periode + dp
-	if( (*partie).rho < periode )
-		{
-		periode=periode+(*partie).rho;
-		}
-	else
-		{
-		periode=(*partie).rho;
-		}
-		//	periode reste inférieur à "nombre"
-	if( periode < (*partie).fonction.nombre )
-		{
-		(*partie).periode = periode;
-		}
-	else
-		{
-		(*partie).periode = (*partie).fonction.nombre;
-		}
-	return 0;
-}
 */
 //////////////////////////////////////////////////////////////////////////
