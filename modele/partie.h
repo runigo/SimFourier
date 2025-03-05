@@ -49,6 +49,7 @@ typedef struct PartieT partieT;
 
 		int eta;		//	Puissance de deux dans la période [0,log2(nombre)]
 		int etaMax;		//	log2(nombre)
+		int etaMin;		//	=> Periode min = 2^etaMin
 		int rho;		//	Écart à la puissance de deux de la période [0,2^eta]
 		int rhoMax;		//	2^eta
 		int khi;		//	Décalage horizontal, déphasage : [0,N[

@@ -42,7 +42,7 @@ int partieCalculUniforme(partieT * partie);
 int partieCalculCarre(partieT * partie);
 
 	//		CHANGEMENT DES PARAMÈTRES
-int partieChangeNature(partieT * partie, int plusMoins); // complexe / périodique
+//int partieChangeNature(partieT * partie, int plusMoins); // complexe / périodique
 int partieChangeEta(partieT * partie, int plusMoins);
 int partieChangeRho(partieT * partie, int plusMoins);
 int partieChangeKhi(partieT * partie, int plusMoins);
@@ -64,6 +64,10 @@ int partieInitialisation(partieT * partie, int nombre) {
 
 	(*partie).eta = log2((*partie).fonction.nombre) / 2;	//	Période, réglage puissance de deux
 	(*partie).etaMax = log2((*partie).fonction.nombre);		//	
+	if(log2(nombre)>3)
+		{ (*partie).etaMin = 3; }
+	else
+		{ (*partie).etaMin = 1; }
 	(*partie).rho = exp2((*partie).eta)/2;			//	Période, réglage fin
 	(*partie).rhoMax = exp2((*partie).eta);		//	2^eta
 	(*partie).khi = 1.0;		//	Décalage horizontale, phase à l'origine
@@ -184,8 +188,8 @@ int partieChangeParametre(partieT * partie, int parametre, int variation) {
 
 	switch (parametre)
 		{
-		case 0:
-			partieChangeNature(partie, variation);break;
+	//	case 0:
+	//		partieChangeNature(partie, variation);break;
 		case 1:
 			partieChangeEta(partie, variation);break;
 		case 2:
@@ -225,7 +229,7 @@ int partieRegleNature(partieT * partie, int etat){
 
 	return 0;
 	}
-
+/*
 int partieChangeNature(partieT * partie, int plusMoins){
 (void) plusMoins;
 		// Selon porteuse ou enveloppe, change complexe ou périodique
@@ -259,7 +263,7 @@ int partieChangeNature(partieT * partie, int plusMoins){
 
 	return 0;
 	}
-
+*/
 int partieChangeEta(partieT * partie, int delta) {
 // delta = -1 : divise par 2 ; 0 : réglage nombrePeriode ; 1 multiplie par 2
 			//	Change la fréquence de la partie
@@ -280,7 +284,7 @@ int eta = (*partie).eta;
 		(*partie).eta = 0;
 		printf("eta minimum atteint. ");
 		}
-	if(eta < (*partie).periode)
+	if(eta < log2((*partie).fonction.nombre))
 		{
 		(*partie).eta = eta;
 		}
@@ -352,16 +356,29 @@ int partieChangeKhi(partieT * partie, int delta) {
 
 int partieRegleEta(partieT * partie, int pourMille) {
 
-	int eta = ((*partie).periode * pourMille) / 1000;
+	fprintf(stderr, " partieRegleEta, pourMille = %d\n", pourMille);
 
-	if(eta < (*partie).periode)
+	int eta = ( (*partie).etaMax * pourMille) / 1000;
+
+	fprintf(stderr, " partieRegleEta, eta = %d\n", eta);
+
+	if( eta > (*partie).etaMin )
 		{
-		(*partie).eta = eta;
+		if( eta < (*partie).etaMax )
+			{
+			(*partie).eta = eta;
+			}
+		else
+			{
+			(*partie).eta = (*partie).etaMin;
+			printf("eta maximum atteint. ");
+			}
 		}
 	else
 		{
-		printf("eta limite atteint. ");
+		printf("eta minimum atteint. ");
 		}
+
 	printf("Eta  = %i\n", (*partie).eta);//%s, (*partie).nom
 
 	return 0;

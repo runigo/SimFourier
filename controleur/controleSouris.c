@@ -167,15 +167,12 @@ int controleSourisCliqRotatif(controleurT * controleur)
 			//	Action du cliq de souris
 			//	dans le menu rotatif
 	int rotatif = commandeRotatifs(&(*controleur).commandes);
-	(void)rotatif;
-		//	arctan( (gauche-sourisX) / (bas-sourisY) )., %d
-	fprintf(stderr, " controleSourisCliqRotatif, %d\n", rotatif);
+	//fprintf(stderr, " controleSourisCliqRotatif, %d\n", rotatif);
 
 	double angle = atan( (double)((*controleur).commandes.rotatif[rotatif].Y
 		+ (*controleur).commandes.rotatif[rotatif].dY - (*controleur).commandes.sourisY)
 		/ ((*controleur).commandes.rotatifsDroite - (*controleur).commandes.sourisX));
-
-	fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
+	//fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
 
 	int pourMille = (int)(angle*1000/PIS2);
 
