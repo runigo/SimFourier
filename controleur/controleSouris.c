@@ -164,11 +164,12 @@ int controleSourisBouton(controleurT * controleur, int appui, int zone)
 
 int controleSourisCliqRotatif(controleurT * controleur)
 	{
-			//	Action du cliq de souris
-			//	dans le menu rotatif
-	int rotatif = commandeRotatifs(&(*controleur).commandes);
-	//fprintf(stderr, " controleSourisCliqRotatif, %d\n", rotatif);
+			//	Action du cliq de souris dans le menu rotatif
 
+			//	Numéro du rotatif
+	int rotatif = commandeRotatifs(&(*controleur).commandes);
+	//fprintf(stderr, "\n controleSourisCliqRotatif, numéro : %d\n", rotatif);
+			//	Position angulaire de la souris dans le rotatif
 	double angle = atan( (double)((*controleur).commandes.rotatif[rotatif].Y
 		+ (*controleur).commandes.rotatif[rotatif].dY - (*controleur).commandes.sourisY)
 		/ ((*controleur).commandes.rotatifsDroite - (*controleur).commandes.sourisX));
@@ -187,9 +188,9 @@ int controleSourisCliqRotatif(controleurT * controleur)
 		case 3: //	enveloppe Phase
 			modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, pourMille);break;
 		case 4: //	porteuse Période 1
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, pourMille);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, pourMille);break;
 		case 5: //	porteuse Période 2
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, pourMille);break;
+			modeleChangeInitiale(&(*controleur).modele, 2, 2, 0, pourMille);break;
 		default:
 			;
 		}

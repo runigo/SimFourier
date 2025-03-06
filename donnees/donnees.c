@@ -1,10 +1,11 @@
 /*
-Copyright février 2025, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.1 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -50,7 +51,7 @@ int donneesOptions(optionsT * options)
 
 	(*options).dt=DT_IMP;		// discrétisation du temps
 	(*options).nombre=NOMBRE_IMP;		// Nombre implicite de points
-	(*options).echelle=.011;		// dans fonctionNormalise
+	(*options).echelle=100;		// dans fonctionNormalise
 
 		fprintf(stderr, "donneesOptions, dt = %f\n", (*options).dt);
 	return 0;

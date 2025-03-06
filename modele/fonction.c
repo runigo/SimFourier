@@ -1,10 +1,11 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-(SiCF 2.0  simulateur de corde vibrante et spectre, mars 2019)
-SimFourier 0.1 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
+(d'après SiCF 2.0  simulateur de corde vibrante et spectre, mars 2019)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -55,6 +56,7 @@ int fonctionInitialise(fonctionT * f, int nombre)
 
 void fonctionRacinesNemesDe1(fonctionT * racineDe1, int n)
 	{
+			// Calcul des racines nieme de 1
 	int i;
 	for(i=0;i<n;i++)
 		{
@@ -65,6 +67,7 @@ void fonctionRacinesNemesDe1(fonctionT * racineDe1, int n)
 
 void fonctionRacinesMoins1(fonctionT * racineDe1, int n)
 	{
+			// Calcul des racines nieme de -1
 	int i;
 	for(i=0;i<n;i++)
 		{
@@ -75,6 +78,7 @@ void fonctionRacinesMoins1(fonctionT * racineDe1, int n)
 
 void fonctionEgale(fonctionT * f1, fonctionT * f2)
 	{
+			// projette la fonction f1 sur f2
 	int i;
 	for(i=0;i<(*f1).nombre;i++)
 		{
@@ -86,6 +90,7 @@ void fonctionEgale(fonctionT * f1, fonctionT * f2)
 
 int fonctionModule(fonctionT * fonction)
 	{
+			// Calcul la fonction module
 	int i;
 	for(i=0;i<(*fonction).nombre;i++)
 		{
@@ -221,15 +226,14 @@ void fonctionReplier(fonctionT * spectre, int diviseur)
 	}
 */
 void fonctionNormalise(fonctionT * f,  float max)
-//void fonctionNormale(fonctionT * f, fonctionT * nf)
 	{
 	int i;
 	double module = sqrt(fonctionCarreMax(f));
 
 	for(i=0;i<(*f).nombre;i++)
 		{
-		(*f).reel[i]=(*f).reel[i]/module*max;
-		(*f).imag[i]=(*f).imag[i]/module*max;
+		(*f).reel[i]=(*f).reel[i] * max / module;
+		(*f).imag[i]=(*f).imag[i] * max / module;
 		}
 
 	return;

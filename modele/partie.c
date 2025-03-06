@@ -115,7 +115,14 @@ int partieCalculPeriode(partieT * partie) {
 
 	(*partie).periode = exp2((*partie).eta) + (*partie).rho;			//	Période
 
-	printf("partieCalculPeriode : (*partie).periode = %i\n", (*partie).periode);
+	if((*partie).complexe == -1)
+		{
+	printf("partieCalculPeriode : (*enveloppe).periode = %i\n", (*partie).periode);
+		}
+	else
+		{
+	printf("partieCalculPeriode : (*porteuse).periode = %i\n", (*partie).periode);
+		}
 
 	return (*partie).periode;
 }
@@ -168,6 +175,7 @@ int partieCalculHarmonique(partieT * partie) {
 int partieRegleParametre(partieT * partie, int parametre, int pourMille) {
 
 	// Change un paramètre de la partie
+	fprintf(stderr, " partieRegleParametre, %d\n", parametre);
 
 	switch (parametre)
 		{
@@ -191,6 +199,7 @@ int partieRegleParametre(partieT * partie, int parametre, int pourMille) {
 int partieChangeParametre(partieT * partie, int parametre, int variation) {
 
 	// Change un paramètre de la partie
+	fprintf(stderr, " partieChangeParametre, %d\n", parametre);
 
 	switch (parametre)
 		{
@@ -273,8 +282,7 @@ int partieChangeNature(partieT * partie, int plusMoins){
 	}
 */
 int partieChangeEta(partieT * partie, int delta) {
-// delta = -1 : divise par 2 ; 0 : réglage nombrePeriode ; 1 multiplie par 2
-			//	Change la fréquence de la partie
+			//	Change eta de la partie
 int eta = (*partie).eta;
 	switch (delta)
 		{
@@ -290,7 +298,7 @@ int eta = (*partie).eta;
 	if(eta < (*partie).etaMin)
 		{
 		(*partie).eta = (*partie).etaMin;
-		printf("eta minimum atteint.\n");
+		printf("eta minimum atteint, etaMin = %d ,", (*partie).etaMin);
 		}
 	if(eta < log2((*partie).fonction.nombre))
 		{
@@ -301,7 +309,7 @@ int eta = (*partie).eta;
 		(*partie).eta = (*partie).etaMax;
 		printf("eta maximum atteint. ");
 		}
-	printf("Eta  = %i\n", (*partie).eta);//%s, (*partie).nom
+	printf("eta  = %i\n", (*partie).eta);//%s, (*partie).nom
 
 	return 0;
 	}
@@ -321,7 +329,7 @@ int rho = (*partie).rho;
 		default:
 			;
 		}
-	if(rho < 10 && rho > -1)
+	if(rho < (*partie).rhoMax && rho > -1)
 		{
 		(*partie).rho = rho;
 		}
@@ -396,15 +404,15 @@ int partieRegleEta(partieT * partie, int pourMille) {
 
 int partieRegleRho(partieT * partie, int pourMille) {
 
-	int rho = pourMille / 10;
+	int rho = (pourMille * (*partie).rhoMax) / 1000;
 
-	if(rho < 100 && rho > -1)
+	if(rho < (*partie).rhoMax && rho > -1)
 		{
 		(*partie).rho = rho;
 		}
 	else
 		{
-		printf("rho limite atteint. ");
+		printf("rho limite atteint, ");
 		}
 	printf("rho  = %i\n", (*partie).rho);//%s, (*partie).nom
 

@@ -1,7 +1,7 @@
 /*
-Copyright février 2025, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.1 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
 (d'après SiCP 1.3.7 simulateur de chaîne de pendules, septembre 2017)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -49,7 +49,7 @@ typedef struct OptionsT optionsT;
 
 			// OPTIONS MODELE
 		float dt;		// discrétisation du temps
-		float echelle;		// échelle de l'amplitude de la TF
+		int echelle;		// échelle de l'amplitude de la TF
 		int nombre;		// nombre de pendule
 		int support;		// Chaîne avec ou sans support
 		int equation;		// équation simulée

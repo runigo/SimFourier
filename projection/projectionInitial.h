@@ -49,9 +49,9 @@ typedef struct ProjectionInitialT projectionInitialT;
 		//float ratioXY;	// rapport largeur / hauteur
 
 			// facteurs entre les grandeurs et la position des boutons rotatifs
-		float logEta;
-		float logRho;
-		float logSym;
+		double radianEta;
+		double radianRho;
+		double radianSym;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//

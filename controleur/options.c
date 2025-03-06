@@ -1,7 +1,7 @@
 /*
-Copyright février 2025, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.1 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -33,14 +33,13 @@ termes.
 
 #include "options.h"
 
-
-
 void optionsDt(optionsT * options, char *opt);
 void optionsDuree(optionsT * options, char *opt);
 
 void optionsSupport(optionsT * options, char *opt);
 void optionsNombre(optionsT * options, char *opt);
 void optionsSoliton(optionsT * options, char *opt);
+int optionsEchelle(optionsT * options, char *opt);
 
 void optionsAide();
 
@@ -56,6 +55,8 @@ int optionsTraitement(optionsT * options, int nb, char *opt[])
 			optionsDt(options, opt[i+1]);				// discrétisation du temps
 		if(strcmp(opt[i], "nombre")==0 && opt[i+1]!=NULL)
 			optionsNombre(options, opt[i+1]);		  // Nombre de pendules
+		if(strcmp(opt[i], "echelle")==0 && opt[i+1]!=NULL)
+			optionsEchelle(options, opt[i+1]);		  // Echelle de la TF
 		if(strcmp(opt[i], "support")==0 && opt[i+1]!=NULL)
 			optionsSupport(options, opt[i+1]);			// Avec ou sans support
 		if(strcmp(opt[i], "aide")==0)
@@ -159,6 +160,25 @@ void optionsDuree(optionsT * options, char *opt) {
 	return;
 	}
 
+int optionsEchelle(optionsT * options, char *opt) {
+
+			//	Echelle de la TF
+
+	int echelle = atoi(opt);
+	if(echelle < ECHELLE_MAX && echelle > ECHELLE_MIN)
+		{
+		(*options).echelle = echelle;
+		}
+	else
+		{
+		printf("Échelle hors limites, ");
+		(*options).echelle = (ECHELLE_MAX + ECHELLE_MIN)/2;
+		}
+	printf("Échelle de la TF = %d\n", (*options).echelle);
+
+	return 0;
+	}
+
 					//	-------  CHANGE  -------  //
 
 int optionsChangeEchelle(optionsT * options, float facteur) {
@@ -174,7 +194,7 @@ int optionsChangeEchelle(optionsT * options, float facteur) {
 		{
 		printf("Échelle limite atteinte. ");
 		}
-	printf("Échelle de la TF = %6.3f\n", (*options).echelle);
+	printf("Échelle de la TF = %d\n", (*options).echelle);
 
 	return 0;
 	}

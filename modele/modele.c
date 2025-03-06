@@ -245,7 +245,7 @@ int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int vari
 
 	// Change un paramètre de initiale et projette sur le système
 
-		//fprintf(stderr, " modeleChangeInitiale, %d, %d, %d, %d \n", fonction, parametre, variation, pourMille);
+		fprintf(stderr, " modeleChangeInitiale, %d, %d, %d, %d \n", fonction, parametre, variation, pourMille);
 	if(variation == 0)
 		{		// Réglage du parametre
 		initialeRegleParametre(&(*modele).initiale, fonction, parametre, pourMille);
@@ -264,6 +264,7 @@ int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int vari
 		// Indique le changement
 	(*modele).change = 1;
 
+		fprintf(stderr, " modeleChangeInitiale, sortie \n\n");
 	return 0;
 }
 

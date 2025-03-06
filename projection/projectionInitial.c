@@ -47,61 +47,51 @@ termes.
 	//-----------------    INITIALISATION      -----------------------//
 int projectionInitialInitialise(projectionInitialT * projection, int nombre)
 	{
+		//	facteur de proportionalité entre les grandeurs et la position des rotatifs
 
-	//(*projection).fenetreX = FENETRE_X;	// hauteur de la fenêtre
-	//(*projection).fenetreY = FENETRE_Y;	// largeur de la fenêtre
-
-	//(*projection).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
-	//(*projection).logCouplage = 1.0 / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
-
-	(*projection).logEta = 1.0 / log( log2(nombre) );
-	(*projection).logRho = 1.0;
-	(*projection).logSym = 1.0 / log( 1000 / 0.001 );
+	(*projection).radianEta = PIS2 / ( log2(nombre) - 1);
+	(*projection).radianRho = PIS2 / (log2(nombre) - 2);
+	(*projection).radianSym = PIS2 / ( nombre - 1 );
 
 	return 0;
 	}
 
 	//-----------------    PROJECTION      -----------------------//
 
-int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes)
-	{
-		// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
+int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes) {
+
+	// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
 
 	float theta;
 	int longueur = (*commandes).rotatifsDroite - (*commandes).rotatifsGauche;
 
-				//	Projection sur les boutons rotatifs
-	if((*initiale).enveloppe.eta > 0)
-		{
-		(*projection).logRho = 1.0 / log( exp2((*initiale).enveloppe.eta) );
-		}
-
-	 //	Période enveloppe, eta eta_Max = (*partie).periode
-	theta = PIS2 * (*projection).logEta * log( (*initiale).enveloppe.eta );
+		// facteur de proportionalité entre les grandeurs de l'enveloppe et la position des rotatifs
+	(*projection).radianEta = PIS2 / ( (*initiale).enveloppe.etaMax - (*initiale).enveloppe.etaMin );
+	(*projection).radianRho = PIS2 / ( exp2((*initiale).enveloppe.eta) );
+	(*projection).radianSym = PIS2 / ( (*initiale).enveloppe.periode );
+		//	Projection sur les boutons rotatifs de la partie enveloppe
+	theta = (*projection).radianEta * ( (*initiale).enveloppe.eta - (*initiale).enveloppe.etaMin);
 	(*commandes).rotatif[0].positionX=(int)(-longueur*sin(theta));
 	(*commandes).rotatif[0].positionY=(int)(-longueur*cos(theta));
-
 	 //	Période enveloppe, rho
-	theta = PIS2 * (*projection).logRho * log( (*initiale).enveloppe.rho );
+	theta = (*projection).radianRho * ( (*initiale).enveloppe.rho );
 	(*commandes).rotatif[1].positionX=(int)(-longueur*sin(theta));
 	(*commandes).rotatif[1].positionY=(int)(-longueur*cos(theta));
-
 	//	Symétrie motif
-	theta = PIS2 * (*projection).logSym * log( (*initiale).motif.sym / 00.1 );
+	theta = (*projection).radianSym * ( (*initiale).motif.sym );
 	(*commandes).rotatif[2].positionX=(int)(-longueur*sin(theta));
 	(*commandes).rotatif[2].positionY=(int)(-longueur*cos(theta));
 
-	if((*initiale).porteuse.eta > 0)
-		{
-		(*projection).logRho = 1.0 / log( exp2((*initiale).porteuse.eta) );
-		}
-	//	Période porteuse, eta eta_max = log2(nombre)
-	theta = PIS2 * (*projection).logEta * log( (*initiale).porteuse.eta );
+		// facteur de proportionalité entre les grandeurs de la porteuse et la position des rotatifs
+	(*projection).radianEta = PIS2 / ( (*initiale).porteuse.etaMax - (*initiale).porteuse.etaMin );
+	(*projection).radianRho = PIS2 / ( exp2((*initiale).porteuse.eta) );
+
+		//	Projection sur les boutons rotatifs de la partie porteuse
+	theta = PIS2 * (*projection).radianEta * ( (*initiale).porteuse.eta );
 	(*commandes).rotatif[3].positionX=(int)(-longueur*sin(theta));
 	(*commandes).rotatif[3].positionY=(int)(-longueur*cos(theta));
-
-	//	Période porteuse, rho rho_Max = 2^eta
-	theta = DEUXPI * (*projection).logRho * log( (*initiale).porteuse.rho );
+	//	Période porteuse
+	theta = DEUXPI * (*projection).radianRho * ( (*initiale).porteuse.rho );
 	(*commandes).rotatif[4].positionX=(int)(-longueur*sin(theta));
 	(*commandes).rotatif[4].positionY=(int)(-longueur*cos(theta));
 
