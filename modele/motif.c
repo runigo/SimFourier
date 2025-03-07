@@ -70,7 +70,7 @@ int motifInitialisation(motifT * motif, int nombre) {
 
 		(*motif).A = 5.3;			//	Amplitude
 		(*motif).B = 0.0;			//	Décalage verticale
-		(*motif).sym = (float)(*motif).a / (float)(*motif).b;	//	facteur de symétrie (a/b)
+		//(*motif).sym = (float)(*motif).a / (float)(*motif).b;	//	facteur de symétrie (a/b)
 
 		(*motif).forme = 3;			//	0 : harmonique, 1 : carrée, 2 : triangle,
 								//	3 : gaussienne, 4 : Lorentzienne
@@ -84,12 +84,12 @@ int motifInitialisation(motifT * motif, int nombre) {
 
 /*--------------------  CALCUL DU MOTIF  ---------------------*/
 
-int motifCalculMotif(motifT * motif, int P) {
+int motifCalculMotif(motifT * motif, int Periode) {
 
 		// Calcul des paramètres
-	motifCalculParametres(motif, P);
+	motifCalculParametres(motif, Periode);
 
-		// Calcul de la fonction
+		// Calcul du motif
 	switch ((*motif).forme)
 		{
 		case 0:
@@ -111,13 +111,17 @@ int motifCalculMotif(motifT * motif, int P) {
 	return 0;
 }
 
-int motifCalculParametres(motifT * motif, int P) {
+int motifCalculParametres(motifT * motif, int Periode)
+	{
+			// Calcul des paramètres
 
-		// Calcul des paramètres
-
-	(*motif).a=(int)(P*((*motif).sym));
-	(*motif).b=P-(*motif).a;
-
+	//(*motif).a=(int)(P*((*motif).sym));
+	(*motif).b = Periode-(*motif).a;
+	if((*motif).b < 0)
+		{
+		fprintf(stderr, "ERREUR motifCalculParametres, disymétrie maximale atteinte. \n");
+		(*motif).b = 0;
+		}
 	return 0;
 }
 
@@ -142,7 +146,7 @@ int motifCalculCarre(motifT * motif) {
 	printf("Enveloppe carrée \n");
 
 	int i;
-	int P = (*motif).a +(*motif).b;
+	int Periode = (*motif).a +(*motif).b;
 
 	for(i=0;i<(*motif).a;i++)
 		{
@@ -150,7 +154,7 @@ int motifCalculCarre(motifT * motif) {
 		(*motif).fonction.imag[i] = (*motif).A;
 		}
 
-	for(i=(*motif).a;i<P;i++)
+	for(i=(*motif).a;i<Periode;i++)
 		{
 		(*motif).fonction.reel[i] = -(*motif).A;
 		(*motif).fonction.imag[i] = -(*motif).A;
@@ -277,7 +281,9 @@ int motifRegleParametre(motifT * motif, int parametre, int pourMille){
 	return 0;
 }
 
-int motifChangeForme(motifT * motif, int forme){
+int motifChangeForme(motifT * motif, int forme)
+	{
+			//	Règle la forme motif
 
 	if(forme>-1 && forme<7)
 		{
@@ -287,6 +293,7 @@ int motifChangeForme(motifT * motif, int forme){
 	else
 		{
 		printf("Erreur dans motifChangeForme ");
+		(*motif).forme = 0;	
 		}
 
 	printf("Forme  = %i\n", (*motif).forme);
@@ -294,30 +301,45 @@ int motifChangeForme(motifT * motif, int forme){
 	return 0;
 }
 
-int motifChangeSymetrie(motifT * motif, int delta) {
+int motifChangeSymetrie(motifT * motif, int delta)
+	{
+		// Change la symétrie du motif
 
-	// Change l'amplitude du motif
-
-	float amplitude = ((*motif).A * delta)/100;
-
-	if(amplitude < AMPLITUDE_MIN)
+	int a = (*motif).a;
+	int periode = (*motif).a + (*motif).b;
+	switch (delta)
 		{
-		(*motif).A = AMPLITUDE_MIN;
-		printf("Amplitude minimale atteinte. ");
+		case -1:
+			a = a - 1;break;
+		case 0:
+			a = 0;break;
+		case 1:
+			a = a + 1;break;
+		default:
+			;
 		}
-	else
+	if(a <= periode)
 		{
-		if(amplitude > AMPLITUDE_MAX)
+		if(a > -1)
 			{
-			(*motif).A = AMPLITUDE_MAX;
-			printf("Amplitude maximale atteinte. ");
+			(*motif).a = a;
+			(*motif).b = periode - a;
 			}
 		else
 			{
-			(*motif).A = amplitude;
+			printf("a minimum atteint. ");
+			(*motif).a = 0;
+			(*motif).b = periode;
 			}
 		}
-	printf("Amplitude motif = %f\n", (*motif).A);
+	else
+		{
+		printf("a maximum atteint. ");
+		(*motif).a = periode;
+		(*motif).b = 0;
+		}
+
+	printf("a  = %i, b  = %i\n", (*motif).a, (*motif).b);
 
 	return 0;
 	}
@@ -400,26 +422,32 @@ int motifRegleForme(motifT * motif, int forme){
 int motifRegleSymetrie(motifT * motif, int pourMille) {
 
 	// Règle l'asymétrie du motif
-	float amplitude = ((*motif).A * pourMille)/100;
 
-	if(amplitude < AMPLITUDE_MIN)
+	int periode = (*motif).a + (*motif).b; 
+	int a = (periode * pourMille) / 1000;
+
+	if(a <= periode)
 		{
-		(*motif).sym = AMPLITUDE_MIN;
-		printf("Amplitude minimale atteinte. ");
-		}
-	else
-		{
-		if(amplitude > AMPLITUDE_MAX)
+		if(a > -1)
 			{
-			(*motif).sym = AMPLITUDE_MAX;
-			printf("Amplitude maximale atteinte. ");
+			(*motif).a = a;
+			(*motif).b = periode - a;
 			}
 		else
 			{
-			(*motif).sym = amplitude;
+			printf("Symétrie minimum atteint. ");
+			(*motif).a = 0;
+			(*motif).b = periode;
 			}
 		}
-	printf("Amplitude motif = %f\n", (*motif).A);
+	else
+		{
+		printf("Symétrie maximum atteint. ");
+		(*motif).a = periode;
+		(*motif).b = 0;
+		}
+
+	printf("a / b = %f \n", ((double)(*motif).a) / (*motif).b);
 
 	return 0;
 	}

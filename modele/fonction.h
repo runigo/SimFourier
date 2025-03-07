@@ -1,10 +1,11 @@
 /*
-Copyright novembre 2023, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-(SiCF 2.0  simulateur de corde vibrante et spectre, mars 2019)
-SimFourier 0.1 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
+(d'après SiCF 2.0  simulateur de corde vibrante et spectre, mars 2019)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -51,24 +52,24 @@ typedef struct FonctionT fonctionT;
 int fonctionInitialise(fonctionT * spectre, int nombre);
 int fonctionChangeNombre(fonctionT * spectre, int nombre);
 
-float fonctionModuleMax1(fonctionT * fonction);
-float fonctionsModuleMax1(fonctionT * f1, fonctionT * f2);
-int fonctionModuleDivise(fonctionT * fonction, float max);
+double fonctionModuleMax1(fonctionT * fonction);
+double fonctionsModuleMax1(fonctionT * f1, fonctionT * f2);
+int fonctionModuleDivise(fonctionT * fonction, double max);
 
-void fonctionRacinesNemesDe1(fonctionT * rd1, int n);
-void fonctionRacinesMoins1(fonctionT * rd1, int n);
-void fonctionCalcule(fonctionT * spectre, int k, int n);
+int fonctionRacinesNemesDe1(fonctionT * rd1, int n);
+int fonctionRacinesMoins1(fonctionT * rd1, int n);
+int fonctionCalcule(fonctionT * spectre, int k, int n);
 
-void fonctionAffiche(fonctionT * f);
-void fonctionTest(fonctionT * f);
+int fonctionAffiche(fonctionT * f);
+int fonctionTest(fonctionT * f);
 
-void fonctionEgale(fonctionT * fonction, fonctionT * resultat);
-void fonctionReplier(fonctionT * spectre, int diviseur);
-void fonctionNormale(fonctionT * f, fonctionT * nf);
-void fonctionNormalise(fonctionT * f,  float max);
+int fonctionEgale(fonctionT * fonction, fonctionT * resultat);
+int fonctionReplier(fonctionT * spectre, int diviseur);
+int fonctionNormale(fonctionT * f, fonctionT * nf);
+int fonctionNormalise(fonctionT * f,  double max);
 
-//void fonctionModuleCarre(fonctionT * f, fonctionT * modCar);
-void fonctionModuleCarreMax1(fonctionT * f, fonctionT * modCar);
+//int fonctionModuleCarre(fonctionT * f, fonctionT * modCar);
+int fonctionModuleCarreMax1(fonctionT * f, fonctionT * modCar);
 
 double fonctionSomme(fonctionT * f);
 double fonctionMoyenne(fonctionT * f);

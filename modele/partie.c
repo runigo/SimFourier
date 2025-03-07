@@ -228,10 +228,16 @@ int partieRegleNature(partieT * partie, int etat){
 
 	if((*partie).complexe < 0) // Cas de l'enveloppe
 		{
-		if(etat==0 || etat==1)
+		if(etat==0)
 			{
 			(*partie).periodique = etat;
-			printf("enveloppe periodique = %i\n", (*partie).periodique);
+			printf("enveloppe aperiodique \n");
+			fonctionInitialise(&(*partie).fonction, (*partie).fonction.nombre);
+			}
+		if(etat==1)
+			{
+			(*partie).periodique = etat;
+			printf("enveloppe periodique \n");
 			}
 		}
 

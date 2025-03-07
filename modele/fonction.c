@@ -40,43 +40,45 @@ int fonctionModuleCarre(fonctionT * fonction);
 
 int fonctionInitialise(fonctionT * f, int nombre)
 	{
+			//	Initialisation de la fonction
 	int i;
-
+		//	Nombre de point
 	(*f).nombre = nombre;
-
+		//	x, y et |f| = 0
 	for(i=0;i<NOMBRE_MAX;i++)
 		{
 		(*f).reel[i] = 0;
 		(*f).imag[i] = 0;
 		(*f).module[i] = 0;
 		}
-
 	return 0;
 	}
 
-void fonctionRacinesNemesDe1(fonctionT * racineDe1, int n)
+int fonctionRacinesNemesDe1(fonctionT * racineDe1, int n)
 	{
 			// Calcul des racines nieme de 1
 	int i;
 	for(i=0;i<n;i++)
 		{
-		(*racineDe1).reel[i]=cos(2*PI*i/(float)n);
-		(*racineDe1).imag[i]=sin(2*PI*i/(float)n);
+		(*racineDe1).reel[i]=cos(2*PI*i/(double)n);
+		(*racineDe1).imag[i]=sin(2*PI*i/(double)n);
 		}
+	return 0;
 	}
 
-void fonctionRacinesMoins1(fonctionT * racineDe1, int n)
+int fonctionRacinesMoins1(fonctionT * racineDe1, int n)
 	{
 			// Calcul des racines nieme de -1
 	int i;
 	for(i=0;i<n;i++)
 		{
-		(*racineDe1).reel[i]=cos(-2*PI*i/(float)n);
-		(*racineDe1).imag[i]=sin(-2*PI*i/(float)n);
+		(*racineDe1).reel[i]=cos(-2*PI*i/(double)n);
+		(*racineDe1).imag[i]=sin(-2*PI*i/(double)n);
 		}
+	return 0;
 	}
 
-void fonctionEgale(fonctionT * f1, fonctionT * f2)
+int fonctionEgale(fonctionT * f1, fonctionT * f2)
 	{
 			// projette la fonction f1 sur f2
 	int i;
@@ -85,7 +87,7 @@ void fonctionEgale(fonctionT * f1, fonctionT * f2)
 		(*f2).reel[i] = (*f1).reel[i];
 		(*f2).imag[i] = (*f1).imag[i];
 		}
-	return;
+	return 0;
 	}
 
 int fonctionModule(fonctionT * fonction)
@@ -96,16 +98,20 @@ int fonctionModule(fonctionT * fonction)
 		{
 		(*fonction).module[i]=sqrt((*fonction).reel[i]*(*fonction).reel[i] + (*fonction).imag[i]*(*fonction).imag[i]);
 		}
-	return i;
+	return 0;
 	}
 
-float fonctionModuleMax1(fonctionT * fonction)
+double fonctionModuleMax1(fonctionT * fonction)
 	{
+			//	Transforme la fonction module afin que
+			//		son maximum soit égale à 1
 	int i;
 	double max=0.0;
 
+		//	Calcul de la fonction module |f(i)|
 	fonctionModule(fonction);
 
+		//	Recherche du maximum de |f(i)|
 	for(i=0;i<(*fonction).nombre;i++)
 		{
 		if((*fonction).module[i] > max)
@@ -113,7 +119,7 @@ float fonctionModuleMax1(fonctionT * fonction)
 			max=(*fonction).module[i];
 			}
 		}
-
+		//	Division de |f(i)| par max
 	if(max!=0.0)
 		{
 		for(i=0;i<(*fonction).nombre;i++)
@@ -121,18 +127,21 @@ float fonctionModuleMax1(fonctionT * fonction)
 			(*fonction).module[i] = (*fonction).module[i] / max;
 			}
 		}
-
 	return max;
 	}
 
-float fonctionsModuleMax1(fonctionT * f1, fonctionT * f2)
+double fonctionsModuleMax1(fonctionT * f1, fonctionT * f2)
 	{
+			//	Transforme les fonctions modules afin que
+			//		leur maximum soit égale ou inférieur à 1
 	int i;
 	double max=0.0;
 
+		//	Calcul des fonctions modules |f(i)|
 	fonctionModule(f1);
 	fonctionModule(f2);
 
+		//	Recherche du maximum de |f1(i)| U |f2(i)|
 	for(i=0;i<(*f1).nombre;i++)
 		{
 		if((*f1).module[i] > max)
@@ -144,7 +153,7 @@ float fonctionsModuleMax1(fonctionT * f1, fonctionT * f2)
 			max=(*f2).module[i];
 			}
 		}
-
+		//	Division de |f1(i)| et |f2(i)| par max
 	if(max!=0.0)
 		{
 		for(i=0;i<(*f1).nombre;i++)
@@ -153,16 +162,19 @@ float fonctionsModuleMax1(fonctionT * f1, fonctionT * f2)
 			(*f2).module[i] = (*f2).module[i] / max;
 			}
 		}
-
 	return max;
 	}
 
-int fonctionModuleDivise(fonctionT * fonction, float max)
+int fonctionModuleDivise(fonctionT * fonction, double max)
 	{
+			//	Calcul la fonction module et la
+			//	divise par max
 	int i;
 
+		//	Calcul de la fonction module |f(i)|
 	fonctionModule(fonction);
 
+		//	Division de |f(i)| par max
 	if(max!=0.0)
 		{
 		for(i=0;i<(*fonction).nombre;i++)
@@ -170,12 +182,13 @@ int fonctionModuleDivise(fonctionT * fonction, float max)
 			(*fonction).module[i] = (*fonction).module[i] / max;
 			}
 		}
-
 	return 0;
 	}
 
 int fonctionModuleCarre(fonctionT * fonction)
 	{
+			//	Calcul de la fonction |f(i)|^2 et l'enregistre
+			//		dans la fonction module !
 	int i;
 
 	for(i=0;i<(*fonction).nombre;i++)
@@ -188,20 +201,19 @@ int fonctionModuleCarre(fonctionT * fonction)
 
 int fonctionFiltreCoupe0(fonctionT * fonction)
 	{
+		//	Filtre l'harmonique correspondant à
+		//		la moyenne de la fonction
+
 	(*fonction).reel[0] = 0;
-
 	(*fonction).imag[0] = 0;
-
 	(*fonction).reel[(*fonction).nombre-1] = 0;
-
 	(*fonction).imag[(*fonction).nombre-1] = 0;
-
 	return 0;
 	}
 
 
 /*
-void fonctionReplier(fonctionT * spectre, int diviseur)
+int fonctionReplier(fonctionT * spectre, int diviseur)
 	{// Effectue un repliement de spectre
 	int i;
 	fonctionT tmp;
@@ -222,42 +234,45 @@ void fonctionReplier(fonctionT * spectre, int diviseur)
 		(*spectre).imag[i] = tmp.imag[N-1-i]/diviseur;
 		}
 
-	return;
+	return 0;
 	}
 */
-void fonctionNormalise(fonctionT * f,  float max)
+int fonctionNormalise(fonctionT * f,  double nouveauMax)
 	{
 	int i;
-	double module = sqrt(fonctionCarreMax(f));
 
+		//	Calcul du plus grand module de f
+	double moduleMax = sqrt(fonctionCarreMax(f));
+
+		//	Divise f par le plus grand module et multiplie par nouveauMax
 	for(i=0;i<(*f).nombre;i++)
 		{
-		(*f).reel[i]=(*f).reel[i] * max / module;
-		(*f).imag[i]=(*f).imag[i] * max / module;
+		(*f).reel[i]=(*f).reel[i] * nouveauMax / moduleMax;
+		(*f).imag[i]=(*f).imag[i] * nouveauMax / moduleMax;
 		}
 
-	return;
+	return 0;
 	}
 
 double fonctionCarreMax(fonctionT * f)
 	{
+			//	Retourne le module carré maximum
 	int i;
 	double x,y;
-	double max=0.0;
-	double module;
+	double maximum=0.0;
+	double moduleCarre;
 
 	for(i=0;i<(*f).nombre;i++)
 		{
 		x=(*f).reel[i];
 		y=(*f).imag[i];
-		module=x*x+y*y;
-		if(module > max)
+		moduleCarre=x*x+y*y;
+		if(moduleCarre > maximum)
 			{
-			max=module;
+			maximum=moduleCarre;
 			}
 		}
-
-	return max;
+	return maximum;
 	}
 /*
 double fonctionSommeModuleCarre(fonctionT * f)
@@ -273,7 +288,7 @@ double fonctionSommeModuleCarre(fonctionT * f)
 	return somme;
 	}
 
-void fonctionAffiche(fonctionT * f)
+int fonctionAffiche(fonctionT * f)
   {
 	int i;
 	printf("fonction complexe\n");
@@ -282,13 +297,13 @@ void fonctionAffiche(fonctionT * f)
 		printf("  re[%d]:%f", i, (*f).reel[i]);
 		printf("  im[%d]:%f\n", i, (*f).imag[i]);
 		}
-	return;
+	return 0;
 	}
 
-void fonctionTest(fonctionT * f)
+int fonctionTest(fonctionT * f)
 	{
 	fonctionAffiche(f);
-	return;
+	return 0;
 	}
 
 */

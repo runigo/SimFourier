@@ -78,7 +78,7 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 	(*commandes).rotatif[1].positionX=(int)(-longueur*sin(theta));
 	(*commandes).rotatif[1].positionY=(int)(-longueur*cos(theta));
 	//	Symétrie motif
-	theta = (*projection).radianSym * ( (*initiale).motif.sym );
+	theta = (*projection).radianSym * ( (*initiale).motif.a );
 	(*commandes).rotatif[2].positionX=(int)(-longueur*sin(theta));
 	(*commandes).rotatif[2].positionY=(int)(-longueur*cos(theta));
 
