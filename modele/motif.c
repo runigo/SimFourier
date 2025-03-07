@@ -45,7 +45,7 @@ int motifRegleForme(motifT * motif, int forme);
 int motifRegleSymetrie(motifT * motif, int pourMille);
 
 	//		CALCUL DU MOTIF
-int motifCalculParametres(motifT * motif, int P);
+int motifCalculParametres(motifT * motif, int periode);
 
 int motifCalcul(motifT * motif);
 int motifCalculUniforme(motifT * motif);
@@ -84,10 +84,10 @@ int motifInitialisation(motifT * motif, int nombre) {
 
 /*--------------------  CALCUL DU MOTIF  ---------------------*/
 
-int motifCalculMotif(motifT * motif, int Periode) {
+int motifCalculMotif(motifT * motif, int periode) {
 
 		// Calcul des paramètres
-	motifCalculParametres(motif, Periode);
+	motifCalculParametres(motif, periode);
 
 		// Calcul du motif
 	switch ((*motif).forme)
@@ -107,16 +107,14 @@ int motifCalculMotif(motifT * motif, int Periode) {
 		default:
 			;
 		}
-
 	return 0;
 }
 
-int motifCalculParametres(motifT * motif, int Periode)
+int motifCalculParametres(motifT * motif, int periode)
 	{
 			// Calcul des paramètres
 
-	//(*motif).a=(int)(P*((*motif).sym));
-	(*motif).b = Periode-(*motif).a;
+	(*motif).b = periode-(*motif).a;
 	if((*motif).b < 0)
 		{
 		fprintf(stderr, "ERREUR motifCalculParametres, disymétrie maximale atteinte. \n");
@@ -146,7 +144,7 @@ int motifCalculCarre(motifT * motif) {
 	printf("Enveloppe carrée \n");
 
 	int i;
-	int Periode = (*motif).a +(*motif).b;
+	int periode = (*motif).a +(*motif).b;
 
 	for(i=0;i<(*motif).a;i++)
 		{
@@ -154,12 +152,11 @@ int motifCalculCarre(motifT * motif) {
 		(*motif).fonction.imag[i] = (*motif).A;
 		}
 
-	for(i=(*motif).a;i<Periode;i++)
+	for(i=(*motif).a;i<periode;i++)
 		{
 		(*motif).fonction.reel[i] = -(*motif).A;
 		(*motif).fonction.imag[i] = -(*motif).A;
 		}
-
 	return 0;
 }
 
@@ -168,7 +165,7 @@ int motifCalculTriangle(motifT * motif) {
 	printf("Enveloppe triangle \n");
 	
 	int i;
-	int P = (*motif).a +(*motif).b;
+	int periode = (*motif).a +(*motif).b;
 	float alpha;
 	float beta;
 
@@ -201,7 +198,7 @@ int motifCalculTriangle(motifT * motif) {
 		}
 
 
-	for(i=(*motif).a;i<P;i++)
+	for(i=(*motif).a;i<periode;i++)
 		{
 		(*motif).fonction.reel[i] = i*alpha - beta;
 		(*motif).fonction.imag[i] = (*motif).fonction.reel[i];
@@ -348,7 +345,7 @@ int motifChangeA(motifT * motif, int delta) {
 
 	// Change l'amplitude du motif
 
-	float amplitude = ((*motif).A * delta)/100;
+	float amplitude = (*motif).A + delta;
 
 	if(amplitude < AMPLITUDE_MIN)
 		{
@@ -376,26 +373,26 @@ int motifChangeB(motifT * motif, int delta) {
 
 	// Change le décalage verticale du motif
 
-	float decalage = ((*motif).A * delta)/100;
+	float decalage = (*motif).B + delta;
 
 	if(decalage < AMPLITUDE_MIN)
 		{
-		(*motif).A = AMPLITUDE_MIN;
+		(*motif).B = AMPLITUDE_MIN;
 		printf("Décalage minimale atteinte. ");
 		}
 	else
 		{
 		if(decalage > AMPLITUDE_MAX)
 			{
-			(*motif).A = AMPLITUDE_MAX;
+			(*motif).B = AMPLITUDE_MAX;
 			printf("Décalage maximale atteinte. ");
 			}
 		else
 			{
-			(*motif).A = decalage;
+			(*motif).B = decalage;
 			}
 		}
-	printf("Décalage verticale = %f\n", (*motif).A);
+	printf("Décalage verticale = %f\n", (*motif).B);
 
 	return 0;
 	}

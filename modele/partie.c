@@ -155,7 +155,7 @@ int partieCalculHarmonique(partieT * partie) {
 
 	if((*partie).periode==0)
 		{
-		fprintf(stderr, " periode=0 !!! \n");
+		fprintf(stderr, "ERREUR partieCalculHarmonique periode=0 !!! \n");
 		periode=nombre/10;
 		}
 	//else
@@ -166,7 +166,6 @@ int partieCalculHarmonique(partieT * partie) {
 			(*partie).fonction.imag[i] = sin( ((float)i)/periode + K );
 			}
 		}
-
 	return 0;
 }
 
@@ -306,14 +305,17 @@ int eta = (*partie).eta;
 		(*partie).eta = (*partie).etaMin;
 		printf("eta minimum atteint, etaMin = %d ,", (*partie).etaMin);
 		}
-	if(eta < log2((*partie).fonction.nombre))
-		{
-		(*partie).eta = eta;
-		}
 	else
 		{
-		(*partie).eta = (*partie).etaMax;
-		printf("eta maximum atteint. ");
+		if(eta < log2((*partie).fonction.nombre))
+			{
+			(*partie).eta = eta;
+			}
+		else
+			{
+			(*partie).eta = (*partie).etaMax;
+			printf("eta maximum atteint. ");
+			}
 		}
 	printf("eta  = %i\n", (*partie).eta);//%s, (*partie).nom
 
