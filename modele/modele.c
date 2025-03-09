@@ -243,9 +243,13 @@ int modeleProjectionSystemeEnergie(modeleT * modele)
 
 int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int variation, int pourMille) {
 
-	// Change un paramètre de initiale et projette sur le système
+	//	Change un paramètre de initiale et projette sur le système
+	fprintf(stderr, " modeleChangeInitiale, %d, %d, %d, %d \n", fonction, parametre, variation, pourMille);
 
-		fprintf(stderr, " modeleChangeInitiale, %d, %d, %d, %d \n", fonction, parametre, variation, pourMille);
+		//	Nettoyage des fonctions
+	initialeNettoyage(&(*modele).initiale);
+
+		//	Changement du paramètre
 	if(variation == 0)
 		{		// Réglage du parametre
 		initialeRegleParametre(&(*modele).initiale, fonction, parametre, pourMille);

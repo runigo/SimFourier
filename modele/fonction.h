@@ -51,6 +51,7 @@ typedef struct FonctionT fonctionT;
 
 int fonctionInitialise(fonctionT * spectre, int nombre);
 int fonctionChangeNombre(fonctionT * spectre, int nombre);
+int fonctionAnnule(fonctionT * fonction);
 
 double fonctionModuleMax1(fonctionT * fonction);
 double fonctionsModuleMax1(fonctionT * f1, fonctionT * f2);

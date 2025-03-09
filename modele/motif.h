@@ -45,14 +45,13 @@ typedef struct MotifT motifT;
 		{
 		fonctionT fonction;	//	Fonction motif
 
-		int forme;	//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
-						//	4 : gaussienne, 5 : lorentzienne, 6 : sinus cardinale
+		int forme;	//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle.
 
 		int a;		//	Longueur horizontale (montée ou positif)
 		int b;		//	Longueur horizontale (descente ou négatif)
 
-		float A;	//	amplitude
-		float B;	//	décalage verticale
+		double A;	//	amplitude
+		double B;	//	décalage verticale
 
 		//float sym;	//	facteur de symétrie (a/b)
 		};

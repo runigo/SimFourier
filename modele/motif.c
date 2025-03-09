@@ -52,8 +52,6 @@ int motifCalculUniforme(motifT * motif);
 int motifCalculHarmonique(motifT * motif);
 int motifCalculCarre(motifT * motif);
 int motifCalculTriangle(motifT * motif);
-int motifCalculGaussienne(motifT * motif);
-int motifCalculLorentzienne(motifT * motif);
 
 	//		JAUGE ET NORMALISATION
 int motifJaugeZero(motifT * motif);
@@ -100,10 +98,6 @@ int motifCalculMotif(motifT * motif, int periode) {
 			motifCalculCarre(motif);break;
 		case 3:
 			motifCalculTriangle(motif);break;
-		case 4:
-			motifCalculGaussienne(motif);break;
-		case 5:
-			motifCalculLorentzienne(motif);break;
 		default:
 			;
 		}
@@ -141,7 +135,7 @@ int motifCalculUniforme(motifT * motif) {
 
 int motifCalculCarre(motifT * motif) {
 
-	printf("Enveloppe carrée \n");
+	printf("Enveloppe rectangulaire \n");
 
 	int i;
 	int periode = (*motif).a +(*motif).b;
@@ -162,7 +156,7 @@ int motifCalculCarre(motifT * motif) {
 
 int motifCalculTriangle(motifT * motif) {
 
-	printf("Enveloppe triangle \n");
+	printf("Enveloppe dent de scie \n");
 	
 	int i;
 	int periode = (*motif).a +(*motif).b;
@@ -207,36 +201,6 @@ int motifCalculTriangle(motifT * motif) {
 	return 0;
 }
 
-int motifCalculGaussienne(motifT * motif) {
-
-	printf("Enveloppe gaussienne \n");
-	
-	int i;
-
-	for(i=0;i<NOMBRE_MAX;i++)
-		{
-		(*motif).fonction.reel[i] = (*motif).A;
-		(*motif).fonction.imag[i] = (*motif).A;
-		}
-
-	return 0;
-}
-
-int motifCalculLorentzienne(motifT * motif) {
-
-	printf("Enveloppe lorentzienne \n");
-	
-	int i;
-
-	for(i=0;i<NOMBRE_MAX;i++)
-		{
-		(*motif).fonction.reel[i] = (*motif).A;
-		(*motif).fonction.imag[i] = (*motif).A;
-		}
-
-	return 0;
-}
-
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
 int motifChangeParametre(motifT * motif, int parametre, int variation){
 
@@ -250,8 +214,6 @@ int motifChangeParametre(motifT * motif, int parametre, int variation){
 			motifChangeA(motif, variation);break;
 		case 3:
 			motifChangeB(motif, variation);break;
-		//case 4:
-			//motifChangeC(motif, variation);break;
 		default:
 			;
 		}
@@ -282,10 +244,9 @@ int motifChangeForme(motifT * motif, int forme)
 	{
 			//	Règle la forme motif
 
-	if(forme>-1 && forme<7)
+	if(forme>-1 && forme<4)
 		{
 		(*motif).forme = forme;			//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
-							//	4 : gaussienne, 5 : lorentzienne, 6 : sinus cardinal
 		}
 	else
 		{

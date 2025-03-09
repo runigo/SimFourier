@@ -34,22 +34,30 @@ termes.
 #include "fonction.h"
 
 double fonctionMaximum(fonctionT * fonction);
-double fonctionCarreMax(fonctionT * f);
+double fonctionCarreMax(fonctionT * fonction);
 int fonctionModule(fonctionT * fonction);
 int fonctionModuleCarre(fonctionT * fonction);
 
-int fonctionInitialise(fonctionT * f, int nombre)
+int fonctionInitialise(fonctionT * fonction, int nombre)
 	{
 			//	Initialisation de la fonction
-	int i;
+
 		//	Nombre de point
-	(*f).nombre = nombre;
-		//	x, y et |f| = 0
+	(*fonction).nombre = nombre;
+		//	x, y et |fonction| = 0
+	fonctionAnnule(fonction);
+	return 0;
+	}
+
+int fonctionAnnule(fonctionT * fonction)
+	{
+			//	Annule la fonction
+	int i;
 	for(i=0;i<NOMBRE_MAX;i++)
 		{
-		(*f).reel[i] = 0;
-		(*f).imag[i] = 0;
-		(*f).module[i] = 0;
+		(*fonction).reel[i] = 0.0;
+		(*fonction).imag[i] = 0.0;
+		(*fonction).module[i] = 0.0;
 		}
 	return 0;
 	}
@@ -237,24 +245,24 @@ int fonctionReplier(fonctionT * spectre, int diviseur)
 	return 0;
 	}
 */
-int fonctionNormalise(fonctionT * f,  double nouveauMax)
+int fonctionNormalise(fonctionT * fonction,  double nouveauMax)
 	{
 	int i;
 
 		//	Calcul du plus grand module de f
-	double moduleMax = sqrt(fonctionCarreMax(f));
+	double moduleMax = sqrt(fonctionCarreMax(fonction));
 
 		//	Divise f par le plus grand module et multiplie par nouveauMax
-	for(i=0;i<(*f).nombre;i++)
+	for(i=0;i<(*fonction).nombre;i++)
 		{
-		(*f).reel[i]=(*f).reel[i] * nouveauMax / moduleMax;
-		(*f).imag[i]=(*f).imag[i] * nouveauMax / moduleMax;
+		(*fonction).reel[i]=(*fonction).reel[i] * nouveauMax / moduleMax;
+		(*fonction).imag[i]=(*fonction).imag[i] * nouveauMax / moduleMax;
 		}
 
 	return 0;
 	}
 
-double fonctionCarreMax(fonctionT * f)
+double fonctionCarreMax(fonctionT * fonction)
 	{
 			//	Retourne le module carré maximum
 	int i;
@@ -262,10 +270,10 @@ double fonctionCarreMax(fonctionT * f)
 	double maximum=0.0;
 	double moduleCarre;
 
-	for(i=0;i<(*f).nombre;i++)
+	for(i=0;i<(*fonction).nombre;i++)
 		{
-		x=(*f).reel[i];
-		y=(*f).imag[i];
+		x=(*fonction).reel[i];
+		y=(*fonction).imag[i];
 		moduleCarre=x*x+y*y;
 		if(moduleCarre > maximum)
 			{
@@ -275,34 +283,34 @@ double fonctionCarreMax(fonctionT * f)
 	return maximum;
 	}
 /*
-double fonctionSommeModuleCarre(fonctionT * f)
+double fonctionSommeModuleCarre(fonctionT * fonction)
 	{
 	int i;
 	double somme = 0.0;
 
 	for(i=0;i<N;i++)
 		{
-		somme += (*f).reel[i] * (*f).reel[i] + (*f).imag[i] * (*f).imag[i];
+		somme += (*fonction).reel[i] * (*fonction).reel[i] + (*fonction).imag[i] * (*fonction).imag[i];
 		}
 
 	return somme;
 	}
 
-int fonctionAffiche(fonctionT * f)
+int fonctionAffiche(fonctionT * fonction)
   {
 	int i;
 	printf("fonction complexe\n");
 	for(i=0;i<N;i++)
 		{
-		printf("  re[%d]:%f", i, (*f).reel[i]);
-		printf("  im[%d]:%f\n", i, (*f).imag[i]);
+		printf("  re[%d]:%fonction", i, (*fonction).reel[i]);
+		printf("  im[%d]:%fonction\n", i, (*fonction).imag[i]);
 		}
 	return 0;
 	}
 
-int fonctionTest(fonctionT * f)
+int fonctionTest(fonctionT * fonction)
 	{
-	fonctionAffiche(f);
+	fonctionAffiche(fonction);
 	return 0;
 	}
 

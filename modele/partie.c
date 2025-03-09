@@ -36,12 +36,13 @@ termes.
 int partieInitialisationPartie(partieT * partie, int nombre);
 
 	//		CALCUL DE LA PARTIE
-
-
-int partieCalculPartie(partieT * partie);
-int partieCalculHarmonique(partieT * partie);
-int partieCalculUniforme(partieT * partie);
-int partieCalculCarre(partieT * partie);
+int partieCalculPartie(partieT * partie, double amplitude);
+int partieCalculHarmonique(partieT * partie, double amplitude);
+int partieCalculUniforme(partieT * partie, double amplitude);
+int partieCalculGaussienne(partieT * partie, double amplitude);
+int partieCalculLorentzienne(partieT * partie, double amplitude);
+int partieCalculSinusCardinal(partieT * partie, double amplitude);
+int partieCalculPeigne(partieT * partie, double amplitude);
 
 	//		CHANGEMENT DES PARAMÈTRES
 //int partieChangeNature(partieT * partie, int plusMoins); // complexe / périodique
@@ -106,6 +107,55 @@ int partieCalculParametres(partieT * partie)
 
 	return 0;
 	}
+
+int partieCalculPartie(partieT * partie, double amplitude) {
+
+				// Calcul de l'enveloppe
+
+				
+		//	periodique : 0 enveloppe non-périodique, 1 enveloppe périodique,
+					//	2 gaussienne, 3 lorentzienne, 4 sinus cardinal
+
+	if((*partie).complexe < 0)	//	Cas de l'enveloppe
+		{
+		switch ((*partie).periodique)
+			{
+			case 0:	//	constante
+				partieCalculUniforme(partie, amplitude);break;
+			case 1:	//	harmonique
+				partieCalculHarmonique(partie, amplitude);break;
+			case 2:	//	gaussienne
+				partieCalculGaussienne(partie, amplitude);break;
+			case 3:	//	lorentzienne
+				partieCalculLorentzienne(partie, amplitude);break;
+			case 4:	//	sinus cardinal
+				partieCalculSinusCardinal(partie, amplitude);break;
+			default:
+				partieCalculUniforme(partie, amplitude);
+			}
+		}
+
+						// 0 porteuse réelle, 1 porteuse complexe, 2 peigne de Dirac, 3 constante/
+	if((*partie).periodique < 0)	//	Cas de la porteuse
+		{
+		switch ((*partie).complexe)
+			{
+			case 3:	//	constante
+				partieCalculUniforme(partie, amplitude);break;
+			case 0:	//	harmonique
+				partieCalculHarmonique(partie, amplitude);break;
+			case 1:	//	harmonique
+				partieCalculHarmonique(partie, amplitude);break;
+			case 2:	//	peigne de Dirac
+				partieCalculPeigne(partie, amplitude);break;
+			default:
+				partieCalculUniforme(partie, amplitude);
+			}
+		}
+
+	return 0;
+}
+
 /*--------------------  CALCUL DES PARAMETRES INITIALES  ---------------------*/
 
 int partieCalculPeriode(partieT * partie) {
@@ -127,45 +177,189 @@ int partieCalculPeriode(partieT * partie) {
 	return (*partie).periode;
 }
 
-int partieCalculUniforme(partieT * partie) {
+/*--------------------  CALCUL DES PARTIES INITIALES  ---------------------*/
 
-	// Création d'une fonction uniforme
-	
+int partieCalculUniforme(partieT * partie, double amplitude) {
+
+					// Création d'une fonction uniforme
 	int i;
 	int nombre=(*partie).fonction.nombre;
 
-	for(i=0;i<nombre;i++)
+	if((*partie).periodique < 0)	// Cas de la porteuse
+	{
+		for(i=0;i<nombre;i++)
+			{
+			(*partie).fonction.reel[i] = 1.0;
+			(*partie).fonction.imag[i] = 1.0;
+			}
+	}
+
+	if((*partie).complexe < 0)	// Cas de l'enveloppe
+	{
+		for(i=0;i<nombre;i++)
+			{
+			(*partie).fonction.reel[i] = amplitude;
+			(*partie).fonction.imag[i] = 0.0;
+			}
+	}
+	return 0;
+}
+
+int partieCalculHarmonique(partieT * partie, double amplitude) {
+
+	// Création d'une fonction harmonique
+	int i;
+	int periode=(*partie).periode/DEUXPI;
+	int khi=(*partie).khi;
+	int nombre=(*partie).fonction.nombre;
+		//fprintf(stderr, " Projection sur le système\n");
+
+	if(periode==0)
 		{
-		(*partie).fonction.reel[i] = 1.0;
-		(*partie).fonction.imag[i] = 1.0;
+		fprintf(stderr, "ERREUR partieCalculHarmonique periode=0 !!! \n");
+		periode=nombre/10;
+		}
+	else
+		{
+		if((*partie).periodique < 0)	// Cas de la porteuse
+			{
+			for(i=0;i<nombre;i++)
+				{
+				(*partie).fonction.reel[i] = cos( ((double)i) / periode + khi );
+				}
+			if((*partie).complexe == 1)
+				{
+				(*partie).fonction.imag[i] = sin( ((double)i) / periode + khi );
+				}
+			else
+				{
+				(*partie).fonction.imag[i] = 0.0;
+				}
+			}
+		else	// Cas de l'enveloppe
+			{
+			for(i=0;i<nombre;i++)
+				{
+				(*partie).fonction.reel[i] = amplitude * cos( ((double)i) / periode + khi );
+				(*partie).fonction.imag[i] = 0.0;
+				}
+			}
+		}
+	return 0;
+}
+
+int partieCalculGaussienne(partieT * partie, double amplitude) {
+
+	printf("Enveloppe gaussienne \n");
+
+	int khi = (*partie).khi;		//	Décalage horizontal
+	int sigma = (*partie).periode;	//	Largeur à mi hauteur
+	int i;
+	double argument;
+
+	if( sigma == 0 )
+		{
+		fprintf(stderr, "ERREUR partieCalculGaussienne, sigma = 0 \n");
+		sigma = 1;
+		}
+
+	double amgis = (double)1/sigma;
+
+	for(i=0;i<(*partie).fonction.nombre;i++)
+		{
+		argument = amgis * (i-khi);
+		(*partie).fonction.reel[i] = amplitude * amgis * exp(-argument*argument);
 		}
 
 	return 0;
 }
 
-int partieCalculHarmonique(partieT * partie) {
+int partieCalculLorentzienne(partieT * partie, double amplitude) {
 
-	// Création d'une fonction harmonique
+	printf("Enveloppe lorentzienne \n");
 	
+	int khi = (*partie).khi;		//	Décalage horizontal
+	int gamma = (*partie).periode;	//	Largeur à mi hauteur
 	int i;
-	int periode=(*partie).periode;
-	int K=(*partie).khi;
-	int nombre=(*partie).fonction.nombre;
-		//fprintf(stderr, " Projection sur le système\n");
+	double argument;
 
-	if((*partie).periode==0)
+	if( gamma == 0 )
 		{
-		fprintf(stderr, "ERREUR partieCalculHarmonique periode=0 !!! \n");
-		periode=nombre/10;
+		fprintf(stderr, "ERREUR partieCalculLorentzienne, gamma = 0 \n");
+		gamma = 1;
 		}
-	//else
+
+	double ammag = (double)1/gamma;
+
+	for(i=0;i<(*partie).fonction.nombre;i++)
 		{
-		for(i=0;i<nombre;i++)
+		argument = ammag * (i-khi);
+		(*partie).fonction.reel[i] = amplitude * ammag /(1 + argument*argument);
+		}
+
+	return 0;
+}
+
+int partieCalculSinusCardinal(partieT * partie, double amplitude) {
+
+	printf("Enveloppe sinus cardinal \n");
+	
+	int khi = (*partie).khi;		//	Décalage horizontal
+	int largeur = (*partie).periode;	//	Largeur à mi hauteur
+	int i;
+	double argument;
+
+	if( largeur == 0 )
+		{
+		fprintf(stderr, "ERREUR partieCalculSinusCardinal, largeur = 0 \n");
+		largeur = 1;
+		}
+
+	double ammag = (double)1/largeur;
+
+	for(i=0;i<(*partie).fonction.nombre;i++)
+		{
+		argument = ammag * (i-khi);
+		(*partie).fonction.reel[i] = amplitude * sin(argument)/argument;
+		}
+
+	return 0;
+}
+
+int partieCalculPeigne(partieT * partie, double amplitude) {
+
+	printf("Enveloppe peigne de dirac \n");
+	
+	int khi = (*partie).khi;		//	Décalage horizontal
+	int periode = (*partie).periode;	//	Largeur à mi hauteur
+	int i, j;
+
+	if( periode == 0 )
+		{
+		fprintf(stderr, "ERREUR partieCalculPeigne, periode = 0 \n");
+		periode = 1;
+		}
+
+	if (khi<(*partie).fonction.nombre)
+		{
+		for(i=0;i<(*partie).fonction.nombre;i++)
 			{
-			(*partie).fonction.reel[i] = cos( ((float)i)/periode + K );
-			(*partie).fonction.imag[i] = sin( ((float)i)/periode + K );
+			j = (i-khi) % periode;
+			if( j == 0)
+				{
+				(*partie).fonction.reel[i] = amplitude;
+				}
+			else
+				{
+				(*partie).fonction.reel[i] = 0;
+				}
 			}
 		}
+	else
+		{
+		fprintf(stderr, "ERREUR partieCalculPeigne, khi>nombre \n");
+		}
+
 	return 0;
 }
 

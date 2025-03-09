@@ -51,6 +51,7 @@ typedef struct InitialeT initialeT;
 
 	//	Initialisation de initiale
 int initialeInitialisation(initialeT * initiale, int nombre);
+int initialeNettoyage(initialeT * initiale);
 
 	//	Change un paramètre de initiale
 int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation);

@@ -53,11 +53,13 @@ typedef struct PartieT partieT;
 		int rho;		//	Écart à la puissance de deux de la période [0,2^eta]
 		int rhoMax;		//	2^eta
 		int khi;		//	Décalage horizontal, déphasage : [0,N[
-		int periode;			//	Période
+		int periode;	//	Période : [8,N[
 
 		int complexe;		//	-1 SI enveloppe,
 						// 0 porteuse réelle, 1 porteuse complexe, 2 peigne de Dirac, 3 constante/
-		int periodique;		//	-1 SI porteuse, 0 enveloppe non-périodique, 1 enveloppe périodique.
+		int periodique;		//	-1 SI porteuse,
+							//	0 enveloppe non-périodique, 1 enveloppe périodique,
+							//	2 gaussienne, 3 lorentzienne, 4 sinus cardinal
 		};
 
 	//	Initialisation de partie
@@ -65,10 +67,11 @@ int partieInitialisation(partieT * partie, int nombre);
 
 	//	Calcul des parties
 int partieCalculParametres(partieT * partie);
-
-int partieCalculPorteuse(partieT * partie);
 int partieCalculPeriode(partieT * partie);
-int partieCalculHarmonique(partieT * partie);
+
+int partieCalculPartie(partieT * partie, double amplitude);
+
+int partieCalculUniforme(partieT * partie, double amplitude);
 
 	// Changement d'un paramètre
 int partieChangeParametre(partieT * partie, int parametre, int variation);

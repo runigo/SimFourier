@@ -60,22 +60,34 @@ int initialeInitialisation(initialeT * initiale, int nombre) {
 
 	return 0;
 }
+int initialeNettoyage(initialeT * initiale) {
+
+		//	Annule les fonctions
+		fonctionAnnule(&(*initiale).enveloppe.fonction);
+		fonctionAnnule(&(*initiale).porteuse.fonction);
+		fonctionAnnule(&(*initiale).motif.fonction);
+
+	return 0;
+}
 
 /*--------------------  CALCUL DE LA FONCTION INITIALE  ---------------------*/
 
 int initialeCalculInitiale(initialeT * initiale) {
 	//	Mise à jour de la fonction initiale
+		//fprintf(stderr, " Calcul des fonctions initiales \n");
 
-		// Calcul des périodes
+		//	Calcul des périodes
 	partieCalculParametres(&(*initiale).enveloppe);
 	partieCalculParametres(&(*initiale).porteuse);
 
-		// Calcul du motif
+		//	Calcul du motif
 	motifCalculMotif(&(*initiale).motif, (*initiale).enveloppe.periode);
 
-		fprintf(stderr, " Calcul des fonctions initiales \n");
+		//	Calcul de l'enveloppe
 	initialeCalculEnveloppe(initiale);
-	partieCalculHarmonique(&(*initiale).porteuse);
+
+		//	Calcul de la porteuse
+	partieCalculPartie(&(*initiale).porteuse, 1.0);
 
 	return 0; 
 
@@ -83,22 +95,18 @@ int initialeCalculInitiale(initialeT * initiale) {
 
 int initialeCalculEnveloppe(initialeT * initiale) {
 
-		// Calcul de l'enveloppe
+				// Calcul de l'enveloppe
 
-	int i;
-	int nombre=(*initiale).enveloppe.fonction.nombre;
-
-	if((*initiale).motif.forme == 0)
+	switch ((*initiale).motif.forme)
 		{
-		for(i=0;i<nombre;i++)
-			{
-			(*initiale).enveloppe.fonction.reel[i] = (*initiale).motif.A;
-			(*initiale).enveloppe.fonction.imag[i] = (*initiale).motif.A;
-			}
-		}
-	else
-		{
-		initialePeriodiseEnveloppe(initiale);
+		case 1:	//	harmonique
+			initialePeriodiseEnveloppe(initiale);break;
+		case 2:	//	rectangle
+			initialePeriodiseEnveloppe(initiale);break;
+		case 3:	//	triangle
+			initialePeriodiseEnveloppe(initiale);break;
+		default:
+			partieCalculPartie(&(*initiale).enveloppe, (*initiale).motif.A);
 		}
 
 	return 0;
