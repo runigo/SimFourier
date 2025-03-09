@@ -146,8 +146,8 @@ int initialePeriodiseEnveloppe(initialeT * initiale) {
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
 
-int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation) {
-
+int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation)
+	{
 							// Change un paramètre de initiale
 	switch (fonction)
 		{
@@ -160,13 +160,11 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 		default:
 			;
 		}
-
 	return 0;
-}
+	}
 
-
-int initialeRegleParametre(initialeT * initiale, int fonction, int parametre, int pourMille) {
-
+int initialeRegleParametre(initialeT * initiale, int fonction, int parametre, int pourMille)
+	{
 							// Règle un paramètre de initiale
 	switch (fonction)
 		{
@@ -179,8 +177,7 @@ int initialeRegleParametre(initialeT * initiale, int fonction, int parametre, in
 		default:
 			;
 		}
-
 	return 0;
-}
+	}
 
 //////////////////////////////////////////////////////////////////////////

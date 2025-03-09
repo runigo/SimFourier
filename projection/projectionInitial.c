@@ -69,18 +69,19 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 	(*projection).radianEta = PIS2 / ( (*initiale).enveloppe.etaMax - (*initiale).enveloppe.etaMin );
 	(*projection).radianRho = PIS2 / ( exp2((*initiale).enveloppe.eta) );
 	(*projection).radianSym = PIS2 / ( (*initiale).enveloppe.periode );
+
 		//	Projection sur les boutons rotatifs de la partie enveloppe
 	theta = (*projection).radianEta * ( (*initiale).enveloppe.eta - (*initiale).enveloppe.etaMin);
-	(*commandes).rotatif[0].positionX=(int)(-longueur*sin(theta));
-	(*commandes).rotatif[0].positionY=(int)(-longueur*cos(theta));
+	(*commandes).rotatif[0].positionX=(int)(-longueur*cos(theta));
+	(*commandes).rotatif[0].positionY=(int)(-longueur*sin(theta));
 	 //	Période enveloppe, rho
 	theta = (*projection).radianRho * ( (*initiale).enveloppe.rho );
-	(*commandes).rotatif[1].positionX=(int)(-longueur*sin(theta));
-	(*commandes).rotatif[1].positionY=(int)(-longueur*cos(theta));
+	(*commandes).rotatif[1].positionX=(int)(-longueur*cos(theta));
+	(*commandes).rotatif[1].positionY=(int)(-longueur*sin(theta));
 	//	Symétrie motif
 	theta = (*projection).radianSym * ( (*initiale).motif.a );
-	(*commandes).rotatif[2].positionX=(int)(-longueur*sin(theta));
-	(*commandes).rotatif[2].positionY=(int)(-longueur*cos(theta));
+	(*commandes).rotatif[2].positionX=(int)(-longueur*cos(theta));
+	(*commandes).rotatif[2].positionY=(int)(-longueur*sin(theta));
 
 		// facteur de proportionalité entre les grandeurs de la porteuse et la position des rotatifs
 	(*projection).radianEta = PIS2 / ( (*initiale).porteuse.etaMax - (*initiale).porteuse.etaMin );
@@ -88,12 +89,12 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 
 		//	Projection sur les boutons rotatifs de la partie porteuse
 	theta = PIS2 * (*projection).radianEta * ( (*initiale).porteuse.eta );
-	(*commandes).rotatif[3].positionX=(int)(-longueur*sin(theta));
-	(*commandes).rotatif[3].positionY=(int)(-longueur*cos(theta));
+	(*commandes).rotatif[3].positionX=(int)(-longueur*cos(theta));
+	(*commandes).rotatif[3].positionY=(int)(-longueur*sin(theta));
 	//	Période porteuse
 	theta = DEUXPI * (*projection).radianRho * ( (*initiale).porteuse.rho );
-	(*commandes).rotatif[4].positionX=(int)(-longueur*sin(theta));
-	(*commandes).rotatif[4].positionY=(int)(-longueur*cos(theta));
+	(*commandes).rotatif[4].positionX=(int)(-longueur*cos(theta));
+	(*commandes).rotatif[4].positionY=(int)(-longueur*sin(theta));
 
 				//	Projection sur les petits boutons de droite
 	int i;

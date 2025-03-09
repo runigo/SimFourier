@@ -4,8 +4,8 @@
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>130</x>
-      <y>220</y>
+      <x>110</x>
+      <y>300</y>
       <w>300</w>
       <h>210</h>
     </coordinates>
@@ -14,7 +14,7 @@
 
 Périodique ou non
 
-Fréquence : 2^eta + rho
+Période ou largeur : 2^eta + rho
 
 Décalage horizontale, déphasage
 valign=top</panel_attributes>
@@ -54,8 +54,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>120</x>
-      <y>460</y>
+      <x>60</x>
+      <y>620</y>
       <w>300</w>
       <h>210</h>
     </coordinates>
@@ -65,7 +65,7 @@ valign=top</panel_attributes>
 Complexe ou non
 ou peigne de Dirac
 
-Fréquence : 2^eta + rho
+Période : 2^eta + rho
 
 Déphasage
 valign=top</panel_attributes>
@@ -77,14 +77,12 @@ valign=top</panel_attributes>
       <x>460</x>
       <y>50</y>
       <w>190</w>
-      <h>150</h>
+      <h>160</h>
     </coordinates>
-    <panel_attributes>carré, triangle
-  créneau, dent de scie
-gaussienne, lorentzienne
-  largeur
+    <panel_attributes>constant, harmonique
+carré, triangle
 
-sym
+a, b=periode-a
 
 A, B
 halign=left</panel_attributes>
@@ -94,46 +92,59 @@ halign=left</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>460</x>
-      <y>260</y>
+      <y>350</y>
       <w>210</w>
-      <h>150</h>
+      <h>190</h>
     </coordinates>
-    <panel_attributes>periodique, non périodique
+    <panel_attributes>      complexe = -1
+--
+non périodique, periodique
+gaussienne, lorentzienne
+sinus cardinal
 
-eta, rho
+eta
+
+rho
 
 khi
-halign=left</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
       <x>460</x>
-      <y>460</y>
-      <w>140</w>
-      <h>200</h>
+      <y>640</y>
+      <w>170</w>
+      <h>190</h>
     </coordinates>
-    <panel_attributes>complexe, réel
-peigne de Dirac
+    <panel_attributes>         periodique = -1
+--
 
-eta, rho
+réel, complexe
+peigne de Dirac
+constant
+
+eta
+
+rho
 
 khi
+
 halign=left</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>670</x>
+      <x>680</x>
       <y>50</y>
-      <w>130</w>
+      <w>150</w>
       <h>160</h>
     </coordinates>
     <panel_attributes>var 0 : forme
 
-var 1 : sym
+var 1 : a
 
 var 2 : A
 
@@ -149,8 +160,8 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>680</x>
-      <y>260</y>
+      <x>710</x>
+      <y>360</y>
       <w>150</w>
       <h>160</h>
     </coordinates>
@@ -172,9 +183,9 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>620</x>
-      <y>460</y>
-      <w>160</w>
+      <x>700</x>
+      <y>680</y>
+      <w>150</w>
       <h>160</h>
     </coordinates>
     <panel_attributes>var 0 : complexe
@@ -195,12 +206,58 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>810</x>
+      <x>840</x>
       <y>50</y>
       <w>130</w>
       <h>160</h>
     </coordinates>
-    <panel_attributes>[0, 1, 2, 3, 4, 5]
+    <panel_attributes>[0, 1, 2, 3]
+
+[0 .. periode]
+
+[0 .. 100]
+
+[0 .. 100]
+
+[0 .. 100]
+
+
+
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>870</x>
+      <y>360</y>
+      <w>160</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>[0, 1, 2, 3, 4]
+
+[3 .. log2(nombre)]
+
+[0 .. exp2(eta)]
+
+[0 .. nombre]
+
+[0 .. 100]
+
+
+
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>890</x>
+      <y>680</y>
+      <w>130</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>[0, 1, 2, 3]
 
 [0 .. 100]
 
@@ -218,47 +275,70 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>840</x>
-      <y>260</y>
-      <w>130</w>
-      <h>160</h>
+      <x>460</x>
+      <y>610</y>
+      <w>100</w>
+      <h>30</h>
     </coordinates>
-    <panel_attributes>[0, 1]
-
-[0 .. 100]
-
-[0 .. 100]
-
-[0 .. 100]
-
-[0 .. 100]
-
-
-
-halign=left</panel_attributes>
+    <panel_attributes>Porteuse
+bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>800</x>
-      <y>460</y>
-      <w>130</w>
-      <h>160</h>
+      <x>460</x>
+      <y>320</y>
+      <w>100</w>
+      <h>30</h>
     </coordinates>
-    <panel_attributes>[0, 1, 2]
-
-[0 .. 100]
-
-[0 .. 100]
-
-[0 .. 100]
-
-[0 .. 100]
-
-
-
-halign=left</panel_attributes>
+    <panel_attributes>Enveloppe
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>460</x>
+      <y>20</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Motif
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>680</x>
+      <y>20</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>parametres</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>710</x>
+      <y>330</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>parametres</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>700</x>
+      <y>650</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>parametres</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

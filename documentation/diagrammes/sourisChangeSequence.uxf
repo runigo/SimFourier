@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>10</x>
+      <y>20</y>
+      <w>430</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>controleur
+--
+SDL_MOUSEWHEEL:controleSouris(controleur, 0)
+SDL_MOUSEMOTION:controleSouris(controleur,1)
+SDL_MOUSEBUTTONDOWN:controleSouris(controleur, 2)
+SDL_MOUSEBUTTONUP:controleSouris(controleur, 3)
+SDL_KEYDOWN:controleurKEYDOWN(controleur)
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>510</x>
+      <y>70</y>
+      <w>360</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>controleSouris
+--
+0: controleSourisMolette(controleur, zone)
+1: controleSourisMouvement(controleur, zone)
+2: controleSourisBouton(controleur, 1, zone)
+3: controleSourisBouton(controleur, 0, zone)
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>20</x>
+      <y>210</y>
+      <w>390</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>
+--
+ 2: controleSourisCliqRotatif(controleur)
+ 3: controleSourisCliqSelectif(controleur)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>30</y>
+      <w>430</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+controleSouris(controleur, 2)</panel_attributes>
+    <additional_attributes>10.0;20.0;410.0;20.0;410.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>40</x>
+      <y>160</y>
+      <w>530</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+controleSourisBouton(controleur, 1, zone)</panel_attributes>
+    <additional_attributes>510.0;10.0;510.0;30.0;10.0;30.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>430</x>
+      <y>360</y>
+      <w>590</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>modele
+--
+modeleChangeInitiale(modele, fonction, parametre, variation, pourMille)
+
+    NETTOYAGE DES FONCTIONS : initialeNettoyage(&amp;(*modele).initiale);
+
+      0      : initialeRegleParametre(initiale, fonction, parametre, pourMille)
+  1 ou -1 : initialeChangeParametre(initiale, fonction, parametre, variation)
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>220</y>
+      <w>490</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+controleSourisCliqSelectif(controleur)</panel_attributes>
+    <additional_attributes>10.0;20.0;470.0;20.0;470.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>50</x>
+      <y>290</y>
+      <w>360</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>zone = 3
+
+       =&gt; cliq sélectif  &lt;=&gt;  parametre = 0
+                                       
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>30</x>
+      <y>570</y>
+      <w>510</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>initiale
+--
+ 0: motifRegleParametre(&amp;(*initiale).motif, parametre, pourMille)
+ 1: partieRegleParametre(&amp;(*initiale).enveloppe, parametre, pourMille)
+ 2: partieRegleParametre(&amp;(*initiale).porteuse, parametre, pourMille)
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>790</x>
+      <y>560</y>
+      <w>360</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>variation = 0
+               =&gt; réglage du paramètre
+                                       =&gt; pourMille
+                                       
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>920</x>
+      <y>130</y>
+      <w>200</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>action = 2
+
+ =&gt; cliq gauche appuie
+
+                                       
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>70</x>
+      <y>490</y>
+      <w>770</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+initialeRegleParametre(initiale, fonction, parametre, pourMille)</panel_attributes>
+    <additional_attributes>750.0;10.0;750.0;40.0;10.0;50.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>510</x>
+      <y>270</y>
+      <w>560</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>modeleChangeInitiale(modele, fonction, 0, variation, pourMille)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>970</x>
+      <y>90</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>controleSouris
+                                       
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>900</x>
+      <y>40</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>controleur
+                                  
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>90</x>
+      <y>390</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>modele
+                                       
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>170</x>
+      <y>460</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>initiale
+                                       
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

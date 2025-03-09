@@ -249,7 +249,7 @@ int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int vari
 		//	Nettoyage des fonctions
 	initialeNettoyage(&(*modele).initiale);
 
-		//	Changement du paramètre
+		//	Changement ou réglage du paramètre
 	if(variation == 0)
 		{		// Réglage du parametre
 		initialeRegleParametre(&(*modele).initiale, fonction, parametre, pourMille);
@@ -264,9 +264,6 @@ int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int vari
 
 		// Projection sur le système
 	modeleProjectionInitiale(modele);
-
-		// Indique le changement
-	(*modele).change = 1;
 
 		fprintf(stderr, " modeleChangeInitiale, sortie \n\n");
 	return 0;

@@ -41,7 +41,7 @@ int controleSourisBouton(controleurT * controleur, int appui, int zone);
 
 int controleSourisCommandes(controleurT * controleur, int zone);
 int controleSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe);
-int controleSourisDefileCommandes(controleurT * controleur, int zone);
+int controleSourisDefileRotatifs(controleurT * controleur);
 int controleSourisInitialisePosition(controleurT * controleur, int position);
 
 int controleSourisCliqRotatif(controleurT * controleur);
@@ -103,7 +103,7 @@ int controleSourisMolette(controleurT * controleur, int zone)
 	switch(zone)	//	
 		{
 		case 2: //	Boutons rotatif
-			controleSourisDefileCommandes(controleur, 1);break;
+			controleSourisDefileRotatifs(controleur);break;
 		case 5: //	Zone de la fonction
 			controleSourisDefilePointDeVue(controleur, &(*controleur).graphes.fonction);break;
 		case 7: //	Zone de fourier
@@ -203,22 +203,22 @@ int controleSourisCliqSelectif(controleurT * controleur)
 			//	dans le menu selectif
 	int selectif = commandeSelectifs(&(*controleur).commandes);
 
-	switch(selectif)	//	
+	switch(selectif)	//	fonction ,  parametre ,  variation ,  pourMille
 		{
 		case 0: //	motif	constant
 			modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 0);break;
 		case 1: //	motif	rectangle
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, 2, 2);break;
+			modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 2);break;
 		case 2: //	motif	dent de scie
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, 3, 3);break;
+			modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 3);break;
 		case 3: //	motif	sinusoïdale
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, 1, 1);break;
-		case 6: //	motif	gaussienne
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, 4, 4);break;
-		case 7: //	motif	laurentzienne
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, 5, 5);break;
-		case 8: //	motif	sinus cardinale
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, 6, 6);break;
+			modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 1);break;
+		case 6: //	enveloppe	gaussienne
+			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 2);break;
+		case 7: //	enveloppe	laurentzienne
+			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 3);break;
+		case 8: //	enveloppe	sinus cardinale
+			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 4);break;
 		case 4: //	enveloppe	apériodique
 			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 0);break;
 		case 5: //	enveloppe	périodique
@@ -237,47 +237,6 @@ int controleSourisCliqSelectif(controleurT * controleur)
 	return 0;
 	}
 
-
-/*
-int controleSourisCommandes(controleurT * controleur, int zone)
-	{
-				// Action du bouton gauche de la souris
-				// dans les zones 2 et 3
-
-	int commande;
-	if(zone==2)
-		{
-		commande = commandeBoutons(&(*controleur).commandes);
-		switch(commande)	//	
-			{
-			case 0: // 
-				;break;
-			default:
-				;
-			}
-		}
-
-	int reinitialisation;
-
-	if(zone==3)
-		{
-		commande = commandeTriangles(&(*controleur).commandes);
-		switch(commande)	//	
-			{
-			case 11:
-				controleSourisInitialisePosition(controleur, 1);
-				reinitialisation = 1; break;
-			case 20:
-			    fichierLecture(&(*controleur).modele.systeme, &(*controleur).graphes, "ddd");
-				reinitialisation = 1; break;
-				//controleurInitialiseNombre(controleur, 4);break;
-			default:
-				;
-			}
-		}
-	return reinitialisation;
-	}
-*/
 int controleSourisInitialisePosition(controleurT * controleur, int position) {
 
 		//		Réinitialise les positions.
@@ -287,68 +246,51 @@ int controleSourisInitialisePosition(controleurT * controleur, int position) {
 	return 0;
 	}
 
-int controleSourisDefileCommandes(controleurT * controleur, int zone)
+int controleSourisDefileRotatifs(controleurT * controleur)
 	{
-	(void)controleur;
-	(void)zone;
-	//int commande = -1;
-/*	if(zone==1)
+	int commande = commandeRotatifs(&(*controleur).commandes);
+	//commande = -1;
+	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
-		commande = commandeRotatifs(&(*controleur).commandes);
-		if((*controleur).interface.evenement.wheel.y > 0) // scroll up
+		switch(commande)
 			{
-			switch(commande)
-				{
-				case 0:
-					(&(*controleur).modele.systeme, 1.1);break;
-				case 1:
-					(&(*controleur).modele.systeme, 1.1);break;
-				default:
-					;
-				}
-			}
-		else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
-			{
-			switch(commande)	
-				{
-				case 0:
-					(&(*controleur).modele.systeme, 0.91);break;
-				case 1:
-					(&(*controleur).modele.systeme, 0.91);break;
-				default:
-					;
-				}
+			case 0:
+				modeleChangeInitiale(&(*controleur).modele, 1, 1, 1, 0);break;
+			case 1:
+				modeleChangeInitiale(&(*controleur).modele, 1, 2, 1, 0);break;
+			case 2:
+				modeleChangeInitiale(&(*controleur).modele, 0, 1, 1, 0);break;
+			case 3:
+				modeleChangeInitiale(&(*controleur).modele, 1, 3, 1, 0);break;
+			case 4:
+				modeleChangeInitiale(&(*controleur).modele, 2, 1, 1, 0);break;
+			case 5:
+				modeleChangeInitiale(&(*controleur).modele, 2, 2, 1, 0);break;
+			default:
+				;
 			}
 		}
-	if(zone==3)
+	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
 		{
-		commande = commandeLineaires(&(*controleur).commandes);
-		if((*controleur).interface.evenement.wheel.y > 0) // scroll up
+		switch(commande)	
 			{
-			switch(commande)
-				{
-				case 2:
-					optionsChangeVitesse(&(*controleur).options, 1.1);break;
-				case 3:
-					optionsChangeVitesse(&(*controleur).options, 1.1);break;
-				default:
-					;
-				}
-			}
-		else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
-			{
-			switch(commande)
-				{
-				case 2:
-					optionsChangeVitesse(&(*controleur).options, 0.91);break;
-				case 3:
-					optionsChangeVitesse(&(*controleur).options, 0.91);break;
-				default:
-					;
-				}
+			case 0:
+				modeleChangeInitiale(&(*controleur).modele, 1, 1, -1, 0);break;
+			case 1:
+				modeleChangeInitiale(&(*controleur).modele, 1, 2, -1, 0);break;
+			case 2:
+				modeleChangeInitiale(&(*controleur).modele, 0, 1, -1, 0);break;
+			case 3:
+				modeleChangeInitiale(&(*controleur).modele, 1, 3, -1, 0);break;
+			case 4:
+				modeleChangeInitiale(&(*controleur).modele, 2, 1, -1, 0);break;
+			case 5:
+				modeleChangeInitiale(&(*controleur).modele, 2, 2, -1, 0);break;
+			default:
+				;
 			}
 		}
-*/
+
 	return 0;
 	}
 
