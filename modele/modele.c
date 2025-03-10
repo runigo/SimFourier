@@ -137,18 +137,18 @@ int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 	(void)duree;
 	(void)echelle;
 		//fprintf(stderr, "Calcul de la fonction initiale\n");
-	modeleProjectionInitiale(modele);
+	//modeleProjectionInitiale(modele);
 
 		//fprintf(stderr, "Projection du système sur les spectres\n");
 	modeleProjectionSystemeFourier(modele);
 
 		//fprintf(stderr, "Calcul des spectres\n");
-	//fourierCalcule(&(*modele).fourier);
+	fourierCalcule(&(*modele).fourier);
 
 		//fprintf(stderr, "Normalisation des spectres\n");
-	//fonctionNormalise(&(*modele).fourier.spectre, echelle);
-	//fonctionNormalise(&(*modele).fourier.gauche, echelle);
-	//fonctionNormalise(&(*modele).fourier.droite, echelle);
+	fonctionNormalise(&(*modele).fourier.spectre, echelle);
+	fonctionNormalise(&(*modele).fourier.gauche, echelle);
+	fonctionNormalise(&(*modele).fourier.droite, echelle);
 
 		//fprintf(stderr, "Mise à jour des observables\n");
 	//observablesMiseAJour(&(*modele).observables, &(*modele).modele.systeme);

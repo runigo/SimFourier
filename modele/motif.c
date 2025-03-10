@@ -70,10 +70,9 @@ int motifInitialisation(motifT * motif, int nombre) {
 		(*motif).B = 0.0;			//	Décalage verticale
 		//(*motif).sym = (float)(*motif).a / (float)(*motif).b;	//	facteur de symétrie (a/b)
 
-		(*motif).forme = 3;			//	0 : harmonique, 1 : carrée, 2 : triangle,
-								//	3 : gaussienne, 4 : Lorentzienne
+		(*motif).forme = 3;			//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle.
 
-		motifCalculParametres(motif, (*motif).a + (*motif).b);
+		motifCalculParametres(motif, 0);
 		motifCalculTriangle(motif);
 	//	motifCalculPosition(motif);
 
@@ -106,12 +105,44 @@ int motifCalculMotif(motifT * motif, int periode) {
 
 int motifCalculParametres(motifT * motif, int periode)
 	{
-			// Calcul des paramètres
+			// Calcul des paramètres a et b
 
-	(*motif).b = periode-(*motif).a;
+		//	a et b ne sont jamais négatif
+	if((*motif).a < 0 || (*motif).b < 0)
+		{
+		fprintf(stderr, "ERREUR motifCalculParametres, (*motif).a < 0 || (*motif).b < 0. \n");
+		exit(-1);
+		}
+
+		//	periode = 0 conserve les valeurs de a et b
+	if(periode < 1)
+		{
+		fprintf(stderr, "ERREUR motifCalculParametres, periode < 1. \n");
+		return -1;
+		}
+
+	double symetrie;
+
+	if((*motif).a == 0)
+		{
+		(*motif).b = periode;
+		}
+	else
+		{
+		if((*motif).b == 0)
+			{
+			(*motif).a = periode;
+			}
+		else
+			{
+			symetrie = (double)(*motif).b / (*motif).a;
+			(*motif).a = (int)(periode * symetrie);
+			(*motif).b = periode - (*motif).a;
+			}
+		}
 	if((*motif).b < 0)
 		{
-		fprintf(stderr, "ERREUR motifCalculParametres, disymétrie maximale atteinte. \n");
+		
 		(*motif).b = 0;
 		}
 	return 0;
@@ -122,9 +153,9 @@ int motifCalculUniforme(motifT * motif) {
 	printf("Enveloppe uniforme \n");
 	
 	int i;
-	int nombre=(*motif).a + (*motif).b;
+	int periode=(*motif).a + (*motif).b;
 
-	for(i=0;i<nombre;i++)
+	for(i=0;i<periode;i++)
 		{
 		(*motif).fonction.reel[i] = (*motif).A;
 		(*motif).fonction.imag[i] = (*motif).A;
@@ -153,7 +184,7 @@ int motifCalculCarre(motifT * motif) {
 		}
 	return 0;
 }
-
+/*
 int motifCalculTriangle(motifT * motif) {
 
 	printf("Enveloppe dent de scie \n");
@@ -200,6 +231,62 @@ int motifCalculTriangle(motifT * motif) {
 
 	return 0;
 }
+*/
+int motifCalculTriangle(motifT * motif) {
+
+	printf("Enveloppe dent de scie \n");
+	
+	int i;
+	int periode = (*motif).a +(*motif).b;
+	float alpha;
+	float beta;
+
+	if(periode < 1)
+		{
+		printf(" ERREUR : motifCalculTriangle, periode = %d \n", periode);
+		}
+	else
+		{
+		if((*motif).a == 0)
+			{
+			alpha = -(2.0*(*motif).A)/periode;
+			beta = (*motif).A;
+			for(i=0;i<periode;i++)
+				{
+				(*motif).fonction.reel[i] = i*alpha + beta;
+				}
+			}
+		else
+			{
+			if((*motif).b == 0)
+				{
+				alpha = (2.0*(*motif).A)/periode;
+				beta = -(*motif).A;
+				for(i=0;i<periode;i++)
+					{
+					(*motif).fonction.reel[i] = i*alpha + beta;
+					}
+				}
+			else	//	a et b sont différent de 0
+				{
+				alpha = (2.0*(*motif).A)/(*motif).a;
+				beta = -periode;
+				for(i=0;i<(*motif).a;i++)
+					{
+					(*motif).fonction.reel[i] = i * alpha + beta;
+					}
+				alpha = (2.0 * (*motif).A * (*motif).a) / (*motif).b;
+				beta = -(*motif).A * (1 - 2 * (float)(*motif).a / (*motif).b);
+				for(i=(*motif).a;i<periode;i++)
+					{
+					(*motif).fonction.reel[i] = i * alpha + beta;
+					}
+				}
+			}
+		}
+
+	return 0;
+}
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
 int motifChangeParametre(motifT * motif, int parametre, int variation){
@@ -228,12 +315,10 @@ int motifRegleParametre(motifT * motif, int parametre, int pourMille){
 			motifRegleForme(motif, pourMille);break;
 		case 1:
 			motifRegleSymetrie(motif, pourMille);break;
-		case 2:
-			motifRegleA(motif, pourMille);break;
-		case 3:
-			motifRegleB(motif, pourMille);break;
-		//case 4:
-			//motifChangeC(motif, variation);break;
+	//	case 2:
+		//	motifRegleA(motif, pourMille);break;
+	//	case 3:
+		//	motifRegleB(motif, pourMille);break;
 		default:
 			;
 		}
@@ -242,7 +327,7 @@ int motifRegleParametre(motifT * motif, int parametre, int pourMille){
 
 int motifChangeForme(motifT * motif, int forme)
 	{
-			//	Règle la forme motif
+			//	Règle la forme du motif
 
 	if(forme>-1 && forme<4)
 		{
@@ -250,11 +335,9 @@ int motifChangeForme(motifT * motif, int forme)
 		}
 	else
 		{
-		printf("Erreur dans motifChangeForme ");
+		printf("Erreur dans motifChangeForme \n");
 		(*motif).forme = 0;	
 		}
-
-	printf("Forme  = %i\n", (*motif).forme);
 
 	return 0;
 }
@@ -265,6 +348,7 @@ int motifChangeSymetrie(motifT * motif, int delta)
 
 	int a = (*motif).a;
 	int periode = (*motif).a + (*motif).b;
+
 	switch (delta)
 		{
 		case -1:
@@ -339,14 +423,14 @@ int motifChangeB(motifT * motif, int delta) {
 	if(decalage < AMPLITUDE_MIN)
 		{
 		(*motif).B = AMPLITUDE_MIN;
-		printf("Décalage minimale atteinte. ");
+		printf("Décalage minimale atteint. ");
 		}
 	else
 		{
 		if(decalage > AMPLITUDE_MAX)
 			{
 			(*motif).B = AMPLITUDE_MAX;
-			printf("Décalage maximale atteinte. ");
+			printf("Décalage maximale atteint. ");
 			}
 		else
 			{
@@ -362,14 +446,13 @@ int motifRegleForme(motifT * motif, int forme){
 
 	// Règle la forme du motif
 
-	if(forme>-1 && forme<6)
+	if(forme>-1 && forme<4)
 		{
-		(*motif).forme = forme;			//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle,
-							//	4 : gaussienne, 5 : lorentzienne
+		(*motif).forme = forme;	//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle.
 		}
 	else
 		{
-		printf("Erreur dans motifRegleForme ");
+		printf("ERREUR dans motifRegleForme ");
 		}
 
 	printf("Forme  = %i\n", (*motif).forme);
@@ -409,8 +492,8 @@ int motifRegleSymetrie(motifT * motif, int pourMille) {
 
 	return 0;
 	}
-
-int motifRegleA(motifT * motif, int delta) {
+/*
+int motifRegleA(motifT * motif, int pourMille) {
 
 	// Règle l'amplitude du motif
 
@@ -465,5 +548,5 @@ int motifRegleB(motifT * motif, int delta) {
 
 	return 0;
 	}
-
+*/
 //////////////////////////////////////////////////////////////////////////

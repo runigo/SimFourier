@@ -52,11 +52,11 @@ typedef struct PartieT partieT;
 		int etaMin;		//	=> Periode min = 2^etaMin
 		int rho;		//	Écart à la puissance de deux de la période [0,2^eta]
 		int rhoMax;		//	2^eta
-		int khi;		//	Décalage horizontal, déphasage : [0,N[
+		int khi;		//	Décalage horizontal, déphasage : [0,periode[
 		int periode;	//	Période : [8,N[
 
 		int complexe;		//	-1 SI enveloppe,
-						// 0 porteuse réelle, 1 porteuse complexe, 2 peigne de Dirac, 3 constante/
+						// 0 porteuse réelle, 1 porteuse complexe, 2 peigne de Dirac, 3 constante
 		int periodique;		//	-1 SI porteuse,
 							//	0 enveloppe non-périodique, 1 enveloppe périodique,
 							//	2 gaussienne, 3 lorentzienne, 4 sinus cardinal

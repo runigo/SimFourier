@@ -85,6 +85,7 @@ int partieInitialisation(partieT * partie, int nombre) {
 }
 
 /*--------------------  CALCUL DE LA PARTIE  ---------------------*/
+/*--------------------  CALCUL DES PARAMETRES INITIALES  ---------------------*/
 int partieCalculParametres(partieT * partie)
 	{
 			//	Calcul des paramètres de la partie
@@ -107,6 +108,26 @@ int partieCalculParametres(partieT * partie)
 
 	return 0;
 	}
+
+
+int partieCalculPeriode(partieT * partie) {
+
+	// Calcul de la période
+		//printf("partieCalculPeriode = %i\n", (*partie).periode);
+
+	(*partie).periode = exp2((*partie).eta) + (*partie).rho;			//	Période
+
+	if((*partie).complexe == -1)
+		{
+	printf("partieCalculPeriode : (*enveloppe).periode = %i\n", (*partie).periode);
+		}
+	else
+		{
+	printf("partieCalculPeriode : (*porteuse).periode = %i\n", (*partie).periode);
+		}
+
+	return (*partie).periode;
+}
 
 int partieCalculPartie(partieT * partie, double amplitude) {
 
@@ -154,27 +175,6 @@ int partieCalculPartie(partieT * partie, double amplitude) {
 		}
 
 	return 0;
-}
-
-/*--------------------  CALCUL DES PARAMETRES INITIALES  ---------------------*/
-
-int partieCalculPeriode(partieT * partie) {
-
-	// Calcul de la période
-		//printf("partieCalculPeriode = %i\n", (*partie).periode);
-
-	(*partie).periode = exp2((*partie).eta) + (*partie).rho;			//	Période
-
-	if((*partie).complexe == -1)
-		{
-	printf("partieCalculPeriode : (*enveloppe).periode = %i\n", (*partie).periode);
-		}
-	else
-		{
-	printf("partieCalculPeriode : (*porteuse).periode = %i\n", (*partie).periode);
-		}
-
-	return (*partie).periode;
 }
 
 /*--------------------  CALCUL DES PARTIES INITIALES  ---------------------*/
@@ -418,28 +418,23 @@ int partieRegleNature(partieT * partie, int etat){
 		// Selon porteuse ou enveloppe, regle la nature complexe ou périodique
 
 	//fprintf(stderr, " partieRegleNature, %d\n", etat);
+	//		periodique			-1 SI porteuse,
+							//	0 enveloppe non-périodique, 1 enveloppe périodique,
+							//	2 gaussienne, 3 lorentzienne, 4 sinus cardinal
 
 	if((*partie).complexe < 0) // Cas de l'enveloppe
 		{
-		if(etat==0)
+		if(etat > -1 && etat < 5)
 			{
 			(*partie).periodique = etat;
-			printf("enveloppe aperiodique \n");
-			fonctionInitialise(&(*partie).fonction, (*partie).fonction.nombre);
-			}
-		if(etat==1)
-			{
-			(*partie).periodique = etat;
-			printf("enveloppe periodique \n");
 			}
 		}
 
 	if((*partie).periodique < 0) // Cas de la porteuse
 		{
-		if(etat==0 || etat==1 || etat==2 || etat==3)
+		if(etat > -1 && etat < 4)
 			{
 			(*partie).complexe = etat;
-			printf("porteuse complexe = %i\n", (*partie).complexe);
 			}
 		}
 
@@ -481,8 +476,10 @@ int partieChangeNature(partieT * partie, int plusMoins){
 	}
 */
 int partieChangeEta(partieT * partie, int delta) {
+
 			//	Change eta de la partie
-int eta = (*partie).eta;
+
+	int eta = (*partie).eta;
 	switch (delta)
 		{
 		case -1:
@@ -545,8 +542,8 @@ int rho = (*partie).rho;
 	}
 
 int partieChangeKhi(partieT * partie, int delta) {
- // -1 : delta = 0 ; 0 : annule rho ; 1 réglage deltaPeriode
-			//	Change la fréquence de la partie
+
+			//	Change le déphasage de la partie
 
 	int khi = (*partie).khi;
 	switch (delta)
@@ -560,7 +557,7 @@ int partieChangeKhi(partieT * partie, int delta) {
 		default:
 			;
 		}
-	if(khi < (*partie).fonction.nombre && khi > -1)
+	if(khi < (*partie).periode && khi > -1)
 		{
 		(*partie).khi = khi;
 		}
@@ -568,18 +565,20 @@ int partieChangeKhi(partieT * partie, int delta) {
 		{
 		printf("khi limite atteint. ");
 		}
-	printf("khi  = %i\n", (*partie).khi);//%s, (*partie).nom
+	printf("khi  = %i\n", (*partie).khi);
 
 	return 0;
 	}
 
 int partieRegleEta(partieT * partie, int pourMille) {
 
-	fprintf(stderr, " partieRegleEta, pourMille = %d\n", pourMille);
+		//	Regle eta de la parie
+
+	//fprintf(stderr, " partieRegleEta, pourMille = %d\n", pourMille);
 
 	int eta = ( (*partie).etaMax * pourMille) / 1000;
 
-	fprintf(stderr, " partieRegleEta, eta = %d\n", eta);
+	//fprintf(stderr, " partieRegleEta, eta = %d\n", eta);
 
 	if( eta > (*partie).etaMin )
 		{
@@ -599,7 +598,7 @@ int partieRegleEta(partieT * partie, int pourMille) {
 		printf("eta minimum atteint. ");
 		}
 
-	printf("Eta  = %i\n", (*partie).eta);//%s, (*partie).nom
+	printf("Eta  = %i\n", (*partie).eta);
 
 	return 0;
 	}
@@ -626,7 +625,7 @@ int partieRegleKhi(partieT * partie, int pourMille) {
 	//	khi = KHI_MAX * pourMille / 1000
 	int khi = ( (*partie).fonction.nombre * pourMille ) / 1000;
 
-	if(khi < (*partie).fonction.nombre && khi > -1)
+	if(khi < (*partie).periode && khi > -1)
 		{
 		(*partie).khi = khi;
 		}
