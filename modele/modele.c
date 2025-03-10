@@ -48,8 +48,6 @@ int modeleProjectionSystemeEnergie(modeleT * modele);
 
 int modeleInitialisation(modeleT * modele, int nombre, float dt) {
 
-		(*modele).change = 1;	//	Indicateur de variation d'un paramètre
-
 		//fprintf(stderr, " Initialisation du système\n");
 	systemeInitialisation(&(*modele).systeme, nombre, dt);
 
@@ -95,7 +93,7 @@ int modeleProjectionInitiale(modeleT * modele) {
 		{
 		for(i=0;i<(*modele).systeme.nombre;i++)  //  Partie imaginaire
 			{
-		(*modele).systeme.actuel.imag[i]
+			(*modele).systeme.actuel.imag[i]
 			= (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.imag[i];
 			}
 		}
@@ -103,7 +101,7 @@ int modeleProjectionInitiale(modeleT * modele) {
 		{
 		for(i=0;i<(*modele).systeme.nombre;i++)  //  Partie imaginaire
 			{
-		(*modele).systeme.actuel.imag[i] = 0;
+			(*modele).systeme.actuel.imag[i] = 0;
 			}
 		}
 
@@ -146,9 +144,9 @@ int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 	fourierCalcule(&(*modele).fourier);
 
 		//fprintf(stderr, "Normalisation des spectres\n");
-	fonctionNormalise(&(*modele).fourier.spectre, echelle);
-	fonctionNormalise(&(*modele).fourier.gauche, echelle);
-	fonctionNormalise(&(*modele).fourier.droite, echelle);
+	//fonctionNormalise(&(*modele).fourier.spectre, echelle);
+	//fonctionNormalise(&(*modele).fourier.gauche, echelle);
+	//fonctionNormalise(&(*modele).fourier.droite, echelle);
 
 		//fprintf(stderr, "Mise à jour des observables\n");
 	//observablesMiseAJour(&(*modele).observables, &(*modele).modele.systeme);
@@ -167,7 +165,7 @@ int modeleEvolutionSimulation(modeleT * modele, int duree, int echelle)
 	modeleProjectionSystemeFourier(modele);
 
 		//fprintf(stderr, "Calcul des spectres\n");
-	//fourierCalcule(&(*modele).fourier);
+	fourierCalcule(&(*modele).fourier);
 
 		//fprintf(stderr, "Normalisation des spectres\n");
 	//fonctionNormalise(&(*modele).fourier.spectre, echelle);
@@ -200,7 +198,7 @@ int modeleEnergiePotentielle(modeleT * modele, int duree, int echelle)
 
 int modeleProjectionSystemeFourier(modeleT * modele)
 	{
-		//	Projection du système sur les fonctions de fourier
+		//	Projection du système sur la fonction de fourier
 	int i;
 	int j = (*modele).systeme.nombre;
 
@@ -209,7 +207,7 @@ int modeleProjectionSystemeFourier(modeleT * modele)
 		(*modele).fourier.spectre.reel[i]=(*modele).systeme.actuel.reel[i];
 		(*modele).fourier.spectre.imag[i]=(*modele).systeme.actuel.imag[i];
 		}
-
+/*
 	j = (*modele).systeme.nombre/2;
 
 	for(i=0;i<j;i++)
@@ -219,7 +217,7 @@ int modeleProjectionSystemeFourier(modeleT * modele)
 		(*modele).fourier.droite.reel[i]=(*modele).systeme.actuel.reel[i+j];
 		(*modele).fourier.droite.imag[i]=(*modele).systeme.actuel.imag[i+j];
 		}
-
+*/
 	return 0;
 	}
 
@@ -238,42 +236,18 @@ int modeleProjectionSystemeEnergie(modeleT * modele)
 	return 0;
 	}
 
-
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
 
-int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int variation, int pourMille) {
+int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int variation, int pourMille)
+	{
+			//	Change un paramètre de initiale et projette initiale sur le système
 
-	//	Change un paramètre de initiale et projette sur le système
-	fprintf(stderr, " modeleChangeInitiale, %d, %d, %d, %d \n", fonction, parametre, variation, pourMille);
-
-		//	Nettoyage des fonctions
-	initialeNettoyage(&(*modele).initiale);
-
-		//	Changement ou réglage du paramètre
-	if(variation == 0)
-		{		// Réglage du parametre
-		initialeRegleParametre(&(*modele).initiale, fonction, parametre, pourMille);
-		}
-	else
-		{		// Changement du parametre
-		initialeChangeParametre(&(*modele).initiale, fonction, parametre, variation);
-		}
-
-		// Calcul de la fonction initiale
-	initialeCalculInitiale(&(*modele).initiale);
+		// Changement du parametre
+	initialeChangeParametre(&(*modele).initiale, fonction, parametre, variation, pourMille);
 
 		// Projection sur le système
 	modeleProjectionInitiale(modele);
 
-		fprintf(stderr, " modeleChangeInitiale, sortie \n\n");
-	return 0;
-}
-
-
-/*----------------JAUGE ET NORMALISATION-------------------*/
-
-int modeleJaugeZero(modeleT * modele) {
-	(void)modele;
 	return 0;
 	}
 

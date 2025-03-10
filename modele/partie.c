@@ -45,15 +45,15 @@ int partieCalculSinusCardinal(partieT * partie, double amplitude);
 int partieCalculPeigne(partieT * partie, double amplitude);
 
 	//		CHANGEMENT DES PARAMÈTRES
-//int partieChangeNature(partieT * partie, int plusMoins); // complexe / périodique
-int partieChangeEta(partieT * partie, int plusMoins);
-int partieChangeRho(partieT * partie, int plusMoins);
-int partieChangeKhi(partieT * partie, int plusMoins);
+//int partieVariationNature(partieT * partie, int plusMoins); // complexe / périodique
+int partieVariationEta(partieT * partie, int plusMoins);
+int partieVariationRho(partieT * partie, int plusMoins);
+int partieVariationKhi(partieT * partie, int plusMoins);
 int partieRegleNature(partieT * partie, int etat); // complexe / périodique
 int partieRegleEta(partieT * partie, int pourMille);
 int partieRegleRho(partieT * partie, int pourMille);
 int partieRegleKhi(partieT * partie, int pourMille);
-//int partieChangePhase(partieT * partie, int forme);
+//int partieVariationPhase(partieT * partie, int forme);
 
 	//		JAUGE ET NORMALISATION
 int partieJaugeZero(partieT * partie);
@@ -367,7 +367,7 @@ int partieCalculPeigne(partieT * partie, double amplitude) {
 
 int partieRegleParametre(partieT * partie, int parametre, int pourMille) {
 
-	// Change un paramètre de la partie
+	// Fait varier un paramètre de la partie
 	fprintf(stderr, " partieRegleParametre, %d\n", parametre);
 
 	switch (parametre)
@@ -389,21 +389,21 @@ int partieRegleParametre(partieT * partie, int parametre, int pourMille) {
 	return 0;
 }
 
-int partieChangeParametre(partieT * partie, int parametre, int variation) {
+int partieVariationParametre(partieT * partie, int parametre, int variation) {
 
-	// Change un paramètre de la partie
-	fprintf(stderr, " partieChangeParametre, %d\n", parametre);
+	// Fait varier un paramètre de la partie
+	fprintf(stderr, " partieVariationParametre, %d\n", parametre);
 
 	switch (parametre)
 		{
 	//	case 0:
-	//		partieChangeNature(partie, variation);break;
+	//		partieVariationNature(partie, variation);break;
 		case 1:
-			partieChangeEta(partie, variation);break;
+			partieVariationEta(partie, variation);break;
 		case 2:
-			partieChangeRho(partie, variation);break;
+			partieVariationRho(partie, variation);break;
 		case 3:
-			partieChangeKhi(partie, variation);break;
+			partieVariationKhi(partie, variation);break;
 		default:
 			;
 		}
@@ -441,7 +441,7 @@ int partieRegleNature(partieT * partie, int etat){
 	return 0;
 	}
 /*
-int partieChangeNature(partieT * partie, int plusMoins){
+int partieVariationNature(partieT * partie, int plusMoins){
 (void) plusMoins;
 		// Selon porteuse ou enveloppe, change complexe ou périodique
 		printf("plusMoins = %i\n", plusMoins);
@@ -475,9 +475,9 @@ int partieChangeNature(partieT * partie, int plusMoins){
 	return 0;
 	}
 */
-int partieChangeEta(partieT * partie, int delta) {
+int partieVariationEta(partieT * partie, int delta) {
 
-			//	Change eta de la partie
+			//	Fait varier eta de la partie
 
 	int eta = (*partie).eta;
 	switch (delta)
@@ -513,9 +513,9 @@ int partieChangeEta(partieT * partie, int delta) {
 	return 0;
 	}
 
-int partieChangeRho(partieT * partie, int delta) {
+int partieVariationRho(partieT * partie, int delta) {
 	// -1 : delta = 0 ; 0 : annule rho ; 1 réglage deltaPeriode
-			//	Change la fréquence de la partie
+			//	Fait varier la fréquence de la partie
 int rho = (*partie).rho;
 	switch (delta)
 		{
@@ -541,9 +541,9 @@ int rho = (*partie).rho;
 	return 0;
 	}
 
-int partieChangeKhi(partieT * partie, int delta) {
+int partieVariationKhi(partieT * partie, int delta) {
 
-			//	Change le déphasage de la partie
+			//	Fait varier le déphasage de la partie
 
 	int khi = (*partie).khi;
 	switch (delta)
@@ -638,9 +638,9 @@ int partieRegleKhi(partieT * partie, int pourMille) {
 	return 0;
 	}
 /*
-int partieChangeAmplitude(partieT * partie, float facteur) {
+int partieVariationAmplitude(partieT * partie, float facteur) {
 
-			//	Change l'amplitude du signal
+			//	Fait varier l'amplitude du signal
 
 	float amplitude = (*partie).amplitude * facteur;
 	if(amplitude < AMPLITUDE_MAX && amplitude > AMPLITUDE_MIN)

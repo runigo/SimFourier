@@ -35,8 +35,7 @@ http://www.ai.univ-paris8.fr/~audibert/tra/FFT.pdf
 */
 #include "fourier.h"
 
-void polynome(fonctionT * test, int n);
-void fourierEvaluer(fonctionT * trF, fonctionT * echang, fonctionT * racineDe1, int k, int n);
+int fourierEvaluer(fonctionT * trF, fonctionT * echang, fonctionT * racineDe1, int k, int n);
 
 int fourierModuleMax1(fourierT * fourier);
 int fourierFiltreCoupe0(fourierT * fourier);
@@ -44,14 +43,14 @@ int fourierFiltreCoupe0(fourierT * fourier);
 int fourierInitialise(fourierT * fourier, int nombre)
 	{
 	fonctionInitialise(&(*fourier).racineNDe1, nombre);
-	fonctionInitialise(&(*fourier).racineNs2De1, nombre/2);
+	//fonctionInitialise(&(*fourier).racineNs2De1, nombre/2);
 	fonctionInitialise(&(*fourier).echange, nombre);
 	fonctionInitialise(&(*fourier).spectre, nombre);
-	fonctionInitialise(&(*fourier).gauche, nombre/2);
-	fonctionInitialise(&(*fourier).droite, nombre/2);
+	//fonctionInitialise(&(*fourier).gauche, nombre/2);
+	//fonctionInitialise(&(*fourier).droite, nombre/2);
 
 	fonctionRacinesNemesDe1(&(*fourier).racineNDe1, nombre);
-	fonctionRacinesNemesDe1(&(*fourier).racineNs2De1, nombre/2);
+	//fonctionRacinesNemesDe1(&(*fourier).racineNs2De1, nombre/2);
 
 	return 0;
 	}
@@ -59,8 +58,8 @@ int fourierInitialise(fourierT * fourier, int nombre)
 int fourierCalcule(fourierT * fourier)
 	{
 	fourierEvaluer(&(*fourier).spectre, &(*fourier).echange, &(*fourier).racineNDe1, 0, (*fourier).spectre.nombre);
-	fourierEvaluer(&(*fourier).gauche, &(*fourier).echange, &(*fourier).racineNs2De1, 0, (*fourier).gauche.nombre);
-	fourierEvaluer(&(*fourier).droite, &(*fourier).echange, &(*fourier).racineNs2De1, 0, (*fourier).droite.nombre);
+	//fourierEvaluer(&(*fourier).gauche, &(*fourier).echange, &(*fourier).racineNs2De1, 0, (*fourier).gauche.nombre);
+	//fourierEvaluer(&(*fourier).droite, &(*fourier).echange, &(*fourier).racineNs2De1, 0, (*fourier).droite.nombre);
 
 	//fourierFiltreCoupe0(fourier);
 
@@ -68,39 +67,39 @@ int fourierCalcule(fourierT * fourier)
 
 	return 0;
 	}
-
+/*
 int fourierModuleMax1(fourierT * fourier)
 	{
 	float max = fonctionModuleMax1(&(*fourier).spectre);
-	fonctionModuleDivise(&(*fourier).gauche, max);
-	fonctionModuleDivise(&(*fourier).droite, max);
+	//fonctionModuleDivise(&(*fourier).gauche, max);
+	//fonctionModuleDivise(&(*fourier).droite, max);
 
 	return 0;
 	}
-
+*/
 int fourierFiltreCoupe0(fourierT * fourier)
 	{
 	(*fourier).spectre.reel[0] = 0;
-	(*fourier).gauche.reel[0] = 0;
-	(*fourier).droite.reel[0] = 0;
+	//(*fourier).gauche.reel[0] = 0;
+	//(*fourier).droite.reel[0] = 0;
 
 	(*fourier).spectre.imag[0] = 0;
-	(*fourier).gauche.imag[0] = 0;
-	(*fourier).droite.imag[0] = 0;
+	//(*fourier).gauche.imag[0] = 0;
+	//(*fourier).droite.imag[0] = 0;
 
 	(*fourier).spectre.reel[(*fourier).spectre.nombre-1] = 0;
-	(*fourier).gauche.reel[(*fourier).gauche.nombre-1] = 0;
-	(*fourier).droite.reel[(*fourier).droite.nombre-1] = 0;
+	//(*fourier).gauche.reel[(*fourier).gauche.nombre-1] = 0;
+	//(*fourier).droite.reel[(*fourier).droite.nombre-1] = 0;
 
 	(*fourier).spectre.imag[(*fourier).spectre.nombre-1] = 0;
-	(*fourier).gauche.imag[(*fourier).gauche.nombre-1] = 0;
-	(*fourier).droite.imag[(*fourier).droite.nombre-1] = 0;
+	//(*fourier).gauche.imag[(*fourier).gauche.nombre-1] = 0;
+	//(*fourier).droite.imag[(*fourier).droite.nombre-1] = 0;
 
 	return 0;
 	}
 
 
-void fourierEvaluer(fonctionT * trFourier, fonctionT * echange, fonctionT * racineDe1, int k, int n)
+int fourierEvaluer(fonctionT * trFourier, fonctionT * echange, fonctionT * racineDe1, int k, int n)
 	{
 	double wPimpreel,wPimpimag;
 	int nsur2,i,j,jj,expo;
@@ -144,5 +143,6 @@ void fourierEvaluer(fonctionT * trFourier, fonctionT * echange, fonctionT * raci
 			(*trFourier).imag[k+i]=(*echange).imag[i];
 			}
 		}
+	return 0;
 	}
 

@@ -53,14 +53,14 @@ typedef struct MotifT motifT;
 		double A;	//	amplitude
 		double B;	//	décalage verticale
 
-		float sym;	//	facteur de symétrie (a/b)
+		//float sym;	//	facteur de symétrie (a/b)
 		};
 
 	//	Initialisation
 int motifInitialisation(motifT * motif, int nombre);
 
 	// Changement des paramètres
-int motifChangeParametre(motifT * motif, int parametre, int variation);
+int motifVariationParametre(motifT * motif, int parametre, int variation);
 int motifRegleParametre(motifT * motif, int parametre, int pourMille);
 
 	// Calcul du motif

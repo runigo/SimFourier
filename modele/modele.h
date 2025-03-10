@@ -46,8 +46,6 @@ typedef struct ModeleT modeleT;
 		fourierT fourier;
 
 		initialeT initiale;
-		
-		int change;			//	indicateur de changement
 
 		//moteursT moteurs;				// Moteur périodique et impulsion
 
@@ -66,7 +64,6 @@ int modeleInitialiseMasse(modeleT * modele, float masse);
 
 	//	Variation d'une variable d'initiale
 int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int variation, int pourMille);
-//int modeleReglageInitiale(modeleT * modele, int fonction, int parametre, int variation);
 
 	//	Évolution du modèle
 int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle);

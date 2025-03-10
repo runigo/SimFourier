@@ -77,8 +77,8 @@ int initialeCalculInitiale(initialeT * initiale) {
 		//fprintf(stderr, " Calcul des fonctions initiales \n");
 
 		//	Calcul des périodes
-	partieCalculParametres(&(*initiale).enveloppe);
-	partieCalculParametres(&(*initiale).porteuse);
+	//partieCalculParametres(&(*initiale).enveloppe);
+	//partieCalculParametres(&(*initiale).porteuse);
 
 		//	Calcul du motif
 	motifCalculMotif(&(*initiale).motif, (*initiale).enveloppe.periode);
@@ -146,37 +146,48 @@ int initialePeriodiseEnveloppe(initialeT * initiale) {
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
 
-int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation)
+int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation, int pourMille)
 	{
-							// Change un paramètre de initiale
-	switch (fonction)
-		{
-		case 0:	// Change un paramètre du motif
-			motifChangeParametre(&(*initiale).motif, parametre, variation);break;
-		case 1:	// Change un paramètre de l'enveloppe
-			partieChangeParametre(&(*initiale).enveloppe, parametre, variation);break;
-		case 2:	// Change un paramètre de la porteuse
-			partieChangeParametre(&(*initiale).porteuse, parametre, variation);break;
-		default:
-			;
-		}
-	return 0;
-	}
+	fprintf(stderr, "initialeChangeParametre, %d, %d, %d, %d \n", fonction, parametre, variation, pourMille);
 
-int initialeRegleParametre(initialeT * initiale, int fonction, int parametre, int pourMille)
-	{
-							// Règle un paramètre de initiale
-	switch (fonction)
-		{
-		case 0:	// Règle un paramètre du motif
-			motifRegleParametre(&(*initiale).motif, parametre, pourMille);break;
-		case 1:	// Règle un paramètre de l'enveloppe
-			partieRegleParametre(&(*initiale).enveloppe, parametre, pourMille);break;
-		case 2:	// Règle un paramètre de la porteuse
-			partieRegleParametre(&(*initiale).porteuse, parametre, pourMille);break;
-		default:
-			;
+		//	Nettoyage des fonctions
+	initialeNettoyage(initiale);
+
+		//	Fait varier ou règle du paramètre
+	if(variation == 0)
+		{				// Réglage du paramètre
+		switch (fonction)
+			{
+			case 0:	// Motif
+				motifRegleParametre(&(*initiale).motif, parametre, pourMille);break;
+			case 1:	// Enveloppe
+				partieRegleParametre(&(*initiale).enveloppe, parametre, pourMille);break;
+			case 2:	// Porteuse
+				partieRegleParametre(&(*initiale).porteuse, parametre, pourMille);break;
+			default:
+				;
+			}
 		}
+	else
+		{					// Variation du paramètre
+		switch (fonction)
+			{
+			case 0:	// Motif
+				motifVariationParametre(&(*initiale).motif, parametre, variation);break;
+			case 1:	// Enveloppe
+				partieVariationParametre(&(*initiale).enveloppe, parametre, variation);break;
+			case 2:	// Porteuse
+				partieVariationParametre(&(*initiale).porteuse, parametre, variation);break;
+			default:
+				;
+			}
+		}
+
+		// Calcul de la fonction initiale
+	initialeCalculInitiale(initiale);
+
+	fprintf(stderr, "initialeChangeParametre, sortie \n\n");
+
 	return 0;
 	}
 

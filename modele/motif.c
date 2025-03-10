@@ -35,10 +35,10 @@ termes.
 	//		INITIALISATION
 
 	//		CHANGEMENT DES PARAMÈTRES
-int motifChangeA(motifT * motif, int delta);
-int motifChangeB(motifT * motif, int delta);
-int motifChangeForme(motifT * motif, int forme);
-int motifChangeSymetrie(motifT * motif, int delta);
+int motifVariationA(motifT * motif, int delta);
+int motifVariationB(motifT * motif, int delta);
+int motifVariationForme(motifT * motif, int forme);
+int motifVariationSymetrie(motifT * motif, int delta);
 int motifRegleA(motifT * motif, int pourMille);
 int motifRegleB(motifT * motif, int pourMille);
 int motifRegleForme(motifT * motif, int forme);
@@ -105,12 +105,13 @@ int motifCalculMotif(motifT * motif, int periode) {
 
 int motifCalculParametres(motifT * motif, int periode)
 	{
-			// Calcul des paramètres a et b
+			// Calcul des paramètres a et b à partir de la période
+			//	conservant la symétrie
 
 		//	a et b ne sont jamais négatif
 	if((*motif).a < 0 || (*motif).b < 0)
 		{
-		fprintf(stderr, "ERREUR motifCalculParametres, (*motif).a < 0 || (*motif).b < 0. \n");
+		fprintf(stderr, "ERREUR motifCalculParametres, (*motif).a < 0 || (*motif).b < 0 à  l'entrée. \n");
 		exit(-1);
 		}
 
@@ -121,7 +122,7 @@ int motifCalculParametres(motifT * motif, int periode)
 		return -1;
 		}
 
-	double symetrie;
+	double symetrie = 1.0;
 
 	if((*motif).a == 0)
 		{
@@ -135,15 +136,15 @@ int motifCalculParametres(motifT * motif, int periode)
 			}
 		else
 			{
-			symetrie = (double)(*motif).b / (*motif).a;
-			(*motif).a = (int)(periode * symetrie);
-			(*motif).b = periode - (*motif).a;
+			symetrie = (double)(*motif).a / (*motif).b;
+			(*motif).b = (int)(periode /(1 + symetrie));
+			(*motif).a = periode - (*motif).b;
 			}
 		}
-	if((*motif).b < 0)
+	if((*motif).b < 0 || (*motif).a < 0)
 		{
-		
-		(*motif).b = 0;
+		fprintf(stderr, "ERREUR motifCalculParametres, (*motif).b < 0 || (*motif).a < 0, à la sortie. \n");
+		exit(-1);
 		}
 	return 0;
 }
@@ -237,7 +238,9 @@ int motifCalculTriangle(motifT * motif) {
 	printf("Enveloppe dent de scie \n");
 	
 	int i;
-	int periode = (*motif).a +(*motif).b;
+	int a = (*motif).a;
+	int b = (*motif).b;
+	int periode = a + b;
 	float alpha;
 	float beta;
 
@@ -247,7 +250,7 @@ int motifCalculTriangle(motifT * motif) {
 		}
 	else
 		{
-		if((*motif).a == 0)
+		if(a == 0)
 			{
 			alpha = -(2.0*(*motif).A)/periode;
 			beta = (*motif).A;
@@ -258,7 +261,7 @@ int motifCalculTriangle(motifT * motif) {
 			}
 		else
 			{
-			if((*motif).b == 0)
+			if(b == 0)
 				{
 				alpha = (2.0*(*motif).A)/periode;
 				beta = -(*motif).A;
@@ -269,15 +272,15 @@ int motifCalculTriangle(motifT * motif) {
 				}
 			else	//	a et b sont différent de 0
 				{
-				alpha = (2.0*(*motif).A)/(*motif).a;
+				alpha = (2.0*(*motif).A)/a;
 				beta = -periode;
-				for(i=0;i<(*motif).a;i++)
+				for(i=0;i<a;i++)
 					{
 					(*motif).fonction.reel[i] = i * alpha + beta;
 					}
-				alpha = (2.0 * (*motif).A * (*motif).a) / (*motif).b;
-				beta = -(*motif).A * (1 - 2 * (float)(*motif).a / (*motif).b);
-				for(i=(*motif).a;i<periode;i++)
+				alpha = (2.0 * (*motif).A * a) / b;
+				beta = -(*motif).A * (1 - 2 * (float)a / b);
+				for(i=a;i<periode;i++)
 					{
 					(*motif).fonction.reel[i] = i * alpha + beta;
 					}
@@ -289,18 +292,18 @@ int motifCalculTriangle(motifT * motif) {
 }
 
 /*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
-int motifChangeParametre(motifT * motif, int parametre, int variation){
+int motifVariationParametre(motifT * motif, int parametre, int variation){
 
 	switch (parametre)
 		{
 		case 0:
-			motifChangeForme(motif, variation);break;
+			motifVariationForme(motif, variation);break;
 		case 1:
-			motifChangeSymetrie(motif, variation);break;
+			motifVariationSymetrie(motif, variation);break;
 		case 2:
-			motifChangeA(motif, variation);break;
+			motifVariationA(motif, variation);break;
 		case 3:
-			motifChangeB(motif, variation);break;
+			motifVariationB(motif, variation);break;
 		default:
 			;
 		}
@@ -325,7 +328,7 @@ int motifRegleParametre(motifT * motif, int parametre, int pourMille){
 	return 0;
 }
 
-int motifChangeForme(motifT * motif, int forme)
+int motifVariationForme(motifT * motif, int forme)
 	{
 			//	Règle la forme du motif
 
@@ -335,20 +338,21 @@ int motifChangeForme(motifT * motif, int forme)
 		}
 	else
 		{
-		printf("Erreur dans motifChangeForme \n");
+		printf("Erreur dans motifVariationForme \n");
 		(*motif).forme = 0;	
 		}
 
 	return 0;
 }
 
-int motifChangeSymetrie(motifT * motif, int delta)
+int motifVariationSymetrie(motifT * motif, int delta)
 	{
-		// Change la symétrie du motif
+		// Fait varier la symétrie du motif
 
 	int a = (*motif).a;
 	int periode = (*motif).a + (*motif).b;
 
+	printf("AVANT LE SWITCH a  = %i, periode  = %i\n", a, periode);
 	switch (delta)
 		{
 		case -1:
@@ -360,7 +364,9 @@ int motifChangeSymetrie(motifT * motif, int delta)
 		default:
 			;
 		}
-	if(a <= periode)
+	printf("APRÈS LE SWITCH a  = %i, periode  = %i\n", a, periode);
+
+	if(a < periode)
 		{
 		if(a > -1)
 			{
@@ -381,14 +387,14 @@ int motifChangeSymetrie(motifT * motif, int delta)
 		(*motif).b = 0;
 		}
 
-	printf("a  = %i, b  = %i\n", (*motif).a, (*motif).b);
+	printf("(*motif).a  = %i, (*motif).b  = %i\n", (*motif).a, (*motif).b);
 
 	return 0;
 	}
 
-int motifChangeA(motifT * motif, int delta) {
+int motifVariationA(motifT * motif, int delta) {
 
-	// Change l'amplitude du motif
+	// Fait varier l'amplitude du motif
 
 	float amplitude = (*motif).A + delta;
 
@@ -414,9 +420,9 @@ int motifChangeA(motifT * motif, int delta) {
 	return 0;
 	}
 
-int motifChangeB(motifT * motif, int delta) {
+int motifVariationB(motifT * motif, int delta) {
 
-	// Change le décalage verticale du motif
+	// Fait varier le décalage verticale du motif
 
 	float decalage = (*motif).B + delta;
 

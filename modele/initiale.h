@@ -54,8 +54,7 @@ int initialeInitialisation(initialeT * initiale, int nombre);
 int initialeNettoyage(initialeT * initiale);
 
 	//	Change un paramètre de initiale
-int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation);
-int initialeRegleParametre(initialeT * initiale, int fonction, int parametre, int pourMille);
+int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation, int pourMille);
 
 	//	Calcul la fonction initiale
 int initialeCalculInitiale(initialeT * initiale);

@@ -46,9 +46,9 @@ typedef struct FourierT fourierT;
 
 		fonctionT spectre;		// Transformé de fourier
 
-		fonctionT gauche;		// Transformé de fourier de la moitié gauche
+		//fonctionT gauche;		// Transformé de fourier de la moitié gauche
 
-		fonctionT droite;		// Transformé de fourier de la moitié droite
+		//fonctionT droite;		// Transformé de fourier de la moitié droite
 		};
 
 int fourierInitialise(fourierT * fourier, int nombre);
