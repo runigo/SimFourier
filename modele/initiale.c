@@ -106,7 +106,6 @@ int initialeCalculEnveloppe(initialeT * initiale) {
 		case 3:	//	triangle
 			initialePeriodiseEnveloppe(initiale);break;
 		default:
-			partieCalculPartie(&(*initiale).enveloppe, (*initiale).motif.A);
 		}
 
 	return 0;

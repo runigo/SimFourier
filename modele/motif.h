@@ -47,13 +47,10 @@ typedef struct MotifT motifT;
 
 		int forme;	//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle.
 
-		int a;		//	Longueur horizontale (montée ou positif)
-		int b;		//	Longueur horizontale (descente ou négatif)
+		double symetrie;	//	0 <= symetrie <= 1
 
-		double A;	//	amplitude
-		double B;	//	décalage verticale
-
-		//float sym;	//	facteur de symétrie (a/b)
+		double amplitude;	//	amplitude
+		double moyenne;	//	décalage verticale
 		};
 
 	//	Initialisation

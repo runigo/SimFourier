@@ -68,7 +68,7 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 		// facteur de proportionalité entre les grandeurs de l'enveloppe et la position des rotatifs
 	(*projection).radianEta = PIS2 / ( (*initiale).enveloppe.etaMax - (*initiale).enveloppe.etaMin );
 	(*projection).radianRho = PIS2 / ( exp2((*initiale).enveloppe.eta) );
-	(*projection).radianSym = PIS2 / ( (*initiale).enveloppe.periode );
+	(*projection).radianSym = PIS2;
 
 		//	Projection sur les boutons rotatifs de la partie enveloppe
 	theta = (*projection).radianEta * ( (*initiale).enveloppe.eta - (*initiale).enveloppe.etaMin);
@@ -79,7 +79,7 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 	(*commandes).rotatif[1].positionX=(int)(-longueur*cos(theta));
 	(*commandes).rotatif[1].positionY=(int)(-longueur*sin(theta));
 	//	Symétrie motif
-	theta = (*projection).radianSym * ( (*initiale).motif.a );
+	theta = (*projection).radianSym * ( (*initiale).motif.symetrie );
 	(*commandes).rotatif[2].positionX=(int)(-longueur*cos(theta));
 	(*commandes).rotatif[2].positionY=(int)(-longueur*sin(theta));
 
