@@ -115,26 +115,26 @@ int initialePeriodiseEnveloppe(initialeT * initiale) {
 
 		// Périodise (ou non) le motif
 
-	int i, j, d=0;
+	int i, j, d = 0;
 	int nombre=(*initiale).enveloppe.fonction.nombre;
 
-	if((*initiale).enveloppe.periodique==0)
+	if((*initiale).enveloppe.periodique==0)	//	Enveloppe non périodique
 		{
 		d = (*initiale).enveloppe.khi;
 		for(i=0;i<nombre;i++)
 			{
-			j = (i+d) % nombre;
+			j = (i-d) % nombre;
 			(*initiale).enveloppe.fonction.reel[i] = (*initiale).motif.fonction.reel[j];
 			(*initiale).enveloppe.fonction.imag[i] = (*initiale).motif.fonction.imag[j];
 			}
 		}
-	else
+	else	//	Enveloppe périodique
 		{
 		d = (int)((2*PI*(*initiale).enveloppe.khi)/nombre);
 	printf("initialePeriodiseEnveloppe  (*initiale).enveloppe.periode = %i\n", (*initiale).enveloppe.periode);
 		for(i=0;i<nombre;i++)
 			{
-			j = (i+d) % (*initiale).enveloppe.periode;
+			j = (i-d) % (*initiale).enveloppe.periode;
 			(*initiale).enveloppe.fonction.reel[i] = (*initiale).motif.fonction.reel[j];
 			(*initiale).enveloppe.fonction.imag[i] = (*initiale).motif.fonction.imag[j];
 			}
@@ -147,14 +147,14 @@ int initialePeriodiseEnveloppe(initialeT * initiale) {
 
 int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation, int pourMille)
 	{
+		//	Change un paramètre (réglage ou variation)
+
 	fprintf(stderr, "initialeChangeParametre, %d, %d, %d, %d \n", fonction, parametre, variation, pourMille);
 
 		//	Nettoyage des fonctions
 	initialeNettoyage(initiale);
-
-		//	Fait varier ou règle du paramètre
 	if(variation == 0)
-		{				// Réglage du paramètre
+		{				// Réglage du paramètre ( fixe le paramètre à 'pourMille' )
 		switch (fonction)
 			{
 			case 0:	// Motif
@@ -168,7 +168,7 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 			}
 		}
 	else
-		{					// Variation du paramètre
+		{					// Variation du paramètre ( le fait varier de 'variation' )
 		switch (fonction)
 			{
 			case 0:	// Motif
@@ -190,4 +190,14 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 	return 0;
 	}
 
+
+/*------------------------  AFFICHAGE DES PARAMÈTRES  -------------------------*/
+
+int initialeAffiche(initialeT * initiale)
+	{
+	motifAffiche(&(*initiale).motif);
+	partieAffiche(&(*initiale).enveloppe);
+	partieAffiche(&(*initiale).porteuse);
+	return 0;
+	}
 //////////////////////////////////////////////////////////////////////////

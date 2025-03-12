@@ -77,6 +77,9 @@ int partieCalculUniforme(partieT * partie, double amplitude);
 int partieVariationParametre(partieT * partie, int parametre, int variation);
 int partieRegleParametre(partieT * partie, int parametre, int pourMille);
 
+	//	Affichage des paramètres
+int partieAffiche(partieT * partie);
+
 #endif
 
 ////////////////////////////////////////////////////////////

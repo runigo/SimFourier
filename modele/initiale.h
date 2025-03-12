@@ -59,5 +59,7 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 	//	Calcul la fonction initiale
 int initialeCalculInitiale(initialeT * initiale);
 
+	//	Affichage des paramètres
+int initialeAffiche(initialeT * initiale);
 #endif
 ////////////////////////////////////////////////////////////

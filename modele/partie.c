@@ -656,4 +656,12 @@ int partieVariationAmplitude(partieT * partie, float facteur) {
 	return 0;
 	}
 */
+int partieAffiche(partieT * partie)
+	{
+	printf("\nParamètres de la partie : \n");
+	printf("     eta = %d", (*partie).eta); printf("     etaMax = %d", (*partie).etaMax); printf("     etaMin = %d\n", (*partie).etaMin);
+	printf("     rho = %d", (*partie).rho); printf("     rhoMax = %d\n", (*partie).rhoMax);
+	printf("     khi = %d", (*partie).khi); printf("     periode = %d", (*partie).periode); printf("     complexe = %d\n", (*partie).complexe);
+	return 0;
+	}
 //////////////////////////////////////////////////////////////////////////

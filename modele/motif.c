@@ -236,7 +236,9 @@ int motifCalculTriangle(motifT * motif, int periode) {
 	return 0;
 }
 
-/*------------------------  CHANGEMENT DES PARAMÈTRES  -------------------------*/
+
+/*---------------------     CHANGEMENT DES PARAMÈTRES     ----------------------*/
+
 int motifVariationParametre(motifT * motif, int parametre, int variation){
 
 	switch (parametre)
@@ -346,23 +348,23 @@ int motifVariationMoyenne(motifT * motif, int delta) {
 
 	// Fait varier le décalage verticale du motif
 
-	float amplitude = (*motif).moyenne + (double)delta / 10;
+	float moyenne = (*motif).moyenne + (double)delta / 10;
 
-	if(amplitude < AMPLITUDE_MIN)
+	if(moyenne < AMPLITUDE_MIN)
 		{
 		(*motif).moyenne = AMPLITUDE_MIN;
-		printf("Amplitude minimale atteinte, symétrie  = %f\n", (*motif).moyenne);
+		printf("Moyenne minimale atteinte, moyenne  = %f\n", (*motif).moyenne);
 		return -1;
 		}
 
-	if(amplitude > AMPLITUDE_MAX)
+	if(moyenne > AMPLITUDE_MAX)
 		{
 		(*motif).moyenne = AMPLITUDE_MAX;
-		printf("Amplitude maximale atteinte, symétrie  = %f\n", (*motif).moyenne);
+		printf("Moyenne maximale atteinte, moyenne  = %f\n", (*motif).moyenne);
 		return 1;
 		}
 
-	(*motif).moyenne = amplitude;
+	(*motif).moyenne = moyenne;
 	printf("Amplitude motif = %f\n", (*motif).moyenne);
 
 	return 0;
@@ -468,4 +470,11 @@ int motifRegleB(motifT * motif, int delta) {
 	return 0;
 	}
 */
+int motifAffiche(motifT * motif)
+	{
+	printf("\nParamètres du motif : \n");
+	printf("     forme = %d", (*motif).forme);printf("     symetrie = %f\n", (*motif).symetrie);
+	printf("     amplitude = %f", (*motif).amplitude);printf("     moyenne = %f\n", (*motif).moyenne);
+	return 0;
+	}
 //////////////////////////////////////////////////////////////////////////

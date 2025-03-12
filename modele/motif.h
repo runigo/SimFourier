@@ -56,12 +56,15 @@ typedef struct MotifT motifT;
 	//	Initialisation
 int motifInitialisation(motifT * motif, int nombre);
 
+	// Calcul du motif
+int motifCalculMotif(motifT * motif, int periode);
+
 	// Changement des paramètres
 int motifVariationParametre(motifT * motif, int parametre, int variation);
 int motifRegleParametre(motifT * motif, int parametre, int pourMille);
 
-	// Calcul du motif
-int motifCalculMotif(motifT * motif, int periode);
+	//	Affichage des paramètres
+int motifAffiche(motifT * motif);
 
 #endif
 
