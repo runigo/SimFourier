@@ -97,15 +97,14 @@ int initialeCalculEnveloppe(initialeT * initiale) {
 
 				// Calcul de l'enveloppe
 
-	switch ((*initiale).motif.forme)
+	switch ((*initiale).enveloppe.periodique)
 		{
+		case 0:	//	harmonique
+			initialePeriodiseEnveloppe(initiale);break;
 		case 1:	//	harmonique
 			initialePeriodiseEnveloppe(initiale);break;
-		case 2:	//	rectangle
-			initialePeriodiseEnveloppe(initiale);break;
-		case 3:	//	triangle
-			initialePeriodiseEnveloppe(initiale);break;
 		default:
+			partieCalculPartie(&(*initiale).enveloppe, (*initiale).motif.amplitude);
 		}
 
 	return 0;

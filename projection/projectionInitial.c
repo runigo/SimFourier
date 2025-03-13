@@ -110,23 +110,24 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 			(*commandes).selectif[1].etat=1;break;
 		case 3: //	Dent de scie
 			(*commandes).selectif[2].etat=1;break;
-		case 4: //	Gaussienne
-			(*commandes).selectif[6].etat=1;break;
-		case 5: //	Lorentzienne
-			(*commandes).selectif[7].etat=1;break;
-		case 6: //	Sinus cardinale
-			(*commandes).selectif[8].etat=1;break;
 		default:
 			;
 		}
 
-	if((*initiale).enveloppe.periodique == 1)
-		{
-		(*commandes).selectif[5].etat=1; //	Apériodique
-		}
-	else
-		{
-		(*commandes).selectif[4].etat=1; //	Périodique
+			//	Forme de l'enveloppe
+	switch((*initiale).enveloppe.periodique) {
+		case 0: //	périodique
+			(*commandes).selectif[4].etat=1;break;
+		case 1: //	non périodique
+			(*commandes).selectif[5].etat=1;break;
+		case 2: //	Gaussienne
+			(*commandes).selectif[6].etat=1;break;
+		case 3: //	Lorentzienne
+			(*commandes).selectif[7].etat=1;break;
+		case 4: //	Sinus cardinale
+			(*commandes).selectif[8].etat=1;break;
+		default:
+			;
 		}
 
 	switch((*initiale).porteuse.complexe)

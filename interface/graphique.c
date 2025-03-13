@@ -53,13 +53,12 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface)
 	{
     if (graphique == NULL || interface == NULL)
     	{
-        return -1; // Erreur : pointeur non valide
+		fprintf(stderr, "ERREUR : graphiqueInitialisation, pointeur non valide");
+		exit(0);
 	    }
 
 	int fenetreX;
 	int fenetreY;
-
-	//(*graphique).taille = taille;
 
 	SDL_GetWindowSize((*interface).fenetre, &fenetreX, &fenetreY);
 
@@ -178,7 +177,7 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	{
 		// Dessine les commandes du menu initiale
 
-	SDL_Rect coordonnee = {0, (*graphique).fenetreY - 35, 238, 35};
+	SDL_Rect coordonnee = {0, 0, 35, 35};
 
 	//int centrage = 12;
 	coordonnee.w=(*commandes).selectifsDroite-(*commandes).selectifsGauche;

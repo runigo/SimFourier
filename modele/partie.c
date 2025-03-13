@@ -133,7 +133,6 @@ int partieCalculPartie(partieT * partie, double amplitude) {
 
 				// Calcul de l'enveloppe
 
-				
 		//	periodique : 0 enveloppe non-périodique, 1 enveloppe périodique,
 					//	2 gaussienne, 3 lorentzienne, 4 sinus cardinal
 
