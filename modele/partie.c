@@ -106,6 +106,8 @@ int partieCalculParametres(partieT * partie)
 
 	partieCalculPeriode(partie);
 
+	//	Calcul de (*partie).khiMax ?
+
 	return 0;
 	}
 
@@ -119,11 +121,11 @@ int partieCalculPeriode(partieT * partie) {
 
 	if((*partie).complexe == -1)
 		{
-	printf("partieCalculPeriode : (*enveloppe).periode = %i\n", (*partie).periode);
+		printf("partieCalculPeriode : (*enveloppe).periode = %i\n", (*partie).periode);
 		}
 	else
 		{
-	printf("partieCalculPeriode : (*porteuse).periode = %i\n", (*partie).periode);
+		printf("partieCalculPeriode : (*porteuse).periode = %i\n", (*partie).periode);
 		}
 
 	return (*partie).periode;

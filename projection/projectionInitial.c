@@ -49,9 +49,9 @@ int projectionInitialInitialise(projectionInitialT * projection, int nombre)
 	{
 		//	facteur de proportionalité entre les grandeurs et la position des rotatifs
 
-	(*projection).radianEta = PIS2 / ( log2(nombre) - 1);
-	(*projection).radianRho = PIS2 / (log2(nombre) - 2);
-	(*projection).radianSym = PIS2 / ( nombre - 1 );
+	(*projection).radianEta = nombre;
+	(*projection).radianRho = nombre;
+	(*projection).radianSym = nombre;
 
 	return 0;
 	}
@@ -88,11 +88,11 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 	(*projection).radianRho = PIS2 / ( exp2((*initiale).porteuse.eta) );
 
 		//	Projection sur les boutons rotatifs de la partie porteuse
-	theta = PIS2 * (*projection).radianEta * ( (*initiale).porteuse.eta );
+	theta = (*projection).radianEta * ( (*initiale).porteuse.eta - (*initiale).porteuse.etaMin);
 	(*commandes).rotatif[3].positionX=(int)(-longueur*cos(theta));
 	(*commandes).rotatif[3].positionY=(int)(-longueur*sin(theta));
 	//	Période porteuse
-	theta = DEUXPI * (*projection).radianRho * ( (*initiale).porteuse.rho );
+	theta = (*projection).radianRho * ( (*initiale).porteuse.rho );
 	(*commandes).rotatif[4].positionX=(int)(-longueur*cos(theta));
 	(*commandes).rotatif[4].positionY=(int)(-longueur*sin(theta));
 
