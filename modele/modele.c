@@ -62,9 +62,14 @@ int modeleInitialisation(modeleT * modele, int nombre, float dt) {
 	return 0;
 }
 
+/*------------------------  ÉVOLUTION DU MODÈLE  -------------------------*/
+
 int modeleIncrementationInitiale(modeleT * modele) {
 
-		//fprintf(stderr, " Incrémentation ancien et nouveau \n");
+			//	Initialisation des positions "ancien" et "nouveau"
+			//	au positions "actuel" (initialisées par "modeleProjectionInitiale")
+
+		//fprintf(stderr, " Initialisation ancien et nouveau \n");
 
 	int i;
 	for(i=0;i<(*modele).systeme.nombre;i++)
@@ -80,8 +85,9 @@ int modeleIncrementationInitiale(modeleT * modele) {
 
 int modeleProjectionInitiale(modeleT * modele) {
 
-	// Projette les positions initiales sur le système
+	// Projette les positions initiales sur le système = Calcul de la fonction initiale
 		//fprintf(stderr, " Projection sur le système\n");
+
 	int i;
 	for(i=0;i<(*modele).systeme.nombre;i++)  //  Partie réelle
 		{
@@ -128,7 +134,6 @@ int modeleProjectionInitiale(modeleT * modele) {
 	return 0;
 }
 */
-/*------------------------  ÉVOLUTION DU MODÈLE  -------------------------*/
 
 int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 	{

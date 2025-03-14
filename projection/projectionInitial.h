@@ -39,7 +39,8 @@ termes.
 #include "../interface/commandes.h"
 
 				//		Projections du systeme sur les commandes
-				//		les capteurs et les graphes
+				//		les capteurs et les graphes 3D
+				//			MODE  INITIAL
 
 typedef struct ProjectionInitialT projectionInitialT;
 	struct ProjectionInitialT
@@ -51,6 +52,7 @@ typedef struct ProjectionInitialT projectionInitialT;
 			// facteurs entre les grandeurs et la position des boutons rotatifs
 		double radianEta;
 		double radianRho;
+		double radianKhi;
 		double radianSym;
 		};
 

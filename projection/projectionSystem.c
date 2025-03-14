@@ -41,7 +41,6 @@ int projectionReinitialiseBase(projectionSystemT * projection);
 
 	//	PROJECTION
 int projectionPerspectiveChaine(projectionSystemT * projection, grapheT * graphe);
-//int projectionSystemeChaine3D(systemeT * systeme, projectionSystemT * projection, grapheT * graphe);
 int projectionSystemeGraphes3D(modeleT * modele, graphesT * graphes);
 
 int projectionInitialiseSupport(projectionSystemT * projection, int nombre);
@@ -313,7 +312,7 @@ int projectionSystemeGraphes3D(modeleT * modele, graphesT * graphes){
 
 	int j=nombre/2;
 
-	for(i=0;i<j;i++)
+	for(i=0;i<j;i++)	//	Projection et retournement
 		{
 		(*graphes).fourier.point[i].y = (*modele).fourier.spectre.reel[j-i];		//[2*i]
 		(*graphes).fourier.point[i].z = (*modele).fourier.spectre.imag[j-i];		//[2*i]

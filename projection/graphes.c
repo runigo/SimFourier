@@ -1,10 +1,11 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-(SiCP 1.3.7  simulateur de chaîne de pendules septembre 2017)
-SimFourier 1.0 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
+(D'après SiCP 1.3.7  simulateur de chaîne de pendules, septembre 2017)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -61,15 +62,15 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	(*graphe).gauche = 0;
 
 	(*graphe).echelle = ECHELLE_IMP;
-	(*graphe).longueur = LONGUEUR_IMP;
-	(*graphe).rayon = RAYON_IMP;
+	//(*graphe).longueur = LONGUEUR_IMP;
+	//(*graphe).rayon = RAYON_IMP;
 
-	(*graphe).ratiox = 0;
-	(*graphe).ratioy = 0;
+	(*graphe).ratiox = 0.0;
+	(*graphe).ratioy = 0.0;
 
 	for(i=0;i<NOMBRE_MAX;i++){
-		vecteurInitialisePolaire(&(*graphe).point[i],0.0,0.0,0.0);
-		vecteurInitialisePolaire(&(*graphe).axe[i],0.0,0.0,0.0);
+		vecteurInitialisePolaire(&(*graphe).point[i], 0.0, 0.0, 0.0);
+		vecteurInitialisePolaire(&(*graphe).axe[i], 0.0, 0.0, 0.0);
 		(*graphe).xp[i] = 0;
 		(*graphe).yp[i] = 0;
 		(*graphe).xa[i] = 0;
@@ -152,16 +153,20 @@ int grapheInitialiseSupport(grapheT * graphe){
 	(*graphe).support[4].x = -4.2 * (*graphe).echelle;
 	(*graphe).support[5].x = -4.2 * (*graphe).echelle;
 
-		// Axe X'X
-	//a=-4.2*echelle
-	//b=2.7*echelle
-	//y=a
-	//x=(b-a)/N=7.9*echelle/nombre
+		//	Initialisation des abscisses du graphe
 	int nombre=(*graphe).nombre;
-	for(i=0;i<nombre;i++)
+	if(nombre==0)
 		{
-		(*graphe).point[i].x = (7.9 * (float)i/nombre - 4.2) * (*graphe).echelle ;
-		(*graphe).axe[i].x = (7.9 * (float)i/nombre - 4.2) * (*graphe).echelle ;
+		printf("ERREUR, grapheInitialiseSupport, nombre == 0\n");
+		exit(0);
+		}
+	else
+		{
+		for(i=0;i<nombre;i++)
+			{
+			(*graphe).point[i].x = (7.9 * (float)i/nombre - 4.2) * (*graphe).echelle ;
+			(*graphe).axe[i].x = (7.9 * (float)i/nombre - 4.2) * (*graphe).echelle ;
+			}
 		}
 	return 0;
 	}

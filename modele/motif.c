@@ -313,7 +313,7 @@ int motifVariationSymetrie(motifT * motif, int delta)
 		}
 
 	(*motif).symetrie = symetrie;
-	printf("Symétrie maximale atteinte, symétrie  = %f\n", (*motif).symetrie);
+	printf("Symétrie  = %f\n", (*motif).symetrie);
 
 	return 0;
 	}
@@ -391,8 +391,9 @@ int motifRegleForme(motifT * motif, int forme){
 int motifRegleSymetrie(motifT * motif, int pourMille) {
 
 	// Règle l'asymétrie du motif
+		//printf("motifRegleSymetrie, entrée, pourMille = %f \n", pourMille);
 
-	int symetrie = (double)pourMille / 1000;
+	double symetrie = (double)pourMille / 1000;
 
 	if(symetrie < 0)
 		{
@@ -409,7 +410,8 @@ int motifRegleSymetrie(motifT * motif, int pourMille) {
 		}
 
 	(*motif).symetrie = symetrie;
-	printf("Symétrie maximale atteinte, symétrie  = %f\n", (*motif).symetrie);
+	printf("Symétrie = %f\n", (*motif).symetrie);
+		printf("motifRegleSymetrie, sortie \n");
 
 	return 0;
 	}

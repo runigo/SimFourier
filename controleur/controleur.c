@@ -201,15 +201,15 @@ int controleurConstructionGraphique(controleurT * controleur)
 		//fprintf(stderr, "Nettoyage de l'affichage\n");
 	graphiqueNettoyage(&(*controleur).graphique);
 
+		//fprintf(stderr, "Dessin des graphes\n");
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).graphes.fonction);
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).graphes.fourier);
+
 		//fprintf(stderr, "Dessin des Commandes\n");
 	graphiqueCommandes(&(*controleur).graphique, &(*controleur).commandes, (*controleur).options.mode);
 
 		//fprintf(stderr, "Dessin des capteurs\n");
 	//graphiqueCapteurs(&(*controleur).graphique, &(*controleur).capteurs);
-
-		//fprintf(stderr, "Dessin des graphes\n");
-	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).graphes.fonction);
-	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).graphes.fourier);
 
 		//fprintf(stderr, "Mise à jour de l'affichage\n");
 	graphiqueMiseAJour(&(*controleur).graphique);

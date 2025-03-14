@@ -53,7 +53,7 @@ typedef struct PartieT partieT;
 		int rho;		//	Écart à la puissance de deux de la période [0,2^eta]
 		int rhoMax;		//	2^eta
 		int khi;		//	Décalage horizontal, déphasage : [0,periode[
-		int periode;	//	Période : [8,N[
+		int periode;	//	Période : [2^etaMin, nombre[
 
 		int complexe;		//	-1 SI enveloppe,
 						// 0 porteuse réelle, 1 porteuse complexe, 2 peigne de Dirac, 3 constante

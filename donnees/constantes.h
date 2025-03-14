@@ -1,8 +1,8 @@
 /*
-Copyright février 2025, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2.2 Transformation de Fourier
-(d'après SiCF 2.2 simulateur de chaîne de pendules, octobre 2020)
+(D'après SiCF 2.2 simulateur de chaîne de pendules, octobre 2020)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
@@ -53,6 +53,7 @@ termes.
 	//  TAILLE IMPLICITE DE LA FENÊTRE
 #define FENETRE_X 1200
 #define FENETRE_Y 800
+	//  TAILLE IMPLICITE DU MENU. X = Y / 4
 #define MENUS_X FENETRE_Y / 4
 #define MENUS_Y FENETRE_Y
 

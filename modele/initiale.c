@@ -73,7 +73,7 @@ int initialeNettoyage(initialeT * initiale) {
 /*--------------------  CALCUL DE LA FONCTION INITIALE  ---------------------*/
 
 int initialeCalculInitiale(initialeT * initiale) {
-	//	Mise à jour de la fonction initiale
+	//	Mise à jour des fonctions initiales
 		//fprintf(stderr, " Calcul des fonctions initiales \n");
 
 		//	Calcul des périodes
