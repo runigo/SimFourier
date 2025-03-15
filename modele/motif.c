@@ -187,12 +187,14 @@ int motifCalculTriangle(motifT * motif, int periode) {
 
 	if(periode < 4 || periode > (*motif).fonction.nombre)
 		{
-		fprintf(stderr, "ERREUR : motifCalculTriangle, periode = %d", periode);
-		exit(0);
+		fprintf(stderr, "ERREUR : motifCalculTriangle, periode = %d\n\n", periode);
+		motifAffiche(motif);
+		//exit(0);
 		}
 	if((*motif).symetrie < 0 || (*motif).symetrie > 1)
 		{
-		fprintf(stderr, "ERREUR : motifCalculTriangle, symetrie = %f", (*motif).symetrie);
+		fprintf(stderr, "ERREUR : motifCalculTriangle, symetrie = %f\n\n", (*motif).symetrie);
+		motifAffiche(motif);
 		exit(0);
 		}
 
@@ -218,8 +220,22 @@ int motifCalculTriangle(motifT * motif, int periode) {
 			}
 		else	//	a et b sont différent de 0
 			{
+			alpha = (*motif).amplitude / a;
+			for(i=0;i<a;i++)
+				{
+				(*motif).fonction.reel[i] = i * alpha;
+				}
+			alpha = (*motif).amplitude / (a-periode);
+			beta = ((*motif).amplitude * periode) / b;
+			for(i=a;i<periode;i++)
+				{
+				(*motif).fonction.reel[i] = i * alpha + beta;
+				}
+			}
+	/*	else	//	a et b sont différent de 0
+			{
 			alpha = (2.0*(*motif).amplitude)/a;
-			beta = -periode;
+			beta = -(*motif).amplitude;
 			for(i=0;i<a;i++)
 				{
 				(*motif).fonction.reel[i] = i * alpha + beta;
@@ -230,7 +246,7 @@ int motifCalculTriangle(motifT * motif, int periode) {
 				{
 				(*motif).fonction.reel[i] = i * alpha + beta;
 				}
-			}
+			}*/
 		}
 
 	return 0;

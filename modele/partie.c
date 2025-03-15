@@ -262,7 +262,7 @@ int partieCalculGaussienne(partieT * partie, double amplitude) {
 	for(i=0;i<(*partie).fonction.nombre;i++)
 		{
 		argument = amgis * (i-khi);
-		(*partie).fonction.reel[i] = amplitude * amgis * exp(-argument*argument);
+		(*partie).fonction.reel[i] = amplitude * exp(-argument*argument);
 		}
 
 	return 0;
@@ -288,7 +288,7 @@ int partieCalculLorentzienne(partieT * partie, double amplitude) {
 	for(i=0;i<(*partie).fonction.nombre;i++)
 		{
 		argument = ammag * (i-khi);
-		(*partie).fonction.reel[i] = amplitude * ammag /(1 + argument*argument);
+		(*partie).fonction.reel[i] = amplitude /(1 + argument*argument);
 		}
 
 	return 0;
