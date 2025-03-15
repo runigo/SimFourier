@@ -164,8 +164,8 @@ int grapheInitialiseSupport(grapheT * graphe){
 		{
 		for(i=0;i<nombre;i++)
 			{
-			(*graphe).point[i].x = (7.9 * (float)i/nombre - 4.2) * (*graphe).echelle ;
 			(*graphe).axe[i].x = (7.9 * (float)i/nombre - 4.2) * (*graphe).echelle ;
+			(*graphe).point[i].x = (*graphe).axe[i].x ;
 			}
 		}
 	return 0;

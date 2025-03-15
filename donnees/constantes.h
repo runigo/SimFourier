@@ -115,12 +115,9 @@ termes.
 
 		//---------------- PARAMÈTRES DE LA CORDE ---------------------
 
-#define NOMBRE_MIN 8 	//	Nombre minimal de points
+#define NOMBRE_MIN 64 	//	Nombre minimal de points
 #define NOMBRE_IMP 1024		//	Nombre implicite de points
 #define NOMBRE_MAX 8192 //	Nombre maximal de points
-
-#define FREQUENCE_MAX NOMBRE_MAX	//	Valeur maximale de la fréquence de la porteuse
-#define FREQUENCE_MIN NOMBRE_MIN	//	Valeur minimale de la fréquence de la porteuse
 
 #define AMPLITUDE_MAX 77.7	//	Valeur maximale de l'amplitude de la porteuse
 #define AMPLITUDE_MIN 0.077	//	Valeur minimale de l'amplitude de la porteuse

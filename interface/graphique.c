@@ -258,20 +258,34 @@ int graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 	{
 	int i;
 
-	graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
+			//	Dessin de la première tige
+	//	graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
+	//	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[(*graphe).nombre], (*graphe).yp[(*graphe).nombre], (*graphe).xa[(*graphe).nombre], (*graphe).ya[(*graphe).nombre]);
 
-	for(i=0;i<(*graphe).nombre;i++)		//	Dessin des tiges
+	if((*graphe).arriere == 0)
 		{
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
+		for(i=0;i<((*graphe).nombre-1);i++)
+			{
+				//	Dessin des tiges
+			graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
+			SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
+				//	Dessin de la courbe
+			graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
+			SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
+			}
 		}
-
-	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-
-	for(i=0;i<((*graphe).nombre-1);i++)		//	Dessin de la courbe
+	else
 		{
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
+		for(i=((*graphe).nombre-2);i>0;i--)
+			{
+				//	Dessin des tiges
+			graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
+			SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
+				//	Dessin de la courbe
+			graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
+			SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
+			}
 		}
-
 	return 0;
 	}
 

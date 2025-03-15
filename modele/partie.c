@@ -227,14 +227,7 @@ int partieCalculHarmonique(partieT * partie, double amplitude) {
 			for(i=0;i<nombre;i++)
 				{
 				(*partie).fonction.reel[i] = cos( ((double)i) / periode + khi );
-				}
-			if((*partie).complexe == 1)
-				{
 				(*partie).fonction.imag[i] = sin( ((double)i) / periode + khi );
-				}
-			else
-				{
-				(*partie).fonction.imag[i] = 0.0;
 				}
 			}
 		else	// Cas de l'enveloppe
@@ -321,7 +314,14 @@ int partieCalculSinusCardinal(partieT * partie, double amplitude) {
 	for(i=0;i<(*partie).fonction.nombre;i++)
 		{
 		argument = ammag * (i-khi);
-		(*partie).fonction.reel[i] = amplitude * sin(argument)/argument;
+		if(argument == 0.0)
+			{
+			(*partie).fonction.reel[i] = amplitude;
+			}
+		else
+			{
+			(*partie).fonction.reel[i] = amplitude * sin(argument)/argument;
+			}
 		}
 
 	return 0;
