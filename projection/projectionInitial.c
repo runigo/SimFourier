@@ -105,28 +105,11 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 
 				//	Projection sur les petits boutons de droite
 	int i;
+	int motif=0;
 	for(i=0;i<SELECTIF_COMMANDES;i++) (*commandes).selectif[i].etat = 0;
-
-			//	Forme du motif
-	switch((*initiale).motif.forme) {
-		case 0:
-			(*commandes).selectif[0].etat = 1; break;	//	Constant
-		case 1:
-			(*commandes).selectif[3].etat = 1; break;	//	sinusoïdale
-		case 2:
-			(*commandes).selectif[1].etat = 1; break;	//	Rectangle
-		case 3:
-			(*commandes).selectif[2].etat = 1; break;	//	Dent de scie
-		default:
-			;
-		}
 
 			//	Forme de l'enveloppe
 	switch((*initiale).enveloppe.periodique) {
-		case 0:
-			(*commandes).selectif[4].etat = 1; break;	//	périodique
-		case 1:
-			(*commandes).selectif[5].etat = 1; break;	//	non périodique
 		case 2:
 			(*commandes).selectif[6].etat = 1; break;	//	Gaussienne
 		case 3:
@@ -134,9 +117,33 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 		case 4:
 			(*commandes).selectif[8].etat = 1; break;	//	Sinus cardinale
 		default:
-			;
+			motif=1;
 		}
 
+	if(motif == 1)		//	Forme du motif
+	 {
+		switch((*initiale).enveloppe.periodique) {
+			case 0:
+				(*commandes).selectif[4].etat = 1; break;	//	périodique
+			case 1:
+				(*commandes).selectif[5].etat = 1; break;	//	non périodique
+			default:
+				;
+			}
+		switch((*initiale).motif.forme) {
+			case 0:
+				(*commandes).selectif[0].etat = 1; break;	//	Constant
+			case 1:
+				(*commandes).selectif[3].etat = 1; break;	//	sinusoïdale
+			case 2:
+				(*commandes).selectif[1].etat = 1; break;	//	Rectangle
+			case 3:
+				(*commandes).selectif[2].etat = 1; break;	//	Dent de scie
+			default:
+				;
+			}
+	 	}
+	
 	switch((*initiale).porteuse.complexe)
 		{
 		case 0:

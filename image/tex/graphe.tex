@@ -1,0 +1,137 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                          MENU  DES GRAPHES
+
+                   %  Panneau
+  \begin{scope}[xshift=0 cm,yshift=0cm]
+    \fill[gray,draw=gray!10!] (-0.2, -0.2) rectangle (20.2,1.2);
+    \fill[panneauControles] 
+      (-0.1, -0.1) rectangle (20.1, 1.1);
+  \end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      POINT DE VUE
+
+  \begin{scope}[xshift=0.0 cm,yshift=0cm]
+
+    \begin{scope}[xshift=2 cm,yshift=0cm] %      Grille
+      \fill[boutonEteint] (0.1,0.0) rectangle (4.5,1);
+      \foreach \i in {1.1, 2.3,...,4} {\draw[boutonEteint] (\i,-0.0)--(\i,1.0);}
+      \begin{scope}[xshift=0.1 cm] %              Implicite
+        \draw[styleEteint] (0.1,0.7)--(0.9,0.3);
+        \draw[styleEteint] (0.5,0.7)--(0.5,0.3);
+        \draw[styleEteint] (0.3,0.5)--(0.7,0.5);
+      \end{scope}
+      \begin{scope}[xshift=1.2 cm] %              Imaginaire
+        \draw (0.5,0.7) node [gray]{$\mc{I}$\it{m}};
+        \draw[styleEteint] (0.1,0.3)--(0.9,0.3);
+        \draw[styleEteint] (0.5,0.1)--(0.5,0.5);
+      \end{scope}
+      \begin{scope}[xshift=2.4 cm] %              Réel
+        \draw (0.5,0.7) node [gray]{$\mc{R}$\it{e}};
+        \draw[styleEteint] (0.1,0.3)--(0.9,0.3);
+        \draw[styleEteint] (0.5,0.1)--(0.5,0.5);
+      \end{scope}
+    \end{scope}
+
+    \begin{scope}[xshift=7 cm,yshift=0.15cm, scale=0.7] %              Distance
+    \input{./fonction/lineaire.tex}
+    \end{scope}
+
+  \end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      TRACÉ DE LA COURBE
+
+  \begin{scope}[xshift=10.0 cm,yshift=0cm]
+    \begin{scope}[xshift=2 cm,yshift=0cm] %      Grille 1
+      \fill[boutonEteint] (0.1,0.0) rectangle (2.3,1);
+      \foreach \i in {1.1, 2.3,...,3} {\draw[boutonEteint] (\i,-0.0)--(\i,1.0);}
+      \begin{scope}[xshift=0.1 cm] %              points
+          %  dotted, loosely dotted, densely dotted
+        \draw[styleEteint, loosely dotted] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
+      \end{scope}
+      \begin{scope}[xshift=1.2 cm] %              relié
+        \draw[styleEteint] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
+      \end{scope}
+    \end{scope}
+    \begin{scope}[xshift=4.6 cm,yshift=0cm] %      Grille 2
+      \fill[boutonEteint] (0.1,0.0) rectangle (3.4,1);
+      \foreach \i in {1.1, 2.3,...,3} {\draw[boutonEteint] (\i,-0.0)--(\i,1.0);}
+      \begin{scope}[xshift=0.1 cm] %              vecteur
+        \draw[styleEteint] (0.3,0.6) -- (0.2,0.7);
+        \draw[styleEteint] (0.5,0.5) -- (0.25,0.45);
+        \draw[styleEteint] (0.7,0.4) -- (0.4,0.25);
+        \draw[styleEteint] (0.9,0.3) -- (0.7,0.1);
+      \end{scope}
+      \begin{scope}[xshift=1.2 cm] %              cartésien
+        \draw[styleEteint] (0.3,0.6) rectangle (0.2,0.7);
+        \draw[styleEteint] (0.5,0.5) rectangle (0.25,0.45);
+        \draw[styleEteint] (0.7,0.4) rectangle (0.4,0.25);
+        \draw[styleEteint] (0.9,0.3) rectangle (0.7,0.1);
+      \end{scope}
+    \end{scope}
+
+
+  \end{scope}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      PETIT BOUTON
+
+  \begin{scope}[xshift=0.0 cm,yshift=2cm]
+
+    \begin{scope}[xshift=2 cm,yshift=0cm] %      Grille
+      \fill[boutonSelect, line width=3pt] (0.1,0.0) rectangle (4.5,1);
+      \foreach \i in {1.1, 2.3,...,4} {\draw[boutonSelect, line width=3pt] (\i,-0.0)--(\i,1.0);}
+      \begin{scope}[xshift=0.1 cm] %              Implicite
+        \draw[boutonSelect] (0.1,0.7)--(0.9,0.3);
+        \draw[boutonSelect] (0.5,0.7)--(0.5,0.3);
+        \draw[boutonSelect] (0.3,0.5)--(0.7,0.5);
+      \end{scope}
+      \begin{scope}[xshift=1.2 cm] %              Imaginaire
+        \draw[boutonSelect] (0.5,0.7) node [black]{$\mc{I}$\it{m}};
+        \draw[boutonSelect] (0.1,0.3)--(0.9,0.3);
+        \draw[boutonSelect] (0.5,0.1)--(0.5,0.5);
+      \end{scope}
+      \begin{scope}[xshift=2.4 cm] %              Réel
+        \draw (0.5,0.7) node [black]{$\mc{R}$\it{e}};
+        \draw[boutonSelect] (0.1,0.3)--(0.9,0.3);
+        \draw[boutonSelect] (0.5,0.1)--(0.5,0.5);
+      \end{scope}
+    \end{scope}
+
+  \end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      TRACÉ DE LA COURBE
+
+  \begin{scope}[xshift=10.0 cm,yshift=2cm]
+    \begin{scope}[xshift=2 cm,yshift=0cm] %      Grille 1
+      \fill[boutonSelect, line width=3pt] (0.1,0.0) rectangle (2.3,1);
+      \foreach \i in {1.1, 2.3,...,3} {\draw[boutonSelect, line width=3pt] (\i,-0.0)--(\i,1.0);}
+      \begin{scope}[xshift=0.1 cm] %              points
+          %  dotted, loosely dotted, densely dotted
+        \draw[boutonSelect, loosely dotted] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
+      \end{scope}
+      \begin{scope}[xshift=1.2 cm] %              relié
+        \draw[boutonSelect] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
+      \end{scope}
+    \end{scope}
+    \begin{scope}[xshift=4.6 cm,yshift=0cm] %      Grille 2
+      \fill[boutonSelect, line width=3pt] (0.1,0.0) rectangle (3.4,1);
+      \foreach \i in {1.1, 2.3,...,3} {\draw[boutonSelect, line width=3pt] (\i,-0.0)--(\i,1.0);}
+      \begin{scope}[xshift=0.1 cm] %              vecteur
+        \draw[boutonSelect] (0.3,0.6) -- (0.2,0.7);
+        \draw[boutonSelect] (0.5,0.5) -- (0.25,0.45);
+        \draw[boutonSelect] (0.7,0.4) -- (0.4,0.25);
+        \draw[boutonSelect] (0.9,0.3) -- (0.7,0.1);
+      \end{scope}
+      \begin{scope}[xshift=1.2 cm] %              cartésien
+        \draw[boutonSelect] (0.3,0.6) rectangle (0.2,0.7);
+        \draw[boutonSelect] (0.5,0.5) rectangle (0.25,0.45);
+        \draw[boutonSelect] (0.7,0.4) rectangle (0.4,0.25);
+        \draw[boutonSelect] (0.9,0.3) rectangle (0.7,0.1);
+      \end{scope}
+    \end{scope}
+
+
+  \end{scope}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

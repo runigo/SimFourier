@@ -232,21 +232,6 @@ int motifCalculTriangle(motifT * motif, int periode) {
 				(*motif).fonction.reel[i] = i * alpha + beta;
 				}
 			}
-	/*	else	//	a et b sont différent de 0
-			{
-			alpha = (2.0*(*motif).amplitude)/a;
-			beta = -(*motif).amplitude;
-			for(i=0;i<a;i++)
-				{
-				(*motif).fonction.reel[i] = i * alpha + beta;
-				}
-			alpha = (2.0 * (*motif).amplitude * a) / b;
-			beta = -(*motif).amplitude * (1 - 2 * (float)a / b);
-			for(i=a;i<periode;i++)
-				{
-				(*motif).fonction.reel[i] = i * alpha + beta;
-				}
-			}*/
 		}
 
 	return 0;
@@ -338,7 +323,7 @@ int motifVariationAmplitude(motifT * motif, int delta) {
 
 	// Fait varier l'amplitude du motif
 
-	float amplitude = (*motif).amplitude + (double)delta / 10;
+	double amplitude = (*motif).amplitude + (double)delta / 10;
 
 	if(amplitude < AMPLITUDE_MIN)
 		{

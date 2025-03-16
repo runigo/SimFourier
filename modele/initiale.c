@@ -152,6 +152,15 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 
 		//	Nettoyage des fonctions
 	initialeNettoyage(initiale);
+
+	if(parametre == 0 && fonction == 0)	//	réglage de la forme du motif
+		{
+		if((*initiale).enveloppe.periodique > 1)	//	enveloppe 2, 3 ou 4
+			{
+			(*initiale).enveloppe.periodique = 0; 
+			}
+		}
+
 	if(variation == 0)
 		{				// Réglage du paramètre ( fixe le paramètre à 'pourMille' )
 		switch (fonction)

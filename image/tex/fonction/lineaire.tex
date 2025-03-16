@@ -1,0 +1,18 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    BOUTONS ROTATIF
+\begin{comment}
+%      Carrés gris
+  \fill[gray!50!] (0,0) rectangle (3,3);
+  \fill[gray] (1,0) rectangle (3,2);
+  \fill[gray!50!black] (2,0) rectangle (3,1);
+\end{comment}
+%%%%%%%%%
+
+  \shadedraw [bottom color=black!50!brown, top color=white]
+    (0,0) rectangle (5, 1); % disk with shadow and border
+  \foreach \angle in {0.5, 1, ..., 4.5} 
+    \draw[line width=1pt] (\angle, 0.8) -- (\angle, 1);
+ % \foreach \angle in {0,90,180,270}
+    \draw[line width=1.3pt] (2.5, 0.7) -- (2.5, 1);
+
