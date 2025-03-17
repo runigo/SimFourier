@@ -102,74 +102,50 @@ int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
 		{
 		graphiqueCommandesInitiale(graphique, commandes);
 		}
-	else
+/*	else
 		{
 		graphiqueCommandesSimulation(graphique, commandes);
-		}
+		}*/
 	
 	return 0;
 	}
 
 int graphiqueMenus(graphiqueT * graphique, int mode)
 	{
-		//	Dessine le menu correspondant au mode
+		//	Dessine les menus
 
+		//	Position du premier menu (zone 1, 2 et 3)
 	SDL_Rect coordonnee = {0, 0, (*graphique).facteur * MENUS_X, (*graphique).facteur * MENUS_Y};
-	if(mode==0)		//	Menu initiale
+
+	if(mode==0)	//	Mode initiale
 		{
 		if ((*graphique).textures.initiale != 0)
 			{
 			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.initiale, NULL, &coordonnee);
 			}
 		}
-	else		//	Menu simulation
+	else		//	Mode simulation
 		{
 		if ((*graphique).textures.simulation != 0)
 			{
 			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.simulation, NULL, &coordonnee);
 			}
 		}
-	return 0;
-	}
 
-int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes)
-	{
-		// Dessine les commandes du menu simulation
-
-	SDL_Rect coordonnee = {0, 0, (*graphique).fenetreX, (*graphique).fenetreY};
-	//int centrage = 5;
-	coordonnee.w=20;
-	coordonnee.h=20;
-	coordonnee.x = (*commandes).selectifsGauche;	// Positon X de la zone des petits boutons
-	int i;
-	int X, Y, x, y;
-
-	for(i=0;i<SELECTIF_INITIAL;i++)
-		{
-		if( (*commandes).selectifInitial[i].etat == 1 )
-			{
-			coordonnee.y = (*commandes).selectifInitial[i].Y; // Positon Y des petits boutons
-			//	Dessin des petits boutons
-			if ((*graphique).textures.mobile != 0)
-				{
-				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.mobile, NULL, &coordonnee);
-				}
-			}
+			//	Menu des graphes
+		//	Taille et position du menu du graphe fonction (zone 4)
+	coordonnee.w = (*graphique).facteur * 800;
+	coordonnee.h = (*graphique).facteur * 55;
+	coordonnee.y = 0;
+	coordonnee.x = (*graphique).facteur * MENUS_X;
+	if ((*graphique).textures.graphes != 0)
+		{	//	Affichage du menu de la zone 4
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.graphes, NULL, &coordonnee);
+			//	Taille et position du menu du graphe fourier (zone 6)
+		coordonnee.y = 300;
+			//	Affichage du menu de la zone 6
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.graphes, NULL, &coordonnee);
 		}
-
-	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-	X=(*commandes).rotatifsDroite;
-	for(i=0;i<ROTATIF_INITIAL;i++)
-		{
-		Y=(*commandes).rotatifInitial[i].Y+(*commandes).rotatifInitial[i].dY;
-		x=X+(*commandes).rotatifInitial[i].positionX;
-		y=Y+(*commandes).rotatifInitial[i].positionY;
-		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y+1, x, y+1);
-		}
-
 	return 0;
 	}
 
@@ -177,36 +153,35 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	{
 		// Dessine les commandes du menu initiale
 
-	SDL_Rect coordonnee = {0, 0, 35, 35};
-
-	//int centrage = 12;
-	coordonnee.w=(*commandes).selectifsDroite-(*commandes).selectifsGauche;
-	coordonnee.h=coordonnee.w;
+	SDL_Rect coordonnee = {0, 0, 35, 35};	//	Position et taille des boutons selectifs
+	coordonnee.w = (*commandes).selectifsDroite-(*commandes).selectifsGauche;
+	coordonnee.h = coordonnee.w;
 	coordonnee.y = 0;
-	coordonnee.x = (*commandes).selectifsGauche;	// Positon X des boutons selectifs
+	coordonnee.x = (*commandes).selectifsGauche;
 
-						// Boutons selectifs
+		//	Dessine les petits boutons sélectionés
 	int i;
 	for(i=0;i<SELECTIF_INITIAL;i++)
 		{
 		if((*commandes).selectifInitial[i].etat==1)
 			{
-			coordonnee.y = (*commandes).selectifInitial[i].Y; // Position Y du bouton
+			coordonnee.y = (*commandes).selectifInitial[i].Y; // Position y du bouton
 			if ((*graphique).textures.selectifInitial[i] != 0)
 				{
 				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifInitial[i], NULL, &coordonnee);
 				}
 			}
 		}
-						// Boutons rotatifs
+
+		//	Dessine les aiguilles des boutons rotatifs
 	int X, Y, x, y;
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-	X=(*commandes).rotatifsDroite;
+	X = (*commandes).rotatifsDroite;
 	for(i=0;i<ROTATIF_INITIAL;i++)
 		{
-		Y=(*commandes).rotatifInitial[i].Y+(*commandes).rotatifInitial[i].dY;
-		x=X+(*commandes).rotatifInitial[i].positionX;
-		y=Y+(*commandes).rotatifInitial[i].positionY;
+		Y = (*commandes).rotatifInitial[i].Y + (*commandes).rotatifInitial[i].dY;
+		x = X + (*commandes).rotatifInitial[i].positionX;
+		y = Y + (*commandes).rotatifInitial[i].positionY;
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);
@@ -216,7 +191,7 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	return 0;
 	}
 
-int graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe)
+int graphiqueAxeEtFonction(graphiqueT * graphique, grapheT * graphe)
 	{
 //
 //                                                Z

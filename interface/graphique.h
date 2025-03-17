@@ -64,7 +64,7 @@ int graphiqueFond(graphiqueT * graphique, int modeDessin);
 
 int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode);
 
-int graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe);
+int graphiqueAxeEtFonction(graphiqueT * graphique, grapheT * graphe);
 int graphiquePendule(graphiqueT * graphique, grapheT * graphe);
 
 #endif

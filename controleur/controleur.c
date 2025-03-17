@@ -229,11 +229,11 @@ int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe)
 		{
 		if((*graphe).modeSupport==1)
 			{
-			graphiquePenduleSupport(graphique, graphe);
+			graphiqueAxeEtFonction(graphique, graphe);
 			}
 		else
 			{
-			//graphiquePenduleSupportPlein(graphique, graphe);
+			//graphiqueAxeEtFonctionPlein(graphique, graphe);
 			}
 		}
 	return 0;

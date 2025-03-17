@@ -37,9 +37,7 @@ termes.
 int texturesNULL(texturesT * textures);
 int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage);
 int texturesSelectifsInitial(texturesT * textures, affichageT * affichage);
-
 int texturesMenus(texturesT * textures, affichageT * affichage);
-
 int texturesVoyants(texturesT * textures, affichageT * affichage);
 
 
@@ -401,7 +399,6 @@ int texturesMenus(texturesT * textures, affichageT * affichage)
 		fprintf(stderr,"ERREUR grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
 
-	(*textures).graphes = NULL;
 	return 0;
 }
 
