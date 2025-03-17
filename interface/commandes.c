@@ -81,16 +81,16 @@ int commandesInitialiseRotatifs(commandesT * commandes, double facteur)
 	{
 				//	Positions des boutons rotatifs
 	int i;
-	for(i=0;i<ROTATIF_COMMANDES;i++)
+	for(i=0;i<ROTATIF_INITIAL;i++)
 		{
-		rotatifInitialise(&(*commandes).rotatif[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
+		rotatifInitialise(&(*commandes).rotatifInitial[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
 		}
-	(*commandes).rotatif[0].Y = facteur * 75; 	//	Largeur
-	(*commandes).rotatif[1].Y = facteur * 168;	//	Largeur
-	(*commandes).rotatif[2].Y = facteur * 285;	//	Symetrie
-	(*commandes).rotatif[3].Y = facteur * 404;	//	Phase
-	(*commandes).rotatif[4].Y = facteur * 548;	//	Période
-	(*commandes).rotatif[5].Y = facteur * 640;	//	Période
+	(*commandes).rotatifInitial[0].Y = facteur * 75; 	//	Largeur
+	(*commandes).rotatifInitial[1].Y = facteur * 168;	//	Largeur
+	(*commandes).rotatifInitial[2].Y = facteur * 285;	//	Symetrie
+	(*commandes).rotatifInitial[3].Y = facteur * 404;	//	Phase
+	(*commandes).rotatifInitial[4].Y = facteur * 548;	//	Période
+	(*commandes).rotatifInitial[5].Y = facteur * 640;	//	Période
 
 	return 0;
 	}
@@ -102,24 +102,24 @@ int commandesInitialiseSelectifs(commandesT * commandes, double facteur)
 
 			//	Initialisation des boutons selectifs
 	int i;
-	for(i=0;i<SELECTIF_COMMANDES;i++)
+	for(i=0;i<SELECTIF_INITIAL;i++)
 		{
-		selectifInitialise(&(*commandes).selectif[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
+		selectifInitialise(&(*commandes).selectifInitial[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
 		}
 			// BOUTONS SELECTIFS SUIVANT Y
-	(*commandes).selectif[0].Y = facteur * 69;  	//	Constant
-	(*commandes).selectif[1].Y = facteur * 114;		//	Rectangle
-	(*commandes).selectif[2].Y = facteur * 159;		//	Scie
-	(*commandes).selectif[3].Y = facteur * 203;		//	Sinus
-	(*commandes).selectif[4].Y = facteur * 264;		//	Apériodique
-	(*commandes).selectif[5].Y = facteur * 310;		//	Périodique
-	(*commandes).selectif[6].Y = facteur * 355;		//	Gaussienne
-	(*commandes).selectif[7].Y = facteur * 400;		//	Lorentzienne
-	(*commandes).selectif[8].Y = facteur * 444;		//	Sinus Cardinal
-	(*commandes).selectif[9].Y = facteur * 543;		//	Constant
-	(*commandes).selectif[10].Y = facteur * 588;	//	Dirac
-	(*commandes).selectif[11].Y = facteur * 631;	//	Sinus
-	(*commandes).selectif[12].Y = facteur * 677;	//	Complexe
+	(*commandes).selectifInitial[0].Y = facteur * 69;  	//	Constant
+	(*commandes).selectifInitial[1].Y = facteur * 114;		//	Rectangle
+	(*commandes).selectifInitial[2].Y = facteur * 159;		//	Scie
+	(*commandes).selectifInitial[3].Y = facteur * 203;		//	Sinus
+	(*commandes).selectifInitial[4].Y = facteur * 264;		//	Apériodique
+	(*commandes).selectifInitial[5].Y = facteur * 310;		//	Périodique
+	(*commandes).selectifInitial[6].Y = facteur * 355;		//	Gaussienne
+	(*commandes).selectifInitial[7].Y = facteur * 400;		//	Lorentzienne
+	(*commandes).selectifInitial[8].Y = facteur * 444;		//	Sinus Cardinal
+	(*commandes).selectifInitial[9].Y = facteur * 543;		//	Constant
+	(*commandes).selectifInitial[10].Y = facteur * 588;	//	Dirac
+	(*commandes).selectifInitial[11].Y = facteur * 631;	//	Sinus
+	(*commandes).selectifInitial[12].Y = facteur * 677;	//	Complexe
 
 	return 0;
 	}
@@ -223,11 +223,11 @@ int commandeSelectifs(commandesT * commandes)
 			// Retourne le numéro du boutons sélectif
 	int i;
 		{
-		for(i=0;i<SELECTIF_COMMANDES;i++)
+		for(i=0;i<SELECTIF_INITIAL;i++)
 			{
 			//	Si dans la zone suivant Y
-			if((*commandes).selectif[i].Y>(*commandes).sourisHaut
-				&& ((*commandes).selectif[i].Y+(*commandes).selectif[i].dY)<(*commandes).sourisBas)
+			if((*commandes).selectifInitial[i].Y>(*commandes).sourisHaut
+				&& ((*commandes).selectifInitial[i].Y+(*commandes).selectifInitial[i].dY)<(*commandes).sourisBas)
 				return i;
 			}
 		}
@@ -239,11 +239,11 @@ int commandeRotatifs(commandesT * commandes)
 			// Retourne le numéro du boutons rotatif
 	int i;
 		{
-		for(i=0;i<ROTATIF_COMMANDES;i++)
+		for(i=0;i<ROTATIF_INITIAL;i++)
 			{
 			//	Si dans la zone suivant Y
-			if((*commandes).rotatif[i].Y>(*commandes).sourisHaut
-				&& ((*commandes).rotatif[i].Y+(*commandes).rotatif[i].dY)<(*commandes).sourisBas)
+			if((*commandes).rotatifInitial[i].Y>(*commandes).sourisHaut
+				&& ((*commandes).rotatifInitial[i].Y+(*commandes).rotatifInitial[i].dY)<(*commandes).sourisBas)
 				return i;
 			}
 		}

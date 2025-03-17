@@ -170,8 +170,8 @@ int controleSourisCliqRotatif(controleurT * controleur)
 	int rotatif = commandeRotatifs(&(*controleur).commandes);
 	//fprintf(stderr, "\n controleSourisCliqRotatif, numéro : %d\n", rotatif);
 			//	Position angulaire de la souris dans le rotatif
-	double angle = atan( (double)((*controleur).commandes.rotatif[rotatif].Y
-		+ (*controleur).commandes.rotatif[rotatif].dY - (*controleur).commandes.sourisY)
+	double angle = atan( (double)((*controleur).commandes.rotatifInitial[rotatif].Y
+		+ (*controleur).commandes.rotatifInitial[rotatif].dY - (*controleur).commandes.sourisY)
 		/ ((*controleur).commandes.rotatifsDroite - (*controleur).commandes.sourisX));
 	//fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
 

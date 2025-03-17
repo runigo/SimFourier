@@ -74,20 +74,20 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 			//	Projection sur les boutons rotatifs de la partie enveloppe
 		//	Période enveloppe, eta
 	theta = (*projection).radianEta * ((*initiale).enveloppe.eta - (*initiale).enveloppe.etaMin);
-	(*commandes).rotatif[0].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatif[0].positionY = (int)(-longueur*sin(theta));
+	(*commandes).rotatifInitial[0].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifInitial[0].positionY = (int)(-longueur*sin(theta));
 		//	Période enveloppe, rho
 	theta = (*projection).radianRho * ((*initiale).enveloppe.rho);
-	(*commandes).rotatif[1].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatif[1].positionY = (int)(-longueur*sin(theta));
+	(*commandes).rotatifInitial[1].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifInitial[1].positionY = (int)(-longueur*sin(theta));
 		//	Symétrie motif
 	theta = (*projection).radianSym * ( (*initiale).motif.symetrie );
-	(*commandes).rotatif[2].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatif[2].positionY = (int)(-longueur*sin(theta));
+	(*commandes).rotatifInitial[2].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifInitial[2].positionY = (int)(-longueur*sin(theta));
 		//	Phase motif
 	theta = (*projection).radianKhi * ( (*initiale).enveloppe.khi );
-	(*commandes).rotatif[3].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatif[3].positionY = (int)(-longueur*sin(theta));
+	(*commandes).rotatifInitial[3].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifInitial[3].positionY = (int)(-longueur*sin(theta));
 
 		// facteur de proportionalité entre les grandeurs de la porteuse et la position des rotatifs
 	(*projection).radianEta = PIS2 / ((*initiale).porteuse.etaMax - (*initiale).porteuse.etaMin);
@@ -96,26 +96,26 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 		//	Projection sur les boutons rotatifs de la partie porteuse
 	//	Période porteuse, eta
 	theta = (*projection).radianEta * ((*initiale).porteuse.eta - (*initiale).porteuse.etaMin);
-	(*commandes).rotatif[4].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatif[4].positionY = (int)(-longueur*sin(theta));
+	(*commandes).rotatifInitial[4].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifInitial[4].positionY = (int)(-longueur*sin(theta));
 	//	Période porteuse, rho
 	theta = (*projection).radianRho * ((*initiale).porteuse.rho);
-	(*commandes).rotatif[5].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatif[5].positionY = (int)(-longueur*sin(theta));
+	(*commandes).rotatifInitial[5].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifInitial[5].positionY = (int)(-longueur*sin(theta));
 
 				//	Projection sur les petits boutons de droite
 	int i;
 	int motif=0;
-	for(i=0;i<SELECTIF_COMMANDES;i++) (*commandes).selectif[i].etat = 0;
+	for(i=0;i<SELECTIF_INITIAL;i++) (*commandes).selectifInitial[i].etat = 0;
 
 			//	Forme de l'enveloppe
 	switch((*initiale).enveloppe.periodique) {
 		case 2:
-			(*commandes).selectif[6].etat = 1; break;	//	Gaussienne
+			(*commandes).selectifInitial[6].etat = 1; break;	//	Gaussienne
 		case 3:
-			(*commandes).selectif[7].etat = 1; break;	//	Lorentzienne
+			(*commandes).selectifInitial[7].etat = 1; break;	//	Lorentzienne
 		case 4:
-			(*commandes).selectif[8].etat = 1; break;	//	Sinus cardinale
+			(*commandes).selectifInitial[8].etat = 1; break;	//	Sinus cardinale
 		default:
 			motif=1;
 		}
@@ -124,21 +124,21 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 	 {
 		switch((*initiale).enveloppe.periodique) {
 			case 0:
-				(*commandes).selectif[4].etat = 1; break;	//	périodique
+				(*commandes).selectifInitial[4].etat = 1; break;	//	périodique
 			case 1:
-				(*commandes).selectif[5].etat = 1; break;	//	non périodique
+				(*commandes).selectifInitial[5].etat = 1; break;	//	non périodique
 			default:
 				;
 			}
 		switch((*initiale).motif.forme) {
 			case 0:
-				(*commandes).selectif[0].etat = 1; break;	//	Constant
+				(*commandes).selectifInitial[0].etat = 1; break;	//	Constant
 			case 1:
-				(*commandes).selectif[3].etat = 1; break;	//	sinusoïdale
+				(*commandes).selectifInitial[3].etat = 1; break;	//	sinusoïdale
 			case 2:
-				(*commandes).selectif[1].etat = 1; break;	//	Rectangle
+				(*commandes).selectifInitial[1].etat = 1; break;	//	Rectangle
 			case 3:
-				(*commandes).selectif[2].etat = 1; break;	//	Dent de scie
+				(*commandes).selectifInitial[2].etat = 1; break;	//	Dent de scie
 			default:
 				;
 			}
@@ -147,13 +147,13 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 	switch((*initiale).porteuse.complexe)
 		{
 		case 0:
-			(*commandes).selectif[11].etat = 1;break;	//	Réel
+			(*commandes).selectifInitial[11].etat = 1;break;	//	Réel
 		case 1:
-			(*commandes).selectif[12].etat = 1;break;	//	Complexe
+			(*commandes).selectifInitial[12].etat = 1;break;	//	Complexe
 		case 2:
-			(*commandes).selectif[10].etat = 1;break;	//	Peigne de dirac
+			(*commandes).selectifInitial[10].etat = 1;break;	//	Peigne de dirac
 		case 3:
-			(*commandes).selectif[9].etat = 1;break;	//	Constant
+			(*commandes).selectifInitial[9].etat = 1;break;	//	Constant
 		default:
 			;
 		}

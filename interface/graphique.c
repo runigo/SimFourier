@@ -144,11 +144,11 @@ int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes)
 	int i;
 	int X, Y, x, y;
 
-	for(i=0;i<SELECTIF_COMMANDES;i++)
+	for(i=0;i<SELECTIF_INITIAL;i++)
 		{
-		if( (*commandes).selectif[i].etat == 1 )
+		if( (*commandes).selectifInitial[i].etat == 1 )
 			{
-			coordonnee.y = (*commandes).selectif[i].Y; // Positon Y des petits boutons
+			coordonnee.y = (*commandes).selectifInitial[i].Y; // Positon Y des petits boutons
 			//	Dessin des petits boutons
 			if ((*graphique).textures.mobile != 0)
 				{
@@ -159,11 +159,11 @@ int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes)
 
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
 	X=(*commandes).rotatifsDroite;
-	for(i=0;i<ROTATIF_COMMANDES;i++)
+	for(i=0;i<ROTATIF_INITIAL;i++)
 		{
-		Y=(*commandes).rotatif[i].Y+(*commandes).rotatif[i].dY;
-		x=X+(*commandes).rotatif[i].positionX;
-		y=Y+(*commandes).rotatif[i].positionY;
+		Y=(*commandes).rotatifInitial[i].Y+(*commandes).rotatifInitial[i].dY;
+		x=X+(*commandes).rotatifInitial[i].positionX;
+		y=Y+(*commandes).rotatifInitial[i].positionY;
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);
@@ -187,14 +187,14 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 
 						// Boutons selectifs
 	int i;
-	for(i=0;i<SELECTIF_COMMANDES;i++)
+	for(i=0;i<SELECTIF_INITIAL;i++)
 		{
-		if((*commandes).selectif[i].etat==1)
+		if((*commandes).selectifInitial[i].etat==1)
 			{
-			coordonnee.y = (*commandes).selectif[i].Y; // Position Y du bouton
-			if ((*graphique).textures.selectif[i] != 0)
+			coordonnee.y = (*commandes).selectifInitial[i].Y; // Position Y du bouton
+			if ((*graphique).textures.selectifInitial[i] != 0)
 				{
-				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectif[i], NULL, &coordonnee);
+				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifInitial[i], NULL, &coordonnee);
 				}
 			}
 		}
@@ -202,11 +202,11 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	int X, Y, x, y;
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
 	X=(*commandes).rotatifsDroite;
-	for(i=0;i<ROTATIF_COMMANDES;i++)
+	for(i=0;i<ROTATIF_INITIAL;i++)
 		{
-		Y=(*commandes).rotatif[i].Y+(*commandes).rotatif[i].dY;
-		x=X+(*commandes).rotatif[i].positionX;
-		y=Y+(*commandes).rotatif[i].positionY;
+		Y=(*commandes).rotatifInitial[i].Y+(*commandes).rotatifInitial[i].dY;
+		x=X+(*commandes).rotatifInitial[i].positionX;
+		y=Y+(*commandes).rotatifInitial[i].positionY;
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);

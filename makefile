@@ -30,10 +30,10 @@
 
 CC=gcc
 EXEC=simFourier.out
-CFLAGS= -Wall -Wextra -Werror --std=c99
+CFLAGS= -Wall -Wextra -Werror -pedantic --std=c99
 #SDLFKAGS= `sdl-config --libs`
 #LDFLAGS= -Wall -Wextra -Werror --std=c99 -lm -lpthread
-LDFLAGS= -Wall -Wextra -Werror --std=c99 -lm
+LDFLAGS= -Wall -Wextra -Werror -pedantic --std=c99 -lm
 
 OBJDIR = ./obj
 

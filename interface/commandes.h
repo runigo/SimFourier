@@ -40,8 +40,8 @@ termes.
 typedef struct CommandesT commandesT;
 	struct CommandesT
 		{
-		rotatifT rotatif[ROTATIF_COMMANDES];
-		selectifT selectif[SELECTIF_COMMANDES];
+		rotatifT rotatifInitial[ROTATIF_INITIAL];
+		selectifT selectifInitial[SELECTIF_INITIAL];
 
 			// Zones suivant X des commandes
 		int rotatifsCentre;

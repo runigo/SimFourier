@@ -42,7 +42,10 @@ struct TexturesT {
 	SDL_Texture *mobile;
 
 	SDL_Texture *initiale;			//	Menu initiale
-	SDL_Texture *selectif[SELECTIF_COMMANDES];
+	SDL_Texture *selectifInitial[SELECTIF_INITIAL];
+
+	SDL_Texture *graphes;			//	Menu graphes
+	SDL_Texture *selectifGraphe[SELECTIF_GRAPHES];
 
 		//	 voyants
 	SDL_Texture *lumiereVerte;
