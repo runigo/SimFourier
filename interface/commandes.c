@@ -40,7 +40,7 @@ int commandesInitialise(commandesT * commandes, double facteur);
 
 int commandesAjusteCommandes(commandesT * commandes, double facteur)
 	{
-			//	Positions des zones et des commandes
+			//	Réglage des positions des zones et des commandes
 
 	commandesInitialiseZones(commandes, facteur);
 	commandesInitialiseRotatifs(commandes, facteur);
@@ -153,7 +153,6 @@ int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY)
 	(*commandes).sourisHaut = sourisY-rayonY; // position Y de la souris - RayonBoutonY
 	(*commandes).sourisBas = sourisY+rayonY; // position Y de la souris + RayonBoutonY
 
-	//fprintf(stderr, " commandesInitialiseSouris, %d, %d\n", (*commandes).sourisX,(*commandes).sourisY);
 	return 0;
 	}
 

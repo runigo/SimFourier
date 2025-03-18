@@ -41,21 +41,28 @@ int grapheInitialisation(grapheT * graphe, int nombre);
 
 int graphesInitialisation(graphesT * graphes, int nombre)
 	{
+			//	Initalisation des graphes
+
 	grapheInitialisation(&(*graphes).fonction, nombre);
 	grapheInitialisation(&(*graphes).fourier, nombre);
 	(*graphes).fonction.ratiox = 0.5;
-	(*graphes).fonction.ratioy = 0.33;
+	(*graphes).fonction.ratioy = 0.25;
 	(*graphes).fourier.ratiox = 0.5;
-	(*graphes).fourier.ratioy = 0.66;
+	(*graphes).fourier.ratioy = 0.75;
+	(*graphes).fonction.modeTrait = 1;
+	(*graphes).fourier.modeTrait = 0;
 	return 0;
 	}
 
 int grapheInitialisation(grapheT * graphe, int nombre)
 	{
+			//	Initalisation d'un graphe
+
 	int i;
 	(*graphe).nombre=nombre;
 
-	(*graphe).modeSupport = 1;
+	(*graphe).modeSupport = 1;	//	Avec ou sans axes
+	(*graphe).modeTrait = 1;	//	Points reliés ou non
 
 	(*graphe).dessous = 0;
 	(*graphe).arriere = 0;

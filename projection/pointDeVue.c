@@ -1,10 +1,11 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 1.0 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
+(SiCP 2.5 simulateur de chaîne de pendules fevrier 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -131,6 +132,77 @@ int pointDeVueChangeDistance(pointDeVueT * pointDeVue, float x) {
 			printf("(*pointDeVue).position.r = %f\n", (*pointDeVue).position.r);
 			}
 		}
+	pointDeVueReinitialiseBase(pointDeVue);
+
+	return 0;
+	}
+
+int pointDeVueReglePhi(pointDeVueT * pointDeVue, float phi) {
+
+		// Regle la position de l'observateur suivant phi
+
+		// phi reste inférieur à PI
+	if(phi > PI)
+		{
+		phi = PI;
+		}
+
+		// phi reste supérieur à zéro
+	if(phi < 0.0)
+		{
+		phi = 0.0;
+		}
+
+	vecteurInitialisePolaire(&(*pointDeVue).position, (*pointDeVue).position.r, (*pointDeVue).position.psi, phi);
+	pointDeVueReinitialiseBase(pointDeVue);
+
+	return 0;
+	}
+
+int pointDeVueReglePsi(pointDeVueT * pointDeVue, float psi) {
+
+		// Regle la position de l'observateur suivant psi
+
+	while(psi > PI)
+		{
+		psi = psi - DEUXPI;
+		}
+
+	while(psi < -PI)
+		{
+		psi = psi + DEUXPI;
+		}
+
+	vecteurInitialisePolaire(&(*pointDeVue).position, (*pointDeVue).position.r, psi, (*pointDeVue).position.phi);
+	pointDeVueReinitialiseBase(pointDeVue);
+
+	return 0;
+	}
+
+int pointDeVueRegleDistance(pointDeVueT * pointDeVue, float distance) {
+
+		// Regle la distance de l'observateur
+
+	if(distance > DISTANCE_MAX)
+		{
+		printf("Maximum de la distance atteinte, ");
+		distance = DISTANCE_MAX;
+		}
+	else
+		{
+		if(distance < DISTANCE_MIN)
+			{
+			printf("Minimum de la distance atteinte, ");
+			distance = DISTANCE_MIN;
+			}
+		else
+			{
+			(*pointDeVue).position.r = distance;
+			printf("Distance point de vue, \n");
+			}
+		}
+	printf("r = %f\n", (*pointDeVue).position.r);
+
 	pointDeVueReinitialiseBase(pointDeVue);
 
 	return 0;

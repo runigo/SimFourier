@@ -43,8 +43,8 @@ typedef struct GrapheT grapheT;
 
 			// Grandeurs 3D
 		vecteurT point[NOMBRE_MAX]; // Fonction ou TF
-		vecteurT axe[NOMBRE_MAX]; // Fonction ou TF
-		vecteurT support[SUPPORT];	// Support fixe
+		vecteurT axe[NOMBRE_MAX]; // Axe x
+		vecteurT support[SUPPORT];	// Axes xyz
 
 
 			// Grandeurs 2D
@@ -53,21 +53,20 @@ typedef struct GrapheT grapheT;
 		int xa[NOMBRE_MAX];		// Absisse 2D de l'axe
 		int ya[NOMBRE_MAX];		// Ordonnée 2D de l'axe
 
-		int supporX[7];		// Absisse 2D des axes
-		int supporY[7];		// Ordonnée 2D des axes
+		int supporX[SUPPORT];		// Absisse 2D des axes
+		int supporY[SUPPORT];		// Ordonnée 2D des axes
 
 			// Position de l'observateur
 		pointDeVueT pointDeVue;
 
-		int modeSupport;	// Change la représentation graphique du support
+		int modeSupport;	// Change la représentation graphique des axes (avec ou sans)
+		int modeTrait;		// Change la représentation graphique de la fonction (points reliés ou non)
 
 		int dessous;	// Vue de dessous
 		int arriere;	// Vue de derrière
 		int gauche;		// Vue de gauche
 
 		int echelle;	// Echelle du graphe
-		//int longueur;	// Longueur Ox
-		//int rayon;	// Longueurs Oy et Oz
 		
 		float ratiox;	// rapport décalage X / fenetre X
 		float ratioy;	// rapport décalage Y / fenetre Y

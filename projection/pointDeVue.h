@@ -1,10 +1,11 @@
 /*
-Copyright octobre 2023, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-(SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-SimFourier 1.0 Transformation de Fourier
+SimFourier 1.2.2 Transformation de Fourier
+(SiCP 2.5 simulateur de chaîne de pendules fevrier 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+graphique de la transformation de Fourier à 1 dimension et de la simulation
+d'équations de propagation.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -56,6 +57,10 @@ int pointDeVueInitialise(pointDeVueT * pointDeVue);
 int pointDeVueChangePhi(pointDeVueT * pointDeVue, float x);
 int pointDeVueChangePsi(pointDeVueT * pointDeVue, float x);
 int pointDeVueChangeDistance(pointDeVueT * pointDeVue, float x);
+
+int pointDeVueReglePhi(pointDeVueT * pointDeVue, float x);
+int pointDeVueReglePsi(pointDeVueT * pointDeVue, float x);
+int pointDeVueRegleDistance(pointDeVueT * pointDeVue, float x);
 
 	//-----------------    AFFICHAGE      -----------------------//
 int pointDeVueAffiche(pointDeVueT * pointDeVue);

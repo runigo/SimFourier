@@ -42,6 +42,7 @@ typedef struct CommandesT commandesT;
 		{
 		rotatifT rotatifInitial[ROTATIF_INITIAL];
 		selectifT selectifInitial[SELECTIF_INITIAL];
+		selectifT selectifGraphe[SELECTIF_GRAPHES];
 
 			// Zones suivant X des commandes
 		int rotatifsCentre;
