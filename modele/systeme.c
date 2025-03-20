@@ -139,7 +139,10 @@ int systemeInitialisePoint(systemeT * systeme, float ancien, float actuel, float
 
 int systemeInitialiseNombre(systemeT * systeme, int nombre)
 	{
-	if(nombre>NOMBRE_MIN-1 && nombre<NOMBRE_MAX+1 && ((nombre & (nombre - 1)) == 0))
+		//	initalise le nombre de point des fonctions,
+		//	 SI [min..max] ET nombre = puissance de 2
+
+	if( (nombre >= NOMBRE_MIN) && (nombre <= NOMBRE_MAX) && ((nombre & (nombre - 1)) == 0) )
 		{
 		(*systeme).nombre = nombre;
 		printf("(*systeme).nombre = %d\n", (*systeme).nombre);
@@ -157,7 +160,7 @@ int systemeInitialiseDt(systemeT * systeme, float dt)
 	{
 	int erreur=0;
 
-	if(dt>=DT_MIN && dt<=DT_MAX)
+	if( (dt >= DT_MIN) && (dt <= DT_MAX) )
 		{
 		(*systeme).dt = dt;
 		printf("(*systeme).dt = %f\n", (*systeme).dt);
@@ -179,7 +182,7 @@ int systemeInitialiseDt(systemeT * systeme, float dt)
 int systemeInitialiseMasse(systemeT * systeme, float masse)
 	{
 	int erreur;
-	if(masse>=MASSE_MIN && masse<=MASSE_MAX)
+	if( (masse >= MASSE_MIN) && (masse <= MASSE_MAX) )
 		{
 		(*systeme).masse = masse;
 		printf("(*systeme).masse = %f\n", (*systeme).masse);

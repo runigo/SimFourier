@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>27</x>
+      <y>54</y>
+      <w>756</w>
+      <h>324</h>
+    </coordinates>
+    <panel_attributes>int graphismeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation, int pourMille);
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>252</x>
+      <y>99</y>
+      <w>162</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>paramètre graphe
+--
+0 : axe</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>54</x>
+      <y>162</y>
+      <w>162</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>fonction
+--
+0 : graphe
+1 : graphique
+2 : pointDeVue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>252</x>
+      <y>279</y>
+      <w>198</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>paramètre pointDeVue
+--
+0 : r
+1 : psi
+3 : phi</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>495</x>
+      <y>90</y>
+      <w>216</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>variation
+--
+fait varier le paramètre
+
+[-x .. -1]U[1 .. x]
+
+0 =&gt; Utilisation de pourMille</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>549</x>
+      <y>225</y>
+      <w>207</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>pourMille
+--
+Fixe la valeur,
+
+[0 .. 1000]
+
+  si grandeur  -&gt; [min .. max]
+
+  si sélectif  -&gt; [0 .. x]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>252</x>
+      <y>189</y>
+      <w>171</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>paramètre graphique
+--
+0 : relie
+1 : coord</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
