@@ -30,14 +30,14 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "projectionInitial.h"
+#include "projectionMenuGraphe.h"
 
 				//		Projections des caractéristiques de la fonction initiale
 				//		  sur les commandes
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialInitialise(projectionInitialT * projection, int nombre)
+int projectionMenuGrapheInitialise(projectionMenuGrapheT * projection, int nombre)
 	{
 		//	facteur de proportionalité entre les grandeurs et la position des rotatifs
 
@@ -51,7 +51,7 @@ int projectionInitialInitialise(projectionInitialT * projection, int nombre)
 
 	//-----------------    PROJECTION      -----------------------//
 
-int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes) {
+int projectionMenuGrapheCommandes(initialeT * initiale, projectionMenuGrapheT * projection, commandesT * commandes) {
 
 	// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
 
@@ -155,7 +155,7 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int projectionInitialChangeFenetre(projectionInitialT * projection, int x, int y) {
+int projectionMenuGrapheChangeFenetre(projectionMenuGrapheT * projection, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
 	(void)projection;
@@ -169,7 +169,7 @@ int projectionInitialChangeFenetre(projectionInitialT * projection, int x, int y
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void projectionInitialAffiche(projectionInitialT * projection) {
+void projectionMenuGrapheAffiche(projectionMenuGrapheT * projection) {
 
 		//	Affiche les paramètres de la projection
 

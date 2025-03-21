@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>490</x>
+      <y>80</y>
+      <w>330</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>Projections
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>140</x>
+      <y>180</y>
+      <w>230</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Fonctions
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>140</x>
+      <y>310</y>
+      <w>230</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Paramètres
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>960</x>
+      <y>490</y>
+      <w>250</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Commandes
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>900</x>
+      <y>20</y>
+      <w>410</w>
+      <h>670</h>
+    </coordinates>
+    <panel_attributes>graphisme
+--
+Paramètres visuels</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>970</x>
+      <y>300</y>
+      <w>200</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Menus
+--
+Dessine les paramètres</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>230</x>
+      <y>480</y>
+      <w>750</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+selectif et rotatif</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0;730.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>100</x>
+      <y>110</y>
+      <w>320</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>Modele
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>320</y>
+      <w>630</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+selectif et rotatif</panel_attributes>
+    <additional_attributes>610.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>200</y>
+      <w>630</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+3D &gt; 2D</panel_attributes>
+    <additional_attributes>610.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>970</x>
+      <y>150</y>
+      <w>200</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Graphes
+--
+Dessine les courbes</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

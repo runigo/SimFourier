@@ -32,35 +32,31 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTIONINITIAL_
-#define _PROJECTIONINITIAL_
+#ifndef _PROJECTIONMENUGRAPHE_
+#define _PROJECTIONMENUGRAPHE_
 
 #include "../modele/modele.h"
 #include "../interface/commandes.h"
 
-			//		Projections du systeme sur les commandes, les capteurs
-			//		et les graphes 3D dans le MODE  INITIAL
+			//		Projections du graphisme sur les commandes
 
-typedef struct ProjectionInitialT projectionInitialT;
+typedef struct ProjectionInitialT projectionMenuGrapheT;
 	struct ProjectionInitialT
 		{
 			// facteurs entre les grandeurs et la position des boutons rotatifs
-		double radianEta;
-		double radianRho;
-		double radianKhi;
-		double radianSym;
+		double radianR;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialInitialise(projectionInitialT * projection, int nombre);
+int projectionMenuGrapheInitialise(projectionMenuGrapheT * projection, int nombre);
 
 	//-----------------    PROJECTION      -----------------------//
-int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes);
+int projectionMenuGrapheCommandes(initialeT * initiale, projectionMenuGrapheT * projection, commandesT * commandes);
 
 	//-----------------    CHANGE      -----------------------//
-int projectionInitialChangeFenetre(projectionInitialT * projection, int x, int y);
+int projectionMenuGrapheChangeFenetre(projectionMenuGrapheT * projection, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void projectionInitialAffiche(projectionInitialT * projection);
+void projectionMenuGrapheAffiche(projectionMenuGrapheT * projection);
 
 #endif
