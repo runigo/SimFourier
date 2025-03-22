@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.2.3 Transformation de Fourier
 (D'après SiCF 2.2 simulateur de chaîne de pendules, octobre 2020)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -70,6 +70,7 @@ termes.
 #define SELECTIF_INITIAL 13	// Nombres de boutons selectifs du menu initial
 #define SELECTIF_GRAPHES 9	// Nombres de boutons selectifs des menus graphes
 #define ROTATIF_INITIAL 6		// Nombre de boutons rotatifs du menu initial
+#define ROTATIF_GRAPHES 1		// Nombre de boutons linéaires des menus graphes
 #define CARRE_COMMANDES 13	    // Nombres de boutons carré
 #define LINEAIRE_COMMANDES 4	// Nombres de commandes linéaires
 #define TRIANGLE_COMMANDES 21	// Nombres de commandes triangulaires

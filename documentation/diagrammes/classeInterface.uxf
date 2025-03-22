@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>60</x>
+      <y>40</y>
+      <w>400</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>interface
+--
+	SDL_Window *fenetre;
+	SDL_Event evenement;
+	int continu;
+--
+int interfaceInitialisationSDL(void);
+int interfaceQuitteSDL(void);
+
+int interfaceCreation(interfaceT * interface);
+int interfaceSuppression(interfaceT * interface);
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>480</x>
+      <y>40</y>
+      <w>350</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>graphique
+--
+
+	affichageT affichage;
+
+	texturesT textures;
+
+	double facteur;
+	int fenetreX;
+	int fenetreY;
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.2.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -74,9 +74,7 @@ int donneesControleur(controleurT * controleur)
 	capteursMiseAJourLongueur(&(*controleur).capteurs, FENETRE_X, FENETRE_Y);
 
 		fprintf(stderr, " Initialisation des projections\n");
-	projectionGraphInitialise(&(*controleur).projectionGraph);
-	projectionSystemInitialise(&(*controleur).projectionSystem);
-	projectionInitialInitialise(&(*controleur).projectionInitial, (*controleur).options.nombre);
+	projectionInitialise(&(*controleur).projection, (*controleur).options.nombre);
 
 		fprintf(stderr, " Initialisation SDL\n");
 	interfaceInitialisationSDL();

@@ -49,8 +49,8 @@ int graphesInitialisation(graphesT * graphes, int nombre)
 	(*graphes).fonction.ratioy = 0.25;
 	(*graphes).fourier.ratiox = 0.5;
 	(*graphes).fourier.ratioy = 0.75;
-	(*graphes).fonction.modeTrait = 1;
-	(*graphes).fourier.modeTrait = 0;
+	(*graphes).fonction.trait = 1;
+	(*graphes).fourier.trait = 0;
 	return 0;
 	}
 
@@ -61,8 +61,8 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	int i;
 	(*graphe).nombre=nombre;
 
-	(*graphe).modeSupport = 1;	//	Avec ou sans axes
-	(*graphe).modeTrait = 1;	//	Points reliés ou non
+	(*graphe).axes = 1;	//	Avec ou sans axes
+	(*graphe).trait = 1;	//	Points reliés ou non
 
 	(*graphe).dessous = 0;
 	(*graphe).arriere = 0;
@@ -182,19 +182,19 @@ void grapheChangeSupport(grapheT * graphe){
 
 	// Change la représentation graphique du support
 
-	if((*graphe).modeSupport==1)
-		{(*graphe).modeSupport=0;
+	if((*graphe).axes==1)
+		{(*graphe).axes=0;
 		printf("Support invisible\n");}
 	else
 		{
-		if((*graphe).modeSupport==0)
+		if((*graphe).axes==0)
 			{
-			(*graphe).modeSupport=-1;
+			(*graphe).axes=-1;
 			printf("Support transparent\n");
 			}
 		else
 			{
-			(*graphe).modeSupport=1;
+			(*graphe).axes=1;
 			printf("Support plein\n");
 			}
 		}

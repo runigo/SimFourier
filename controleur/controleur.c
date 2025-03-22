@@ -1,7 +1,7 @@
 /*
-Copyright février 2025, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.2.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -124,14 +124,14 @@ int controleurProjection(controleurT * controleur)
         //  modele -> 3D
 	projectionSystemeGraphes(&(*controleur).modele, &(*controleur).graphes);
         //  3D -> 2D
-	projectionGraphGraphes(&(*controleur).projectionGraph, &(*controleur).graphes);
+	projectionGraphGraphes(&(*controleur).projection.projectionGraph, &(*controleur).graphes);
 
 	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
 
 	//projectionSystemeCommandes(&(*controleur).modele.systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
 	//projectionInitialeCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
 
-	projectionInitialCommandes(&(*controleur).modele.initiale, &(*controleur).projectionInitial, &(*controleur).commandes);
+	projectionInitialCommandes(&(*controleur).modele.initiale, &(*controleur).projection.projectionInitial, &(*controleur).commandes);
 
 	return (*controleur).sortie;
 	}
@@ -151,7 +151,7 @@ int controleurFenetre(controleurT * controleur)
 		{
 		(*controleur).graphique.fenetreX=x;
 		(*controleur).graphique.fenetreY=y;
-		projectionGraphChangeFenetre(&(*controleur).projectionGraph, x, y);
+		projectionGraphChangeFenetre(&(*controleur).projection.projectionGraph, x, y);
 		if(y<MENUS_Y)
 			{
 			commandesAjusteCommandes(&(*controleur).commandes, ((double)y)/MENUS_Y);
@@ -221,13 +221,13 @@ int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe)
 	{
 		//		Dessine une fonction
 
-	if((*graphe).modeSupport==0)
+	if((*graphe).axes==0)
 		{
 		graphiquePendule(graphique, graphe);
 		}
 	else
 		{
-		if((*graphe).modeSupport==1)
+		if((*graphe).axes==1)
 			{
 			graphiqueAxeEtFonction(graphique, graphe);
 			}

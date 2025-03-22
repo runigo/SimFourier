@@ -36,6 +36,14 @@ termes.
 
 #include "pointDeVue.h"
 
+/*************************************************************
+
+	Contient les points des fonctions en 3D et en 2D,
+
+	Contient le point de vue et ses paramètres.
+
+*/////////////////////////////////////////////////////////////
+
 typedef struct GrapheT grapheT;
 	struct GrapheT
 		{
@@ -59,8 +67,8 @@ typedef struct GrapheT grapheT;
 			// Position de l'observateur
 		pointDeVueT pointDeVue;
 
-		int modeSupport;	// Change la représentation graphique des axes (avec ou sans)
-		int modeTrait;		// Change la représentation graphique de la fonction (points reliés ou non)
+		int axes;	// Change la représentation graphique des axes (avec ou sans)
+		int trait;		// Change la représentation graphique de la fonction (points reliés ou non)
 
 		int dessous;	// Vue de dessous
 		int arriere;	// Vue de derrière

@@ -4,31 +4,33 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>490</x>
-      <y>80</y>
-      <w>330</w>
-      <h>450</h>
+      <x>400</x>
+      <y>60</y>
+      <w>520</w>
+      <h>480</h>
     </coordinates>
-    <panel_attributes>Projections
+    <panel_attributes>Projection
 --</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>140</x>
+      <x>50</x>
       <y>180</y>
       <w>230</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>Fonctions
---</panel_attributes>
+--
+systeme
+fourier</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>140</x>
+      <x>50</x>
       <y>310</y>
       <w>230</w>
       <h>70</h>
@@ -40,7 +42,7 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>960</x>
+      <x>1080</x>
       <y>490</y>
       <w>250</w>
       <h>130</h>
@@ -53,45 +55,32 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>900</x>
+      <x>970</x>
       <y>20</y>
       <w>410</w>
       <h>670</h>
     </coordinates>
-    <panel_attributes>graphisme
+    <panel_attributes>Interface
 --
 Paramètres visuels</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>970</x>
-      <y>300</y>
-      <w>200</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>Menus
---
-Dessine les paramètres</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
+      <x>140</x>
       <y>480</y>
-      <w>750</w>
+      <w>960</w>
       <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 selectif et rotatif</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0;730.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0;940.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>100</x>
+      <x>10</x>
       <y>110</y>
       <w>320</w>
       <h>380</h>
@@ -103,38 +92,80 @@ selectif et rotatif</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>320</y>
-      <w>630</w>
-      <h>40</h>
+      <x>270</x>
+      <y>330</y>
+      <w>960</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 selectif et rotatif</panel_attributes>
-    <additional_attributes>610.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>830.0;160.0;830.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
+      <x>270</x>
       <y>200</y>
-      <w>630</w>
+      <w>190</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-3D &gt; 2D</panel_attributes>
-    <additional_attributes>610.0;20.0;10.0;20.0</additional_attributes>
+3D</panel_attributes>
+    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>970</x>
+      <x>440</x>
       <y>150</y>
-      <w>200</w>
+      <w>380</w>
       <h>110</h>
     </coordinates>
     <panel_attributes>Graphes
 --
-Dessine les courbes</panel_attributes>
+
+	Contient les points des fonctions en 3D et en 2D,
+
+	Contient le point de vue et ses paramètres.
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>470</x>
+      <y>250</y>
+      <w>300</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+3D &gt; 2D</panel_attributes>
+    <additional_attributes>280.0;10.0;280.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>810</x>
+      <y>170</y>
+      <w>250</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>230.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1040</x>
+      <y>140</y>
+      <w>200</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>graphique
+--
+Dessine les graphes
+et les commandes</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

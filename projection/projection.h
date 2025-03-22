@@ -31,47 +31,38 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTIONSYSTEM_
-#define _PROJECTIONSYSTEM_
+#ifndef _PROJECTION_
+#define _PROJECTION_
 
-#include "../modele/modele.h"
-#include "../modele/observables.h"
-#include "../projection/graphes.h"
-#include "../interface/commandes.h"
-#include "../interface/capteurs.h"
+#include "../projection/projectionSystem.h"		//	Projection du système vers le graphisme.
+#include "../projection/projectionGraph.h"		//	Projection des graphes 3D sur les graphes 2D.
+#include "../projection/projectionInitial.h"	//	Projection de initiale sur commande.
 
-				//		Projections du systeme sur les commandes
-				//		les capteurs et les graphes 3D
-				//			MODE SIMULATION
+				//		Projections entre le modèle et la vue
 
-typedef struct ProjectionSystemT projectionSystemT;
-	struct ProjectionSystemT
-		{
-	//	int fenetreX;	// hauteur de la fenêtre
-	//	int fenetreY;	// largeur de la fenêtre
-		//float ratioXY;	// rapport largeur / hauteur
+typedef struct ProjectionT projectionT;
+	struct ProjectionT
+	{
+		projectionSystemT projectionSystem;	//	Projection du système et des observables sur le graphisme
 
-			// facteurs entre les grandeurs et la position des boutons rotatifs
-		float logCouplage;
-		float logDissipation;
-		float logJosephson;
-		float logAmplitude;
-		float logFrequence;
-		};
+		projectionGraphT projectionGraph;	//	Projection des graphes 2D sur les graphes 3D
+
+		projectionInitialT projectionInitial;	//	Projection de initiale sur commandes
+	};
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionSystemInitialise(projectionSystemT * projection);
+int projectionInitialise(projectionT * projection, int nombre);
 
 	//-----------------    PROJECTION      -----------------------//
-int projectionSystemeGraphes(modeleT * modele, graphesT * graphes);
-//int projectionObservablesCapteurs(observablesT * observables, projectionSystemT * projection, capteursT * capteurs);
-int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes);
-int projectionControleurCommandes(projectionSystemT * projection, commandesT * commandes, int duree, int mode);
+int projectionModele(modeleT * modele, graphesT * graphes, commandesT * commandes);
+//int projectionObservablesCapteurs(observablesT * observables, projectionT * projection, capteursT * capteurs);
+//int projectionSystemeCommandes(systemeT * systeme, projectionT * projection);
+//int projectionControleurCommandes(projectionT * projection, commandesT * commandes, int duree, int mode);
 
 	//-----------------    CHANGE      -----------------------//
-int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y);
+int projectionChangeFenetre(projectionT * projection, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void projectionSystemAffiche(projectionSystemT * projection);
+void projectionAffiche(projectionT * projection);
 
 #endif

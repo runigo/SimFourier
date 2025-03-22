@@ -2,6 +2,7 @@
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2.3 Transformation de Fourier
+(d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
@@ -30,84 +31,73 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "projectionMenuGraphe.h"
+#include "projection.h"
 
-				//		Projections des caractéristiques de la fonction initiale
-				//		  sur les commandes
+				//		Projections entre le modèle et l'interface
+
+	//	INITIALISATION
+int projectionInitialisePointDeVue(projectionSystemT * projection,  float r,float psi, float phi);
+int projectionReinitialiseBase(projectionSystemT * projection);
+
+	//	PROJECTION
+int projectionPerspectiveChaine(projectionSystemT * projection, grapheT * graphe);
+int projectionSystemeGraphes3D(modeleT * modele, graphesT * graphes);
+
+int projectionInitialiseSupport(projectionSystemT * projection, int nombre);
+int projectionPerspectiveSupport(projectionSystemT * projection, grapheT * graphe);
+
+	//	CHANGE
+
+	//	AFFICHAGE
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionMenuGrapheInitialise(projectionMenuGrapheT * projection, int nombre)
+int projectionInitialise(projectionT * projection, int nombre)
 	{
-	(void)nombre;
-		//	facteur de proportionalité entre les grandeurs et la position des rotatifs
-	(*projection).radianR = PIS2 / (DISTANCE_MAX - DISTANCE_MIN);
+		//fprintf(stderr, " Initialisation des projections\n");
+	projectionGraphInitialise(&(*projection).projectionGraph);
+	projectionSystemInitialise(&(*projection).projectionSystem);
+	projectionInitialInitialise(&(*projection).projectionInitial, nombre);
 
 	return 0;
 	}
 
 	//-----------------    PROJECTION      -----------------------//
 
-int projectionMenuGrapheCommandes(initialeT * initiale, projectionMenuGrapheT * projection, commandesT * commandes) {
+int projectionCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes) {
 
-	// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
+		// Projette le système sur les commandes dans le mode simulation
 
-	float theta;
-	int longueur = (*commandes).rotatifsDroite - (*commandes).rotatifsGauche;
+(void)systeme;
+(void)projection;
+(void)commandes;
+	return 0;
+	}
 
+int projectionControleurCommandes(projectionSystemT * projection, commandesT * commandes, int duree, int mode) {
 
-			//	Projection sur les boutons rotatifs de la partie enveloppe
-		//	Distance point de vue, r
-	theta = (*projection).radianR;// * ((*initiale).enveloppe.rho);
-	(*commandes).rotatifGraphe[0].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatifGraphe[0].positionY = (int)(-longueur*sin(theta));
+		// Projette le controleur sur les commandes
 
-				//	Projection sur les petits boutons
-	int i;
+(void)projection;
+(void)commandes;
+(void)duree;
+(void)mode;
+	return 0;
+	}
 
-	for(i=0;i<SELECTIF_INITIAL;i++) (*commandes).selectifGraphe[i].etat = 0;
+int projectionModeleGraphes(modeleT * modele, graphesT * graphes) {
 
-			//	Tracé des axes, position du point de vue
-	switch((*initiale).enveloppe.periodique) {
-		case 2:
-			(*commandes).selectifGraphe[0].etat = 1; break;	//	Implicite
-		case 3:
-			(*commandes).selectifGraphe[1].etat = 1; break;	//	Imaginaire
-		case 4:
-			(*commandes).selectifGraphe[2].etat = 1; break;	//	Réel
-		case 5:
-			(*commandes).selectifGraphe[3].etat = 1; break;	//	Sans axe
-		default:
-			;
-		}
+		// Projection du Modele sur les graphes en perspective
 
-			//	Tracé de la courbe
-	switch((*initiale).enveloppe.periodique) {
-		case 0:
-			(*commandes).selectifGraphe[4].etat = 1; break;	//	Point
-		case 1:
-			(*commandes).selectifGraphe[5].etat = 1; break;	//	Relié
-		default:
-			;
-		}
+		//		Projection du système sur les graphes 3D
+	projectionSystemeGraphes3D(&(*modele).systeme, graphes);
 
-			//	Tracé des coordonnées
-	switch((*initiale).motif.forme) {
-		case 0:
-			(*commandes).selectifGraphe[6].etat = 1; break;	//	vecteur
-		case 1:
-			(*commandes).selectifGraphe[7].etat = 1; break;	//	cartésien
-		case 2:
-			(*commandes).selectifGraphe[8].etat = 1; break;	//	vide
-		default:
-			;
-		}
 	return 0;
 	}
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int projectionMenuGrapheChangeFenetre(projectionMenuGrapheT * projection, int x, int y) {
+int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
 	(void)projection;
@@ -119,13 +109,19 @@ int projectionMenuGrapheChangeFenetre(projectionMenuGrapheT * projection, int x,
 	return 0;
 	}
 
+
 	//-----------------    AFFICHAGE      -----------------------//
 
-void projectionMenuGrapheAffiche(projectionMenuGrapheT * projection) {
+void projectionSystemAffiche(projectionSystemT * projection) {
 
-		//	Affiche les paramètres de la projection
+	//	Affiche les paramètres de la projection
+	(void)projection;
 
-	printf("(*projection).radianR = %f\n", (*projection).radianR);
+	//printf("(*projection).ratioXY = %f\n", (*projection).ratioXY);
+	//printf("(*projection).hauteur = %d\n", (*projection).hauteur);
+	//printf("(*projection).largeur = %d\n", (*projection).largeur);
+	//printf("(*projection).fenetreX = %d\n", (*projection).fenetreX);
+	//printf("(*projection).fenetreY = %d\n", (*projection).fenetreY);
 	return ;
 	}
 
