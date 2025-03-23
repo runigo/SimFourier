@@ -90,7 +90,7 @@ int projectionModeleGraphes(modeleT * modele, graphesT * graphes) {
 		// Projection du Modele sur les graphes en perspective
 
 		//		Projection du système sur les graphes 3D
-	projectionSystemeGraphes3D(&(*modele).systeme, graphes);
+	projectionSystemeGraphes3D(modele, graphes);
 
 	return 0;
 	}

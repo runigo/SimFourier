@@ -45,7 +45,7 @@ typedef struct ProjectionT projectionT;
 	{
 		projectionSystemT projectionSystem;	//	Projection du système et des observables sur le graphisme
 
-		projectionGraphT projectionGraph;	//	Projection des graphes 2D sur les graphes 3D
+		projectionGraphT Graphes;	//	Projection des graphes 2D sur les graphes 3D
 
 		projectionInitialT projectionInitial;	//	Projection de initiale sur commandes
 	};
