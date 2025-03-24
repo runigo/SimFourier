@@ -93,18 +93,18 @@ int donneesControleur(controleurT * controleur)
 	(*controleur).graphique.fenetreY=fenetreY;
 		if(fenetreY>MENUS_Y)
 			{
-			commandesAjusteCommandes(&(*controleur).commandes, ((double)fenetreY)/MENUS_Y);
+			commandesAjusteCommandes(&(*controleur).projection.commandes, ((double)fenetreY)/MENUS_Y);
 			(*controleur).graphique.facteur=(double)fenetreY/MENUS_Y;
 			}
 		else
 			{
-			commandesAjusteCommandes(&(*controleur).commandes, 1.0);
+			commandesAjusteCommandes(&(*controleur).projection.commandes, 1.0);
 			(*controleur).graphique.facteur=1.0;
 			}
 
 	SDL_PumpEvents();
 	SDL_GetMouseState(&x,&y);
-	commandesInitialiseSouris(&(*controleur).commandes, x, y);
+	commandesInitialiseSouris(&(*controleur).projection.commandes, x, y);
 
 		fprintf(stderr, " Initialisation de l'horloge SDL\n");
 	horlogeCreation(&(*controleur).horloge);

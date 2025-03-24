@@ -36,15 +36,15 @@ termes.
 				//		Projections entre le modèle et l'interface
 
 	//	INITIALISATION
-int projectionInitialisePointDeVue(projectionSystemT * projection,  float r,float psi, float phi);
-int projectionReinitialiseBase(projectionSystemT * projection);
+//int projectionInitialisePointDeVue(projectionSystemT * projection,  float r,float psi, float phi);
+//int projectionReinitialiseBase(projectionSystemT * projection);
 
 	//	PROJECTION
-int projectionPerspectiveChaine(projectionSystemT * projection, grapheT * graphe);
-int projectionSystemeGraphes3D(modeleT * modele, graphesT * graphes);
+//int projectionPerspectiveChaine(projectionSystemT * projection, grapheT * graphe);
+//int projectionSystemeGraphes3D(modeleT * modele, graphesT * graphes);
 
-int projectionInitialiseSupport(projectionSystemT * projection, int nombre);
-int projectionPerspectiveSupport(projectionSystemT * projection, grapheT * graphe);
+//int projectionInitialiseSupport(projectionSystemT * projection, int nombre);
+//int projectionPerspectiveSupport(projectionSystemT * projection, grapheT * graphe);
 
 	//	CHANGE
 
@@ -64,6 +64,16 @@ int projectionInitialise(projectionT * projection, int nombre)
 
 	//-----------------    PROJECTION      -----------------------//
 
+int projectionModeleGraphes(modeleT * modele, graphesT * graphes) {
+
+		// Projection du Modele sur les graphes en perspective
+
+		//		Projection du système sur les graphes 3D
+	projectionSystemeGraphes3D(modele, graphes);
+
+	return 0;
+	}
+
 
 int projectionModele(projectionT * projection, modeleT * modele, int mode)
 	{
@@ -77,7 +87,7 @@ int projectionModele(projectionT * projection, modeleT * modele, int mode)
 
 	//projectionInitialeCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
 
-	if(mode == 0)
+	if(mode == 0)	//	Mode initiale
 		{
 	projectionInitialCommandes(&(*controleur).modele.initiale, &(*controleur).projection.projectionInitial, &(*controleur).commandes);
 		}
@@ -108,16 +118,6 @@ int projectionControleurCommandes(projectionSystemT * projection, commandesT * c
 (void)commandes;
 (void)duree;
 (void)mode;
-	return 0;
-	}
-
-int projectionModeleGraphes(modeleT * modele, graphesT * graphes) {
-
-		// Projection du Modele sur les graphes en perspective
-
-		//		Projection du système sur les graphes 3D
-	projectionSystemeGraphes3D(modele, graphes);
-
 	return 0;
 	}
 

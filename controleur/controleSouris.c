@@ -57,7 +57,7 @@ int controleSouris(controleurT * controleur, int action)
 		//	Action de la souris
 
 		//	Le pointeur de la souris se trouvant dans la zone
-	int zone = commandesSourisZone(&(*controleur).commandes);
+	int zone = commandesSourisZone(&(*controleur).projection.commandes);
 
 	switch(action)	//	action sur la souris
 		{
@@ -84,13 +84,13 @@ int controleSourisMouvement(controleurT * controleur, int zone)
 		{
 		if(zone == 5)
 			{
-			pointDeVueChangePsi(&(*controleur).graphes.fonction.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
-			pointDeVueChangePhi(&(*controleur).graphes.fonction.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+			pointDeVueChangePsi(&(*controleur).projection.fonction.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+			pointDeVueChangePhi(&(*controleur).projection.fonction.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
 			}
 		if(zone == 7)
 			{
-			pointDeVueChangePsi(&(*controleur).graphes.fourier.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
-			pointDeVueChangePhi(&(*controleur).graphes.fourier.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+			pointDeVueChangePsi(&(*controleur).projection.fourier.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+			pointDeVueChangePhi(&(*controleur).projection.fourier.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
 			}
 		}
 	return 0;
@@ -105,9 +105,9 @@ int controleSourisMolette(controleurT * controleur, int zone)
 		case 2: //	Boutons rotatif
 			controleSourisDefileRotatifs(controleur);break;
 		case 5: //	Zone de la fonction
-			controleSourisDefilePointDeVue(controleur, &(*controleur).graphes.fonction);break;
+			controleSourisDefilePointDeVue(controleur, &(*controleur).projection.fonction);break;
 		case 7: //	Zone de fourier
-			controleSourisDefilePointDeVue(controleur, &(*controleur).graphes.fourier);break;
+			controleSourisDefilePointDeVue(controleur, &(*controleur).projection.fourier);break;
 	//	case 4: // zone des curseurs linéaires de la fonction
 	//		;break;
 	//	case 6: // zone des curseurs linéaires de fourier
@@ -167,12 +167,12 @@ int controleSourisCliqRotatif(controleurT * controleur)
 			//	Action du cliq de souris dans le menu rotatif
 
 			//	Numéro du rotatif
-	int rotatif = commandeRotatifs(&(*controleur).commandes);
+	int rotatif = commandeRotatifs(&(*controleur).projection.commandes);
 	//fprintf(stderr, "\n controleSourisCliqRotatif, numéro : %d\n", rotatif);
 			//	Position angulaire de la souris dans le rotatif
-	double angle = atan( (double)((*controleur).commandes.rotatifInitial[rotatif].Y
-		+ (*controleur).commandes.rotatifInitial[rotatif].dY - (*controleur).commandes.sourisY)
-		/ ((*controleur).commandes.rotatifsDroite - (*controleur).commandes.sourisX));
+	double angle = atan( (double)((*controleur).projection.commandes.rotatifInitial[rotatif].Y
+		+ (*controleur).projection.commandes.rotatifInitial[rotatif].dY - (*controleur).projection.commandes.sourisY)
+		/ ((*controleur).projection.commandes.rotatifsDroite - (*controleur).projection.commandes.sourisX));
 	//fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
 
 	int pourMille = (int)(angle*1000/PIS2);
@@ -201,7 +201,7 @@ int controleSourisCliqSelectif(controleurT * controleur)
 	{
 			//	Action du cliq de souris
 			//	dans le menu selectif
-	int selectif = commandeSelectifs(&(*controleur).commandes);
+	int selectif = commandeSelectifs(&(*controleur).projection.commandes);
 
 	switch(selectif)	//	fonction ,  parametre ,  variation ,  pourMille
 		{
@@ -248,7 +248,7 @@ int controleSourisInitialisePosition(controleurT * controleur, int position) {
 
 int controleSourisDefileRotatifs(controleurT * controleur)
 	{
-	int commande = commandeRotatifs(&(*controleur).commandes);
+	int commande = commandeRotatifs(&(*controleur).projection.commandes);
 	//commande = -1;
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
@@ -297,12 +297,12 @@ int controleSourisDefileRotatifs(controleurT * controleur)
 int controleSourisAffiche(controleurT * controleur)
 	{
 	fprintf(stderr, "(*controleur).graphique.fenetreY = %d\n", (*controleur).graphique.fenetreY);
-	fprintf(stderr, "(*controleur).commandes.sourisY = %d\n", (*controleur).commandes.sourisY);
+	fprintf(stderr, "(*controleur).commandes.sourisY = %d\n", (*controleur).projection.commandes.sourisY);
 	fprintf(stderr, "(*controleur).graphique.fenetreX = %d\n", (*controleur).graphique.fenetreX);
-	fprintf(stderr, "(*controleur).commandes.sourisX = %d\n", (*controleur).commandes.sourisX);
+	fprintf(stderr, "(*controleur).commandes.sourisX = %d\n", (*controleur).projection.commandes.sourisX);
 
-	fprintf(stderr, "\nsourisY / fenetreY = %f\n\n", (float)(*controleur).commandes.sourisY / (*controleur).graphique.fenetreY);
-	fprintf(stderr, "sourisX / fenetreX = %f\n", (float)(*controleur).commandes.sourisX / (*controleur).graphique.fenetreX);
+	fprintf(stderr, "\nsourisY / fenetreY = %f\n\n", (float)(*controleur).projection.commandes.sourisY / (*controleur).graphique.fenetreY);
+	fprintf(stderr, "sourisX / fenetreX = %f\n", (float)(*controleur).projection.commandes.sourisX / (*controleur).graphique.fenetreX);
 
 	return 0;
 	}

@@ -64,23 +64,23 @@ int controleClavier(controleurT * controleur)
 
 			// Afficher des informations
 
-		case SDLK_F1:
-			projectionSystemAffiche(&(*controleur).projection.parametreSystem);break;
+	//	case SDLK_F1:
+		//	projectionSystemAffiche(&(*controleur).projection.parametreSystem);break;
 		case SDLK_F2: // Position de la souris
 			controleSourisAffiche(controleur);break;
-		case SDLK_F3:
-			pointDeVueAffiche(&(*controleur).graphes.fonction.pointDeVue);break;
-		case SDLK_F4:
-			printf("GRAPHE FONCTION :\n");
-			grapheAffiche(&(*controleur).graphes.fonction);break;
-		case SDLK_F5:
-			printf("GRAPHE FOURIER :\n");
-			grapheAffiche(&(*controleur).graphes.fourier);break;
+	//	case SDLK_F3:
+		//	pointDeVueAffiche(&(*controleur).graphes.fonction.pointDeVue);break;
+	//	case SDLK_F4:
+		//	printf("GRAPHE FONCTION :\n");
+		//	grapheAffiche(&(*controleur).graphes.fonction);break;
+	//	case SDLK_F5:
+		//	printf("GRAPHE FOURIER :\n");
+		//	grapheAffiche(&(*controleur).graphes.fourier);break;
 		//	observablesAfficheEnergie(&(*controleur).modele.systeme);break;
 	//	case SDLK_F6:
 		//	moteursAfficheHorloge(&(*controleur).modele.systeme.moteurs);break;
-		case SDLK_F7:
-			projectionGraphAffiche(&(*controleur).projection.projectionGraph);break;
+	//	case SDLK_F7:
+		//	projectionGraphAffiche(&(*controleur).projection.projectionGraph);break;
 	// Support
 		case SDLK_F8:
 			optionsInitialiseMode(&(*controleur).options, 2);break;
@@ -155,9 +155,9 @@ int controleClavierMaj(controleurT * controleur)
 	{
         //      Réinitialisation du système
         //          Fichiers utilisateur
-
+	(void)controleur;
 	int reinitialisation = 1;
-
+/*
 	switch ((*controleur).interface.evenement.key.keysym.sym)
 		{
 		case SDLK_a:
@@ -217,7 +217,7 @@ int controleClavierMaj(controleurT * controleur)
 			reinitialisation = 0;
 			}break;
 		}
-
+*/
 	return reinitialisation;
 	}
 
@@ -226,8 +226,9 @@ int controleClavierCtrl(controleurT * controleur)
         //      Réinitialisation du système 
         //          Fichiers original
 
+	(void)controleur;
 	int reinitialisation = 1;
-
+/*
 	switch ((*controleur).interface.evenement.key.keysym.sym)
 		{
 		case SDLK_a:
@@ -287,14 +288,15 @@ int controleClavierCtrl(controleurT * controleur)
 			reinitialisation = 0;
 			}break;
 		}
-
+*/
 	return reinitialisation;
 	}
 
 int controleClavierCtrlMaj(controleurT * controleur) {
 
 		//		Sauvegarde du système
-
+	(void)controleur;
+/*
 	switch ((*controleur).interface.evenement.key.keysym.sym)
 		{
 		case SDLK_a:
@@ -378,6 +380,7 @@ int controleClavierCtrlMaj(controleurT * controleur) {
 		default:
 			;
 		}
+*/
 	return (*controleur).sortie;
 	}
 
