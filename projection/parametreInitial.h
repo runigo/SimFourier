@@ -36,7 +36,7 @@ termes.
 #define _PARAMETREINITIAL_
 
 #include "../modele/modele.h"
-#include "../interface/commandes.h"
+#include "commandes.h"
 
 			//		Projections des parametres initiale
 			//		sur les commandes et les capteurs

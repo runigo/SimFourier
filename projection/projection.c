@@ -64,6 +64,32 @@ int projectionInitialise(projectionT * projection, int nombre)
 
 	//-----------------    PROJECTION      -----------------------//
 
+
+int projectionModele(projectionT * projection, modeleT * modele, int mode)
+	{
+
+        //  modele -> 3D
+	projectionSystemeGraphes(&(*controleur).modele, &(*controleur).graphes);
+        //  3D -> 2D
+	projectionGraphGraphes(&(*controleur).projection.projectionGraph, &(*controleur).graphes);
+
+	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
+
+	//projectionInitialeCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
+
+	if(mode == 0)
+		{
+	projectionInitialCommandes(&(*controleur).modele.initiale, &(*controleur).projection.projectionInitial, &(*controleur).commandes);
+		}
+	else
+		{
+	//projectionSystemeCommandes(&(*controleur).modele.systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
+		}
+
+
+	return 0;
+	}
+
 int projectionCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes) {
 
 		// Projette le système sur les commandes dans le mode simulation
@@ -100,11 +126,9 @@ int projectionModeleGraphes(modeleT * modele, graphesT * graphes) {
 int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
-	(void)projection;
-	(void)x;
-	(void)y;
-	//(*projection).fenetreX=x;
-	//(*projection).fenetreY=y;
+
+	(*projection).fenetreX=x;
+	(*projection).fenetreY=y;
 
 	return 0;
 	}

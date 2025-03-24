@@ -67,7 +67,8 @@ int donneesControleur(controleurT * controleur)
 	donneesModele(&(*controleur).modele, &(*controleur).options);
 
 		fprintf(stderr, " Initialisation des graphes\n");
-	graphesInitialisation(&(*controleur).graphes, (*controleur).options.nombre);
+	grapheInitialisation(&(*controleur).projection.fonction, (*controleur).options.nombre);
+	grapheInitialisation(&(*controleur).projection.fourier, (*controleur).options.nombre);
 
 		fprintf(stderr, " Initialisation des capteurs\n");
 	capteursInitialise(&(*controleur).capteurs);

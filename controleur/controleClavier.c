@@ -65,7 +65,7 @@ int controleClavier(controleurT * controleur)
 			// Afficher des informations
 
 		case SDLK_F1:
-			projectionSystemAffiche(&(*controleur).projection.projectionSystem);break;
+			projectionSystemAffiche(&(*controleur).projection.parametreSystem);break;
 		case SDLK_F2: // Position de la souris
 			controleSourisAffiche(controleur);break;
 		case SDLK_F3:

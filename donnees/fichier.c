@@ -32,43 +32,43 @@ termes.
 
 #include "fichier.h"
 
-int fichierEcritureParametre(systemeT * systeme, graphesT * graphes, char * nom);
-int fichierLectureParametre(systemeT * systeme, graphesT * graphes, char * nom);
+int fichierEcritureParametre(systemeT * systeme, grapheT * graphe, char * nom);
+int fichierLectureParametre(systemeT * systeme, grapheT * graphe, char * nom);
 int fichierEcriturePosition(systemeT * systeme, char * nom);
 int fichierLecturePosition(systemeT * systeme, char * nom);
 
-int fichierFonctionNulle(systemeT * systeme, graphesT * graphes);
-int fichierFonctionTriangle(systemeT * systeme, graphesT * graphes, int numero);
-int fichierFonctionCarre(systemeT * systeme, graphesT * graphes, int numero);
-int fichierFonctionSinus(systemeT * systeme, graphesT * graphes, int numero);
+int fichierFonctionNulle(systemeT * systeme, grapheT * graphe);
+int fichierFonctionTriangle(systemeT * systeme, grapheT * graphe, int numero);
+int fichierFonctionCarre(systemeT * systeme, grapheT * graphe, int numero);
+int fichierFonctionSinus(systemeT * systeme, grapheT * graphe, int numero);
 
 
 
-int fichierEcriture(systemeT * systeme, graphesT * graphes, char * nom)
+int fichierEcriture(systemeT * systeme, grapheT * graphe, char * nom)
 	{
 	fprintf(stderr, "Ecriture des paramètres %s\n", nom);
-	fichierEcritureParametre(systeme, graphes, nom);
+	fichierEcritureParametre(systeme, graphe, nom);
 	fprintf(stderr, "Ecriture des positions %s\n", nom);
 	fichierEcriturePosition(systeme, nom);
 	return 0;
 	}
 
-int fichierLecture(systemeT * systeme, graphesT * graphes, char * nom)
+int fichierLecture(systemeT * systeme, grapheT * graphe, char * nom)
 	{
 			fprintf(stderr, "Réinitialisation du système\n");
 	fprintf(stderr, "Initialisation des paramètres %s\n", nom);
-	fichierLectureParametre(systeme, graphes, nom);
+	fichierLectureParametre(systeme, graphe, nom);
 	fprintf(stderr, "Initialisation des positions %s\n", nom);
 	fichierLecturePosition(systeme, nom);
 	return 0;
 	}
 
-int fichierEcritureParametre(systemeT * systeme, graphesT * graphes, char * nom)
+int fichierEcritureParametre(systemeT * systeme, grapheT * graphe, char * nom)
 	{
 	FILE *fichier; /* pointeur sur FILE */
 	float reel;
 	int entier;
-	(void)graphes;
+	(void)graphe;
 
 
 	char chemin[120] = "./donnees/enregistrement/parametre_";
@@ -133,12 +133,12 @@ int fichierEcritureParametre(systemeT * systeme, graphesT * graphes, char * nom)
 	return 0;
 	}
 
-int fichierLectureParametre(systemeT * systeme, graphesT * graphes, char * nom)
+int fichierLectureParametre(systemeT * systeme, grapheT * graphe, char * nom)
 	{
 	FILE *fichier; /* pointeur sur FILE */
 	float reel = 0;
 	int entier = 0;
-	//(void)graphes;
+	//(void)graphe;
 
 	char chemin[120] = "./donnees/enregistrement/parametre_";
 
@@ -203,8 +203,8 @@ int fichierLectureParametre(systemeT * systeme, graphesT * graphes, char * nom)
 		systemeInitialiseMasse(systeme, reel);
 		fclose(fichier);
 
-			fprintf(stderr, " Initialisation des graphes\n");
-		graphesInitialisation(graphes, (*systeme).nombre);
+			fprintf(stderr, " Initialisation des graphe\n");
+		grapheInitialisation(graphe, (*systeme).nombre);
 		}
 
 	return 0;
@@ -289,71 +289,71 @@ int fichierLecturePosition(systemeT * systeme, char * nom)
 	return 0;
 	}
 
-int fichierFonction(systemeT * systeme, graphesT * graphes, int numero)
+int fichierFonction(systemeT * systeme, grapheT * graphe, int numero)
 	{
 	switch (numero)
 		{
 		case 0: // Touche A
-			fichierFonctionNulle(systeme, graphes);break;
+			fichierFonctionNulle(systeme, graphe);break;
 		case 1: // Touche Z
-			fichierFonctionSinus(systeme, graphes, 1);break;
+			fichierFonctionSinus(systeme, graphe, 1);break;
 		case 2: // Touche E
-			fichierFonctionTriangle(systeme, graphes, 2);break;
+			fichierFonctionTriangle(systeme, graphe, 2);break;
 		case 3: // Touche R
-			fichierFonctionTriangle(systeme, graphes, 3);break;
+			fichierFonctionTriangle(systeme, graphe, 3);break;
 		case 4: // Touche T
-			fichierFonctionTriangle(systeme, graphes, 4);break;
+			fichierFonctionTriangle(systeme, graphe, 4);break;
 		case 5: // Touche Y
-			fichierFonctionTriangle(systeme, graphes, 5);break;
+			fichierFonctionTriangle(systeme, graphe, 5);break;
 		case 6: // Touche U
-			fichierFonctionTriangle(systeme, graphes, 6);break;
+			fichierFonctionTriangle(systeme, graphe, 6);break;
 		case 7: // Touche I
-			fichierFonctionSinus(systeme, graphes, 7);break;
+			fichierFonctionSinus(systeme, graphe, 7);break;
 		case 8: // Touche O
-			fichierFonctionSinus(systeme, graphes, 8);break;
+			fichierFonctionSinus(systeme, graphe, 8);break;
 		case 9: // Touche P
-			fichierFonctionCarre(systeme, graphes, 9);break;
+			fichierFonctionCarre(systeme, graphe, 9);break;
 		case 10: // Touche Q
-			fichierFonctionSinus(systeme, graphes, 1);break;
+			fichierFonctionSinus(systeme, graphe, 1);break;
 		case 11: // Touche S
-			fichierFonctionSinus(systeme, graphes, 2);break;
+			fichierFonctionSinus(systeme, graphe, 2);break;
 		case 12: // Touche D
-			fichierFonctionSinus(systeme, graphes, 3);break;
+			fichierFonctionSinus(systeme, graphe, 3);break;
 		case 13: // Touche F
-			fichierFonctionSinus(systeme, graphes, 4);break;
+			fichierFonctionSinus(systeme, graphe, 4);break;
 		case 14: // Touche G
-			fichierFonctionSinus(systeme, graphes, 5);break;
+			fichierFonctionSinus(systeme, graphe, 5);break;
 		case 15: // Touche H
-			fichierFonctionCarre(systeme, graphes, 1);break;
+			fichierFonctionCarre(systeme, graphe, 1);break;
 		case 16: // Touche J
-			fichierFonctionCarre(systeme, graphes, 2);break;
+			fichierFonctionCarre(systeme, graphe, 2);break;
 		case 17: // Touche K
-			fichierFonctionCarre(systeme, graphes, 3);break;
+			fichierFonctionCarre(systeme, graphe, 3);break;
 		case 18: // Touche L
-			fichierFonctionCarre(systeme, graphes, 4);break;
+			fichierFonctionCarre(systeme, graphe, 4);break;
 		case 19: // Touche M
-			fichierFonctionCarre(systeme, graphes, 5);break;
+			fichierFonctionCarre(systeme, graphe, 5);break;
 		case 20: // Touche W
-			fichierFonctionSinus(systeme, graphes, 1);break;
+			fichierFonctionSinus(systeme, graphe, 1);break;
 		case 21: // Touche X
-			fichierFonctionSinus(systeme, graphes, 2);break;
+			fichierFonctionSinus(systeme, graphe, 2);break;
 		case 22: // Touche C
-			fichierFonctionSinus(systeme, graphes, 3);break;
+			fichierFonctionSinus(systeme, graphe, 3);break;
 		case 23: // Touche V
-			fichierFonctionSinus(systeme, graphes, 4);break;
+			fichierFonctionSinus(systeme, graphe, 4);break;
 		case 24: // Touche B
-			fichierFonctionSinus(systeme, graphes, 5);break;
+			fichierFonctionSinus(systeme, graphe, 5);break;
 		case 25: // Touche N
-			fichierFonctionCarre(systeme, graphes, 1);break;
+			fichierFonctionCarre(systeme, graphe, 1);break;
 		default:
 			;
 		}
 	return 0;
 	}
 
-int fichierFonctionNulle(systemeT * systeme, graphesT * graphes)
+int fichierFonctionNulle(systemeT * systeme, grapheT * graphe)
 	{
-	(void)graphes;
+	(void)graphe;
 	(void)systeme;
 	int i;
 
@@ -364,12 +364,12 @@ int fichierFonctionNulle(systemeT * systeme, graphesT * graphes)
 	return 0;
 	}
 
-int fichierFonctionTriangle(systemeT * systeme, graphesT * graphes, int numero)
+int fichierFonctionTriangle(systemeT * systeme, grapheT * graphe, int numero)
 	{
 	//float ancien, actuel;
-	(void)graphes;
+	(void)graphe;
 	(void)numero;
-	fichierFonctionNulle(systeme, graphes);
+	fichierFonctionNulle(systeme, graphe);
 /*
 	switch (numero)
 		{
@@ -432,12 +432,12 @@ int fichierFonctionTriangle(systemeT * systeme, graphesT * graphes, int numero)
 	return 0;
 	}
 
-int fichierFonctionCarre(systemeT * systeme, graphesT * graphes, int numero)
+int fichierFonctionCarre(systemeT * systeme, grapheT * graphe, int numero)
 	{
 	//float ancien, actuel;
-	(void)graphes;
+	(void)graphe;
 	(void)numero;
-	fichierFonctionNulle(systeme, graphes);
+	fichierFonctionNulle(systeme, graphe);
 /*
 	if(numero == 1)
 		{
@@ -458,12 +458,12 @@ int fichierFonctionCarre(systemeT * systeme, graphesT * graphes, int numero)
 	return 0;
 	}
 
-int fichierFonctionSinus(systemeT * systeme, graphesT * graphes, int numero)
+int fichierFonctionSinus(systemeT * systeme, grapheT * graphe, int numero)
 	{
 	//float ancien, actuel;
-	(void)graphes;
+	(void)graphe;
 	(void)numero;
-	fichierFonctionNulle(systeme, graphes);
+	fichierFonctionNulle(systeme, graphe);
 /*
 	if(numero == 1)
 		{

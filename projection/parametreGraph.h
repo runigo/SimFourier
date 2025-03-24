@@ -1,11 +1,12 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
-(SiCP 2.5 simulateur de chaîne de pendules fevrier 2021)
+SimFourier 1.2.3 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
+Ce logiciel est un programme informatique servant à donner une représentation
+graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -31,64 +32,32 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _GRAPHES_
-#define _GRAPHES_
+#ifndef _PARAMETREGRAPHE_
+#define _PARAMETREGRAPHE_
 
-#include "pointDeVue.h"
+#include "graphe.h"
+#include "../modele/modele.h"
+#include "commandes.h"
 
-/*************************************************************
+			//		Projections des paramètres graphiques sur les menus horizontaux
 
-	Contient les points des fonctions en 3D et en 2D,
-
-	Contient le point de vue et ses paramètres.
-
-*/////////////////////////////////////////////////////////////
-
-typedef struct GrapheT grapheT;
-	struct GrapheT
+typedef struct ParametreGraphT parametreGraphT;
+	struct ParametreGraphT
 		{
-		int nombre;
-
-			// Grandeurs 3D
-		vecteurT point[NOMBRE_MAX]; // Fonction ou TF
-		vecteurT axe[NOMBRE_MAX]; // Axe x
-		vecteurT support[SUPPORT];	// Axes xyz
-
-
-			// Grandeurs 2D
-		int xp[NOMBRE_MAX];		// Absisse 2D du point
-		int yp[NOMBRE_MAX];		// Ordonnée 2D du point
-		int xa[NOMBRE_MAX];		// Absisse 2D de l'axe
-		int ya[NOMBRE_MAX];		// Ordonnée 2D de l'axe
-
-		int supporX[SUPPORT];		// Absisse 2D des axes
-		int supporY[SUPPORT];		// Ordonnée 2D des axes
-
-			// Position de l'observateur
-		pointDeVueT pointDeVue;
-
-		int axes;	// Change la représentation graphique des axes (avec ou sans)
-		int trait;		// Change la représentation graphique de la fonction (points reliés ou non)
-
-		int dessous;	// Vue de dessous
-		int arriere;	// Vue de derrière
-		int gauche;		// Vue de gauche
-
-		int echelle;	// Echelle du graphe
-		
-		float ratiox;	// rapport décalage X / fenetre X
-		float ratioy;	// rapport décalage Y / fenetre Y
+			// facteurs entre les grandeurs et la position des boutons rotatifs
+		double radianR;
 		};
 
+	//-----------------    INITIALISATION      -----------------------//
+int parametreGrapheInitialise(parametreGraphT * parametreGraph, int nombre);
 
-typedef struct GraphesT graphesT;
-	struct GraphesT
-		{
-		grapheT fonction;
-		grapheT fourier;
-		};
+	//-----------------    PROJECTION      -----------------------//
+int parametreGrapheCommandes(initialeT * initiale, parametreGraphT * parametreGraph, commandesT * commandes);
 
-int graphesInitialisation(graphesT * graphes, int nombre);
-//void grapheChangeSupport(grapheT * graphe);
-int grapheAffiche(grapheT * graphe);
+	//-----------------    CHANGE      -----------------------//
+int parametreGrapheChangeFenetre(parametreGraphT * parametreGraph, int x, int y);
+
+	//-----------------    AFFICHAGE      -----------------------//
+void parametreGrapheAffiche(parametreGraphT * parametreGraph);
+
 #endif

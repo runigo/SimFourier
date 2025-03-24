@@ -34,8 +34,7 @@ termes.
 #ifndef _GRAPHIQUE_
 #define _GRAPHIQUE_
 
-#include "../projection/graphes.h"
-#include "commandes.h"
+#include "../projection/projection.h"
 #include "textures.h"
 #include "affichage.h"
 

@@ -56,11 +56,6 @@ int parametrePerspectiveSupport(parametreSystemT * parametre, grapheT * graphe);
 int parametreSystemInitialise(parametreSystemT * parametre)
 	{
 
-	//(*parametre).fenetreX = FENETRE_X;	// hauteur de la fenêtre
-	//(*parametre).fenetreY = FENETRE_Y;	// largeur de la fenêtre
-
-	//(*parametre).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
-
 	(*parametre).logCouplage = 1.0;// / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
 	(*parametre).logDissipation = 1.0;// / log( DISSIPATION_MAX/DISSIPATION_MIN );
 	(*parametre).logJosephson = 1.0;// / log( JOSEPHSON_MAX/JOSEPHSON_MIN );

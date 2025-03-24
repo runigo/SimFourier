@@ -1,8 +1,8 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
-(D'après SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
+SimFourier 1.2.2 Transformation de Fourier
+(SiCP 2.5 simulateur de chaîne de pendules fevrier 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
@@ -31,33 +31,56 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTIONGRAPH_
-#define _PROJECTIONGRAPH_
+#ifndef _GRAPHE_
+#define _GRAPHE_
 
-#include "../projection/graphes.h"
+#include "pointDeVue.h"
 
-				//		Projections des graphes 3D sur les graphes 2D
-				//		()
+/*************************************************************
 
-typedef struct ProjectionGraphT projectionGraphT;
-	struct ProjectionGraphT
+	Contient les points des fonctions en 3D et en 2D,
+
+	Ainsi que le point de vue, ses paramètres et les paramètres du graphe.
+
+*/////////////////////////////////////////////////////////////
+
+typedef struct GrapheT grapheT;
+	struct GrapheT
 		{
+		int nombre;
 
-		int fenetreX;	// hauteur de la fenêtre
-		int fenetreY;	// largeur de la fenêtre
+			// Grandeurs 3D
+		vecteurT point[NOMBRE_MAX]; // Fonction ou TF
+		vecteurT axe[NOMBRE_MAX]; // Axe x
+		vecteurT support[SUPPORT];	// Axes xyz
 
+
+			// Grandeurs 2D
+		int xp[NOMBRE_MAX];		// Absisse 2D du point
+		int yp[NOMBRE_MAX];		// Ordonnée 2D du point
+		int xa[NOMBRE_MAX];		// Absisse 2D de l'axe
+		int ya[NOMBRE_MAX];		// Ordonnée 2D de l'axe
+
+		int supporX[SUPPORT];		// Absisse 2D des axes
+		int supporY[SUPPORT];		// Ordonnée 2D des axes
+
+			// Position de l'observateur
+		pointDeVueT pointDeVue;
+
+		int axes;	// Change la représentation graphique des axes (avec ou sans)
+		int trait;		// Change la représentation graphique de la fonction (points reliés ou non)
+
+		int dessous;	// Vue de dessous
+		int arriere;	// Vue de derrière
+		int gauche;		// Vue de gauche
+
+		int echelle;	// Echelle du graphe
+		
+		float ratiox;	// rapport décalage X / fenetre X
+		float ratioy;	// rapport décalage Y / fenetre Y
 		};
 
-	//-----------------    INITIALISATION      -----------------------//
-int projectionGraphInitialise(projectionGraphT * projection);
-
-	//-----------------    PROJECTION      -----------------------//
-int projectionGraphGraphes(projectionGraphT * projection, graphesT * graphes);
-
-	//-----------------    CHANGE      -----------------------//
-int projectionGraphChangeFenetre(projectionGraphT * projection, int x, int y);
-
-	//-----------------    AFFICHAGE      -----------------------//
-void projectionGraphAffiche(projectionGraphT * projection);
-
+int grapheInitialisation(grapheT * graphe, int nombre);
+int grapheChangeSupport(grapheT * graphe);
+int grapheAffiche(grapheT * graphe);
 #endif

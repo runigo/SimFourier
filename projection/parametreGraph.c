@@ -30,25 +30,25 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "projectionMenuGraphe.h"
+#include "parametreGraphe.h"
 
 				//		Projections des caractéristiques de la fonction initiale
 				//		  sur les commandes
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionMenuGrapheInitialise(projectionMenuGrapheT * projection, int nombre)
+int parametreGrapheInitialise(parametreGrapheT * parametreGraphe, int nombre)
 	{
 	(void)nombre;
 		//	facteur de proportionalité entre les grandeurs et la position des rotatifs
-	(*projection).radianR = PIS2 / (DISTANCE_MAX - DISTANCE_MIN);
+	(*parametreGraphe).radianR = PIS2 / (DISTANCE_MAX - DISTANCE_MIN);
 
 	return 0;
 	}
 
 	//-----------------    PROJECTION      -----------------------//
 
-int projectionMenuGrapheCommandes(initialeT * initiale, projectionMenuGrapheT * projection, commandesT * commandes) {
+int parametreGrapheCommandes(initialeT * initiale, parametreGrapheT * parametreGraphe, commandesT * commandes) {
 
 	// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
 
@@ -58,7 +58,7 @@ int projectionMenuGrapheCommandes(initialeT * initiale, projectionMenuGrapheT * 
 
 			//	Projection sur les boutons rotatifs de la partie enveloppe
 		//	Distance point de vue, r
-	theta = (*projection).radianR;// * ((*initiale).enveloppe.rho);
+	theta = (*parametreGraphe).radianR;// * ((*initiale).enveloppe.rho);
 	(*commandes).rotatifGraphe[0].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifGraphe[0].positionY = (int)(-longueur*sin(theta));
 
@@ -107,25 +107,25 @@ int projectionMenuGrapheCommandes(initialeT * initiale, projectionMenuGrapheT * 
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int projectionMenuGrapheChangeFenetre(projectionMenuGrapheT * projection, int x, int y) {
+int parametreGrapheChangeFenetre(parametreGrapheT * parametreGraphe, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
-	(void)projection;
+	(void)parametreGraphe;
 	(void)x;
 	(void)y;
-	//(*projection).fenetreX=x;
-	//(*projection).fenetreY=y;
+	//(*parametreGraphe).fenetreX=x;
+	//(*parametreGraphe).fenetreY=y;
 
 	return 0;
 	}
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void projectionMenuGrapheAffiche(projectionMenuGrapheT * projection) {
+void parametreGrapheAffiche(parametreGrapheT * parametreGraphe) {
 
-		//	Affiche les paramètres de la projection
+		//	Affiche les paramètres de la parametreGraphe
 
-	printf("(*projection).radianR = %f\n", (*projection).radianR);
+	printf("(*parametreGraphe).radianR = %f\n", (*parametreGraphe).radianR);
 	return ;
 	}
 

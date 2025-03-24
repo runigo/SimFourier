@@ -36,10 +36,10 @@ termes.
 #include "string.h"
 
 #include "../modele/systeme.h"
-#include "../projection/graphes.h"
+#include "../projection/graphe.h"
 
-int fichierEcriture(systemeT * systeme, graphesT * graphes, char * nom);
-int fichierLecture(systemeT * systeme, graphesT * graphes, char * nom);
-int fichierFonction(systemeT * systeme, graphesT * graphes, int numero);
+int fichierEcriture(systemeT * systeme, grapheT * graphe, char * nom);
+int fichierLecture(systemeT * systeme, grapheT * graphe, char * nom);
+int fichierFonction(systemeT * systeme, grapheT * graphe, int numero);
 
 #endif

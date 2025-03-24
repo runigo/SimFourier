@@ -36,8 +36,8 @@ termes.
 
 #include "../modele/modele.h"
 #include "../modele/observables.h"
-#include "../projection/graphes.h"
-#include "../interface/commandes.h"
+#include "../projection/parametreGraph.h"
+#include "commandes.h"
 #include "../interface/capteurs.h"
 
 				//		Projections des paramètre du systeme
@@ -47,10 +47,6 @@ termes.
 typedef struct ParametreSystemT parametreSystemT;
 	struct ParametreSystemT
 		{
-	//	int fenetreX;	// hauteur de la fenêtre
-	//	int fenetreY;	// largeur de la fenêtre
-		//float ratioXY;	// rapport largeur / hauteur
-
 			// facteurs entre les grandeurs et la position des boutons rotatifs
 		float logCouplage;
 		float logDissipation;
@@ -63,13 +59,13 @@ typedef struct ParametreSystemT parametreSystemT;
 int parametreSystemInitialise(parametreSystemT * parametre);
 
 	//-----------------    PROJECTION      -----------------------//
-int parametreSystemeGraphes(modeleT * modele, graphesT * graphes);
+//int parametreSystemGraphes(modeleT * modele, graphesT * graphes);
 //int parametreObservablesCapteurs(observablesT * observables, parametreSystemT * parametre, capteursT * capteurs);
-int parametreSystemeCommandes(systemeT * systeme, parametreSystemT * parametre, commandesT * commandes);
-int parametreControleurCommandes(parametreSystemT * parametre, commandesT * commandes, int duree, int mode);
+int parametreSystemCommandes(systemeT * systeme, parametreSystemT * parametre, commandesT * commandes);
+//int parametreControleurCommandes(parametreSystemT * parametre, commandesT * commandes, int duree, int mode);
 
 	//-----------------    CHANGE      -----------------------//
-int parametreSystemChangeFenetre(parametreSystemT * parametre, int x, int y);
+//int parametreSystemChangeFenetre(parametreSystemT * parametre, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
 void parametreSystemAffiche(parametreSystemT * parametre);

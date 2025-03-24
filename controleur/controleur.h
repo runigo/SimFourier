@@ -54,10 +54,6 @@ typedef struct ControleurT controleurT;
 
 		projectionT projection;	//	Projection du modèle sur l'interface
 
-		graphesT graphes;		//	Graphe des fonctions
-
-		commandesT commandes;	//	Graphe des commandes
-
 		capteursT capteurs;		//	Graphe des capteurs
 
 		interfaceT interface;	//	Fenêtre SDL

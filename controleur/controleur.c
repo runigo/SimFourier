@@ -115,23 +115,13 @@ int controleurEvolution(controleurT * controleur)
 
 int controleurProjection(controleurT * controleur)
 	{
-		//		Projection du système sur les graphes 3D et
-		//		projection des graphes 3D sur les graphes 2D
+		//		Projection du modèle sur les graphismes
 
 	    // Mise à jour fenêtre et souris
 	controleurFenetre(controleur);
 
-        //  modele -> 3D
-	projectionSystemeGraphes(&(*controleur).modele, &(*controleur).graphes);
-        //  3D -> 2D
-	projectionGraphGraphes(&(*controleur).projection.projectionGraph, &(*controleur).graphes);
-
-	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
-
-	//projectionSystemeCommandes(&(*controleur).modele.systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
-	//projectionInitialeCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
-
-	projectionInitialCommandes(&(*controleur).modele.initiale, &(*controleur).projection.projectionInitial, &(*controleur).commandes);
+		//	Projection
+	projectionModele(&(*controleur).projection, &(*controleur).modele, (*controleur).options.mode);
 
 	return (*controleur).sortie;
 	}
@@ -151,15 +141,15 @@ int controleurFenetre(controleurT * controleur)
 		{
 		(*controleur).graphique.fenetreX=x;
 		(*controleur).graphique.fenetreY=y;
-		projectionGraphChangeFenetre(&(*controleur).projection.projectionGraph, x, y);
+		projectionChangeFenetre(&(*controleur).projection, x, y);
 		if(y<MENUS_Y)
 			{
-			commandesAjusteCommandes(&(*controleur).commandes, ((double)y)/MENUS_Y);
+			commandesAjusteCommandes(&(*controleur).projection.commandes, ((double)y)/MENUS_Y);
 			(*controleur).graphique.facteur=(double)y/MENUS_Y;
 			}
 		else
 			{
-			commandesAjusteCommandes(&(*controleur).commandes, 1.0);
+			commandesAjusteCommandes(&(*controleur).projection.commandes, 1.0);
 			(*controleur).graphique.facteur=1.0;
 			}
 		capteursMiseAJourLongueur(&(*controleur).capteurs, x, y);
@@ -168,7 +158,7 @@ int controleurFenetre(controleurT * controleur)
 		// Réinitialisation des commandes de la SOURIS
 	SDL_PumpEvents();
 	SDL_GetMouseState(&x,&y);
-	commandesInitialiseSouris(&(*controleur).commandes, x, y);
+	commandesInitialiseSouris(&(*controleur).projection.commandes, x, y);
 
 	return (*controleur).sortie;
 	}
@@ -202,11 +192,11 @@ int controleurConstructionGraphique(controleurT * controleur)
 	graphiqueNettoyage(&(*controleur).graphique);
 
 		//fprintf(stderr, "Dessin des graphes\n");
-	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).graphes.fonction);
-	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).graphes.fourier);
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fonction);
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fourier);
 
 		//fprintf(stderr, "Dessin des Commandes\n");
-	graphiqueCommandes(&(*controleur).graphique, &(*controleur).commandes, (*controleur).options.mode);
+	graphiqueCommandes(&(*controleur).graphique, &(*controleur).projection.commandes, (*controleur).options.mode);
 
 		//fprintf(stderr, "Dessin des capteurs\n");
 	//graphiqueCapteurs(&(*controleur).graphique, &(*controleur).capteurs);

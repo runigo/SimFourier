@@ -34,27 +34,37 @@ termes.
 #ifndef _PROJECTION_
 #define _PROJECTION_
 
-#include "../projection/projectionSystem.h"		//	Projection du système vers le graphisme.
-#include "../projection/projectionGraph.h"		//	Projection des graphes 3D sur les graphes 2D.
-#include "../projection/projectionInitial.h"	//	Projection de initiale sur commande.
+#include "../projection/parametreSystem.h"		//	Projection du système vers le graphisme.
+#include "../projection/parametreGraph.h"		//	Projection des graphes 3D sur les graphes 2D.
+#include "../projection/parametreInitial.h"	//	Projection de initiale sur commande.
+#include "commandes.h"
 
 				//		Projections entre le modèle et la vue
 
 typedef struct ProjectionT projectionT;
 	struct ProjectionT
 	{
-		parametreSystemT parametreSystem;	//	Projection du système et des observables sur le graphisme
+		parametreSystemT parametreSystem;	//	Projection des paramètres système et des observables sur le graphisme
 
-		courbe2D3DT courbe2D3D;	//	Projection des courbes 2D sur les graphes 3D
+		parametreGraphT parametreGraph;	//	Projection des courbes 3D sur les courbes 2D
 
-		parametreInitialT parametreInitial;	//	Projection de initiale sur commandes
+		parametreInitialT parametreInitial;	//	Projection des paramètres initiale sur le graphisme
+
+		grapheT fonction;	//	Graphe de la fonction
+
+		grapheT fourier;	//	Graphe de la TF
+
+		commandesT commandes;	//	Graphe des commandes
+
+		int fenetreX;	// hauteur de la fenêtre
+		int fenetreY;	// largeur de la fenêtre
 	};
 
 	//-----------------    INITIALISATION      -----------------------//
 int projectionInitialise(projectionT * projection, int nombre);
 
 	//-----------------    PROJECTION      -----------------------//
-int projectionModele(modeleT * modele, graphesT * graphes, commandesT * commandes);
+int projectionModele(projectionT * projection, modeleT * modele, int mode);
 //int projectionObservablesCapteurs(observablesT * observables, projectionT * projection, capteursT * capteurs);
 //int projectionSystemeCommandes(systemeT * systeme, projectionT * projection);
 //int projectionControleurCommandes(projectionT * projection, commandesT * commandes, int duree, int mode);
