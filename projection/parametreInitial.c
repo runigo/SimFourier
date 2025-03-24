@@ -30,28 +30,28 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "projectionInitial.h"
+#include "parametreInitial.h"
 
 				//		Projections des caractéristiques de la fonction initiale
 				//		  sur les commandes
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialInitialise(projectionInitialT * projection, int nombre)
+int parametreInitialInitialise(parametreInitialT * parametre, int nombre)
 	{
 		//	facteur de proportionalité entre les grandeurs et la position des rotatifs
 
-	(*projection).radianEta = log2(nombre);
-	(*projection).radianRho = log2(nombre)/2;
-	(*projection).radianKhi = nombre/2;
-	(*projection).radianSym = PIS2;
+	(*parametre).radianEta = log2(nombre);
+	(*parametre).radianRho = log2(nombre)/2;
+	(*parametre).radianKhi = nombre/2;
+	(*parametre).radianSym = PIS2;
 
 	return 0;
 	}
 
 	//-----------------    PROJECTION      -----------------------//
 
-int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes) {
+int parametreInitialCommandes(initialeT * initiale, parametreInitialT * parametre, commandesT * commandes) {
 
 	// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
 
@@ -59,39 +59,39 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 	int longueur = (*commandes).rotatifsDroite - (*commandes).rotatifsGauche;
 
 		// facteur de proportionalité entre les grandeurs de l'enveloppe et la position des rotatifs
-	(*projection).radianEta = PIS2 / ((*initiale).enveloppe.etaMax - (*initiale).enveloppe.etaMin);
-	(*projection).radianRho = PIS2 / exp2((*initiale).enveloppe.eta);
-	(*projection).radianKhi = PIS2 / (*initiale).enveloppe.fonction.nombre;
+	(*parametre).radianEta = PIS2 / ((*initiale).enveloppe.etaMax - (*initiale).enveloppe.etaMin);
+	(*parametre).radianRho = PIS2 / exp2((*initiale).enveloppe.eta);
+	(*parametre).radianKhi = PIS2 / (*initiale).enveloppe.fonction.nombre;
 
 			//	Projection sur les boutons rotatifs de la partie enveloppe
 		//	Période enveloppe, eta
-	theta = (*projection).radianEta * ((*initiale).enveloppe.eta - (*initiale).enveloppe.etaMin);
+	theta = (*parametre).radianEta * ((*initiale).enveloppe.eta - (*initiale).enveloppe.etaMin);
 	(*commandes).rotatifInitial[0].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[0].positionY = (int)(-longueur*sin(theta));
 		//	Période enveloppe, rho
-	theta = (*projection).radianRho * ((*initiale).enveloppe.rho);
+	theta = (*parametre).radianRho * ((*initiale).enveloppe.rho);
 	(*commandes).rotatifInitial[1].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[1].positionY = (int)(-longueur*sin(theta));
 		//	Symétrie motif
-	theta = (*projection).radianSym * ( (*initiale).motif.symetrie );
+	theta = (*parametre).radianSym * ( (*initiale).motif.symetrie );
 	(*commandes).rotatifInitial[2].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[2].positionY = (int)(-longueur*sin(theta));
 		//	Phase motif
-	theta = (*projection).radianKhi * ( (*initiale).enveloppe.khi );
+	theta = (*parametre).radianKhi * ( (*initiale).enveloppe.khi );
 	(*commandes).rotatifInitial[3].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[3].positionY = (int)(-longueur*sin(theta));
 
 		// facteur de proportionalité entre les grandeurs de la porteuse et la position des rotatifs
-	(*projection).radianEta = PIS2 / ((*initiale).porteuse.etaMax - (*initiale).porteuse.etaMin);
-	(*projection).radianRho = PIS2 / ( exp2((*initiale).porteuse.eta) );
+	(*parametre).radianEta = PIS2 / ((*initiale).porteuse.etaMax - (*initiale).porteuse.etaMin);
+	(*parametre).radianRho = PIS2 / ( exp2((*initiale).porteuse.eta) );
 
 		//	Projection sur les boutons rotatifs de la partie porteuse
 	//	Période porteuse, eta
-	theta = (*projection).radianEta * ((*initiale).porteuse.eta - (*initiale).porteuse.etaMin);
+	theta = (*parametre).radianEta * ((*initiale).porteuse.eta - (*initiale).porteuse.etaMin);
 	(*commandes).rotatifInitial[4].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[4].positionY = (int)(-longueur*sin(theta));
 	//	Période porteuse, rho
-	theta = (*projection).radianRho * ((*initiale).porteuse.rho);
+	theta = (*parametre).radianRho * ((*initiale).porteuse.rho);
 	(*commandes).rotatifInitial[5].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[5].positionY = (int)(-longueur*sin(theta));
 
@@ -155,28 +155,28 @@ int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projec
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int projectionInitialChangeFenetre(projectionInitialT * projection, int x, int y) {
+int parametreInitialChangeFenetre(parametreInitialT * parametre, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
-	(void)projection;
+	(void)parametre;
 	(void)x;
 	(void)y;
-	//(*projection).fenetreX=x;
-	//(*projection).fenetreY=y;
+	//(*parametre).fenetreX=x;
+	//(*parametre).fenetreY=y;
 
 	return 0;
 	}
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void projectionInitialAffiche(projectionInitialT * projection) {
+void parametreInitialAffiche(parametreInitialT * parametre) {
 
-		//	Affiche les paramètres de la projection
+		//	Affiche les paramètres de la parametre
 
-	printf("(*projection).radianEta = %f\n", (*projection).radianEta);
-	printf("(*projection).radianRho = %f\n", (*projection).radianRho);
-	printf("(*projection).radianKhi = %f\n", (*projection).radianKhi);
-	printf("(*projection).radianSym = %f\n", (*projection).radianSym);
+	printf("(*parametre).radianEta = %f\n", (*parametre).radianEta);
+	printf("(*parametre).radianRho = %f\n", (*parametre).radianRho);
+	printf("(*parametre).radianKhi = %f\n", (*parametre).radianKhi);
+	printf("(*parametre).radianSym = %f\n", (*parametre).radianSym);
 	return ;
 	}
 

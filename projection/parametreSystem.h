@@ -31,8 +31,8 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTIONSYSTEM_
-#define _PROJECTIONSYSTEM_
+#ifndef _PARAMETRESYSTEM_
+#define _PARAMETRESYSTEM_
 
 #include "../modele/modele.h"
 #include "../modele/observables.h"
@@ -44,8 +44,8 @@ termes.
 				//		sur les commandes et les capteurs
 				//			MODE SIMULATION
 
-typedef struct ProjectionSystemT projectionSystemT;
-	struct ProjectionSystemT
+typedef struct ParametreSystemT parametreSystemT;
+	struct ParametreSystemT
 		{
 	//	int fenetreX;	// hauteur de la fenêtre
 	//	int fenetreY;	// largeur de la fenêtre
@@ -60,18 +60,18 @@ typedef struct ProjectionSystemT projectionSystemT;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionSystemInitialise(projectionSystemT * projection);
+int parametreSystemInitialise(parametreSystemT * parametre);
 
 	//-----------------    PROJECTION      -----------------------//
-int projectionSystemeGraphes(modeleT * modele, graphesT * graphes);
-//int projectionObservablesCapteurs(observablesT * observables, projectionSystemT * projection, capteursT * capteurs);
-int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes);
-int projectionControleurCommandes(projectionSystemT * projection, commandesT * commandes, int duree, int mode);
+int parametreSystemeGraphes(modeleT * modele, graphesT * graphes);
+//int parametreObservablesCapteurs(observablesT * observables, parametreSystemT * parametre, capteursT * capteurs);
+int parametreSystemeCommandes(systemeT * systeme, parametreSystemT * parametre, commandesT * commandes);
+int parametreControleurCommandes(parametreSystemT * parametre, commandesT * commandes, int duree, int mode);
 
 	//-----------------    CHANGE      -----------------------//
-int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y);
+int parametreSystemChangeFenetre(parametreSystemT * parametre, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void projectionSystemAffiche(projectionSystemT * projection);
+void parametreSystemAffiche(parametreSystemT * parametre);
 
 #endif

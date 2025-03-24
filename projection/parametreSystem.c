@@ -31,21 +31,21 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "projectionSystem.h"
+#include "parametreSystem.h"
 
 				//		Projections du systeme sur les commandes,
 				//		les capteurs et les graphes
 
 	//	INITIALISATION
-int projectionInitialisePointDeVue(projectionSystemT * projection,  float r,float psi, float phi);
-int projectionReinitialiseBase(projectionSystemT * projection);
+int parametreInitialisePointDeVue(parametreSystemT * parametre,  float r,float psi, float phi);
+int parametreReinitialiseBase(parametreSystemT * parametre);
 
 	//	PROJECTION
-int projectionPerspectiveChaine(projectionSystemT * projection, grapheT * graphe);
-int projectionSystemeGraphes3D(modeleT * modele, graphesT * graphes);
+int parametrePerspectiveChaine(parametreSystemT * parametre, grapheT * graphe);
+int parametreSystemeGraphes3D(modeleT * modele, graphesT * graphes);
 
-int projectionInitialiseSupport(projectionSystemT * projection, int nombre);
-int projectionPerspectiveSupport(projectionSystemT * projection, grapheT * graphe);
+int parametreInitialiseSupport(parametreSystemT * parametre, int nombre);
+int parametrePerspectiveSupport(parametreSystemT * parametre, grapheT * graphe);
 
 	//	CHANGE
 
@@ -53,19 +53,19 @@ int projectionPerspectiveSupport(projectionSystemT * projection, grapheT * graph
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionSystemInitialise(projectionSystemT * projection)
+int parametreSystemInitialise(parametreSystemT * parametre)
 	{
 
-	//(*projection).fenetreX = FENETRE_X;	// hauteur de la fenêtre
-	//(*projection).fenetreY = FENETRE_Y;	// largeur de la fenêtre
+	//(*parametre).fenetreX = FENETRE_X;	// hauteur de la fenêtre
+	//(*parametre).fenetreY = FENETRE_Y;	// largeur de la fenêtre
 
-	//(*projection).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
+	//(*parametre).ratioXY=(float)FENETRE_X/(float)FENETRE_Y; // Rapport entre les dimensions de la fenêtre
 
-	(*projection).logCouplage = 1.0;// / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
-	(*projection).logDissipation = 1.0;// / log( DISSIPATION_MAX/DISSIPATION_MIN );
-	(*projection).logJosephson = 1.0;// / log( JOSEPHSON_MAX/JOSEPHSON_MIN );
-	(*projection).logAmplitude = 1.0;// / log( AMPLITUDE_MAX/AMPLITUDE_MIN );
-	(*projection).logFrequence = 1.0;// / log( FREQUENCE_MAX/FREQUENCE_MIN );
+	(*parametre).logCouplage = 1.0;// / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
+	(*parametre).logDissipation = 1.0;// / log( DISSIPATION_MAX/DISSIPATION_MIN );
+	(*parametre).logJosephson = 1.0;// / log( JOSEPHSON_MAX/JOSEPHSON_MIN );
+	(*parametre).logAmplitude = 1.0;// / log( AMPLITUDE_MAX/AMPLITUDE_MIN );
+	(*parametre).logFrequence = 1.0;// / log( FREQUENCE_MAX/FREQUENCE_MIN );
 
 
 	return 0;
@@ -73,40 +73,40 @@ int projectionSystemInitialise(projectionSystemT * projection)
 
 	//-----------------    PROJECTION      -----------------------//
 
-int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes) {
+int parametreSystemeCommandes(systemeT * systeme, parametreSystemT * parametre, commandesT * commandes) {
 
 		// Projette le système sur les commandes dans le mode simulation
 
 (void)systeme;
-(void)projection;
+(void)parametre;
 (void)commandes;
 /*
 	//float theta;
 	//float ratioRotatif = 0.9;
-	//float courantJosephson = projectionValeurAbsolue((*systeme).moteurs.courantJosephson);
+	//float courantJosephson = parametreValeurAbsolue((*systeme).moteurs.courantJosephson);
 
 				//	Projection sur les boutons rotatifs
 	 //	Couplage
-	theta = DEUXPI * (*projection).logCouplage * log( (*systeme).couplage / (COUPLAGE_MIN * (*systeme).nombre) );
+	theta = DEUXPI * (*parametre).logCouplage * log( (*systeme).couplage / (COUPLAGE_MIN * (*systeme).nombre) );
 	(*commandes).rotatifPositionX[0]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[0]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
 	 //	Dissipation
-	theta = DEUXPI * (*projection).logDissipation * log( (*systeme).dissipation/DISSIPATION_MIN );
+	theta = DEUXPI * (*parametre).logDissipation * log( (*systeme).dissipation/DISSIPATION_MIN );
 	(*commandes).rotatifPositionX[1]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[1]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
 	//	Amplitude du moteur josephson
-	theta = DEUXPI * (*projection).logJosephson * log( projectionValeurAbsolue(courantJosephson/JOSEPHSON_MIN) );
+	theta = DEUXPI * (*parametre).logJosephson * log( parametreValeurAbsolue(courantJosephson/JOSEPHSON_MIN) );
 	(*commandes).rotatifPositionX[2]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[2]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 	//	Amplitude du moteur périodique
-	theta = DEUXPI * (*projection).logAmplitude * log( (*systeme).moteurs.amplitude/AMPLITUDE_MIN );
+	theta = DEUXPI * (*parametre).logAmplitude * log( (*systeme).moteurs.amplitude/AMPLITUDE_MIN );
 	(*commandes).rotatifPositionX[3]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[3]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
 	//	Fréquence du moteurs
-	theta = DEUXPI * (*projection).logFrequence * log( (*systeme).moteurs.frequence/FREQUENCE_MIN );
+	theta = DEUXPI * (*parametre).logFrequence * log( (*systeme).moteurs.frequence/FREQUENCE_MIN );
 	(*commandes).rotatifPositionX[4]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[4]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
@@ -181,7 +181,7 @@ int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projectio
 	for(i=0;i<TRIANGLE_COMMANDES;i++) (*commandes).triangleEtat[i]=0;
 
 		//	Rotation automatique du point de vue
-	switch((*projection).rotation)
+	switch((*parametre).rotation)
 		{
 		case 3:
 			(*commandes).triangleEtat[0]=1;break;
@@ -200,11 +200,11 @@ int projectionSystemeCommandes(systemeT * systeme, projectionSystemT * projectio
 	return 0;
 	}
 
-int projectionControleurCommandes(projectionSystemT * projection, commandesT * commandes, int duree, int mode) {
+int parametreControleurCommandes(parametreSystemT * parametre, commandesT * commandes, int duree, int mode) {
 
 		// Projette le controleur sur les commandes
 
-(void)projection;
+(void)parametre;
 (void)commandes;
 (void)duree;
 (void)mode;
@@ -237,11 +237,11 @@ int projectionControleurCommandes(projectionSystemT * projection, commandesT * c
 	}
 
 /*
-int projectionObservablesCapteurs(observablesT * observables, projectionSystemT * projection, capteursT * capteurs) {
+int parametreObservablesCapteurs(observablesT * observables, parametreSystemT * parametre, capteursT * capteurs) {
 
 		//	Projette les observables sur les capteurs
 
-	(void)projection;
+	(void)parametre;
 	float a;
 	int i, k, y0;
 						//	Observables	:	0 Energie, 1 Cinetique, 2 Couplage, 3 Rappel
@@ -286,17 +286,17 @@ int projectionObservablesCapteurs(observablesT * observables, projectionSystemT 
 	}
 */
 
-int projectionSystemeGraphes(modeleT * modele, graphesT * graphes) {
+int parametreSystemeGraphes(modeleT * modele, graphesT * graphes) {
 
 		// Projection du système sur les graphes en perspective
 
 		//		Projection du système sur les graphes 3D
-	projectionSystemeGraphes3D(modele, graphes);
+	parametreSystemeGraphes3D(modele, graphes);
 
 	return 0;
 	}
 
-int projectionModeleGraphes3D(modeleT * modele, graphesT * graphes){
+int parametreModeleGraphes3D(modeleT * modele, graphesT * graphes){
 
 			//	Projette les fonctions sur les graphes en 3 Dimensions
 
@@ -305,10 +305,10 @@ int projectionModeleGraphes3D(modeleT * modele, graphesT * graphes){
 
 	for(i=0;i<nombre;i++)
 		{
-		(*graphes).fonction.point[i].y = (*modele).systeme.actuel.reel[i];//(*projection).fonction.hauteur * 
-		(*graphes).fonction.point[i].z = (*modele).systeme.actuel.imag[i];//(*projection).fonction.hauteur * 
-		//(*graphes).fourier.point[i].y = (*modele).fourier.spectre.reel[i];//(*projection).fourier.hauteur * 
-		//(*graphes).fourier.point[i].z = (*modele).fourier.spectre.imag[i];//(*projection).fourier.hauteur * 
+		(*graphes).fonction.point[i].y = (*modele).systeme.actuel.reel[i];//(*parametre).fonction.hauteur * 
+		(*graphes).fonction.point[i].z = (*modele).systeme.actuel.imag[i];//(*parametre).fonction.hauteur * 
+		//(*graphes).fourier.point[i].y = (*modele).fourier.spectre.reel[i];//(*parametre).fourier.hauteur * 
+		//(*graphes).fourier.point[i].z = (*modele).fourier.spectre.imag[i];//(*parametre).fourier.hauteur * 
 		}
 
 	int j=nombre/2;
@@ -327,14 +327,14 @@ int projectionModeleGraphes3D(modeleT * modele, graphesT * graphes){
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y) {
+int parametreSystemChangeFenetre(parametreSystemT * parametre, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
-	(void)projection;
+	(void)parametre;
 	(void)x;
 	(void)y;
-	//(*projection).fenetreX=x;
-	//(*projection).fenetreY=y;
+	//(*parametre).fenetreX=x;
+	//(*parametre).fenetreY=y;
 
 	return 0;
 	}
@@ -342,16 +342,16 @@ int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y) 
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void projectionSystemAffiche(projectionSystemT * projection) {
+void parametreSystemAffiche(parametreSystemT * parametre) {
 
-	//	Affiche les paramètres de la projection
-	(void)projection;
+	//	Affiche les paramètres de la parametre
+	(void)parametre;
 
-	//printf("(*projection).ratioXY = %f\n", (*projection).ratioXY);
-	//printf("(*projection).hauteur = %d\n", (*projection).hauteur);
-	//printf("(*projection).largeur = %d\n", (*projection).largeur);
-	//printf("(*projection).fenetreX = %d\n", (*projection).fenetreX);
-	//printf("(*projection).fenetreY = %d\n", (*projection).fenetreY);
+	//printf("(*parametre).ratioXY = %f\n", (*parametre).ratioXY);
+	//printf("(*parametre).hauteur = %d\n", (*parametre).hauteur);
+	//printf("(*parametre).largeur = %d\n", (*parametre).largeur);
+	//printf("(*parametre).fenetreX = %d\n", (*parametre).fenetreX);
+	//printf("(*parametre).fenetreY = %d\n", (*parametre).fenetreY);
 	return ;
 	}
 

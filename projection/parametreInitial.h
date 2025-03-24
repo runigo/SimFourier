@@ -32,8 +32,8 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PROJECTIONINITIAL_
-#define _PROJECTIONINITIAL_
+#ifndef _PARAMETREINITIAL_
+#define _PARAMETREINITIAL_
 
 #include "../modele/modele.h"
 #include "../interface/commandes.h"
@@ -42,8 +42,8 @@ termes.
 			//		sur les commandes et les capteurs
 			//			MODE INITIALE
 
-typedef struct ProjectionInitialT projectionInitialT;
-	struct ProjectionInitialT
+typedef struct ParametreInitialT parametreInitialT;
+	struct ParametreInitialT
 		{
 			// facteurs entre les grandeurs et la position des boutons rotatifs
 		double radianEta;
@@ -53,15 +53,15 @@ typedef struct ProjectionInitialT projectionInitialT;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int projectionInitialInitialise(projectionInitialT * projection, int nombre);
+int parametreInitialInitialise(parametreInitialT * parametre, int nombre);
 
 	//-----------------    PROJECTION      -----------------------//
-int projectionInitialCommandes(initialeT * initiale, projectionInitialT * projection, commandesT * commandes);
+int parametreInitialCommandes(initialeT * initiale, parametreInitialT * parametre, commandesT * commandes);
 
 	//-----------------    CHANGE      -----------------------//
-int projectionInitialChangeFenetre(projectionInitialT * projection, int x, int y);
+int parametreInitialChangeFenetre(parametreInitialT * parametre, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void projectionInitialAffiche(projectionInitialT * projection);
+void parametreInitialAffiche(parametreInitialT * parametre);
 
 #endif
