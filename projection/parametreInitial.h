@@ -38,8 +38,9 @@ termes.
 #include "../modele/modele.h"
 #include "../interface/commandes.h"
 
-			//		Projections du systeme sur les commandes, les capteurs
-			//		et les graphes 3D dans le MODE  INITIAL
+			//		Projections des parametres initiale
+			//		sur les commandes et les capteurs
+			//			MODE INITIALE
 
 typedef struct ProjectionInitialT projectionInitialT;
 	struct ProjectionInitialT

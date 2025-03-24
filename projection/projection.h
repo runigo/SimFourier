@@ -43,11 +43,11 @@ termes.
 typedef struct ProjectionT projectionT;
 	struct ProjectionT
 	{
-		projectionSystemT projectionSystem;	//	Projection du système et des observables sur le graphisme
+		parametreSystemT parametreSystem;	//	Projection du système et des observables sur le graphisme
 
-		projectionGraphT Graphes;	//	Projection des graphes 2D sur les graphes 3D
+		courbe2D3DT courbe2D3D;	//	Projection des courbes 2D sur les graphes 3D
 
-		projectionInitialT projectionInitial;	//	Projection de initiale sur commandes
+		parametreInitialT parametreInitial;	//	Projection de initiale sur commandes
 	};
 
 	//-----------------    INITIALISATION      -----------------------//

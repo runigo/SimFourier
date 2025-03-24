@@ -40,8 +40,8 @@ termes.
 #include "../interface/commandes.h"
 #include "../interface/capteurs.h"
 
-				//		Projections du systeme sur les commandes
-				//		les capteurs et les graphes 3D
+				//		Projections des paramètre du systeme
+				//		sur les commandes et les capteurs
 				//			MODE SIMULATION
 
 typedef struct ProjectionSystemT projectionSystemT;

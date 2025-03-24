@@ -36,8 +36,8 @@ termes.
 
 #include "../projection/graphes.h"
 
-				//		Projections des graphes 3D
-				//		 sur les graphes 2D
+				//		Projections des graphes 3D sur les graphes 2D
+				//		()
 
 typedef struct ProjectionGraphT projectionGraphT;
 	struct ProjectionGraphT
