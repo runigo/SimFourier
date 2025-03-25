@@ -30,14 +30,14 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "parametreInitial.h"
+#include "parametrInitial.h"
 
 				//		Projections des caractéristiques de la fonction initiale
 				//		  sur les commandes
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int parametreInitialInitialise(parametreInitialT * parametre, int nombre)
+int parametrInitialInitialise(parametrInitialT * parametre, int nombre)
 	{
 		//	facteur de proportionalité entre les grandeurs et la position des rotatifs
 
@@ -51,7 +51,7 @@ int parametreInitialInitialise(parametreInitialT * parametre, int nombre)
 
 	//-----------------    PROJECTION      -----------------------//
 
-int parametreInitialCommandes(initialeT * initiale, parametreInitialT * parametre, commandesT * commandes) {
+int parametrInitialCommandes(initialeT * initiale, parametrInitialT * parametre, commandesT * commandes) {
 
 	// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
 
@@ -155,7 +155,7 @@ int parametreInitialCommandes(initialeT * initiale, parametreInitialT * parametr
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int parametreInitialChangeFenetre(parametreInitialT * parametre, int x, int y) {
+int parametrInitialChangeFenetre(parametrInitialT * parametre, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
 	(void)parametre;
@@ -169,7 +169,7 @@ int parametreInitialChangeFenetre(parametreInitialT * parametre, int x, int y) {
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void parametreInitialAffiche(parametreInitialT * parametre) {
+void parametrInitialAffiche(parametrInitialT * parametre) {
 
 		//	Affiche les paramètres de la parametre
 

@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.2.3 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
@@ -32,36 +32,32 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PARAMETREINITIAL_
-#define _PARAMETREINITIAL_
+#ifndef _PARAMETRGRAPH_
+#define _PARAMETRGRAPH_
 
+#include "graphe.h"
 #include "../modele/modele.h"
 #include "commandes.h"
 
-			//		Projections des parametres initiale
-			//		sur les commandes et les capteurs
-			//			MODE INITIALE
+			//		Projections des paramètres graphiques sur les menus horizontaux
 
-typedef struct ParametreInitialT parametreInitialT;
-	struct ParametreInitialT
+typedef struct ParametreGraphT parametreGraphT;
+	struct ParametreGraphT
 		{
 			// facteurs entre les grandeurs et la position des boutons rotatifs
-		double radianEta;
-		double radianRho;
-		double radianKhi;
-		double radianSym;
+		double radianR;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int parametreInitialInitialise(parametreInitialT * parametre, int nombre);
+int parametrGraphInitialise(parametreGraphT * parametreGraph, int nombre);
 
 	//-----------------    PROJECTION      -----------------------//
-int parametreInitialCommandes(initialeT * initiale, parametreInitialT * parametre, commandesT * commandes);
+int parametrGraphCommandes(initialeT * initiale, parametreGraphT * parametreGraph, commandesT * commandes);
 
 	//-----------------    CHANGE      -----------------------//
-int parametreInitialChangeFenetre(parametreInitialT * parametre, int x, int y);
+int parametrGraphChangeFenetre(parametreGraphT * parametreGraph, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void parametreInitialAffiche(parametreInitialT * parametre);
+void parametrGraphAffiche(parametreGraphT * parametreGraph);
 
 #endif

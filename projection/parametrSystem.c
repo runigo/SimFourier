@@ -31,21 +31,21 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "parametreSystem.h"
+#include "parametrSystem.h"
 
 				//		Projections du systeme sur les commandes,
 				//		les capteurs et les graphes
 
 	//	INITIALISATION
-int parametreInitialisePointDeVue(parametreSystemT * parametre,  float r,float psi, float phi);
-int parametreReinitialiseBase(parametreSystemT * parametre);
+int parametreInitialisePointDeVue(parametrSystemT * parametre,  float r,float psi, float phi);
+int parametreReinitialiseBase(parametrSystemT * parametre);
 
 	//	PROJECTION
-int parametrePerspectiveChaine(parametreSystemT * parametre, grapheT * graphe);
-int parametreSystemeGraphes3D(modeleT * modele, graphesT * graphes);
+int parametrePerspectiveChaine(parametrSystemT * parametre, grapheT * graphe);
+int parametrSystemeGraphes3D(modeleT * modele, graphesT * graphes);
 
-int parametreInitialiseSupport(parametreSystemT * parametre, int nombre);
-int parametrePerspectiveSupport(parametreSystemT * parametre, grapheT * graphe);
+int parametreInitialiseSupport(parametrSystemT * parametre, int nombre);
+int parametrePerspectiveSupport(parametrSystemT * parametre, grapheT * graphe);
 
 	//	CHANGE
 
@@ -53,7 +53,7 @@ int parametrePerspectiveSupport(parametreSystemT * parametre, grapheT * graphe);
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int parametreSystemInitialise(parametreSystemT * parametre)
+int parametrSystemInitialise(parametrSystemT * parametre)
 	{
 
 	(*parametre).logCouplage = 1.0;// / log( (COUPLAGE_MAX/COUPLAGE_MIN) );
@@ -68,7 +68,7 @@ int parametreSystemInitialise(parametreSystemT * parametre)
 
 	//-----------------    PROJECTION      -----------------------//
 
-int parametreSystemeCommandes(systemeT * systeme, parametreSystemT * parametre, commandesT * commandes) {
+int parametrSystemeCommandes(systemeT * systeme, parametrSystemT * parametre, commandesT * commandes) {
 
 		// Projette le système sur les commandes dans le mode simulation
 
@@ -195,7 +195,7 @@ int parametreSystemeCommandes(systemeT * systeme, parametreSystemT * parametre, 
 	return 0;
 	}
 
-int parametreControleurCommandes(parametreSystemT * parametre, commandesT * commandes, int duree, int mode) {
+int parametreControleurCommandes(parametrSystemT * parametre, commandesT * commandes, int duree, int mode) {
 
 		// Projette le controleur sur les commandes
 
@@ -232,7 +232,7 @@ int parametreControleurCommandes(parametreSystemT * parametre, commandesT * comm
 	}
 
 /*
-int parametreObservablesCapteurs(observablesT * observables, parametreSystemT * parametre, capteursT * capteurs) {
+int parametreObservablesCapteurs(observablesT * observables, parametrSystemT * parametre, capteursT * capteurs) {
 
 		//	Projette les observables sur les capteurs
 
@@ -281,12 +281,12 @@ int parametreObservablesCapteurs(observablesT * observables, parametreSystemT * 
 	}
 */
 
-int parametreSystemeGraphes(modeleT * modele, graphesT * graphes) {
+int parametrSystemeGraphes(modeleT * modele, graphesT * graphes) {
 
 		// Projection du système sur les graphes en perspective
 
 		//		Projection du système sur les graphes 3D
-	parametreSystemeGraphes3D(modele, graphes);
+	parametrSystemeGraphes3D(modele, graphes);
 
 	return 0;
 	}
@@ -322,7 +322,7 @@ int parametreModeleGraphes3D(modeleT * modele, graphesT * graphes){
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int parametreSystemChangeFenetre(parametreSystemT * parametre, int x, int y) {
+int parametrSystemChangeFenetre(parametrSystemT * parametre, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
 	(void)parametre;
@@ -337,7 +337,7 @@ int parametreSystemChangeFenetre(parametreSystemT * parametre, int x, int y) {
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void parametreSystemAffiche(parametreSystemT * parametre) {
+void parametrSystemAffiche(parametrSystemT * parametre) {
 
 	//	Affiche les paramètres de la parametre
 	(void)parametre;

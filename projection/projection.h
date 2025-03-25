@@ -34,21 +34,20 @@ termes.
 #ifndef _PROJECTION_
 #define _PROJECTION_
 
-#include "../projection/parametreSystem.h"		//	Projection du système vers le graphisme.
-#include "../projection/parametreGraph.h"		//	Projection des graphes 3D sur les graphes 2D.
-#include "../projection/parametreInitial.h"	//	Projection de initiale sur commande.
-#include "commandes.h"
+#include "../projection/parametrSystem.h"		//	Projection du système vers le graphisme.
+#include "../projection/parametrGraph.h"		//	Projection des graphes 3D sur les graphes 2D.
+#include "../projection/parametrInitial.h"	//	Projection de initiale sur commande.
 
-				//		Projections entre le modèle et la vue
+				//		Projections entre le modèle et l'interface
 
 typedef struct ProjectionT projectionT;
 	struct ProjectionT
 	{
-		parametreSystemT parametreSystem;	//	Projection des paramètres système et des observables sur le graphisme
+		parametrSystemT parametrSystem;	//	Projection des paramètres système et des observables sur le graphisme
 
-		parametreGraphT parametreGraph;	//	Projection des courbes 3D sur les courbes 2D
+		parametrGraphT parametrGraph;	//	Projection des courbes 3D sur les courbes 2D
 
-		parametreInitialT parametreInitial;	//	Projection des paramètres initiale sur le graphisme
+		parametrInitialT parametrInitial;	//	Projection des paramètres initiale sur le graphisme
 
 		grapheT fonction;	//	Graphe de la fonction
 

@@ -1,11 +1,12 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
-(d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
+SimFourier 1.2.2 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
+Ce logiciel est un programme informatique servant à donner une représentation
+graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -31,43 +32,36 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PARAMETRESYSTEM_
-#define _PARAMETRESYSTEM_
+#ifndef _PARAMETRINITIAL_
+#define _PARAMETRINITIAL_
 
 #include "../modele/modele.h"
-#include "../modele/observables.h"
-#include "../projection/parametreGraph.h"
 #include "commandes.h"
-#include "../interface/capteurs.h"
 
-				//		Projections des paramètre du systeme
-				//		sur les commandes et les capteurs
-				//			MODE SIMULATION
+			//		Projections des parametres initiale
+			//		sur les commandes et les capteurs
+			//			MODE INITIALE
 
-typedef struct ParametreSystemT parametreSystemT;
-	struct ParametreSystemT
+typedef struct ParametrInitialT parametrInitialT;
+	struct ParametrInitialT
 		{
 			// facteurs entre les grandeurs et la position des boutons rotatifs
-		float logCouplage;
-		float logDissipation;
-		float logJosephson;
-		float logAmplitude;
-		float logFrequence;
+		double radianEta;
+		double radianRho;
+		double radianKhi;
+		double radianSym;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int parametreSystemInitialise(parametreSystemT * parametre);
+int parametrInitialInitialise(parametrInitialT * parametre, int nombre);
 
 	//-----------------    PROJECTION      -----------------------//
-//int parametreSystemGraphes(modeleT * modele, graphesT * graphes);
-//int parametreObservablesCapteurs(observablesT * observables, parametreSystemT * parametre, capteursT * capteurs);
-int parametreSystemCommandes(systemeT * systeme, parametreSystemT * parametre, commandesT * commandes);
-//int parametreControleurCommandes(parametreSystemT * parametre, commandesT * commandes, int duree, int mode);
+int parametrInitialCommandes(initialeT * initiale, parametrInitialT * parametre, commandesT * commandes);
 
 	//-----------------    CHANGE      -----------------------//
-//int parametreSystemChangeFenetre(parametreSystemT * parametre, int x, int y);
+int parametrInitialChangeFenetre(parametrInitialT * parametre, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void parametreSystemAffiche(parametreSystemT * parametre);
+void parametrInitialAffiche(parametrInitialT * parametre);
 
 #endif

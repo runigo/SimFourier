@@ -2,11 +2,10 @@
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.2.3 Transformation de Fourier
+(d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -32,32 +31,43 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _PARAMETREGRAPHE_
-#define _PARAMETREGRAPHE_
+#ifndef _PARAMETRSYSTEM_
+#define _PARAMETRSYSTEM_
 
-#include "graphe.h"
 #include "../modele/modele.h"
+#include "../modele/observables.h"
+#include "../projection/parametreGraph.h"
 #include "commandes.h"
+#include "../interface/capteurs.h"
 
-			//		Projections des paramètres graphiques sur les menus horizontaux
+				//		Projections des paramètre du systeme
+				//		sur les commandes et les capteurs
+				//			MODE SIMULATION
 
-typedef struct ParametreGraphT parametreGraphT;
-	struct ParametreGraphT
+typedef struct ParametrSystemT parametrSystemT;
+	struct ParametrSystemT
 		{
 			// facteurs entre les grandeurs et la position des boutons rotatifs
-		double radianR;
+		float logCouplage;
+		float logDissipation;
+		float logJosephson;
+		float logAmplitude;
+		float logFrequence;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int parametrGraphInitialise(parametreGraphT * parametreGraph, int nombre);
+int parametrSystemInitialise(parametrSystemT * parametre);
 
 	//-----------------    PROJECTION      -----------------------//
-int parametrGraphCommandes(initialeT * initiale, parametreGraphT * parametreGraph, commandesT * commandes);
+//int parametrSystemGraphes(modeleT * modele, graphesT * graphes);
+//int parametreObservablesCapteurs(observablesT * observables, parametrSystemT * parametre, capteursT * capteurs);
+int parametrSystemCommandes(systemeT * systeme, parametrSystemT * parametre, commandesT * commandes);
+//int parametreControleurCommandes(parametrSystemT * parametre, commandesT * commandes, int duree, int mode);
 
 	//-----------------    CHANGE      -----------------------//
-int parametrGraphChangeFenetre(parametreGraphT * parametreGraph, int x, int y);
+//int parametrSystemChangeFenetre(parametrSystemT * parametre, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void parametrGraphAffiche(parametreGraphT * parametreGraph);
+void parametrSystemAffiche(parametrSystemT * parametre);
 
 #endif

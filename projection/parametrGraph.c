@@ -30,25 +30,25 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "parametreGraphe.h"
+#include "parametrGraph.h"
 
 				//		Projections des caractéristiques de la fonction initiale
 				//		  sur les commandes
 
 
 	//-----------------    INITIALISATION      -----------------------//
-int parametreGrapheInitialise(parametreGrapheT * parametreGraphe, int nombre)
+int parametrGraphInitialise(parametrGraphT * parametrGraph, int nombre)
 	{
 	(void)nombre;
 		//	facteur de proportionalité entre les grandeurs et la position des rotatifs
-	(*parametreGraphe).radianR = PIS2 / (DISTANCE_MAX - DISTANCE_MIN);
+	(*parametrGraph).radianR = PIS2 / (DISTANCE_MAX - DISTANCE_MIN);
 
 	return 0;
 	}
 
 	//-----------------    PROJECTION      -----------------------//
 
-int parametreGrapheCommandes(initialeT * initiale, parametreGrapheT * parametreGraphe, commandesT * commandes) {
+int parametrGraphCommandes(initialeT * initiale, parametrGraphT * parametrGraph, commandesT * commandes) {
 
 	// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
 
@@ -58,7 +58,7 @@ int parametreGrapheCommandes(initialeT * initiale, parametreGrapheT * parametreG
 
 			//	Projection sur les boutons rotatifs de la partie enveloppe
 		//	Distance point de vue, r
-	theta = (*parametreGraphe).radianR;// * ((*initiale).enveloppe.rho);
+	theta = (*parametrGraph).radianR;// * ((*initiale).enveloppe.rho);
 	(*commandes).rotatifGraphe[0].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifGraphe[0].positionY = (int)(-longueur*sin(theta));
 
@@ -107,25 +107,25 @@ int parametreGrapheCommandes(initialeT * initiale, parametreGrapheT * parametreG
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int parametreGrapheChangeFenetre(parametreGrapheT * parametreGraphe, int x, int y) {
+int parametrGraphChangeFenetre(parametrGraphT * parametrGraph, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
-	(void)parametreGraphe;
+	(void)parametrGraph;
 	(void)x;
 	(void)y;
-	//(*parametreGraphe).fenetreX=x;
-	//(*parametreGraphe).fenetreY=y;
+	//(*parametrGraph).fenetreX=x;
+	//(*parametrGraph).fenetreY=y;
 
 	return 0;
 	}
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void parametreGrapheAffiche(parametreGrapheT * parametreGraphe) {
+void parametrGraphAffiche(parametrGraphT * parametrGraph) {
 
-		//	Affiche les paramètres de la parametreGraphe
+		//	Affiche les paramètres de la parametrGraph
 
-	printf("(*parametreGraphe).radianR = %f\n", (*parametreGraphe).radianR);
+	printf("(*parametrGraph).radianR = %f\n", (*parametrGraph).radianR);
 	return ;
 	}
 
