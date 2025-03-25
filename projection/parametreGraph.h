@@ -49,15 +49,15 @@ typedef struct ParametreGraphT parametreGraphT;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int parametreGrapheInitialise(parametreGraphT * parametreGraph, int nombre);
+int parametrGraphInitialise(parametreGraphT * parametreGraph, int nombre);
 
 	//-----------------    PROJECTION      -----------------------//
-int parametreGrapheCommandes(initialeT * initiale, parametreGraphT * parametreGraph, commandesT * commandes);
+int parametrGraphCommandes(initialeT * initiale, parametreGraphT * parametreGraph, commandesT * commandes);
 
 	//-----------------    CHANGE      -----------------------//
-int parametreGrapheChangeFenetre(parametreGraphT * parametreGraph, int x, int y);
+int parametrGraphChangeFenetre(parametreGraphT * parametreGraph, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void parametreGrapheAffiche(parametreGraphT * parametreGraph);
+void parametrGraphAffiche(parametreGraphT * parametreGraph);
 
 #endif

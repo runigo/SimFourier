@@ -55,9 +55,9 @@ termes.
 int projectionInitialise(projectionT * projection, int nombre)
 	{
 		//fprintf(stderr, " Initialisation des projections\n");
-	projectionGraphInitialise(&(*projection).projectionGraph);
-	projectionSystemInitialise(&(*projection).projectionSystem);
-	projectionInitialInitialise(&(*projection).projectionInitial, nombre);
+	parametrGraphInitialise(&(*projection).projectionGraph);
+	parametrSystemInitialise(&(*projection).projectionSystem);
+	parametrInitialInitialise(&(*projection).projectionInitial, nombre);
 
 	return 0;
 	}
