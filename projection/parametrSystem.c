@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -41,11 +41,6 @@ int parametreInitialisePointDeVue(parametrSystemT * parametre,  float r,float ps
 int parametreReinitialiseBase(parametrSystemT * parametre);
 
 	//	PROJECTION
-int parametrePerspectiveChaine(parametrSystemT * parametre, grapheT * graphe);
-int parametrSystemeGraphes3D(modeleT * modele, graphesT * graphes);
-
-int parametreInitialiseSupport(parametrSystemT * parametre, int nombre);
-int parametrePerspectiveSupport(parametrSystemT * parametre, grapheT * graphe);
 
 	//	CHANGE
 
@@ -68,7 +63,7 @@ int parametrSystemInitialise(parametrSystemT * parametre)
 
 	//-----------------    PROJECTION      -----------------------//
 
-int parametrSystemeCommandes(systemeT * systeme, parametrSystemT * parametre, commandesT * commandes) {
+int parametrSystemCommandes(systemeT * systeme, parametrSystemT * parametre, commandesT * commandes) {
 
 		// Projette le système sur les commandes dans le mode simulation
 
@@ -280,45 +275,6 @@ int parametreObservablesCapteurs(observablesT * observables, parametrSystemT * p
 	return 0;
 	}
 */
-
-int parametrSystemeGraphes(modeleT * modele, graphesT * graphes) {
-
-		// Projection du système sur les graphes en perspective
-
-		//		Projection du système sur les graphes 3D
-	parametrSystemeGraphes3D(modele, graphes);
-
-	return 0;
-	}
-
-int parametreModeleGraphes3D(modeleT * modele, graphesT * graphes){
-
-			//	Projette les fonctions sur les graphes en 3 Dimensions
-
-	int i;
-	int nombre = (*modele).systeme.nombre;
-
-	for(i=0;i<nombre;i++)
-		{
-		(*graphes).fonction.point[i].y = (*modele).systeme.actuel.reel[i];//(*parametre).fonction.hauteur * 
-		(*graphes).fonction.point[i].z = (*modele).systeme.actuel.imag[i];//(*parametre).fonction.hauteur * 
-		//(*graphes).fourier.point[i].y = (*modele).fourier.spectre.reel[i];//(*parametre).fourier.hauteur * 
-		//(*graphes).fourier.point[i].z = (*modele).fourier.spectre.imag[i];//(*parametre).fourier.hauteur * 
-		}
-
-	int j=nombre/2;
-
-	for(i=0;i<j;i++)	//	Projection et retournement
-		{
-		(*graphes).fourier.point[i].y = (*modele).fourier.spectre.reel[j-i];		//[2*i]
-		(*graphes).fourier.point[i].z = (*modele).fourier.spectre.imag[j-i];		//[2*i]
-		(*graphes).fourier.point[nombre-i].y = (*modele).fourier.spectre.reel[j+i]; //[2*i+1]
-		(*graphes).fourier.point[nombre-i].z = (*modele).fourier.spectre.imag[j+i]; //[2*i+1]
-		}
-
-	return 0;
-	}
-
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 

@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (D'après SiCP 1.3.7  simulateur de chaîne de pendules, septembre 2017)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -31,26 +31,38 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "graphes.h"
+#include "graphe.h"
 
 int grapheInitialiseSupport(grapheT * graphe);
-int grapheInitialisePointDeVue(graphesT * graphes, float r, float psi, float phi);
-//int graphesInitialisePointDeVue(graphesT * graphes, float r, float psi, float phi);
 
-int grapheInitialisation(grapheT * graphe, int nombre);
-
-int graphesInitialisation(graphesT * graphes, int nombre)
+int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY)
 	{
-			//	Initalisation des graphes
+						//	Projette un graphe 3D sur son graphe 2D
+	vecteurT v;
+	int i;
+	int nombre = (*graphe).nombre;
 
-	grapheInitialisation(&(*graphes).fonction, nombre);
-	grapheInitialisation(&(*graphes).fourier, nombre);
-	(*graphes).fonction.ratiox = 0.5;
-	(*graphes).fonction.ratioy = 0.25;
-	(*graphes).fourier.ratiox = 0.5;
-	(*graphes).fourier.ratioy = 0.75;
-	(*graphes).fonction.trait = 1;
-	(*graphes).fourier.trait = 0;
+		// centrage du graphe
+	int centrageX = (int)( fenetreX * (*graphe).ratiox );
+	int centrageY = (int)( fenetreY * (*graphe).ratioy );
+
+	for(i=0;i<nombre;i++)
+		{
+				// Coordonnees 2D du point
+			// v = masse - point de vue
+		vecteurDifferenceCartesien(&(*graphe).point[i], &(*graphe).pointDeVue.position, &v);
+			// x = X + v.Psi		 y = Y + v.Phi
+		(*graphe).xp[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
+		(*graphe).yp[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
+
+				// Coordonnees 2D de l'axe
+			// v = axe - point de vue
+		vecteurDifferenceCartesien(&(*graphe).axe[i], &(*graphe).pointDeVue.position, &v);
+			// x = X + v.Psi		 y = Y + v.Phi
+		(*graphe).xa[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
+		(*graphe).ya[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
+		}
+
 	return 0;
 	}
 
@@ -95,38 +107,7 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 
 	return 0;
 	}
-/*
-int graphesInitialisePointDeVue(graphesT * graphes, float r, float psi, float phi)
-	{
-		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
 
-	grapheInitialisePointDeVue(&(*graphes).fonction.pointDeVue, r, psi, phi);
-	grapheInitialisePointDeVue(&(*graphes).fourier.pointDeVue, r, psi, phi);
-
-	return 0;
-	}
-
-int grapheInitialisePointDeVue(grapheT * graphe, float r, float psi, float phi)
-	{
-		// Initialise la position de l'observateur et calcul les vecteurs perpendiculaires
-
-	vecteurInitialisePolaire(&(*graphe).pointDeVue, r, psi, phi);
-	
-	GrapheReinitialiseBase(graphe);
-
-	return 0;
-	}
-
-int grapheReinitialiseBase(grapheT * graphe)
-	{
-		// Réinitialise les vecteurs perpendiculaires
-
-	vecteurInitialiseVecteurPhi(&(*graphe).pointDeVue.position, &(*graphe).pointDeVue.vecteurPhi, (*graphe).longueur);
-	vecteurInitialiseVecteurPsi(&(*graphe).pointDeVue.position, &(*graphe).pointDeVue.vecteurPsi, (*graphe).rayon);
-
-	return 0;
-	}
-*/
 int grapheInitialiseSupport(grapheT * graphe){
 //
 //                                                Z
@@ -178,7 +159,7 @@ int grapheInitialiseSupport(grapheT * graphe){
 	return 0;
 	}
 
-void grapheChangeSupport(grapheT * graphe){
+int grapheChangeSupport(grapheT * graphe){
 
 	// Change la représentation graphique du support
 
@@ -198,6 +179,7 @@ void grapheChangeSupport(grapheT * graphe){
 			printf("Support plein\n");
 			}
 		}
+	return 0;
 	}
 
 	//-----------------    AFFICHAGE      -----------------------//

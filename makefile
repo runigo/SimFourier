@@ -1,9 +1,10 @@
-# Copyright novembre 2023, Stephan Runigo
+# Copyright mars 2025, Stephan Runigo
 # runigo@free.fr
 # (SiCP 2.5 simulateur de chaîne de pendules)
-# SimFourier 1.0 Transformation de Fourier
+# SimFourier 1.3 Transformation de Fourier
 # Ce logiciel est un programme informatique servant à donner une représentation
-# graphique de la transformation de Fourier à 1 dimension.
+# graphique de la transformation de Fourier à 1 dimension et de la simulation
+# d'équations de propagation.
 # Ce logiciel est régi par la licence CeCILL soumise au droit français et 
 # respectant les principes de diffusion des logiciels libres. Vous pouvez 
 # utiliser, modifier et/ou redistribuer ce programme sous les conditions 
@@ -39,8 +40,8 @@ OBJDIR = ./obj
 
 all : $(EXEC)
 
-$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleClavier.o $(OBJDIR)/controleSouris.o $(OBJDIR)/projection.o $(OBJDIR)/ParametreSystem.o $(OBJDIR)/parametreInitial.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/parametreGraph.o $(OBJDIR)/affichage.o $(OBJDIR)/textures.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphe.o $(OBJDIR)/rotatif.o $(OBJDIR)/selectif.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/partie.o $(OBJDIR)/motif.o $(OBJDIR)/fourier.o $(OBJDIR)/systeme.o $(OBJDIR)/modele.o
-	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleClavier.o $(OBJDIR)/controleSouris.o $(OBJDIR)/projection.o $(OBJDIR)/ParametreSystem.o $(OBJDIR)/parametreInitial.o $(OBJDIR)/projectionGraph.o $(OBJDIR)/parametreGraph.o $(OBJDIR)/affichage.o $(OBJDIR)/textures.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphe.o $(OBJDIR)/rotatif.o $(OBJDIR)/selectif.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fourier.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/partie.o $(OBJDIR)/motif.o $(OBJDIR)/systeme.o $(OBJDIR)/modele.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
+$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleClavier.o $(OBJDIR)/controleSouris.o $(OBJDIR)/projection.o $(OBJDIR)/parametrSystem.o $(OBJDIR)/parametrInitial.o $(OBJDIR)/parametrGraph.o $(OBJDIR)/affichage.o $(OBJDIR)/textures.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphe.o $(OBJDIR)/rotatif.o $(OBJDIR)/selectif.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/partie.o $(OBJDIR)/motif.o $(OBJDIR)/fourier.o $(OBJDIR)/systeme.o $(OBJDIR)/modele.o
+	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/fichier.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/controleClavier.o $(OBJDIR)/controleSouris.o $(OBJDIR)/projection.o $(OBJDIR)/parametrSystem.o $(OBJDIR)/parametrInitial.o $(OBJDIR)/parametrGraph.o $(OBJDIR)/affichage.o $(OBJDIR)/textures.o $(OBJDIR)/graphique.o $(OBJDIR)/pointDeVue.o $(OBJDIR)/graphe.o $(OBJDIR)/rotatif.o $(OBJDIR)/selectif.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/capteurs.o $(OBJDIR)/vecteur.o $(OBJDIR)/fourier.o $(OBJDIR)/fonction.o $(OBJDIR)/initiale.o $(OBJDIR)/partie.o $(OBJDIR)/motif.o $(OBJDIR)/systeme.o $(OBJDIR)/modele.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
 
 # $(OBJDIR)/observables.o $(OBJDIR)/chaine.o $(OBJDIR)/change.o $(OBJDIR)/moteurs.o
 # $(OBJDIR)/observables.o $(OBJDIR)/chaine.o $(OBJDIR)/change.o $(OBJDIR)/moteurs.o
@@ -69,17 +70,14 @@ $(OBJDIR)/controleSouris.o : controleur/controleSouris.c controleur/controleSour
 $(OBJDIR)/projection.o : projection/projection.c projection/projection.h
 	$(CC) -c -g projection/projection.c $(CFLAGS) -o $@
 
-$(OBJDIR)/ParametreSystem.o : projection/ParametreSystem.c projection/ParametreSystem.h
-	$(CC) -c -g projection/ParametreSystem.c $(CFLAGS) -o $@
+$(OBJDIR)/parametrSystem.o : projection/parametrSystem.c projection/parametrSystem.h
+	$(CC) -c -g projection/parametrSystem.c $(CFLAGS) -o $@
 
-$(OBJDIR)/parametreInitial.o : projection/parametreInitial.c projection/parametreInitial.h
-	$(CC) -c -g projection/parametreInitial.c $(CFLAGS) -o $@
+$(OBJDIR)/parametrInitial.o : projection/parametrInitial.c projection/parametrInitial.h
+	$(CC) -c -g projection/parametrInitial.c $(CFLAGS) -o $@
 
-$(OBJDIR)/projectionGraph.o : projection/projectionGraph.c projection/projectionGraph.h
-	$(CC) -c -g projection/projectionGraph.c $(CFLAGS) -o $@
-
-$(OBJDIR)/parametreGraph.o : projection/parametreGraph.c projection/parametreGraph.h
-	$(CC) -c -g projection/parametreGraph.c $(CFLAGS) -o $@
+$(OBJDIR)/parametrGraph.o : projection/parametrGraph.c projection/parametrGraph.h
+	$(CC) -c -g projection/parametrGraph.c $(CFLAGS) -o $@
 
 $(OBJDIR)/horloge.o : interface/horloge.c interface/horloge.h
 	$(CC) -c -g interface/horloge.c $(CFLAGS) -o $@

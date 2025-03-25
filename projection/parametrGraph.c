@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.

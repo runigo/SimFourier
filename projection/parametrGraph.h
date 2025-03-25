@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
@@ -41,23 +41,23 @@ termes.
 
 			//		Projections des paramètres graphiques sur les menus horizontaux
 
-typedef struct ParametreGraphT parametreGraphT;
-	struct ParametreGraphT
+typedef struct ParametrGraphT parametrGraphT;
+	struct ParametrGraphT
 		{
 			// facteurs entre les grandeurs et la position des boutons rotatifs
 		double radianR;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
-int parametrGraphInitialise(parametreGraphT * parametreGraph, int nombre);
+int parametrGraphInitialise(parametrGraphT * parametrGraph, int nombre);
 
 	//-----------------    PROJECTION      -----------------------//
-int parametrGraphCommandes(initialeT * initiale, parametreGraphT * parametreGraph, commandesT * commandes);
+int parametrGraphCommandes(initialeT * initiale, parametrGraphT * parametrGraph, commandesT * commandes);
 
 	//-----------------    CHANGE      -----------------------//
-int parametrGraphChangeFenetre(parametreGraphT * parametreGraph, int x, int y);
+int parametrGraphChangeFenetre(parametrGraphT * parametrGraph, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void parametrGraphAffiche(parametreGraphT * parametreGraph);
+void parametrGraphAffiche(parametrGraphT * parametrGraph);
 
 #endif

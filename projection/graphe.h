@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (SiCP 2.5 simulateur de chaîne de pendules fevrier 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -39,8 +39,8 @@ termes.
 /*************************************************************
 
 	Contient les points des fonctions en 3D et en 2D,
-
-	Ainsi que le point de vue, ses paramètres et les paramètres du graphe.
+	la projection en perspective,
+	le point de vue, ses paramètres et les paramètres du graphe.
 
 */////////////////////////////////////////////////////////////
 
@@ -75,12 +75,16 @@ typedef struct GrapheT grapheT;
 		int gauche;		// Vue de gauche
 
 		int echelle;	// Echelle du graphe
+		//int longueur;	// Longueur Ox
+		//int rayon;	// Longueurs Oy et Oz
 		
 		float ratiox;	// rapport décalage X / fenetre X
 		float ratioy;	// rapport décalage Y / fenetre Y
 		};
 
+int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY);
 int grapheInitialisation(grapheT * graphe, int nombre);
+int grapheInitialisePointDeVue(grapheT * graphe, float r, float psi, float phi);
 int grapheChangeSupport(grapheT * graphe);
 int grapheAffiche(grapheT * graphe);
 #endif

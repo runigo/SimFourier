@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -36,11 +36,11 @@ termes.
 
 #include "../modele/modele.h"
 #include "../modele/observables.h"
-#include "../projection/parametreGraph.h"
+#include "../projection/parametrGraph.h"
 #include "commandes.h"
 #include "../interface/capteurs.h"
 
-				//		Projections des paramètre du systeme
+				//		Projections des paramètres du système
 				//		sur les commandes et les capteurs
 				//			MODE SIMULATION
 
@@ -59,13 +59,8 @@ typedef struct ParametrSystemT parametrSystemT;
 int parametrSystemInitialise(parametrSystemT * parametre);
 
 	//-----------------    PROJECTION      -----------------------//
-//int parametrSystemGraphes(modeleT * modele, graphesT * graphes);
 //int parametreObservablesCapteurs(observablesT * observables, parametrSystemT * parametre, capteursT * capteurs);
 int parametrSystemCommandes(systemeT * systeme, parametrSystemT * parametre, commandesT * commandes);
-//int parametreControleurCommandes(parametrSystemT * parametre, commandesT * commandes, int duree, int mode);
-
-	//-----------------    CHANGE      -----------------------//
-//int parametrSystemChangeFenetre(parametrSystemT * parametre, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//
 void parametrSystemAffiche(parametrSystemT * parametre);

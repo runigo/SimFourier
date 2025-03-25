@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -40,6 +40,8 @@ termes.
 //int projectionReinitialiseBase(projectionSystemT * projection);
 
 	//	PROJECTION
+int projectionModeleGraphes(projectionT * projection, modeleT * modele);
+int projectionModeleGraphes3D(modeleT * modele, projectionT * projection);
 //int projectionPerspectiveChaine(projectionSystemT * projection, grapheT * graphe);
 //int projectionSystemeGraphes3D(modeleT * modele, graphesT * graphes);
 
@@ -55,52 +57,93 @@ termes.
 int projectionInitialise(projectionT * projection, int nombre)
 	{
 		//fprintf(stderr, " Initialisation des projections\n");
-	parametrGraphInitialise(&(*projection).projectionGraph);
-	parametrSystemInitialise(&(*projection).projectionSystem);
-	parametrInitialInitialise(&(*projection).projectionInitial, nombre);
+	parametrGraphInitialise(&(*projection).parametrGraph, nombre);
+	parametrSystemInitialise(&(*projection).parametrSystem);
+	parametrInitialInitialise(&(*projection).parametrInitial, nombre);
+
+		//	Initialisation des graphes
+	grapheInitialisation(&(*projection).fonction, nombre);
+	grapheInitialisation(&(*projection).fourier, nombre);
+	(*projection).fonction.ratiox = 0.5;
+	(*projection).fonction.ratioy = 0.25;
+	(*projection).fourier.ratiox = 0.5;
+	(*projection).fourier.ratioy = 0.75;
+	(*projection).fonction.trait = 1;
+	(*projection).fourier.trait = 0;
 
 	return 0;
 	}
 
 	//-----------------    PROJECTION      -----------------------//
 
-int projectionModeleGraphes(modeleT * modele, graphesT * graphes) {
-
-		// Projection du Modele sur les graphes en perspective
-
-		//		Projection du système sur les graphes 3D
-	projectionSystemeGraphes3D(modele, graphes);
-
-	return 0;
-	}
-
 
 int projectionModele(projectionT * projection, modeleT * modele, int mode)
 	{
+		//	Projette le modèle sur les graphes et les commandes
 
-        //  modele -> 3D
-	projectionSystemeGraphes(&(*controleur).modele, &(*controleur).graphes);
-        //  3D -> 2D
-	projectionGraphGraphes(&(*controleur).projection.projectionGraph, &(*controleur).graphes);
+        //  Fonction du modele -> graphe 3D -> graphe 2D
+	projectionModeleGraphes(projection, modele);
 
-	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projectionSystem, &(*controleur).capteurs);
+	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projection.parametrSystem, &(*controleur).capteurs);
 
-	//projectionInitialeCommandes(&(*controleur).projectionSystem, &(*controleur).commandes, (*controleur).options.duree, (*controleur).options.modePause);
-
+		//	Paramètre du modèle -> commandes
 	if(mode == 0)	//	Mode initiale
 		{
-	projectionInitialCommandes(&(*controleur).modele.initiale, &(*controleur).projection.projectionInitial, &(*controleur).commandes);
+	parametrInitialCommandes(&(*modele).initiale, &(*projection).parametrInitial, &(*projection).commandes);
 		}
 	else
 		{
-	//projectionSystemeCommandes(&(*controleur).modele.systeme, &(*controleur).projectionSystem, &(*controleur).commandes);
+	parametrSystemCommandes(&(*modele).systeme, &(*projection).parametrSystem, &(*projection).commandes);
 		}
 
 
 	return 0;
 	}
 
-int projectionCommandes(systemeT * systeme, projectionSystemT * projection, commandesT * commandes) {
+int projectionModeleGraphes(projectionT * projection, modeleT * modele)
+	{
+		// Projection des fonctions du modèle sur les graphes en perspective
+
+		//		Projection des fonctions sur les graphes 3D
+	projectionModeleGraphes3D(modele, projection);
+
+		//		Projection des graphes 3D sur les graphes 2D
+	graphe3D2D(&(*projection).fonction, (*projection).fenetreX, (*projection).fenetreY);
+	graphe3D2D(&(*projection).fourier, (*projection).fenetreX, (*projection).fenetreY);
+
+	return 0;
+	}
+
+int projectionModeleGraphes3D(modeleT * modele, projectionT * projection)
+	{
+			//	Projette les fonctions du modèle sur les graphes 3D
+
+	int i;
+	int nombre = (*modele).systeme.nombre;
+
+	for(i=0;i<nombre;i++)
+		{
+		(*projection).fonction.point[i].y = (*modele).systeme.actuel.reel[i];//(*projection).fonction.hauteur * 
+		(*projection).fonction.point[i].z = (*modele).systeme.actuel.imag[i];//(*projection).fonction.hauteur * 
+		//(*projection).fourier.point[i].y = (*modele).fourier.spectre.reel[i];//(*projection).fourier.hauteur * 
+		//(*projection).fourier.point[i].z = (*modele).fourier.spectre.imag[i];//(*projection).fourier.hauteur * 
+		}
+
+	int j=nombre/2;
+
+	for(i=0;i<j;i++)	//	Projection et retournement
+		{
+		(*projection).fourier.point[i].y = (*modele).fourier.spectre.reel[j-i];		//[2*i]
+		(*projection).fourier.point[i].z = (*modele).fourier.spectre.imag[j-i];		//[2*i]
+		(*projection).fourier.point[nombre-i].y = (*modele).fourier.spectre.reel[j+i]; //[2*i+1]
+		(*projection).fourier.point[nombre-i].z = (*modele).fourier.spectre.imag[j+i]; //[2*i+1]
+		}
+
+	return 0;
+	}
+
+
+int projectionCommandes(systemeT * systeme, parametrSystemT * projection, commandesT * commandes) {
 
 		// Projette le système sur les commandes dans le mode simulation
 
@@ -110,7 +153,7 @@ int projectionCommandes(systemeT * systeme, projectionSystemT * projection, comm
 	return 0;
 	}
 
-int projectionControleurCommandes(projectionSystemT * projection, commandesT * commandes, int duree, int mode) {
+int projectionControleurCommandes(parametrSystemT * projection, commandesT * commandes, int duree, int mode) {
 
 		// Projette le controleur sur les commandes
 
@@ -123,7 +166,7 @@ int projectionControleurCommandes(projectionSystemT * projection, commandesT * c
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y) {
+int projectionChangeFenetre(projectionT * projection, int x, int y) {
 
 		//	Enregistre le changement de la taille de la fenêtre
 
@@ -136,7 +179,7 @@ int projectionSystemChangeFenetre(projectionSystemT * projection, int x, int y) 
 
 	//-----------------    AFFICHAGE      -----------------------//
 
-void projectionSystemAffiche(projectionSystemT * projection) {
+void projectionAffiche(projectionT * projection) {
 
 	//	Affiche les paramètres de la projection
 	(void)projection;
