@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.3 simulateur de chaîne de pendules, mai 2018)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -50,8 +50,8 @@ typedef struct CommandesT commandesT;
 		{
 		rotatifT rotatifInitial[ROTATIF_INITIAL];
 		selectifT selectifInitial[SELECTIF_INITIAL];
-		rotatifT rotatifGraphe[ROTATIF_GRAPHES];
-		selectifT selectifGraphe[SELECTIF_GRAPHES];
+		rotatifT rotatifGraph[ROTATIF_GRAPHES];
+		selectifT selectifGraph[SELECTIF_GRAPHES];
 
 			// Zones suivant X des commandes
 		int rotatifsCentre;
@@ -91,8 +91,8 @@ int commandesAjusteCommandes(commandesT * commandes, double facteur);
 
 int commandesSourisZone(commandesT * commandes);
 
-int commandeSelectifs(commandesT * commandes);
-int commandeRotatifs(commandesT * commandes);
+int commandeSelectifsInitiale(commandesT * commandes);
+int commandeRotatifsInitiale(commandesT * commandes);
 int commandeTriangles(commandesT * commandes);
 int commandeLineaires(commandesT * commandes);
 

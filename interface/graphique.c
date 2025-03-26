@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SimFoule 2.2 simulateur de foule, décembre 2019)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -33,11 +33,8 @@ termes.
 
 #include "graphique.h"
 
-		//		INITIALISATION ,  SUPRESSION
-
 		//		CONSTRUCTION DU GRAPHISME
 int graphiqueMenus(graphiqueT * graphique, int mode);
-
 int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes);
 int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes);
 
@@ -46,8 +43,8 @@ int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
 int graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT);
 int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
 
-		//		INITIALISATION ,  SUPRESSION
 
+		//		INITIALISATION ,  SUPRESSION
 
 int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface)
 	{
@@ -74,21 +71,27 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface)
 
 int graphiqueSuppression(graphiqueT * graphique)
 	{
-		// Destruction du rendu
+			// Destruction du rendu
 	SDL_DestroyRenderer((*graphique).affichage.rendu);
+
 	return 0;
 	}
 
 		//		CONSTRUCTION DU GRAPHISME
 
 int graphiqueNettoyage(graphiqueT * graphique)
-	{		//		Nettoyage du rendu
+	{
+			//		Nettoyage du rendu
+
 	return affichageNettoyage(&(*graphique).affichage);
 	}
 
 int graphiqueMiseAJour(graphiqueT * graphique)
-	{		//		Affichage du rendu
+	{
+			//		Affichage du rendu
+
 	SDL_RenderPresent((*graphique).affichage.rendu);
+
 	return 0;
 	}
 
@@ -106,7 +109,6 @@ int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
 		{
 		graphiqueCommandesSimulation(graphique, commandes);
 		}*/
-	
 	return 0;
 	}
 
@@ -142,7 +144,7 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 		{	//	Affichage du menu de la zone 4
 		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.graphes, NULL, &coordonnee);
 			//	Taille et position du menu du graphe fourier (zone 6)
-		coordonnee.y = 300;
+		coordonnee.y = (*graphique).fenetreY / 2;
 			//	Affichage du menu de la zone 6
 		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.graphes, NULL, &coordonnee);
 		}
@@ -174,12 +176,12 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 		}
 	for(i=0;i<SELECTIF_GRAPHES;i++)
 		{
-		if((*commandes).selectifGraphe[i].etat==1)
+		if((*commandes).selectifGraph[i].etat==1)
 			{
-			coordonnee.y = (*commandes).selectifGraphe[i].Y; // Position y du bouton
-			if ((*graphique).textures.selectifGraphe[i] != 0)
+			coordonnee.y = (*commandes).selectifGraph[i].Y; // Position y du bouton
+			if ((*graphique).textures.selectifGraph[i] != 0)
 				{
-				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifGraphe[i], NULL, &coordonnee);
+				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifGraph[i], NULL, &coordonnee);
 				}
 			}
 		}
@@ -218,9 +220,9 @@ int graphiqueAxeEtFonction(graphiqueT * graphique, grapheT * graphe)
 		// Axes x'x, y'y, z'z
 	if((*graphe).arriere <= 0) // Vue de devant
 		{
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[0], (*graphe).supporY[0], (*graphe).supporX[1], (*graphe).supporY[1]);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[2], (*graphe).supporY[2], (*graphe).supporX[3], (*graphe).supporY[3]);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[4], (*graphe).supporY[4], (*graphe).supporX[5], (*graphe).supporY[5]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[2], (*graphe).axeY[2], (*graphe).axeX[3], (*graphe).axeY[3]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[4], (*graphe).axeY[4], (*graphe).axeX[5], (*graphe).axeY[5]);
 		}
 
 
@@ -232,9 +234,9 @@ int graphiqueAxeEtFonction(graphiqueT * graphique, grapheT * graphe)
 		// Axes x'x, y'y, z'z
 	if((*graphe).arriere > 0) // Vue de derrière
 		{
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[0], (*graphe).supporY[0], (*graphe).supporX[1], (*graphe).supporY[1]);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[2], (*graphe).supporY[2], (*graphe).supporX[3], (*graphe).supporY[3]);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).supporX[4], (*graphe).supporY[4], (*graphe).supporX[5], (*graphe).supporY[5]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[2], (*graphe).axeY[2], (*graphe).axeX[3], (*graphe).axeY[3]);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[4], (*graphe).axeY[4], (*graphe).axeX[5], (*graphe).axeY[5]);
 		}
 
 	return 0;

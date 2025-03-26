@@ -99,8 +99,8 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 
 	for(i=0;i<SUPPORT;i++){
 		vecteurInitialisePolaire(&(*graphe).support[i],0.0,0.0,0.0);
-		(*graphe).supporX[i] = 0;
-		(*graphe).supporY[i] = 0;
+		(*graphe).axeX[i] = 0;
+		(*graphe).axeY[i] = 0;
 		}
 
 	pointDeVueInitialise(&(*graphe).pointDeVue);
@@ -160,25 +160,62 @@ int grapheInitialiseSupport(grapheT * graphe){
 	return 0;
 	}
 
-int grapheChangeSupport(grapheT * graphe){
-
+int grapheRegleAxes(grapheT * graphe, int axes)
+	{
 	// Change la représentation graphique du support
-
-	if((*graphe).axes==1)
-		{(*graphe).axes=0;
-		printf("Support invisible\n");}
-	else
+		// Change la représentation graphique des axes (avec ou sans)
+	switch (axes)
 		{
-		if((*graphe).axes==0)
-			{
-			(*graphe).axes=-1;
-			printf("Support transparent\n");
-			}
-		else
-			{
-			(*graphe).axes=1;
-			printf("Support plein\n");
-			}
+		case 0:	//	point
+			(*graphe).axes = 0;
+			printf("Axes : non représentés\n"); break;
+		case 1:	//	trait
+			(*graphe).axes = 1;
+			printf("Axes :  représentés\n"); break;
+		case 2:	//	trait
+			(*graphe).axes = 2;
+			printf("Axes :  avec le nom\n"); break;
+		default:
+			printf("ERREUR grapheRegleAxes\n");
+		}
+	return 0;
+	}
+
+int grapheRegleTrait(grapheT * graphe, int trait)
+	{
+			// Regle la représentation graphique de la courbe
+				// Change la représentation graphique de la fonction (points reliés ou non)
+	switch (trait)
+		{
+		case 0:	//	point
+			(*graphe).trait = 0;
+			printf("Courbe : points non reliés\n"); break;
+		case 1:	//	trait
+			(*graphe).trait = 1;
+			printf("Courbe : points reliés\n"); break;
+		default:
+			printf("ERREUR grapheRegleTrait\n");
+		}
+	return 0;
+	}
+
+int grapheChangeCoord(grapheT * graphe, int coord)
+	{
+			// Regle la représentation graphique de la courbe
+				// Change la représentation graphique des coordonnées (vecteur ou cartésien)
+	switch (coord)
+		{
+		case 0:
+			(*graphe).coord = 0;
+			printf("Coordonées : sans représentation\n"); break;
+		case 1:
+			(*graphe).trait = 1;
+			printf("Coordonées : style vecteur\n"); break;
+		case 2:
+			(*graphe).trait = 1;
+			printf("Coordonées : style cartésien\n"); break;
+		default:
+			printf("ERREUR grapheChangeCoord\n");
 		}
 	return 0;
 	}

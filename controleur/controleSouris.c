@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -167,7 +167,7 @@ int controleSourisCliqRotatif(controleurT * controleur)
 			//	Action du cliq de souris dans le menu rotatif
 
 			//	Numéro du rotatif
-	int rotatif = commandeRotatifs(&(*controleur).projection.commandes);
+	int rotatif = commandeRotatifsInitiale(&(*controleur).projection.commandes);
 	//fprintf(stderr, "\n controleSourisCliqRotatif, numéro : %d\n", rotatif);
 			//	Position angulaire de la souris dans le rotatif
 	double angle = atan( (double)((*controleur).projection.commandes.rotatifInitial[rotatif].Y
@@ -201,7 +201,7 @@ int controleSourisCliqSelectif(controleurT * controleur)
 	{
 			//	Action du cliq de souris
 			//	dans le menu selectif
-	int selectif = commandeSelectifs(&(*controleur).projection.commandes);
+	int selectif = commandeSelectifsInitiale(&(*controleur).projection.commandes);
 
 	switch(selectif)	//	fonction ,  parametre ,  variation ,  pourMille
 		{
@@ -248,7 +248,7 @@ int controleSourisInitialisePosition(controleurT * controleur, int position) {
 
 int controleSourisDefileRotatifs(controleurT * controleur)
 	{
-	int commande = commandeRotatifs(&(*controleur).projection.commandes);
+	int commande = commandeRotatifsInitiale(&(*controleur).projection.commandes);
 	//commande = -1;
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{

@@ -1,7 +1,7 @@
 /*
-Copyright février 2025, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SimFoule 2.2  simulateur de foule, décembre 2019)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -45,7 +45,7 @@ struct TexturesT {
 	SDL_Texture *selectifInitial[SELECTIF_INITIAL];
 
 	SDL_Texture *graphes;			//	Menu graphes
-	SDL_Texture *selectifGraphe[SELECTIF_GRAPHES];
+	SDL_Texture *selectifGraph[SELECTIF_GRAPHES];
 
 		//	 voyants
 	SDL_Texture *lumiereVerte;

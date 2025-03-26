@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SimFoule 2.2  simulateur de foule, décembre 2019)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -49,8 +49,8 @@ struct GraphiqueT {
 	double facteur;		//	adaptation de la taille du menu en fonction de la
 						//	hauteur de la fenetre.
 
-	int fenetreX;	// hauteur de la fenêtre
-	int fenetreY;	// largeur de la fenêtre
+	int fenetreX;	//	largeur de la fenêtre
+	int fenetreY;	//	hauteur de la fenêtre
 };
 
 int graphiqueSuppression(graphiqueT * graphique);

@@ -72,8 +72,8 @@ int parametrGraphRotatifs(grapheT * graphe, parametrGraphT * parametrGraph, comm
 			//	Projection sur les boutons rotatifs de la partie enveloppe
 		//	Distance point de vue, r
 	theta = (*parametrGraph).radianR * ((*graphe).pointDeVue.position.r);
-	(*commandes).rotatifGraphe[0].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatifGraphe[0].positionY = (int)(-longueur*sin(theta));
+	(*commandes).rotatifGraph[0].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifGraph[0].positionY = (int)(-longueur*sin(theta));
 
 	return 0;
 	}
@@ -86,36 +86,36 @@ int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes)
 
 	for(i=0;i<SELECTIF_INITIAL;i++)
 		{
-		(*commandes).selectifGraphe[i].etat = 0;
+		(*commandes).selectifGraph[i].etat = 0;
 		}
 
 	switch((*graphe).axes) {	//	Tracé des axes, position du point de vue
 		case 0:
-			(*commandes).selectifGraphe[0].etat = 1; break;	//	Implicite
+			(*commandes).selectifGraph[0].etat = 1; break;	//	Implicite
 		case 1:
-			(*commandes).selectifGraphe[1].etat = 1; break;	//	Imaginaire
+			(*commandes).selectifGraph[1].etat = 1; break;	//	Imaginaire
 		case 2:
-			(*commandes).selectifGraphe[2].etat = 1; break;	//	Réel
+			(*commandes).selectifGraph[2].etat = 1; break;	//	Réel
 		case 5:
-			(*commandes).selectifGraphe[3].etat = 1; break;	//	Sans axe
+			(*commandes).selectifGraph[3].etat = 1; break;	//	Sans axe
 		default:
 			; }
 
 	switch((*graphe).trait) {	//	Tracé de la courbe
 		case 0:
-			(*commandes).selectifGraphe[4].etat = 1; break;	//	Point
+			(*commandes).selectifGraph[4].etat = 1; break;	//	Point
 		case 1:
-			(*commandes).selectifGraphe[5].etat = 1; break;	//	Relié
+			(*commandes).selectifGraph[5].etat = 1; break;	//	Relié
 		default:
 			; }
 
 	switch((*graphe).coord) {	//	Tracé des coordonnées
 		case 0:
-			(*commandes).selectifGraphe[8].etat = 1; break;	//	vide
+			(*commandes).selectifGraph[8].etat = 1; break;	//	vide
 		case 1:
-			(*commandes).selectifGraphe[7].etat = 1; break;	//	cartésien
+			(*commandes).selectifGraph[7].etat = 1; break;	//	cartésien
 		case 2:
-			(*commandes).selectifGraphe[6].etat = 1; break;	//	vecteur
+			(*commandes).selectifGraph[6].etat = 1; break;	//	vecteur
 		default:
 			; }
 

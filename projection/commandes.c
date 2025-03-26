@@ -1,7 +1,7 @@
 /*
-Copyright février 2025, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -33,23 +33,27 @@ termes.
 
 #include "commandes.h"
 
-int commandesInitialiseZones(commandesT * commandes, double facteur);
-int commandesInitialiseRotatifs(commandesT * commandes, double facteur);
-int commandesInitialiseSelectifs(commandesT * commandes, double facteur);
-int commandesInitialise(commandesT * commandes, double facteur);
+int commandesAjusteZones(commandesT * commandes, double facteur);
+int commandesAjusteRotatifsInitiale(commandesT * commandes, double facteur);
+int commandesAjusteSelectifsInitiale(commandesT * commandes, double facteur);
+int commandesAjusteRotatifsGraphes(commandesT * commandes, double facteur);
+int commandesAjusteSelectifsGraphes(commandesT * commandes, double facteur);
+//int commandesInitialise(commandesT * commandes, double facteur);
 
 int commandesAjusteCommandes(commandesT * commandes, double facteur)
 	{
 			//	Réglage des positions des zones et des commandes
 
-	commandesInitialiseZones(commandes, facteur);
-	commandesInitialiseRotatifs(commandes, facteur);
-	commandesInitialiseSelectifs(commandes, facteur);
+	commandesAjusteZones(commandes, facteur);
+	commandesAjusteRotatifsInitiale(commandes, facteur);
+	commandesAjusteSelectifsInitiale(commandes, facteur);
+	//commandesAjusteRotatifsGraphes(commandes, facteur);
+	//commandesAjusteSelectifsGraphes(commandes, facteur);
 
 	return 0;
 	}
 
-int commandesInitialiseZones(commandesT * commandes, double facteur)
+int commandesAjusteZones(commandesT * commandes, double facteur)
 	{
 
 			// Zones suivant Y du menu 1
@@ -77,9 +81,9 @@ int commandesInitialiseZones(commandesT * commandes, double facteur)
 	return 0;
 	}
 
-int commandesInitialiseRotatifs(commandesT * commandes, double facteur)
+int commandesAjusteRotatifsInitiale(commandesT * commandes, double facteur)
 	{
-				//	Positions des boutons rotatifs
+				//	Positions des boutons rotatifs du menu initiale
 	int i;
 	for(i=0;i<ROTATIF_INITIAL;i++)
 		{
@@ -95,12 +99,9 @@ int commandesInitialiseRotatifs(commandesT * commandes, double facteur)
 	return 0;
 	}
 
-int commandesInitialiseSelectifs(commandesT * commandes, double facteur)
+int commandesAjusteSelectifsInitiale(commandesT * commandes, double facteur)
 	{
-					//	Positions des boutons selectifs
-
-
-			//	Initialisation des boutons selectifs
+					//	Positions des boutons selectifs du menu initiale
 	int i;
 	for(i=0;i<SELECTIF_INITIAL;i++)
 		{
@@ -120,6 +121,46 @@ int commandesInitialiseSelectifs(commandesT * commandes, double facteur)
 	(*commandes).selectifInitial[10].Y = facteur * 588;	//	Dirac
 	(*commandes).selectifInitial[11].Y = facteur * 631;	//	Sinus
 	(*commandes).selectifInitial[12].Y = facteur * 677;	//	Complexe
+
+	return 0;
+	}
+
+int commandesAjusteRotatifsGraphes(commandesT * commandes, double facteur)
+	{
+				//	Positions des boutons rotatifs des menus graphes
+	int i;
+	for(i=0;i<ROTATIF_GRAPHES;i++)
+		{
+		rotatifInitialise(&(*commandes).rotatifGraph[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
+		}
+	(*commandes).rotatifGraph[0].Y = facteur * 75; 	//	Largeur
+	(*commandes).rotatifGraph[1].Y = facteur * 168;	//	Largeur
+	(*commandes).rotatifGraph[2].Y = facteur * 285;	//	Symetrie
+	(*commandes).rotatifGraph[3].Y = facteur * 404;	//	Phase
+	(*commandes).rotatifGraph[4].Y = facteur * 548;	//	Période
+	(*commandes).rotatifGraph[5].Y = facteur * 640;	//	Période
+
+	return 0;
+	}
+
+int commandesAjusteSelectifsGraphes(commandesT * commandes, double facteur)
+	{
+					//	Positions des boutons selectifs des menus graphes
+	int i;
+	for(i=0;i<SELECTIF_GRAPHES;i++)
+		{
+		selectifInitialise(&(*commandes).selectifGraph[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
+		}
+			// BOUTONS SELECTIFS SUIVANT X
+	(*commandes).selectifGraph[0].X = facteur * 69;  	//	Implicite
+	(*commandes).selectifGraph[1].X = facteur * 114;		//	Imaginaire
+	(*commandes).selectifGraph[2].X = facteur * 159;		//	Reel
+	(*commandes).selectifGraph[3].X = facteur * 203;		//	Sans
+	(*commandes).selectifGraph[4].X = facteur * 264;		//	Point
+	(*commandes).selectifGraph[5].X = facteur * 310;		//	Relié
+	(*commandes).selectifGraph[6].X = facteur * 355;		//	Vecteur
+	(*commandes).selectifGraph[7].X = facteur * 400;		//	Cartésien
+	(*commandes).selectifGraph[8].X = facteur * 444;		//	Sans
 
 	return 0;
 	}
@@ -217,7 +258,7 @@ int commandesSourisZone(commandesT * commandes)
 	return -1;
 	}
 
-int commandeSelectifs(commandesT * commandes)
+int commandeSelectifsInitiale(commandesT * commandes)
 	{
 			// Retourne le numéro du boutons sélectif
 	int i;
@@ -233,7 +274,7 @@ int commandeSelectifs(commandesT * commandes)
 	return -1;
 	}
 
-int commandeRotatifs(commandesT * commandes)
+int commandeRotatifsInitiale(commandesT * commandes)
 	{
 			// Retourne le numéro du boutons rotatif
 	int i;

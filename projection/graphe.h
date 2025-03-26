@@ -61,8 +61,8 @@ typedef struct GrapheT grapheT;
 		int xa[NOMBRE_MAX];		// Absisse 2D de l'axe
 		int ya[NOMBRE_MAX];		// Ordonnée 2D de l'axe
 
-		int supporX[SUPPORT];		// Absisse 2D des axes
-		int supporY[SUPPORT];		// Ordonnée 2D des axes
+		int axeX[SUPPORT];		// Absisse 2D des axes
+		int axeY[SUPPORT];		// Ordonnée 2D des axes
 
 			// Position de l'observateur
 		pointDeVueT pointDeVue;
@@ -86,6 +86,8 @@ typedef struct GrapheT grapheT;
 int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY);
 int grapheInitialisation(grapheT * graphe, int nombre);
 int grapheInitialisePointDeVue(grapheT * graphe, float r, float psi, float phi);
-int grapheChangeSupport(grapheT * graphe);
+int grapheRegleAxes(grapheT * graphe, int axes);
+int grapheRegleTrait(grapheT * graphe, int trait);
+int grapheChangeCoord(grapheT * graphe, int coord);
 int grapheAffiche(grapheT * graphe);
 #endif

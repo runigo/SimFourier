@@ -1,7 +1,7 @@
 /*
-Copyright février 2025, Stephan Runigo
+Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SimFoule 2.2  simulateur de foule, décembre 2019)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -51,7 +51,7 @@ int texturesNULL(texturesT * textures)
 
 	for(i=0;i<SELECTIF_INITIAL;i++)
 		{
-		(*textures).selectifGraphe[i] = NULL;
+		(*textures).selectifGraph[i] = NULL;
 		}
 
 	(*textures).simulation = NULL;
@@ -252,9 +252,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/implicite.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraphe[0] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[0] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraphe[0] == 0)
+	if ((*textures).selectifGraph[0] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -264,9 +264,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/imaginaire.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraphe[1] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[1] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraphe[1] == 0)
+	if ((*textures).selectifGraph[1] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -276,9 +276,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/reel.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraphe[2] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[2] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraphe[2] == 0)
+	if ((*textures).selectifGraph[2] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -288,9 +288,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/vide.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraphe[3] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[3] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraphe[3] == 0)
+	if ((*textures).selectifGraph[3] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -300,9 +300,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/point.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraphe[4] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[4] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraphe[4] == 0)
+	if ((*textures).selectifGraph[4] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -312,9 +312,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/relie.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraphe[5] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[5] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraphe[5] == 0)
+	if ((*textures).selectifGraph[5] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -324,9 +324,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/vecteur.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraphe[6] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[6] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraphe[6] == 0)
+	if ((*textures).selectifGraph[6] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -336,9 +336,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/cartesien.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraphe[7] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[7] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraphe[7] == 0)
+	if ((*textures).selectifGraph[7] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -348,9 +348,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/vide.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraphe[8] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[8] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraphe[8] == 0)
+	if ((*textures).selectifGraph[8] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
