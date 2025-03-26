@@ -69,6 +69,7 @@ typedef struct GrapheT grapheT;
 
 		int axes;	// Change la représentation graphique des axes (avec ou sans)
 		int trait;		// Change la représentation graphique de la fonction (points reliés ou non)
+		int coord;		// Change la représentation graphique des coordonnées (vecteur ou cartésien)
 
 		int dessous;	// Vue de dessous
 		int arriere;	// Vue de derrière

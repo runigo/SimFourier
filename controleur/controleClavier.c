@@ -79,8 +79,8 @@ int controleClavier(controleurT * controleur)
 		//	observablesAfficheEnergie(&(*controleur).modele.systeme);break;
 	//	case SDLK_F6:
 		//	moteursAfficheHorloge(&(*controleur).modele.systeme.moteurs);break;
-	//	case SDLK_F7:
-		//	projectionGraphAffiche(&(*controleur).projection.projectionGraph);break;
+		case SDLK_F7:
+			projectionAffiche(&(*controleur).projection);break;
 	// Support
 		case SDLK_F8:
 			optionsInitialiseMode(&(*controleur).options, 2);break;

@@ -40,16 +40,16 @@ termes.
 
 			//		Projections des parametres initiale
 			//		sur les commandes et les capteurs
-			//			MODE INITIALE
+			//			MODE INITIALE de simFourier
 
 typedef struct ParametrInitialT parametrInitialT;
 	struct ParametrInitialT
 		{
 			// facteurs entre les grandeurs et la position des boutons rotatifs
-		double radianEta;
-		double radianRho;
-		double radianKhi;
-		double radianSym;
+		float radianEta;
+		float radianRho;
+		float radianKhi;
+		float radianSym;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
@@ -58,10 +58,7 @@ int parametrInitialInitialise(parametrInitialT * parametre, int nombre);
 	//-----------------    PROJECTION      -----------------------//
 int parametrInitialCommandes(initialeT * initiale, parametrInitialT * parametre, commandesT * commandes);
 
-	//-----------------    CHANGE      -----------------------//
-int parametrInitialChangeFenetre(parametrInitialT * parametre, int x, int y);
-
 	//-----------------    AFFICHAGE      -----------------------//
-void parametrInitialAffiche(parametrInitialT * parametre);
+int parametrInitialAffiche(parametrInitialT * parametre);
 
 #endif

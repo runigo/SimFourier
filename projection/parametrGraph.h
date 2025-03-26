@@ -35,24 +35,25 @@ termes.
 #ifndef _PARAMETRGRAPH_
 #define _PARAMETRGRAPH_
 
-#include "graphe.h"
 #include "../modele/modele.h"
+#include "graphe.h"
 #include "commandes.h"
 
-			//		Projections des paramètres graphiques sur les menus horizontaux
+			//		Projections des paramètres graphiques (représentation des
+			//			courbes et des axes) sur les menus horizontaux
 
 typedef struct ParametrGraphT parametrGraphT;
 	struct ParametrGraphT
 		{
 			// facteurs entre les grandeurs et la position des boutons rotatifs
-		double radianR;
+		float radianR;
 		};
 
 	//-----------------    INITIALISATION      -----------------------//
 int parametrGraphInitialise(parametrGraphT * parametrGraph, int nombre);
 
 	//-----------------    PROJECTION      -----------------------//
-int parametrGraphCommandes(initialeT * initiale, parametrGraphT * parametrGraph, commandesT * commandes);
+int parametrGraphCommandes(grapheT * graphe, parametrGraphT * parametrGraph, commandesT * commandes);
 
 	//-----------------    CHANGE      -----------------------//
 int parametrGraphChangeFenetre(parametrGraphT * parametrGraph, int x, int y);

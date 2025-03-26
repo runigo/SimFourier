@@ -32,14 +32,17 @@ termes.
 
 #include "parametrGraph.h"
 
-				//		Projections des caractéristiques de la fonction initiale
+				//		Projections des caractéristiques des graphes
 				//		  sur les commandes
 
+int parametrGraphRotatifs(grapheT * graphe, parametrGraphT * parametrGraph, commandesT * commandes);
+int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes);
 
 	//-----------------    INITIALISATION      -----------------------//
 int parametrGraphInitialise(parametrGraphT * parametrGraph, int nombre)
 	{
 	(void)nombre;
+
 		//	facteur de proportionalité entre les grandeurs et la position des rotatifs
 	(*parametrGraph).radianR = PIS2 / (DISTANCE_MAX - DISTANCE_MIN);
 
@@ -48,9 +51,19 @@ int parametrGraphInitialise(parametrGraphT * parametrGraph, int nombre)
 
 	//-----------------    PROJECTION      -----------------------//
 
-int parametrGraphCommandes(initialeT * initiale, parametrGraphT * parametrGraph, commandesT * commandes) {
+int parametrGraphCommandes(grapheT * graphe, parametrGraphT * parametrGraph, commandesT * commandes)
+	{
+			//	Projette les caractéristiques des graphes sur les commandes
 
-	// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
+	parametrGraphRotatifs(graphe, parametrGraph, commandes);
+	parametrGraphSelectifs(graphe, commandes);
+
+	return 0;
+	}
+
+int parametrGraphRotatifs(grapheT * graphe, parametrGraphT * parametrGraph, commandesT * commandes)
+	{
+			// Projection sur les boutons rotatifs
 
 	float theta;
 	int longueur = (*commandes).rotatifsDroite - (*commandes).rotatifsGauche;
@@ -58,63 +71,53 @@ int parametrGraphCommandes(initialeT * initiale, parametrGraphT * parametrGraph,
 
 			//	Projection sur les boutons rotatifs de la partie enveloppe
 		//	Distance point de vue, r
-	theta = (*parametrGraph).radianR;// * ((*initiale).enveloppe.rho);
+	theta = (*parametrGraph).radianR * ((*graphe).pointDeVue.position.r);
 	(*commandes).rotatifGraphe[0].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifGraphe[0].positionY = (int)(-longueur*sin(theta));
 
-				//	Projection sur les petits boutons
+	return 0;
+	}
+
+int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes)
+	{
+			//	Projection sur les boutons selectifs
+
 	int i;
 
-	for(i=0;i<SELECTIF_INITIAL;i++) (*commandes).selectifGraphe[i].etat = 0;
+	for(i=0;i<SELECTIF_INITIAL;i++)
+		{
+		(*commandes).selectifGraphe[i].etat = 0;
+		}
 
-			//	Tracé des axes, position du point de vue
-	switch((*initiale).enveloppe.periodique) {
-		case 2:
+	switch((*graphe).axes) {	//	Tracé des axes, position du point de vue
+		case 0:
 			(*commandes).selectifGraphe[0].etat = 1; break;	//	Implicite
-		case 3:
+		case 1:
 			(*commandes).selectifGraphe[1].etat = 1; break;	//	Imaginaire
-		case 4:
+		case 2:
 			(*commandes).selectifGraphe[2].etat = 1; break;	//	Réel
 		case 5:
 			(*commandes).selectifGraphe[3].etat = 1; break;	//	Sans axe
 		default:
-			;
-		}
+			; }
 
-			//	Tracé de la courbe
-	switch((*initiale).enveloppe.periodique) {
+	switch((*graphe).trait) {	//	Tracé de la courbe
 		case 0:
 			(*commandes).selectifGraphe[4].etat = 1; break;	//	Point
 		case 1:
 			(*commandes).selectifGraphe[5].etat = 1; break;	//	Relié
 		default:
-			;
-		}
+			; }
 
-			//	Tracé des coordonnées
-	switch((*initiale).motif.forme) {
+	switch((*graphe).coord) {	//	Tracé des coordonnées
 		case 0:
-			(*commandes).selectifGraphe[6].etat = 1; break;	//	vecteur
+			(*commandes).selectifGraphe[8].etat = 1; break;	//	vide
 		case 1:
 			(*commandes).selectifGraphe[7].etat = 1; break;	//	cartésien
 		case 2:
-			(*commandes).selectifGraphe[8].etat = 1; break;	//	vide
+			(*commandes).selectifGraphe[6].etat = 1; break;	//	vecteur
 		default:
-			;
-		}
-	return 0;
-	}
-
-	//-----------------    CHANGE LA PROJECTION     -----------------------//
-
-int parametrGraphChangeFenetre(parametrGraphT * parametrGraph, int x, int y) {
-
-		//	Enregistre le changement de la taille de la fenêtre
-	(void)parametrGraph;
-	(void)x;
-	(void)y;
-	//(*parametrGraph).fenetreX=x;
-	//(*parametrGraph).fenetreY=y;
+			; }
 
 	return 0;
 	}
@@ -123,7 +126,7 @@ int parametrGraphChangeFenetre(parametrGraphT * parametrGraph, int x, int y) {
 
 void parametrGraphAffiche(parametrGraphT * parametrGraph) {
 
-		//	Affiche les paramètres de la parametrGraph
+		//	Affiche les paramètres de parametrGraph
 
 	printf("(*parametrGraph).radianR = %f\n", (*parametrGraph).radianR);
 	return ;

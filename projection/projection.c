@@ -187,8 +187,8 @@ void projectionAffiche(projectionT * projection) {
 	//printf("(*projection).ratioXY = %f\n", (*projection).ratioXY);
 	//printf("(*projection).hauteur = %d\n", (*projection).hauteur);
 	//printf("(*projection).largeur = %d\n", (*projection).largeur);
-	//printf("(*projection).fenetreX = %d\n", (*projection).fenetreX);
-	//printf("(*projection).fenetreY = %d\n", (*projection).fenetreY);
+	printf("(*projection).fenetreX = %d\n", (*projection).fenetreX);
+	printf("(*projection).fenetreY = %d\n", (*projection).fenetreY);
 	return ;
 	}
 

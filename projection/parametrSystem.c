@@ -33,21 +33,13 @@ termes.
 
 #include "parametrSystem.h"
 
-				//		Projections du systeme sur les commandes,
-				//		les capteurs et les graphes
-
-	//	INITIALISATION
-int parametreInitialisePointDeVue(parametrSystemT * parametre,  float r,float psi, float phi);
-int parametreReinitialiseBase(parametrSystemT * parametre);
-
-	//	PROJECTION
-
-	//	CHANGE
-
-	//	AFFICHAGE
+				//		Projections des paramètres du système
+				//		sur les commandes et les capteurs
+				//		MODE SIMULATION de simFourier
 
 
 	//-----------------    INITIALISATION      -----------------------//
+
 int parametrSystemInitialise(parametrSystemT * parametre)
 	{
 
@@ -276,34 +268,19 @@ int parametreObservablesCapteurs(observablesT * observables, parametrSystemT * p
 	}
 */
 
-	//-----------------    CHANGE LA PROJECTION     -----------------------//
-
-int parametrSystemChangeFenetre(parametrSystemT * parametre, int x, int y) {
-
-		//	Enregistre le changement de la taille de la fenêtre
-	(void)parametre;
-	(void)x;
-	(void)y;
-	//(*parametre).fenetreX=x;
-	//(*parametre).fenetreY=y;
-
-	return 0;
-	}
-
-
 	//-----------------    AFFICHAGE      -----------------------//
 
-void parametrSystemAffiche(parametrSystemT * parametre) {
+int parametrSystemAffiche(parametrSystemT * parametre) {
 
 	//	Affiche les paramètres de la parametre
 	(void)parametre;
 
-	//printf("(*parametre).ratioXY = %f\n", (*parametre).ratioXY);
-	//printf("(*parametre).hauteur = %d\n", (*parametre).hauteur);
-	//printf("(*parametre).largeur = %d\n", (*parametre).largeur);
-	//printf("(*parametre).fenetreX = %d\n", (*parametre).fenetreX);
-	//printf("(*parametre).fenetreY = %d\n", (*parametre).fenetreY);
-	return ;
+	printf(" logCouplage = %f\n", (*parametre).logCouplage);
+	printf(" logDissipation = %f\n", (*parametre).logDissipation);
+	printf(" logJosephson = %f\n", (*parametre).logJosephson);
+	printf(" logAmplitude = %f\n", (*parametre).logAmplitude);
+	printf(" logFrequence = %f\n", (*parametre).logFrequence);
+	return 0;
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////

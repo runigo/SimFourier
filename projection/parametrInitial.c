@@ -33,14 +33,18 @@ termes.
 #include "parametrInitial.h"
 
 				//		Projections des caractéristiques de la fonction initiale
-				//		  sur les commandes
+				//		sur les commandes.
+				//			MODE INITIALE de simFourier
+
+int parametrInitialRotatifs(initialeT * initiale, parametrInitialT * parametre, commandesT * commandes);
+int parametrInitialSelectifs(initialeT * initiale, commandesT * commandes);
 
 
 	//-----------------    INITIALISATION      -----------------------//
+
 int parametrInitialInitialise(parametrInitialT * parametre, int nombre)
 	{
-		//	facteur de proportionalité entre les grandeurs et la position des rotatifs
-
+		//	facteur entre les grandeurs et la position des rotatifs
 	(*parametre).radianEta = log2(nombre);
 	(*parametre).radianRho = log2(nombre)/2;
 	(*parametre).radianKhi = nombre/2;
@@ -53,7 +57,22 @@ int parametrInitialInitialise(parametrInitialT * parametre, int nombre)
 
 int parametrInitialCommandes(initialeT * initiale, parametrInitialT * parametre, commandesT * commandes)
 	{
-	// Projette les caractéristiques de la fonction initiale sur les commandes dans le mode initiale
+			//	Projette les caractéristiques de la fonction initiale
+			//		sur les commandes dans le mode initiale
+
+		//	Projection sur les boutons rotatifs
+	parametrInitialRotatifs(initiale, parametre, commandes);
+
+		//	Projection sur les boutons selectifs
+	parametrInitialSelectifs(initiale, commandes);
+
+	return 0;
+	}
+
+int parametrInitialRotatifs(initialeT * initiale, parametrInitialT * parametre, commandesT * commandes)
+	{
+		//	Projette les caractéristiques de la fonction initiale sur les
+		//		boutons rotatifs dans le mode initiale
 
 	float theta;
 	int longueur = (*commandes).rotatifsDroite - (*commandes).rotatifsGauche;
@@ -95,7 +114,14 @@ int parametrInitialCommandes(initialeT * initiale, parametrInitialT * parametre,
 	(*commandes).rotatifInitial[5].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[5].positionY = (int)(-longueur*sin(theta));
 
-				//	Projection sur les petits boutons de droite
+	return 0;
+	}
+
+int parametrInitialSelectifs(initialeT * initiale, commandesT * commandes)
+	{
+		//	Projette les caractéristiques de la fonction initiale sur les
+		//		boutons séelectifs dans le mode initiale
+
 	int i;
 	int motif=0;	//	Indicateur motif / fonction en cloche
 
@@ -153,23 +179,9 @@ int parametrInitialCommandes(initialeT * initiale, parametrInitialT * parametre,
 	return 0;
 	}
 
-	//-----------------    CHANGE LA PROJECTION     -----------------------//
-
-int parametrInitialChangeFenetre(parametrInitialT * parametre, int x, int y) {
-
-		//	Enregistre le changement de la taille de la fenêtre
-	(void)parametre;
-	(void)x;
-	(void)y;
-	//(*parametre).fenetreX=x;
-	//(*parametre).fenetreY=y;
-
-	return 0;
-	}
-
 	//-----------------    AFFICHAGE      -----------------------//
 
-void parametrInitialAffiche(parametrInitialT * parametre) {
+int parametrInitialAffiche(parametrInitialT * parametre) {
 
 		//	Affiche les paramètres de la parametre
 
@@ -177,7 +189,7 @@ void parametrInitialAffiche(parametrInitialT * parametre) {
 	printf("(*parametre).radianRho = %f\n", (*parametre).radianRho);
 	printf("(*parametre).radianKhi = %f\n", (*parametre).radianKhi);
 	printf("(*parametre).radianSym = %f\n", (*parametre).radianSym);
-	return ;
+	return 0;
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////

@@ -42,7 +42,7 @@ termes.
 
 				//		Projections des paramètres du système
 				//		sur les commandes et les capteurs
-				//			MODE SIMULATION
+				//		MODE SIMULATION de simFourier
 
 typedef struct ParametrSystemT parametrSystemT;
 	struct ParametrSystemT
@@ -59,10 +59,10 @@ typedef struct ParametrSystemT parametrSystemT;
 int parametrSystemInitialise(parametrSystemT * parametre);
 
 	//-----------------    PROJECTION      -----------------------//
-//int parametreObservablesCapteurs(observablesT * observables, parametrSystemT * parametre, capteursT * capteurs);
+//int parametrObservablCapteurs(observablesT * observables, parametrSystemT * parametre, capteursT * capteurs);
 int parametrSystemCommandes(systemeT * systeme, parametrSystemT * parametre, commandesT * commandes);
 
 	//-----------------    AFFICHAGE      -----------------------//
-void parametrSystemAffiche(parametrSystemT * parametre);
+int parametrSystemAffiche(parametrSystemT * parametre);
 
 #endif

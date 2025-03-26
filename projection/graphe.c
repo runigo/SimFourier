@@ -75,6 +75,7 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 
 	(*graphe).axes = 1;	//	Avec ou sans axes
 	(*graphe).trait = 1;	//	Points reliés ou non
+	(*graphe).coord = 1;	//	Style des coordonnées
 
 	(*graphe).dessous = 0;
 	(*graphe).arriere = 0;
