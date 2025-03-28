@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -43,17 +43,17 @@ int donneesOptions(optionsT * options)
 		// Préréglage des valeurs optionnelles
 
 	(*options).mode = 0;		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
+											//		-1 : pause simulation
 
 	(*options).duree = DUREE_IMP;		// 100 : temps réèl.
 
-	(*options).fond=240;		// couleur du fond de l'affichage
-	(*options).support=-1;		// Graphisme du support de la chaîne
+	(*options).fond=240;			// couleur du fond de l'affichage
+	(*options).support=-1;			// Graphisme du support de la chaîne
 
-	(*options).dt=DT_IMP;		// discrétisation du temps
+	(*options).dt=DT_IMP;			// discrétisation du temps
 	(*options).nombre=NOMBRE_IMP;		// Nombre implicite de points
-	(*options).echelle=100;		// dans fonctionNormalise
+	(*options).echelle=100;			// dans fonctionNormalise
 
-		fprintf(stderr, "donneesOptions, dt = %f\n", (*options).dt);
 	return 0;
 	}
 
@@ -84,27 +84,7 @@ int donneesControleur(controleurT * controleur)
 		fprintf(stderr, " Création du rendu\n");
 	graphiqueInitialisation(&(*controleur).graphique, &(*controleur).interface);
 
-	int fenetreX;
-	int fenetreY;
-	int x, y;
-		fprintf(stderr, " Initialisation des commmandes\n");
-	SDL_GetWindowSize((*controleur).interface.fenetre, &fenetreX, &fenetreY);
-	(*controleur).graphique.fenetreX=fenetreX;
-	(*controleur).graphique.fenetreY=fenetreY;
-		if(fenetreY>MENUS_Y)
-			{
-			commandesAjusteCommandes(&(*controleur).projection.commandes, ((double)fenetreY)/MENUS_Y);
-			(*controleur).graphique.facteur=(double)fenetreY/MENUS_Y;
-			}
-		else
-			{
-			commandesAjusteCommandes(&(*controleur).projection.commandes, 1.0);
-			(*controleur).graphique.facteur=1.0;
-			}
-
-	SDL_PumpEvents();
-	SDL_GetMouseState(&x,&y);
-	commandesInitialiseSouris(&(*controleur).projection.commandes, x, y);
+	controleurFenetre(controleur);
 
 		fprintf(stderr, " Initialisation de l'horloge SDL\n");
 	horlogeCreation(&(*controleur).horloge);

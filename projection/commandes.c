@@ -33,18 +33,24 @@ termes.
 
 #include "commandes.h"
 
-int commandesAjusteZones(commandesT * commandes, double facteur);
-int commandesAjusteRotatifsInitiale(commandesT * commandes, double facteur);
-int commandesAjusteSelectifsInitiale(commandesT * commandes, double facteur);
-int commandesAjusteRotatifsGraphes(commandesT * commandes, double facteur);
-int commandesAjusteSelectifsGraphes(commandesT * commandes, double facteur);
-//int commandesInitialise(commandesT * commandes, double facteur);
+int commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY);
+int commandesAjusteRotatifsInitiale(commandesT * commandes, float facteur);
+int commandesAjusteSelectifsInitiale(commandesT * commandes, float facteur);
+int commandesAjusteRotatifsGraphes(commandesT * commandes, float facteur);
+int commandesAjusteSelectifsGraphes(commandesT * commandes, float facteur);
+//int commandesInitialise(commandesT * commandes, float facteur);
 
-int commandesAjusteCommandes(commandesT * commandes, double facteur)
+int commandesAjusteCommandes(commandesT * commandes, int x, int y)
 	{
 			//	Réglage des positions des zones et des commandes
 
-	commandesAjusteZones(commandes, facteur);
+	commandesAjusteZones(commandes, x, y);
+
+	float facteur = 1.0;
+	if(y<MENUS_Y)
+		{
+		facteur = (float)y/MENUS_Y;
+		}
 	commandesAjusteRotatifsInitiale(commandes, facteur);
 	commandesAjusteSelectifsInitiale(commandes, facteur);
 	//commandesAjusteRotatifsGraphes(commandes, facteur);
@@ -53,21 +59,25 @@ int commandesAjusteCommandes(commandesT * commandes, double facteur)
 	return 0;
 	}
 
-int commandesAjusteZones(commandesT * commandes, double facteur)
+int commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	{
-
+	float facteur = 1.0;
+	if(fenetreY < MENUS_Y)
+		{
+		facteur = (float)fenetreY / MENUS_Y;
+		}
 			// Zones suivant Y du menu 1
 		(*commandes).mode = facteur * 24;
 
 			// Zones suivant X des fonctions
 		(*commandes).fonctionsGauche = facteur * 200;
-		(*commandes).fonctionsDroite = facteur * 600;
+		(*commandes).fonctionsDroite = fenetreX - facteur * 100;
 
 			// Zones suivant Y des fonctions
-		(*commandes).fonctionHaut = 30;
-		(*commandes).fonctionBas = 300;
-		(*commandes).fourierHaut = 330;
-		(*commandes).fourierBas = 600;
+		(*commandes).fonctionHaut = facteur * 55;
+		(*commandes).fonctionBas = facteur * fenetreY / 2;
+		(*commandes).fourierHaut = (*commandes).fonctionBas + (*commandes).fonctionHaut;
+		(*commandes).fourierBas = facteur * fenetreY;
 
 			//	Zones des commandes suivant X
 	(*commandes).selectifsGauche = facteur * 134;
@@ -81,7 +91,7 @@ int commandesAjusteZones(commandesT * commandes, double facteur)
 	return 0;
 	}
 
-int commandesAjusteRotatifsInitiale(commandesT * commandes, double facteur)
+int commandesAjusteRotatifsInitiale(commandesT * commandes, float facteur)
 	{
 				//	Positions des boutons rotatifs du menu initiale
 	int i;
@@ -99,7 +109,7 @@ int commandesAjusteRotatifsInitiale(commandesT * commandes, double facteur)
 	return 0;
 	}
 
-int commandesAjusteSelectifsInitiale(commandesT * commandes, double facteur)
+int commandesAjusteSelectifsInitiale(commandesT * commandes, float facteur)
 	{
 					//	Positions des boutons selectifs du menu initiale
 	int i;
@@ -125,25 +135,20 @@ int commandesAjusteSelectifsInitiale(commandesT * commandes, double facteur)
 	return 0;
 	}
 
-int commandesAjusteRotatifsGraphes(commandesT * commandes, double facteur)
+int commandesAjusteRotatifsGraphes(commandesT * commandes, float facteur)
 	{
 				//	Positions des boutons rotatifs des menus graphes
 	int i;
 	for(i=0;i<ROTATIF_GRAPHES;i++)
 		{
-		rotatifInitialise(&(*commandes).rotatifGraph[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
+		rotatifInitialise(&(*commandes).rotatifGraph[i], facteur*(621-483) );
 		}
-	(*commandes).rotatifGraph[0].Y = facteur * 75; 	//	Largeur
-	(*commandes).rotatifGraph[1].Y = facteur * 168;	//	Largeur
-	(*commandes).rotatifGraph[2].Y = facteur * 285;	//	Symetrie
-	(*commandes).rotatifGraph[3].Y = facteur * 404;	//	Phase
-	(*commandes).rotatifGraph[4].Y = facteur * 548;	//	Période
-	(*commandes).rotatifGraph[5].Y = facteur * 640;	//	Période
+	(*commandes).rotatifGraph[0].X = facteur * 483; 	//	Largeur
 
 	return 0;
 	}
 
-int commandesAjusteSelectifsGraphes(commandesT * commandes, double facteur)
+int commandesAjusteSelectifsGraphes(commandesT * commandes, float facteur)
 	{
 					//	Positions des boutons selectifs des menus graphes
 	int i;
@@ -152,15 +157,15 @@ int commandesAjusteSelectifsGraphes(commandesT * commandes, double facteur)
 		selectifInitialise(&(*commandes).selectifGraph[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
 		}
 			// BOUTONS SELECTIFS SUIVANT X
-	(*commandes).selectifGraph[0].X = facteur * 69;  	//	Implicite
-	(*commandes).selectifGraph[1].X = facteur * 114;		//	Imaginaire
-	(*commandes).selectifGraph[2].X = facteur * 159;		//	Reel
-	(*commandes).selectifGraph[3].X = facteur * 203;		//	Sans
-	(*commandes).selectifGraph[4].X = facteur * 264;		//	Point
-	(*commandes).selectifGraph[5].X = facteur * 310;		//	Relié
-	(*commandes).selectifGraph[6].X = facteur * 355;		//	Vecteur
-	(*commandes).selectifGraph[7].X = facteur * 400;		//	Cartésien
-	(*commandes).selectifGraph[8].X = facteur * 444;		//	Sans
+	(*commandes).selectifGraph[0].X = facteur * 290;  	//	Implicite
+	(*commandes).selectifGraph[1].X = facteur * 330;		//	Imaginaire
+	(*commandes).selectifGraph[2].X = facteur * 377;		//	Reel
+	(*commandes).selectifGraph[3].X = facteur * 424;		//	Sans
+	(*commandes).selectifGraph[4].X = facteur * 683;		//	Point
+	(*commandes).selectifGraph[5].X = facteur * 723;		//	Relié
+	(*commandes).selectifGraph[6].X = facteur * 786;		//	Vecteur
+	(*commandes).selectifGraph[7].X = facteur * 825;		//	Cartésien
+	(*commandes).selectifGraph[8].X = facteur * 872;		//	Sans
 
 	return 0;
 	}
@@ -197,6 +202,115 @@ int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY)
 	return 0;
 	}
 
+int commandesSourisZone(commandesT * commandes)
+	{
+		//	Retourne la zone où se trouve la souris
+
+	if((*commandes).sourisX < (*commandes).fonctionsGauche)	//	MENU 1 = zones 1, 2 et 3
+		{
+		if((*commandes).sourisY < (*commandes).mode)
+			{	//	Selection initiale/simulation
+			return 1;
+			}
+		if((*commandes).sourisX < (*commandes).rotatifsDroite && (*commandes).sourisX > (*commandes).rotatifsGauche)
+			{	//	Rotatif
+			return 2;
+			}
+		if((*commandes).sourisX < (*commandes).selectifsDroite && (*commandes).sourisX > (*commandes).selectifsGauche)
+			{	//	Selectif
+			return 3;
+			}
+		}
+	else
+		{
+		if((*commandes).sourisX < (*commandes).fonctionsDroite)	//		MENU 2 = zones 4, 5, 6 et 7
+			{
+			if((*commandes).sourisY < (*commandes).fonctionHaut)
+				{	//	Menu fonction
+				return 4;
+				}
+			if((*commandes).sourisY < (*commandes).fonctionBas)
+				{	//	Fonction
+				return 5;
+				}
+			if((*commandes).sourisY < (*commandes).fourierHaut)
+				{	//	Menu fourier
+				return 6;
+				}
+			return 7;	//	Fourier
+			}
+		else						//		MENU 3 = zone 8
+			{
+			return 8;
+			}
+		}
+	
+	return -1;
+	}
+
+int commandeSelectifsInitiale(commandesT * commandes)
+	{
+			// Retourne le numéro du boutons sélectif du menu initiale
+	int i;
+		{
+		for(i=0;i<SELECTIF_INITIAL;i++)
+			{
+			//	Si dans la zone suivant Y
+			if((*commandes).selectifInitial[i].Y>(*commandes).sourisHaut
+				&& ((*commandes).selectifInitial[i].Y+(*commandes).selectifInitial[i].dY)<(*commandes).sourisBas)
+				return i;
+			}
+		}
+	return -1;
+	}
+
+int commandeRotatifsInitiale(commandesT * commandes)
+	{
+			// Retourne le numéro du boutons rotatif du menu graphe
+	int i;
+		{
+		for(i=0;i<ROTATIF_INITIAL;i++)
+			{
+			//	Si dans la zone suivant Y
+			if((*commandes).rotatifInitial[i].Y>(*commandes).sourisHaut
+				&& ((*commandes).rotatifInitial[i].Y+(*commandes).rotatifInitial[i].dY)<(*commandes).sourisBas)
+				return i;
+			}
+		}
+	return -1;
+	}
+int commandeSelectifsGraphe(commandesT * commandes)
+	{
+			// Retourne le numéro du boutons sélectif du menu graphe
+	int i;
+		{
+		for(i=0;i<SELECTIF_GRAPHES;i++)
+			{
+			//	Si dans la zone suivant Y
+			if((*commandes).selectifGraph[i].Y>(*commandes).sourisHaut
+				&& ((*commandes).selectifGraph[i].Y+(*commandes).selectifGraph[i].dY)<(*commandes).sourisBas)
+				return i;
+			}
+		}
+	return -1;
+	}
+
+int commandeRotatifsGraphe(commandesT * commandes)
+	{
+			// Retourne le numéro du boutons rotatif du menu initiale
+	int i;
+		{
+		for(i=0;i<ROTATIF_GRAPHES;i++)
+			{
+			//	Si dans la zone suivant Y
+			if((*commandes).rotatifGraph[i].Y>(*commandes).sourisHaut
+				&& ((*commandes).rotatifGraph[i].Y+(*commandes).rotatifGraph[i].dY)<(*commandes).sourisBas)
+				return i;
+			}
+		}
+	return -1;
+	}
+/*
 int commandesSourisZone(commandesT * commandes)
 	{
 		//	Retourne la zone où se trouve la souris
@@ -257,36 +371,5 @@ int commandesSourisZone(commandesT * commandes)
 	
 	return -1;
 	}
-
-int commandeSelectifsInitiale(commandesT * commandes)
-	{
-			// Retourne le numéro du boutons sélectif
-	int i;
-		{
-		for(i=0;i<SELECTIF_INITIAL;i++)
-			{
-			//	Si dans la zone suivant Y
-			if((*commandes).selectifInitial[i].Y>(*commandes).sourisHaut
-				&& ((*commandes).selectifInitial[i].Y+(*commandes).selectifInitial[i].dY)<(*commandes).sourisBas)
-				return i;
-			}
-		}
-	return -1;
-	}
-
-int commandeRotatifsInitiale(commandesT * commandes)
-	{
-			// Retourne le numéro du boutons rotatif
-	int i;
-		{
-		for(i=0;i<ROTATIF_INITIAL;i++)
-			{
-			//	Si dans la zone suivant Y
-			if((*commandes).rotatifInitial[i].Y>(*commandes).sourisHaut
-				&& ((*commandes).rotatifInitial[i].Y+(*commandes).rotatifInitial[i].dY)<(*commandes).sourisBas)
-				return i;
-			}
-		}
-	return -1;
-	}
+*/
 //////////////////////////////////////////////////////////////////

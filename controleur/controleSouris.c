@@ -39,9 +39,12 @@ int controleSourisMolette(controleurT * controleur, int zone);
 int controleSourisMouvement(controleurT * controleur, int zone);
 int controleSourisBouton(controleurT * controleur, int appui, int zone);
 
+
+int controleSourisMoletteRotatifsGraphe(controleurT * controleur, int TF);
+
 int controleSourisCommandes(controleurT * controleur, int zone);
-int controleSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe);
-int controleSourisDefileRotatifs(controleurT * controleur);
+int controleSourisMolettePointDeVue(controleurT * controleur, grapheT * graphe);
+int controleSourisMoletteRotatifsInitial(controleurT * controleur);
 int controleSourisInitialisePosition(controleurT * controleur, int position);
 
 int controleSourisCliqRotatif(controleurT * controleur);
@@ -102,23 +105,23 @@ int controleSourisMolette(controleurT * controleur, int zone)
 
 	switch(zone)	//	
 		{
-		case 2: //	Boutons rotatif
-			controleSourisDefileRotatifs(controleur);break;
+		case 2: //	Boutons rotatif initial
+			controleSourisMoletteRotatifsInitial(controleur);break;
 		case 5: //	Zone de la fonction
-			controleSourisDefilePointDeVue(controleur, &(*controleur).projection.fonction);break;
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fonction);break;
 		case 7: //	Zone de fourier
-			controleSourisDefilePointDeVue(controleur, &(*controleur).projection.fourier);break;
-	//	case 4: // zone des curseurs linéaires de la fonction
-	//		;break;
-	//	case 6: // zone des curseurs linéaires de fourier
-	//		;break;
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fourier);break;
+		case 4: // zone des curseurs linéaires de la fonction (TF = 0)
+			controleSourisMoletteRotatifsGraphe(controleur, 0);break;
+		case 6: // zone des curseurs linéaires de fourier (TF = 1)
+			controleSourisMoletteRotatifsGraphe(controleur, 1);break;
 		default:
 			;
 		}
 	return 0;
 	}
 
-int controleSourisDefilePointDeVue(controleurT * controleur, grapheT * graphe)
+int controleSourisMolettePointDeVue(controleurT * controleur, grapheT * graphe)
 	{
 				// Action des mouvements de la mollette dans la zone des fonctions
 
@@ -246,7 +249,7 @@ int controleSourisInitialisePosition(controleurT * controleur, int position) {
 	return 0;
 	}
 
-int controleSourisDefileRotatifs(controleurT * controleur)
+int controleSourisMoletteRotatifsInitial(controleurT * controleur)
 	{
 	int commande = commandeRotatifsInitiale(&(*controleur).projection.commandes);
 	//commande = -1;
@@ -290,19 +293,36 @@ int controleSourisDefileRotatifs(controleurT * controleur)
 				;
 			}
 		}
+	return 0;
+	}
 
+int controleSourisMoletteRotatifsGraphe(controleurT * controleur, int TF)
+	{
+	int commande = commandeRotatifsGraphe(&(*controleur).projection.commandes);
+
+	if(commande == 0)
+		{	
+		if(TF == 1)	//	Rotatif du graphe de la TF
+			{
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fourier);
+			}
+		else	//	Rotatif du graphe de la fonction
+			{
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fonction);
+			}
+		}
 	return 0;
 	}
 
 int controleSourisAffiche(controleurT * controleur)
 	{
-	fprintf(stderr, "(*controleur).graphique.fenetreY = %d\n", (*controleur).graphique.fenetreY);
-	fprintf(stderr, "(*controleur).commandes.sourisY = %d\n", (*controleur).projection.commandes.sourisY);
-	fprintf(stderr, "(*controleur).graphique.fenetreX = %d\n", (*controleur).graphique.fenetreX);
-	fprintf(stderr, "(*controleur).commandes.sourisX = %d\n", (*controleur).projection.commandes.sourisX);
+	printf("(*controleur).graphique.fenetreY = %d\n", (*controleur).graphique.fenetreY);
+	printf("(*controleur).commandes.sourisY = %d\n", (*controleur).projection.commandes.sourisY);
+	printf("(*controleur).graphique.fenetreX = %d\n", (*controleur).graphique.fenetreX);
+	printf("(*controleur).commandes.sourisX = %d\n", (*controleur).projection.commandes.sourisX);
 
-	fprintf(stderr, "\nsourisY / fenetreY = %f\n\n", (float)(*controleur).projection.commandes.sourisY / (*controleur).graphique.fenetreY);
-	fprintf(stderr, "sourisX / fenetreX = %f\n", (float)(*controleur).projection.commandes.sourisX / (*controleur).graphique.fenetreX);
+	printf("\nsourisY / fenetreY = %f\n\n", (float)(*controleur).projection.commandes.sourisY / (*controleur).graphique.fenetreY);
+	printf("sourisX / fenetreX = %f\n", (float)(*controleur).projection.commandes.sourisX / (*controleur).graphique.fenetreX);
 
 	return 0;
 	}

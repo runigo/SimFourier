@@ -74,7 +74,7 @@ int controleurEvolution(controleurT * controleur);
 
 int controleurSuppression(controleurT * controleur);
 
-//int controleurInitialiseNombre(controleurT * controleur, int nombre);
+int controleurFenetre(controleurT * controleur);
 
 void controleurPostReinitialisation(controleurT * controleur);
 

@@ -1,7 +1,7 @@
 /*
 Copyright mars 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.3 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
@@ -37,7 +37,6 @@ termes.
 	//	ÉVOLUTION
 int controleurEvolution(controleurT * controleur);
 int controleurEvolutionModele(controleurT * controleur);
-int controleurFenetre(controleurT * controleur);
 int controleurProjection(controleurT * controleur);
 int controleurConstructionGraphique(controleurT * controleur);
 int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe);
@@ -142,15 +141,14 @@ int controleurFenetre(controleurT * controleur)
 		(*controleur).graphique.fenetreX=x;
 		(*controleur).graphique.fenetreY=y;
 		projectionChangeFenetre(&(*controleur).projection, x, y);
+		commandesAjusteCommandes(&(*controleur).projection.commandes, x, y);
 		if(y<MENUS_Y)
 			{
-			commandesAjusteCommandes(&(*controleur).projection.commandes, ((double)y)/MENUS_Y);
-			(*controleur).graphique.facteur=(double)y/MENUS_Y;
+			(*controleur).graphique.facteur = (float)y/MENUS_Y;
 			}
 		else
 			{
-			commandesAjusteCommandes(&(*controleur).projection.commandes, 1.0);
-			(*controleur).graphique.facteur=1.0;
+			(*controleur).graphique.facteur = 1.0;
 			}
 		capteursMiseAJourLongueur(&(*controleur).capteurs, x, y);
 		}
