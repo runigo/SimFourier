@@ -1,5 +1,5 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.3 Transformation de Fourier
 (d'après SimFoule 2.2 simulateur de foule, décembre 2019)
@@ -162,7 +162,7 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	coordonnee.x = (*commandes).selectifsGauche;
 
 		//	Dessine les petits boutons sélectionés
-	int i;
+	int i, j;
 	for(i=0;i<SELECTIF_INITIAL;i++)
 		{
 		if((*commandes).selectifInitial[i].etat==1)
@@ -174,14 +174,18 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 				}
 			}
 		}
-	for(i=0;i<SELECTIF_GRAPHES;i++)
+
+	for(j=0;j<2;j++)
 		{
-		if((*commandes).selectifGraph[i].etat==1)
+		for(i=0;i<SELECTIF_GRAPHES;i++)
 			{
-			coordonnee.y = (*commandes).selectifGraph[i].Y; // Position y du bouton
-			if ((*graphique).textures.selectifGraph[i] != 0)
+			if((*commandes).selectifGraph[j][i].etat==1)
 				{
-				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifGraph[i], NULL, &coordonnee);
+				coordonnee.y = (*commandes).selectifGraph[j][i].Y; // Position y du bouton
+				if ((*graphique).textures.selectifGraph[i] != 0)
+					{
+					SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifGraph[i], NULL, &coordonnee);
+					}
 				}
 			}
 		}

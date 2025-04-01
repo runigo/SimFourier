@@ -1,5 +1,5 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.3 simulateur de chaîne de pendules, mai 2018)
@@ -50,8 +50,8 @@ typedef struct CommandesT commandesT;
 		{
 		rotatifT rotatifInitial[ROTATIF_INITIAL];
 		selectifT selectifInitial[SELECTIF_INITIAL];
-		rotatifT rotatifGraph[ROTATIF_GRAPHES];
-		selectifT selectifGraph[SELECTIF_GRAPHES];
+		rotatifT rotatifGraph[2][ROTATIF_GRAPHES];		//	Boutons linéaires des graphes
+		selectifT selectifGraph[2][SELECTIF_GRAPHES];
 
 			// Zones suivant X des commandes
 		int rotatifsCentre;

@@ -1,5 +1,5 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
@@ -141,9 +141,11 @@ int commandesAjusteRotatifsGraphes(commandesT * commandes, float facteur)
 	int i;
 	for(i=0;i<ROTATIF_GRAPHES;i++)
 		{
-		rotatifInitialise(&(*commandes).rotatifGraph[i], facteur*(621-483) );
+		rotatifInitialise(&(*commandes).rotatifGraph[0][i], facteur*(621-483) );
+		rotatifInitialise(&(*commandes).rotatifGraph[1][i], facteur*(621-483) );
 		}
-	(*commandes).rotatifGraph[0].X = facteur * 483; 	//	Largeur
+	(*commandes).rotatifGraph[0][0].X = facteur * 483; 	//	Largeur
+	(*commandes).rotatifGraph[1][0].X = facteur * 483; 	//	Largeur
 
 	return 0;
 	}
@@ -151,22 +153,25 @@ int commandesAjusteRotatifsGraphes(commandesT * commandes, float facteur)
 int commandesAjusteSelectifsGraphes(commandesT * commandes, float facteur)
 	{
 					//	Positions des boutons selectifs des menus graphes
-	int i;
-	for(i=0;i<SELECTIF_GRAPHES;i++)
-		{
-		selectifInitialise(&(*commandes).selectifGraph[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
-		}
-			// BOUTONS SELECTIFS SUIVANT X
-	(*commandes).selectifGraph[0].X = facteur * 290;  	//	Implicite
-	(*commandes).selectifGraph[1].X = facteur * 330;		//	Imaginaire
-	(*commandes).selectifGraph[2].X = facteur * 377;		//	Reel
-	(*commandes).selectifGraph[3].X = facteur * 424;		//	Sans
-	(*commandes).selectifGraph[4].X = facteur * 683;		//	Point
-	(*commandes).selectifGraph[5].X = facteur * 723;		//	Relié
-	(*commandes).selectifGraph[6].X = facteur * 786;		//	Vecteur
-	(*commandes).selectifGraph[7].X = facteur * 825;		//	Cartésien
-	(*commandes).selectifGraph[8].X = facteur * 872;		//	Sans
+	int i, j;
 
+	for(j=0;j<2;j++)
+		{
+		for(i=0;i<SELECTIF_GRAPHES;i++)
+			{
+			selectifInitialise(&(*commandes).selectifGraph[j][i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
+			}
+				// BOUTONS SELECTIFS SUIVANT X
+		(*commandes).selectifGraph[j][0].X = facteur * 290;  	//	Implicite
+		(*commandes).selectifGraph[j][1].X = facteur * 330;		//	Imaginaire
+		(*commandes).selectifGraph[j][2].X = facteur * 377;		//	Reel
+		(*commandes).selectifGraph[j][3].X = facteur * 424;		//	Sans
+		(*commandes).selectifGraph[j][4].X = facteur * 683;		//	Point
+		(*commandes).selectifGraph[j][5].X = facteur * 723;		//	Relié
+		(*commandes).selectifGraph[j][6].X = facteur * 786;		//	Vecteur
+		(*commandes).selectifGraph[j][7].X = facteur * 825;		//	Cartésien
+		(*commandes).selectifGraph[j][8].X = facteur * 872;		//	Sans
+		}
 	return 0;
 	}
 
@@ -286,9 +291,9 @@ int commandeSelectifsGraphe(commandesT * commandes)
 		{
 		for(i=0;i<SELECTIF_GRAPHES;i++)
 			{
-			//	Si dans la zone suivant Y
-			if((*commandes).selectifGraph[i].Y>(*commandes).sourisHaut
-				&& ((*commandes).selectifGraph[i].Y+(*commandes).selectifGraph[i].dY)<(*commandes).sourisBas)
+			//	Si dans la zone suivant X
+			if((*commandes).selectifGraph[0][i].X>(*commandes).sourisGauche
+				&& ((*commandes).selectifGraph[0][i].X+(*commandes).selectifGraph[0][i].dX)<(*commandes).sourisDroite)
 				return i;
 			}
 		}
@@ -302,9 +307,9 @@ int commandeRotatifsGraphe(commandesT * commandes)
 		{
 		for(i=0;i<ROTATIF_GRAPHES;i++)
 			{
-			//	Si dans la zone suivant Y
-			if((*commandes).rotatifGraph[i].Y>(*commandes).sourisHaut
-				&& ((*commandes).rotatifGraph[i].Y+(*commandes).rotatifGraph[i].dY)<(*commandes).sourisBas)
+			//	Si dans la zone suivant X
+			if((*commandes).rotatifGraph[0][i].X>(*commandes).sourisGauche
+				&& ((*commandes).rotatifGraph[0][i].X+(*commandes).rotatifGraph[0][i].dX)<(*commandes).sourisDroite)
 				return i;
 			}
 		}

@@ -1,5 +1,5 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.3 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -63,17 +63,19 @@ int parametrGraphCommandes(grapheT * graphe, parametrGraphT * parametrGraph, com
 
 int parametrGraphRotatifs(grapheT * graphe, parametrGraphT * parametrGraph, commandesT * commandes)
 	{
-			// Projection sur les boutons rotatifs
-
+			// Projection sur les boutons linéaire des menus graphes
+	int j;
 	float theta;
 	int longueur = (*commandes).rotatifsDroite - (*commandes).rotatifsGauche;
 
-
-			//	Projection sur les boutons rotatifs de la partie enveloppe
-		//	Distance point de vue, r
-	theta = (*parametrGraph).radianR * ((*graphe).pointDeVue.position.r);
-	(*commandes).rotatifGraph[0].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatifGraph[0].positionY = (int)(-longueur*sin(theta));
+	for(j=0;j<2;j++)
+		{
+				//	Projection sur les boutons rotatifs de la partie enveloppe
+			//	Distance point de vue, r
+		theta = (*parametrGraph).radianR * ((*graphe).pointDeVue.position.r);
+		(*commandes).rotatifGraph[j][0].positionX = (int)(-longueur*cos(theta));
+		(*commandes).rotatifGraph[j][0].positionY = (int)(-longueur*sin(theta));
+		}
 
 	return 0;
 	}
@@ -82,43 +84,45 @@ int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes)
 	{
 			//	Projection sur les boutons selectifs
 
-	int i;
+	int i, j;
 
-	for(i=0;i<SELECTIF_INITIAL;i++)
+	for(j=0;j<2;j++)
 		{
-		(*commandes).selectifGraph[i].etat = 0;
+		for(i=0;i<SELECTIF_INITIAL;i++)
+			{
+			(*commandes).selectifGraph[j][i].etat = 0;
+			}
+
+		switch((*graphe).axes) {	//	Tracé des axes, position du point de vue
+			case 0:
+				(*commandes).selectifGraph[j][0].etat = 1; break;	//	Implicite
+			case 1:
+				(*commandes).selectifGraph[j][1].etat = 1; break;	//	Imaginaire
+			case 2:
+				(*commandes).selectifGraph[j][2].etat = 1; break;	//	Réel
+			case 5:
+				(*commandes).selectifGraph[j][3].etat = 1; break;	//	Sans axe
+			default:
+				; }
+
+		switch((*graphe).trait) {	//	Tracé de la courbe
+			case 0:
+				(*commandes).selectifGraph[j][4].etat = 1; break;	//	Point
+			case 1:
+				(*commandes).selectifGraph[j][5].etat = 1; break;	//	Relié
+			default:
+				; }
+
+		switch((*graphe).coord) {	//	Tracé des coordonnées
+			case 0:
+				(*commandes).selectifGraph[j][8].etat = 1; break;	//	vide
+			case 1:
+				(*commandes).selectifGraph[j][7].etat = 1; break;	//	cartésien
+			case 2:
+				(*commandes).selectifGraph[j][6].etat = 1; break;	//	vecteur
+			default:
+				; }
 		}
-
-	switch((*graphe).axes) {	//	Tracé des axes, position du point de vue
-		case 0:
-			(*commandes).selectifGraph[0].etat = 1; break;	//	Implicite
-		case 1:
-			(*commandes).selectifGraph[1].etat = 1; break;	//	Imaginaire
-		case 2:
-			(*commandes).selectifGraph[2].etat = 1; break;	//	Réel
-		case 5:
-			(*commandes).selectifGraph[3].etat = 1; break;	//	Sans axe
-		default:
-			; }
-
-	switch((*graphe).trait) {	//	Tracé de la courbe
-		case 0:
-			(*commandes).selectifGraph[4].etat = 1; break;	//	Point
-		case 1:
-			(*commandes).selectifGraph[5].etat = 1; break;	//	Relié
-		default:
-			; }
-
-	switch((*graphe).coord) {	//	Tracé des coordonnées
-		case 0:
-			(*commandes).selectifGraph[8].etat = 1; break;	//	vide
-		case 1:
-			(*commandes).selectifGraph[7].etat = 1; break;	//	cartésien
-		case 2:
-			(*commandes).selectifGraph[6].etat = 1; break;	//	vecteur
-		default:
-			; }
-
 	return 0;
 	}
 

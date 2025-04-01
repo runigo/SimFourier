@@ -1,5 +1,5 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
@@ -107,14 +107,14 @@ int controleSourisMolette(controleurT * controleur, int zone)
 		{
 		case 2: //	Boutons rotatif initial
 			controleSourisMoletteRotatifsInitial(controleur);break;
-		case 5: //	Zone de la fonction
-			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fonction);break;
-		case 7: //	Zone de fourier
-			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fourier);break;
 		case 4: // zone des curseurs linéaires de la fonction (TF = 0)
 			controleSourisMoletteRotatifsGraphe(controleur, 0);break;
+		case 5: //	Zone de la fonction
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fonction);break;
 		case 6: // zone des curseurs linéaires de fourier (TF = 1)
 			controleSourisMoletteRotatifsGraphe(controleur, 1);break;
+		case 7: //	Zone de fourier
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fourier);break;
 		default:
 			;
 		}
@@ -299,6 +299,7 @@ int controleSourisMoletteRotatifsInitial(controleurT * controleur)
 int controleSourisMoletteRotatifsGraphe(controleurT * controleur, int TF)
 	{
 	int commande = commandeRotatifsGraphe(&(*controleur).projection.commandes);
+	printf("controleSourisMoletteRotatifsGraphe %d\n", TF);
 
 	if(commande == 0)
 		{	
@@ -321,8 +322,8 @@ int controleSourisAffiche(controleurT * controleur)
 	printf("(*controleur).graphique.fenetreX = %d\n", (*controleur).graphique.fenetreX);
 	printf("(*controleur).commandes.sourisX = %d\n", (*controleur).projection.commandes.sourisX);
 
-	printf("\nsourisY / fenetreY = %f\n\n", (float)(*controleur).projection.commandes.sourisY / (*controleur).graphique.fenetreY);
-	printf("sourisX / fenetreX = %f\n", (float)(*controleur).projection.commandes.sourisX / (*controleur).graphique.fenetreX);
+	//printf("\nsourisY / fenetreY = %f\n\n", (float)(*controleur).projection.commandes.sourisY / (*controleur).graphique.fenetreY);
+	//printf("sourisX / fenetreX = %f\n", (float)(*controleur).projection.commandes.sourisX / (*controleur).graphique.fenetreX);
 
 	return 0;
 	}
