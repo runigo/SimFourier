@@ -90,7 +90,7 @@ int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes)
 		{
 		for(i=0;i<SELECTIF_INITIAL;i++)
 			{
-			(*commandes).selectifGraph[j][i].etat = 0;
+			(*commandes).selectifGraph[j][i].etat = 1;	//	Provisoirement pour la mise au point de SimFourier
 			}
 
 		switch((*graphe).axes) {	//	Tracé des axes, position du point de vue

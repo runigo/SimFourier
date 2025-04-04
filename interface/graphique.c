@@ -37,6 +37,7 @@ termes.
 int graphiqueMenus(graphiqueT * graphique, int mode);
 int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes);
 int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes);
+int graphiqueCommandesGraphes(graphiqueT * graphique, commandesT * commandes);
 
 		//			GRAPHISME
 int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
@@ -62,8 +63,10 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface)
 	(*graphique).fenetreX=fenetreX;
 	(*graphique).fenetreY=fenetreY;
 
+		//	Création du rendu, initialisation des couleurs SDL
 	affichageInitialisation(&(*graphique).affichage, interface);
 
+		//	Création des textures
 	texturesInitialisation(&(*graphique).textures, &(*graphique).affichage);
 
 	return 0;
@@ -101,11 +104,12 @@ int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
 
 	graphiqueMenus(graphique, mode);
 
-	if(mode == 0)
+	if(mode == 0)	//	Mode initiale
 		{
 		graphiqueCommandesInitiale(graphique, commandes);
+		graphiqueCommandesGraphes(graphique, commandes);
 		}
-/*	else
+/*	else	//	Mode simulation
 		{
 		graphiqueCommandesSimulation(graphique, commandes);
 		}*/
@@ -114,7 +118,7 @@ int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
 
 int graphiqueMenus(graphiqueT * graphique, int mode)
 	{
-		//	Dessine les menus
+			//	Dessine les menus
 
 		//	Position du premier menu (zone 1, 2 et 3)
 	SDL_Rect coordonnee = {0, 0, (*graphique).facteur * MENUS_X, (*graphique).facteur * MENUS_Y};
@@ -151,6 +155,65 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 	return 0;
 	}
 
+int graphiqueCommandesGraphes(graphiqueT * graphique, commandesT * commandes)
+	{
+		//	Dessine les commandes des menus graphes
+
+	SDL_Rect coordonnee = {0, 0, 35, 35};	//	Position et taille des boutons selectifs
+	coordonnee.w = (*commandes).selectifsDroite-(*commandes).selectifsGauche;
+	coordonnee.h = coordonnee.w;
+	coordonnee.y = (*commandes).selectifsFonction;	//	position y du menu graphe-fonction
+	coordonnee.x = 0;
+
+		//	Dessine les petits boutons sélectionés
+	int i;
+			//	Boutons du menu graphe-fonction
+	for(i=0;i<SELECTIF_GRAPHES;i++)
+		{
+		if((*commandes).selectifGraph[0][i].etat==1)
+			{
+			coordonnee.x = (*commandes).selectifGraph[0][i].X; // Position x du bouton
+			if ((*graphique).textures.selectifGraph[i] != 0)
+				{
+				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifGraph[i], NULL, &coordonnee);
+				}
+			}
+		}
+
+		//	position y du menu graphe-fourier
+		coordonnee.y = (*commandes).selectifsFonction + (*graphique).fenetreY / 2;
+
+			//	Boutons du menu graphe-fourier
+	for(i=0;i<SELECTIF_GRAPHES;i++)
+		{
+		if((*commandes).selectifGraph[1][i].etat==1)
+			{
+			coordonnee.x = (*commandes).selectifGraph[1][i].X; // Position x du bouton
+			if ((*graphique).textures.selectifGraph[i] != 0)
+				{
+				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifGraph[i], NULL, &coordonnee);
+				}
+			}
+		}
+/*
+		//	Dessine les aiguilles des boutons rotatifs
+	int X, Y, x, y;
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
+	X = (*commandes).rotatifsDroite;
+	for(i=0;i<ROTATIF_INITIAL;i++)
+		{
+		Y = (*commandes).rotatifInitial[i].Y + (*commandes).rotatifInitial[i].dY;
+		x = X + (*commandes).rotatifInitial[i].positionX;
+		y = Y + (*commandes).rotatifInitial[i].positionY;
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y+1, x, y+1);
+		}
+*/
+	return 0;
+	}
+
 int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	{
 		// Dessine les commandes du menu initiale
@@ -162,7 +225,7 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	coordonnee.x = (*commandes).selectifsGauche;
 
 		//	Dessine les petits boutons sélectionés
-	int i, j;
+	int i;
 	for(i=0;i<SELECTIF_INITIAL;i++)
 		{
 		if((*commandes).selectifInitial[i].etat==1)
@@ -171,21 +234,6 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 			if ((*graphique).textures.selectifInitial[i] != 0)
 				{
 				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifInitial[i], NULL, &coordonnee);
-				}
-			}
-		}
-
-	for(j=0;j<2;j++)
-		{
-		for(i=0;i<SELECTIF_GRAPHES;i++)
-			{
-			if((*commandes).selectifGraph[j][i].etat==1)
-				{
-				coordonnee.y = (*commandes).selectifGraph[j][i].Y; // Position y du bouton
-				if ((*graphique).textures.selectifGraph[i] != 0)
-					{
-					SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifGraph[i], NULL, &coordonnee);
-					}
 				}
 			}
 		}

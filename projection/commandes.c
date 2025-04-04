@@ -53,8 +53,8 @@ int commandesAjusteCommandes(commandesT * commandes, int x, int y)
 		}
 	commandesAjusteRotatifsInitiale(commandes, facteur);
 	commandesAjusteSelectifsInitiale(commandes, facteur);
-	//commandesAjusteRotatifsGraphes(commandes, facteur);
-	//commandesAjusteSelectifsGraphes(commandes, facteur);
+	commandesAjusteRotatifsGraphes(commandes, facteur);
+	commandesAjusteSelectifsGraphes(commandes, facteur);
 
 	return 0;
 	}
@@ -66,18 +66,20 @@ int commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 		{
 		facteur = (float)fenetreY / MENUS_Y;
 		}
-			// Zones suivant Y du menu 1
-		(*commandes).mode = facteur * 24;
 
-			// Zones suivant X des fonctions
-		(*commandes).fonctionsGauche = facteur * 200;
-		(*commandes).fonctionsDroite = fenetreX - facteur * 100;
+		// Zones suivant Y du menu 1
+	(*commandes).mode = facteur * 24;
 
-			// Zones suivant Y des fonctions
-		(*commandes).fonctionHaut = facteur * 55;
-		(*commandes).fonctionBas = facteur * fenetreY / 2;
-		(*commandes).fourierHaut = (*commandes).fonctionBas + (*commandes).fonctionHaut;
-		(*commandes).fourierBas = facteur * fenetreY;
+		// Zones suivant X des fonctions
+	(*commandes).fonctionsGauche = facteur * 200;
+	(*commandes).fonctionsDroite = fenetreX - facteur * 100;
+
+		// Zones suivant Y des fonctions
+	(*commandes).fonctionHaut = facteur * 55;
+	(*commandes).fonctionBas = facteur * fenetreY / 2;
+	(*commandes).fourierHaut = (*commandes).fonctionBas + (*commandes).fonctionHaut;
+	(*commandes).fourierBas = facteur * fenetreY;
+	(*commandes).selectifsFonction = facteur * 8;
 
 			//	Zones des commandes suivant X
 	(*commandes).selectifsGauche = facteur * 134;

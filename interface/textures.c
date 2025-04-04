@@ -1,5 +1,5 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.3 Transformation de Fourier
 (d'après SimFoule 2.2  simulateur de foule, décembre 2019)
@@ -49,7 +49,7 @@ int texturesNULL(texturesT * textures)
 		(*textures).selectifInitial[i] = NULL;
 		}
 
-	for(i=0;i<SELECTIF_INITIAL;i++)
+	for(i=0;i<SELECTIF_GRAPHES;i++)
 		{
 		(*textures).selectifGraph[i] = NULL;
 		}

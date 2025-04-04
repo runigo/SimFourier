@@ -53,8 +53,8 @@ typedef struct CommandesT commandesT;
 		rotatifT rotatifGraph[2][ROTATIF_GRAPHES];		//	Boutons linéaires des graphes
 		selectifT selectifGraph[2][SELECTIF_GRAPHES];
 
-			// Zones suivant X des commandes
-		int rotatifsCentre;
+			// Zones suivant X des commandes des menus verticales
+	//	int rotatifsCentre;
 		//int selectifsCentre;
 		int rotatifsDroite;
 		int selectifsDroite;
@@ -73,6 +73,7 @@ typedef struct CommandesT commandesT;
 		int fonctionBas;	//	limite zone 5 zone 6
 		int fourierHaut;	//	limite zone 6 zone 7
 		int fourierBas;		//	fenetreY
+		int selectifsFonction;	//	Petits bouton du menu graphe-fonction (zone 4)
 
 		int sourisX; // position X de la souris
 		int sourisY; // position Y de la souris

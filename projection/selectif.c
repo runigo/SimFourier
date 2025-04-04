@@ -1,7 +1,7 @@
 /*
-Copyright février 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.3 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
 graphique de la transformation de Fourier à 1 dimension et de la simulation
 d'équations de propagation.
@@ -34,13 +34,12 @@ termes.
 
 int selectifInitialise(selectifT * selectif, int taille)
 	{
-
 		(*selectif).X=0; // position suivant X
 		(*selectif).Y=0; // position suivant Y
 		(*selectif).dX=taille; // dimension x
 		(*selectif).dY=taille; // dimension y
 
-		(*selectif).etat=0; // État du petit bouton
+		(*selectif).etat=1; // État du petit bouton
 
 	return 0;
 	}
