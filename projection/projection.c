@@ -165,14 +165,14 @@ int projectionControleurCommandes(parametrSystemT * projection, commandesT * com
 	}
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
-int projectionChangeParametre(projectionT * projection, int fonction, int parametre, int variation, int pourMille)
+int projectionChangeParametre(projectionT * projection, int menu, int parametre, int variation, int pourMille)
 	{
 				//	Change un paramètre de la projection
 
-	switch(fonction) {
-		case 0:
+	switch(menu) {
+		case 4:
 			grapheChangeParametre(&(*projection).fonction, parametre, variation, pourMille); break;	//	Fonction
-		case 1:
+		case 6:
 			grapheChangeParametre(&(*projection).fourier, parametre, variation, pourMille); break;	//	Fourier
 		default:
 			printf("ERREUR projectionChangeParametre\n");

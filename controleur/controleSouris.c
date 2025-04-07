@@ -35,9 +35,9 @@ termes.
 
 //int controleSourisPosition(controleurT * controleur);
 
-int controleSourisMolette(controleurT * controleur, int zone);
-int controleSourisMouvement(controleurT * controleur, int zone);
-int controleSourisBouton(controleurT * controleur, int appui, int zone);
+int controleSourisMolette(controleurT * controleur);
+int controleSourisMouvement(controleurT * controleur);
+int controleSourisBouton(controleurT * controleur, int appui);
 
 
 int controleSourisMoletteRotatifsGraphe(controleurT * controleur, int TF);
@@ -47,8 +47,8 @@ int controleSourisMolettePointDeVue(controleurT * controleur, grapheT * graphe);
 int controleSourisMoletteRotatifsInitial(controleurT * controleur);
 int controleSourisInitialisePosition(controleurT * controleur, int position);
 
-int controleSourisCliqRotatif(controleurT * controleur);
-int controleSourisCliqSelectif(controleurT * controleur);
+int controleSourisCliqRotatif(controleurT * controleur, int menu);
+int controleSourisCliqSelectif(controleurT * controleur, int menu);
 
 
 
@@ -59,32 +59,31 @@ int controleSouris(controleurT * controleur, int action)
 	{
 		//	Action de la souris
 
-		//	Le pointeur de la souris se trouvant dans la zone
-	int zone = commandesSourisZone(&(*controleur).projection.commandes);
-
 	switch(action)	//	action sur la souris
 		{
 		case 0: // Molette
-			controleSourisMolette(controleur, zone);break;
+			controleSourisMolette(controleur);break;
 		case 1: // Mouvement
-			controleSourisMouvement(controleur, zone);break;
+			controleSourisMouvement(controleur);break;
 		case 2: // Appuie cliq gauche
-			controleSourisBouton(controleur, 1, zone);break;
+			controleSourisBouton(controleur, 1);break;
 		case 3: // Relache cliq gauche
-			controleSourisBouton(controleur, 0, zone);break;
+			controleSourisBouton(controleur, 0);break;
 		default:
 			;
 		}
 	return 0;
 	}
 
-int controleSourisMouvement(controleurT * controleur, int zone)
+int controleSourisMouvement(controleurT * controleur)
 	{
 				// Action du mouvement de la souris :
 		//	 Si cliq appuyé et dans la zone des représentations 3D : change le point de vue.
 
 	if((*controleur).appui==1)
 		{
+			//	Le pointeur de la souris se trouvant dans la zone
+		int zone = commandesSourisZone(&(*controleur).projection.commandes);
 		if(zone == 5)
 			{
 			pointDeVueChangePsi(&(*controleur).projection.fonction.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
@@ -99,10 +98,12 @@ int controleSourisMouvement(controleurT * controleur, int zone)
 	return 0;
 	}
 
-int controleSourisMolette(controleurT * controleur, int zone)
+int controleSourisMolette(controleurT * controleur)
 	{
 				// Action des mouvements de la mollette
 
+		//	Le pointeur de la souris se trouvant dans la zone
+	int zone = commandesSourisZone(&(*controleur).projection.commandes);
 	switch(zone)	//	
 		{
 		case 2: //	Boutons rotatif initial
@@ -137,7 +138,7 @@ int controleSourisMolettePointDeVue(controleurT * controleur, grapheT * graphe)
 	return 0;
 	}
 
-int controleSourisBouton(controleurT * controleur, int appui, int zone)
+int controleSourisBouton(controleurT * controleur, int appui)
 	{
 				// Action du bouton gauche de la souris
 
@@ -146,16 +147,18 @@ int controleSourisBouton(controleurT * controleur, int appui, int zone)
 
 	if(appui==1)
 		{
+			//	Le pointeur de la souris se trouvant dans la zone
+		int zone = commandesSourisZone(&(*controleur).projection.commandes);
 		switch(zone)	//	
 			{
 			case 2: //	Boutons rotatif
-				controleSourisCliqRotatif(controleur);break;
+				controleSourisCliqRotatif(controleur, 2);break;
 			case 3: //	Boutons selectif
-				controleSourisCliqSelectif(controleur);break;
-		//	case 4: // zone des curseurs linéaires de la fonction
-		//		;break;
-		//	case 6: // zone des curseurs linéaires de fourier
-		//		;break;
+				controleSourisCliqSelectif(controleur, 3);break;
+			case 4: // zone du menu graphe-fonction
+				controleSourisCliqSelectif(controleur, 4);break;
+			case 6: // zone du menu graphe-fourier
+				controleSourisCliqSelectif(controleur, 6);break;
 			default:
 				;
 			}
@@ -165,10 +168,10 @@ int controleSourisBouton(controleurT * controleur, int appui, int zone)
 	}
 
 
-int controleSourisCliqRotatif(controleurT * controleur)
+int controleSourisCliqRotatif(controleurT * controleur, int menu)
 	{
 			//	Action du cliq de souris dans le menu rotatif
-
+	(void)menu;
 			//	Numéro du rotatif
 	int rotatif = commandeRotatifsInitiale(&(*controleur).projection.commandes);
 	//fprintf(stderr, "\n controleSourisCliqRotatif, numéro : %d\n", rotatif);
@@ -200,45 +203,81 @@ int controleSourisCliqRotatif(controleurT * controleur)
 	return 0;
 	}
 
-int controleSourisCliqSelectif(controleurT * controleur)
+
+int controleSourisCliqSelectif(controleurT * controleur, int menu)
 	{
 			//	Action du cliq de souris
 			//	dans le menu selectif
-	int selectif = commandeSelectifsInitiale(&(*controleur).projection.commandes);
 
-	switch(selectif)	//	fonction ,  parametre ,  variation ,  pourMille
+	int selectif = 0;
+
+	if (menu == 3)
 		{
-		case 0: //	motif	constant
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 0);break;
-		case 1: //	motif	rectangle
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 2);break;
-		case 2: //	motif	dent de scie
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 3);break;
-		case 3: //	motif	sinusoïdale
-			modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 1);break;
-		case 6: //	enveloppe	gaussienne
-			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 2);break;
-		case 7: //	enveloppe	laurentzienne
-			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 3);break;
-		case 8: //	enveloppe	sinus cardinale
-			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 4);break;
-		case 4: //	enveloppe	apériodique
-			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 0);break;
-		case 5: //	enveloppe	périodique
-			modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 1);break;
-		case 9: //	porteuse	constant
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 3);break;
-		case 10: //	porteuse	peigne de dirac
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 2);break;
-		case 11: //	porteuse	réelle
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 0);break;
-		case 12: //	porteuse	complexe
-			modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 1);break;
-		default:
-			;
+		selectif = commandeSelectifsInitiale(&(*controleur).projection.commandes);
+		switch(selectif)	//	fonction ,  parametre ,  variation ,  pourMille
+			{
+			case 0: //	motif	constant
+				modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 0);break;
+			case 1: //	motif	rectangle
+				modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 2);break;
+			case 2: //	motif	dent de scie
+				modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 3);break;
+			case 3: //	motif	sinusoïdale
+				modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 1);break;
+			case 6: //	enveloppe	gaussienne
+				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 2);break;
+			case 7: //	enveloppe	laurentzienne
+				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 3);break;
+			case 8: //	enveloppe	sinus cardinale
+				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 4);break;
+			case 4: //	enveloppe	apériodique
+				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 0);break;
+			case 5: //	enveloppe	périodique
+				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 1);break;
+			case 9: //	porteuse	constant
+				modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 3);break;
+			case 10: //	porteuse	peigne de dirac
+				modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 2);break;
+			case 11: //	porteuse	réelle
+				modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 0);break;
+			case 12: //	porteuse	complexe
+				modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 1);break;
+			default:
+				;
+			}
+		}
+
+			printf("controleSourisCliqSelectif, menu == %d\n", menu);
+	if (menu == 4 || 6)
+		{
+		selectif = commandeSelectifsGraphes(&(*controleur).projection.commandes);
+		switch(selectif)	//	fonction ,  parametre ,  variation ,  pourMille
+			{
+			case 0: //	point de vue implicite
+				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+			case 1: //	point de vue imaginaire
+				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+			case 2: //	point de vue réel
+				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+			case 3: //	point de vue sans axes ? 
+				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+			case 4: //	graphe point
+				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+			case 5: //	graphe courbe
+				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+			case 6: //	coordonnées vecteur
+				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+			case 7: //	coordonnées cartésien
+				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+			case 8: //	coordonnées sans
+				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+			default:
+				;
+			}
 		}
 	return 0;
 	}
+
 
 int controleSourisInitialisePosition(controleurT * controleur, int position) {
 
@@ -248,6 +287,7 @@ int controleSourisInitialisePosition(controleurT * controleur, int position) {
 
 	return 0;
 	}
+
 
 int controleSourisMoletteRotatifsInitial(controleurT * controleur)
 	{
@@ -298,7 +338,7 @@ int controleSourisMoletteRotatifsInitial(controleurT * controleur)
 
 int controleSourisMoletteRotatifsGraphe(controleurT * controleur, int TF)
 	{
-	int commande = commandeRotatifsGraphe(&(*controleur).projection.commandes);
+	int commande = commandeRotatifsGraphes(&(*controleur).projection.commandes);
 	printf("controleSourisMoletteRotatifsGraphe %d\n", TF);
 
 	if(commande == 0)

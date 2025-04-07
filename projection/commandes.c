@@ -217,14 +217,17 @@ int commandesSourisZone(commandesT * commandes)
 		{
 		if((*commandes).sourisY < (*commandes).mode)
 			{	//	Selection initiale/simulation
+				printf("commandesSourisZone 1");
 			return 1;
 			}
 		if((*commandes).sourisX < (*commandes).rotatifsDroite && (*commandes).sourisX > (*commandes).rotatifsGauche)
 			{	//	Rotatif
+				printf("commandesSourisZone 2");
 			return 2;
 			}
 		if((*commandes).sourisX < (*commandes).selectifsDroite && (*commandes).sourisX > (*commandes).selectifsGauche)
 			{	//	Selectif
+				printf("commandesSourisZone 3");
 			return 3;
 			}
 		}
@@ -234,16 +237,20 @@ int commandesSourisZone(commandesT * commandes)
 			{
 			if((*commandes).sourisY < (*commandes).fonctionHaut)
 				{	//	Menu fonction
+				printf("commandesSourisZone 4");
 				return 4;
 				}
 			if((*commandes).sourisY < (*commandes).fonctionBas)
 				{	//	Fonction
+				printf("commandesSourisZone 5");
 				return 5;
 				}
 			if((*commandes).sourisY < (*commandes).fourierHaut)
 				{	//	Menu fourier
+				printf("commandesSourisZone 6");
 				return 6;
 				}
+			printf("commandesSourisZone 7");
 			return 7;	//	Fourier
 			}
 		else						//		MENU 3 = zone 8
@@ -286,9 +293,9 @@ int commandeRotatifsInitiale(commandesT * commandes)
 		}
 	return -1;
 	}
-int commandeSelectifsGraphe(commandesT * commandes)
+int commandeSelectifsGraphes(commandesT * commandes)
 	{
-			// Retourne le numéro du boutons sélectif du menu graphe
+			// Retourne le numéro du boutons sélectif des menus graphes
 	int i;
 		{
 		for(i=0;i<SELECTIF_GRAPHES;i++)
@@ -302,7 +309,7 @@ int commandeSelectifsGraphe(commandesT * commandes)
 	return -1;
 	}
 
-int commandeRotatifsGraphe(commandesT * commandes)
+int commandeRotatifsGraphes(commandesT * commandes)
 	{
 			// Retourne le numéro du boutons rotatif du menu initiale
 	int i;

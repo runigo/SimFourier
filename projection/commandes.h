@@ -94,8 +94,8 @@ int commandesSourisZone(commandesT * commandes);
 
 int commandeSelectifsInitiale(commandesT * commandes);
 int commandeRotatifsInitiale(commandesT * commandes);
-int commandeSelectifsGraphe(commandesT * commandes);
-int commandeRotatifsGraphe(commandesT * commandes);
+int commandeSelectifsGraphes(commandesT * commandes);
+int commandeRotatifsGraphes(commandesT * commandes);
 int commandeTriangles(commandesT * commandes);
 int commandeLineaires(commandesT * commandes);
 

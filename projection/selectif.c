@@ -39,7 +39,7 @@ int selectifInitialise(selectifT * selectif, int taille)
 		(*selectif).dX=taille; // dimension x
 		(*selectif).dY=taille; // dimension y
 
-		(*selectif).etat=1; // État du petit bouton
+		(*selectif).etat=0; // État du petit bouton
 
 	return 0;
 	}
