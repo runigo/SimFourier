@@ -86,6 +86,9 @@ typedef struct GrapheT grapheT;
 int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY);
 int grapheInitialisation(grapheT * graphe, int nombre);
 int grapheInitialisePointDeVue(grapheT * graphe, float r, float psi, float phi);
+
+int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int pourMille);
+
 int grapheRegleAxes(grapheT * graphe, int axes);
 int grapheRegleTrait(grapheT * graphe, int trait);
 int grapheChangeCoord(grapheT * graphe, int coord);

@@ -160,6 +160,32 @@ int grapheInitialiseSupport(grapheT * graphe){
 	return 0;
 	}
 
+int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int pourMille)
+	{
+			// Change un paramètre du graphe
+
+	switch (parametre)
+		{
+		case 0:	//	axes
+			grapheRegleAxes(grapheT * graphe, int axes); break;
+		case 1:	//	trait
+			grapheRegleTrait(grapheT * graphe, int trait); break;
+		case 2:	//	coord
+			grapheChangeCoord(grapheT * graphe, int coord); break;
+		case 5:	//	distance
+			; break;
+		case 6:	//	psi
+			; break;
+		case 7:	//	phi
+			; break;
+		default:
+			printf("ERREUR grapheChangeParametre\n");
+		}
+
+
+	return 0;
+	}
+
 int grapheRegleAxes(grapheT * graphe, int axes)
 	{
 	// Change la représentation graphique du support

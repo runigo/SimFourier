@@ -6,61 +6,62 @@
     <coordinates>
       <x>27</x>
       <y>54</y>
-      <w>756</w>
-      <h>324</h>
+      <w>1017</w>
+      <h>315</h>
     </coordinates>
-    <panel_attributes>int graphismeChangeParametre(initialeT * initiale, int fonction, int parametre, int variation, int pourMille);
+    <panel_attributes>int projectionChangeParametre(initialeT * initiale, int fonction, int parametre, int variation, int pourMille);
 --</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>252</x>
-      <y>99</y>
-      <w>162</w>
-      <h>54</h>
+      <x>261</x>
+      <y>90</y>
+      <w>198</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>paramètre graphe
 --
-0 : axe</panel_attributes>
+0 : axe
+1 : trait
+2 : coord</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>54</x>
-      <y>162</y>
+      <x>36</x>
+      <y>90</y>
       <w>162</w>
       <h>108</h>
     </coordinates>
     <panel_attributes>fonction
 --
-0 : graphe
-1 : graphique
-2 : pointDeVue</panel_attributes>
+0 : graphe fonction
+1 : graphe fourier</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>252</x>
-      <y>279</y>
+      <x>261</x>
+      <y>207</y>
       <w>198</w>
-      <h>72</h>
+      <h>99</h>
     </coordinates>
     <panel_attributes>paramètre pointDeVue
 --
-0 : r
-1 : psi
-3 : phi</panel_attributes>
+5 : r
+6 : psi
+7 : phi</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>495</x>
-      <y>90</y>
+      <x>549</x>
+      <y>153</y>
       <w>216</w>
       <h>108</h>
     </coordinates>
@@ -76,8 +77,8 @@ fait varier le paramètre
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>549</x>
-      <y>225</y>
+      <x>801</x>
+      <y>135</y>
       <w>207</w>
       <h>135</h>
     </coordinates>
@@ -93,17 +94,63 @@ Fixe la valeur,
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
+    <id>UMLGeneric</id>
     <coordinates>
-      <x>252</x>
-      <y>189</y>
-      <w>171</w>
-      <h>63</h>
+      <x>819</x>
+      <y>495</y>
+      <w>153</w>
+      <h>27</h>
     </coordinates>
-    <panel_attributes>paramètre graphique
---
-0 : relie
-1 : coord</panel_attributes>
+    <panel_attributes>point de vue fourier
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>675</x>
+      <y>432</y>
+      <w>135</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>graphe fourier
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>342</x>
+      <y>432</y>
+      <w>117</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>graphe fonction
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>477</x>
+      <y>504</y>
+      <w>162</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>point de vue fonction
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>45</x>
+      <y>405</y>
+      <w>207</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>projection
+bg=red</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
