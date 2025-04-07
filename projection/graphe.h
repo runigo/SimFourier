@@ -89,8 +89,9 @@ int grapheInitialisePointDeVue(grapheT * graphe, float r, float psi, float phi);
 
 int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int pourMille);
 
-int grapheRegleAxes(grapheT * graphe, int axes);
-int grapheRegleTrait(grapheT * graphe, int trait);
+int grapheReglageAxes(grapheT * graphe, int axes);
+int grapheReglageTrait(grapheT * graphe, int trait);
+int grapheReglageCoord(grapheT * graphe, int coord);
 int grapheChangeCoord(grapheT * graphe, int coord);
 int grapheAffiche(grapheT * graphe);
 #endif

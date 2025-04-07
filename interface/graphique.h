@@ -47,22 +47,20 @@ struct GraphiqueT {
 	texturesT textures;			//  Textures
 
 	double facteur;		//	adaptation de la taille du menu en fonction de la
-						//	hauteur de la fenetre.
+						//	hauteur de la fenêtre.
 
 	int fenetreX;	//	largeur de la fenêtre
 	int fenetreY;	//	hauteur de la fenêtre
 };
 
-int graphiqueSuppression(graphiqueT * graphique);
+		//		INITIALISATION ,  SUPRESSION ,  FONCTION ÉLÉMENTAIRE
 int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface);
-
+int graphiqueSuppression(graphiqueT * graphique);
 int graphiqueNettoyage(graphiqueT * graphique);
 int graphiqueMiseAJour(graphiqueT * graphique);
 
-int graphiqueFond(graphiqueT * graphique, int modeDessin);
-
+		//		CONSTRUCTION DU GRAPHISME
 int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode);
-
 int graphiqueAxeEtFonction(graphiqueT * graphique, grapheT * graphe);
 int graphiquePendule(graphiqueT * graphique, grapheT * graphe);
 

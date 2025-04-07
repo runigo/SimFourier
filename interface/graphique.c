@@ -33,19 +33,17 @@ termes.
 
 #include "graphique.h"
 
+		//		INITIALISATION ,  SUPRESSION ,  FONCTION ÉLÉMENTAIRE
+int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
+
 		//		CONSTRUCTION DU GRAPHISME
 int graphiqueMenus(graphiqueT * graphique, int mode);
 int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes);
 int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes);
 int graphiqueCommandesGraphes(graphiqueT * graphique, commandesT * commandes);
 
-		//			GRAPHISME
-int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
-int graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT);
-int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
 
-
-		//		INITIALISATION ,  SUPRESSION
+		//		INITIALISATION ,  SUPRESSION ,  FONCTION ÉLÉMENTAIRE
 
 int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface)
 	{
@@ -75,8 +73,8 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface)
 int graphiqueSuppression(graphiqueT * graphique)
 	{
 			// Destruction du rendu
-	SDL_DestroyRenderer((*graphique).affichage.rendu);
 
+	SDL_DestroyRenderer((*graphique).affichage.rendu);
 	return 0;
 	}
 
@@ -98,6 +96,13 @@ int graphiqueMiseAJour(graphiqueT * graphique)
 	return 0;
 	}
 
+int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur)
+	{
+			//		Réglage de la couleur
+
+	return SDL_SetRenderDrawColor((*graphique).affichage.rendu, couleur.r, couleur.g, couleur.b, couleur.a);
+	}
+
 int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
 	{
 		//	Dessine les menus et les commandes selon le mode
@@ -112,6 +117,7 @@ int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
 /*	else	//	Mode simulation
 		{
 		graphiqueCommandesSimulation(graphique, commandes);
+		graphiqueCommandesGraphes(graphique, commandes);
 		}*/
 	return 0;
 	}
@@ -327,37 +333,6 @@ int graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 			}
 		}
 	return 0;
-	}
-
-		//	FONCTIONS DE DESSINS GÉOMÉTRIQUES
-
-int graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y, float sinT, float cosT)
-	{
-	int decalageDroit = 0;
-	int decalageDiag = 1;
-	(void)sinT;
-	(void)cosT;
-
-	SDL_SetRenderDrawColor((*graphique).affichage.rendu, 25, 25, 25, 255);
-
-		// Horizontales 		    R	  V	  B
-	//SDL_SetRenderDrawColor((*graphique).affichage.rendu, sinusC, 55+sinusC, 125+sinusC, 255-sinusC);
-	//graphiqueChangeCouleur(graphique, (*graphique).cyan);
-	SDL_RenderDrawLine((*graphique).affichage.rendu, X-decalageDroit, Y-decalageDiag, x-decalageDroit, y-decalageDiag);
-	SDL_RenderDrawLine((*graphique).affichage.rendu, X+decalageDroit, Y+decalageDiag, x+decalageDroit, y+decalageDiag);
-
-		// Verticale
-	//SDL_SetRenderDrawColor((*graphique).affichage.rendu, 250-sinusC, 250-sinusC, 25, 255);
-	//graphiqueChangeCouleur(graphique, (*graphique).jaune);
-	SDL_RenderDrawLine((*graphique).affichage.rendu, X+decalageDiag, Y+decalageDroit, x+decalageDiag, y+decalageDroit);
-	SDL_RenderDrawLine((*graphique).affichage.rendu, X-decalageDiag, Y-decalageDroit, x-decalageDiag, y-decalageDroit);
-
-	return 0;
-	}
-
-int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur)
-	{
-	return SDL_SetRenderDrawColor((*graphique).affichage.rendu, couleur.r, couleur.g, couleur.b, couleur.a);
 	}
 
 //////////////////////////////////////////////////////////////////////////////

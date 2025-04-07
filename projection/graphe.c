@@ -164,29 +164,51 @@ int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int po
 	{
 			// Change un paramètre du graphe
 
-	switch (parametre)
+	if(variation == 0)	//	Réglage du paramètre
 		{
-		case 0:	//	axes
-			grapheRegleAxes(grapheT * graphe, int axes); break;
-		case 1:	//	trait
-			grapheRegleTrait(grapheT * graphe, int trait); break;
-		case 2:	//	coord
-			grapheChangeCoord(grapheT * graphe, int coord); break;
-		case 5:	//	distance
-			; break;
-		case 6:	//	psi
-			; break;
-		case 7:	//	phi
-			; break;
-		default:
-			printf("ERREUR grapheChangeParametre\n");
+		switch (parametre)
+			{
+			case 0:	//	axes
+				grapheReglageAxes(graphe, pourMille); break;
+			case 1:	//	trait
+				grapheReglageTrait(graphe, pourMille); break;
+			case 2:	//	coord
+				grapheReglageCoord(graphe, pourMille); break;
+	/*		case 5:	//	distance
+				; break;
+			case 6:	//	psi
+				; break;
+			case 7:	//	phi
+				; break;*/
+			default:
+				printf("ERREUR grapheChangeParametre\n");
+			}
 		}
-
+	else	//	Variation du paramètre
+		{
+	/*	switch (parametre)
+			{
+			case 0:	//	axes
+				grapheVariationAxes(graphe, int axes); break;
+			case 1:	//	trait
+				grapheVariationTrait(graphe, int trait); break;
+			case 2:	//	coord
+				grapheVariationCoord(graphe, int coord); break;
+			case 5:	//	distance
+				; break;
+			case 6:	//	psi
+				; break;
+			case 7:	//	phi
+				; break;
+			default:
+				printf("ERREUR grapheChangeParametre\n");
+			}*/
+		}
 
 	return 0;
 	}
 
-int grapheRegleAxes(grapheT * graphe, int axes)
+int grapheReglageAxes(grapheT * graphe, int axes)
 	{
 	// Change la représentation graphique du support
 		// Change la représentation graphique des axes (avec ou sans)
@@ -207,7 +229,7 @@ int grapheRegleAxes(grapheT * graphe, int axes)
 	return 0;
 	}
 
-int grapheRegleTrait(grapheT * graphe, int trait)
+int grapheReglageTrait(grapheT * graphe, int trait)
 	{
 			// Regle la représentation graphique de la courbe
 				// Change la représentation graphique de la fonction (points reliés ou non)
@@ -225,7 +247,7 @@ int grapheRegleTrait(grapheT * graphe, int trait)
 	return 0;
 	}
 
-int grapheChangeCoord(grapheT * graphe, int coord)
+int grapheReglageCoord(grapheT * graphe, int coord)
 	{
 			// Regle la représentation graphique de la courbe
 				// Change la représentation graphique des coordonnées (vecteur ou cartésien)

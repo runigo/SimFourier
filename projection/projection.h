@@ -69,7 +69,7 @@ int projectionModele(projectionT * projection, modeleT * modele, int mode);
 //int projectionControleurCommandes(projectionT * projection, commandesT * commandes, int duree, int mode);
 
 	//-----------------    CHANGE      -----------------------//
-int projectionChangeParametre(initialeT * initiale, int fonction, int parametre, int variation, int pourMille);
+int projectionChangeParametre(projectionT * projection, int fonction, int parametre, int variation, int pourMille);
 int projectionChangeFenetre(projectionT * projection, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//

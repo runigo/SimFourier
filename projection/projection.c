@@ -171,9 +171,9 @@ int projectionChangeParametre(projectionT * projection, int fonction, int parame
 
 	switch(fonction) {
 		case 0:
-			grapheChangeParametre((*projection).fonction, parametre, variation, pourMille); break;	//	Fonction
+			grapheChangeParametre(&(*projection).fonction, parametre, variation, pourMille); break;	//	Fonction
 		case 1:
-			grapheChangeParametre((*projection).fourier, parametre, variation, pourMille); break;	//	Fourier
+			grapheChangeParametre(&(*projection).fourier, parametre, variation, pourMille); break;	//	Fourier
 		default:
 			printf("ERREUR projectionChangeParametre\n");
 		}
