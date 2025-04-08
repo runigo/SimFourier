@@ -168,18 +168,24 @@ int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int po
 		{
 		switch (parametre)
 			{
-			case 0:	//	axes
+			case 0:	//	axes implicite
 				grapheReglageAxes(graphe, pourMille); break;
-			case 1:	//	trait
+			case 1:	//	axes imaginaire
+				grapheReglageAxes(graphe, pourMille); break;
+			case 2:	//	axes réel
+				grapheReglageAxes(graphe, pourMille); break;
+			case 3:	//	axes sans
+				grapheReglageAxes(graphe, pourMille); break;
+			case 4:	//	trait point
 				grapheReglageTrait(graphe, pourMille); break;
-			case 2:	//	coord
+			case 5:	//	trait courbe
+				grapheReglageTrait(graphe, pourMille); break;
+			case 6:	//	coord vecteur
 				grapheReglageCoord(graphe, pourMille); break;
-	/*		case 5:	//	distance
-				; break;
-			case 6:	//	psi
-				; break;
-			case 7:	//	phi
-				; break;*/
+			case 7:	//	coord cartésien
+				grapheReglageCoord(graphe, pourMille); break;
+			case 8:	//	coord sans
+				grapheReglageCoord(graphe, pourMille); break;
 			default:
 				printf("ERREUR grapheChangeParametre\n");
 			}
@@ -188,18 +194,24 @@ int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int po
 		{
 	/*	switch (parametre)
 			{
-			case 0:	//	axes
-				grapheVariationAxes(graphe, int axes); break;
-			case 1:	//	trait
-				grapheVariationTrait(graphe, int trait); break;
-			case 2:	//	coord
-				grapheVariationCoord(graphe, int coord); break;
-			case 5:	//	distance
-				; break;
-			case 6:	//	psi
-				; break;
-			case 7:	//	phi
-				; break;
+			case 0:	//	axes implicite
+				grapheVariationAxes(graphe, Variation); break;
+			case 1:	//	axes imaginaire
+				grapheVariationTrait(graphe, Variation); break;
+			case 2:	//	axes réel
+				grapheVariationCoord(graphe, Variation); break;
+			case 3:	//	axes sans
+				grapheVariationAxes(graphe, Variation); break;
+			case 4:	//	trait point
+				grapheVariationTrait(graphe, Variation); break;
+			case 5:	//	trait courbe
+				grapheVariationCoord(graphe, Variation); break;
+			case 6:	//	coord vecteur
+				grapheVariationCoord(graphe, Variation); break;
+			case 7:	//	coord cartésien
+				grapheVariationCoord(graphe, Variation); break;
+			case 8:	//	coord sans
+				grapheVariationCoord(graphe, Variation); break;
 			default:
 				printf("ERREUR grapheChangeParametre\n");
 			}*/

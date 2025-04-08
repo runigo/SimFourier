@@ -256,21 +256,21 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 			case 0: //	point de vue implicite
 				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
 			case 1: //	point de vue imaginaire
-				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+				projectionChangeParametre(&(*controleur).projection, menu, 1, 0, 1);break;
 			case 2: //	point de vue réel
-				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+				projectionChangeParametre(&(*controleur).projection, menu, 2, 0, 2);break;
 			case 3: //	point de vue sans axes ? 
-				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+				projectionChangeParametre(&(*controleur).projection, menu, 3, 0, 3);break;
 			case 4: //	graphe point
-				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+				projectionChangeParametre(&(*controleur).projection, menu, 4, 0, 0);break;
 			case 5: //	graphe courbe
-				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+				projectionChangeParametre(&(*controleur).projection, menu, 5, 0, 1);break;
 			case 6: //	coordonnées vecteur
-				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+				projectionChangeParametre(&(*controleur).projection, menu, 6, 0, 0);break;
 			case 7: //	coordonnées cartésien
-				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+				projectionChangeParametre(&(*controleur).projection, menu, 7, 0, 1);break;
 			case 8: //	coordonnées sans
-				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
+				projectionChangeParametre(&(*controleur).projection, menu, 8, 0, 2);break;
 			default:
 				;
 			}
