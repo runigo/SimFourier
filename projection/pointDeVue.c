@@ -48,7 +48,8 @@ int pointDeVueReinitialiseBase(pointDeVueT * pointDeVue);
 
 int pointDeVueInitialise(pointDeVueT * pointDeVue)
 	{
-	vecteurInitialisePolaire(&(*pointDeVue).position, DISTANCE_IMP, -1.062487, 1.695699);
+	//vecteurInitialisePolaire(&(*pointDeVue).position, DISTANCE_IMP, -1.062487, 1.695699);
+	vecteurInitialisePolaire(&(*pointDeVue).position, DISTANCE_IMP, -PIS2, PI);
 	vecteurInitialisePolaire(&(*pointDeVue).vecteurPhi, 0.0, 0.0, 0.0);
 	vecteurInitialisePolaire(&(*pointDeVue).vecteurPsi, 0.0, 0.0, 0.0);
 	pointDeVueReinitialiseBase(pointDeVue);

@@ -222,8 +222,8 @@ int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int po
 
 int grapheReglageAxes(grapheT * graphe, int axes)
 	{
-	// Change la représentation graphique du support
 		// Change la représentation graphique des axes (avec ou sans)
+
 	switch (axes)
 		{
 		case 0:	//	point
@@ -237,6 +237,33 @@ int grapheReglageAxes(grapheT * graphe, int axes)
 			printf("Axes :  avec le nom\n"); break;
 		default:
 			printf("ERREUR grapheRegleAxes\n");
+		}
+	return 0;
+	}
+
+int grapheReglagePdv(grapheT * graphe, int axes)
+	{
+		// Change la position du point de vue
+
+	switch (axes)
+		{
+		case 0:	//	implicite
+pointDeVueReglePhi(&(*graphe).pointDeVue, 1.695699);
+pointDeVueReglePsi(&(*graphe).pointDeVue,  -1.062487);
+			(*graphe).axes = 0;
+			printf("Point de vue implicite\n"); break;
+		case 1:	//	imaginaire
+pointDeVueReglePhi(&(*graphe).pointDeVue, PI);
+pointDeVueReglePsi(&(*graphe).pointDeVue, 0.0);
+			(*graphe).axes = 1;
+			printf("Point de vue imaginaire\n"); break;
+		case 2:	//	réel
+pointDeVueReglePhi(&(*graphe).pointDeVue, PIS2);
+pointDeVueReglePsi(&(*graphe).pointDeVue, 0.0);
+			(*graphe).axes = 2;
+			printf("Point de vue réel\n"); break;
+		default:
+			printf("ERREUR grapheReglage point de vue\n");
 		}
 	return 0;
 	}

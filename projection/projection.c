@@ -170,10 +170,10 @@ int projectionChangeParametre(projectionT * projection, int menu, int parametre,
 				//	Change un paramètre de la projection
 
 	switch(menu) {
-		case 4:
-			grapheChangeParametre(&(*projection).fonction, parametre, variation, pourMille); break;	//	Fonction
-		case 6:
-			grapheChangeParametre(&(*projection).fourier, parametre, variation, pourMille); break;	//	Fourier
+		case 4:	//		Fonction
+			grapheChangeParametre(&(*projection).fonction, parametre, variation, pourMille); break;
+		case 6:	//		Fourier
+			grapheChangeParametre(&(*projection).fourier, parametre, variation, pourMille); break;
 		default:
 			printf("ERREUR projectionChangeParametre\n");
 		}

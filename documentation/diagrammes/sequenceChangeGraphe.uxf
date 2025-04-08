@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="13.3">
-  <zoom_level>9</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>27</x>
-      <y>54</y>
-      <w>1017</w>
-      <h>315</h>
+      <x>14</x>
+      <y>56</y>
+      <w>784</w>
+      <h>175</h>
     </coordinates>
     <panel_attributes>int projectionChangeParametre(initialeT * initiale, int fonction, int parametre, int variation, int pourMille);
 --</panel_attributes>
@@ -16,10 +16,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>261</x>
-      <y>90</y>
-      <w>198</w>
-      <h>108</h>
+      <x>196</x>
+      <y>84</y>
+      <w>154</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>paramètre graphe
 --
@@ -31,10 +31,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>36</x>
-      <y>90</y>
-      <w>162</w>
-      <h>108</h>
+      <x>21</x>
+      <y>84</y>
+      <w>126</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>fonction
 --
@@ -45,10 +45,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>261</x>
-      <y>207</y>
-      <w>198</w>
-      <h>99</h>
+      <x>196</x>
+      <y>154</y>
+      <w>154</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>paramètre pointDeVue
 --
@@ -60,10 +60,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>549</x>
-      <y>153</y>
-      <w>216</w>
-      <h>108</h>
+      <x>413</x>
+      <y>112</y>
+      <w>168</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>variation
 --
@@ -77,10 +77,10 @@ fait varier le paramètre
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>801</x>
-      <y>135</y>
-      <w>207</w>
-      <h>135</h>
+      <x>616</x>
+      <y>98</y>
+      <w>161</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>pourMille
 --
@@ -96,10 +96,10 @@ Fixe la valeur,
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>819</x>
-      <y>495</y>
-      <w>153</w>
-      <h>27</h>
+      <x>651</x>
+      <y>350</y>
+      <w>126</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>point de vue fourier
 bg=orange</panel_attributes>
@@ -108,10 +108,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>675</x>
-      <y>432</y>
-      <w>135</w>
-      <h>27</h>
+      <x>476</x>
+      <y>357</y>
+      <w>91</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>graphe fourier
 bg=orange</panel_attributes>
@@ -120,10 +120,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>342</x>
-      <y>432</y>
-      <w>117</w>
-      <h>27</h>
+      <x>476</x>
+      <y>336</y>
+      <w>91</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>graphe fonction
 bg=green</panel_attributes>
@@ -132,10 +132,10 @@ bg=green</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>477</x>
-      <y>504</y>
-      <w>162</w>
-      <h>27</h>
+      <x>644</x>
+      <y>329</y>
+      <w>126</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>point de vue fonction
 bg=green</panel_attributes>
@@ -144,13 +144,187 @@ bg=green</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>45</x>
-      <y>405</y>
-      <w>207</w>
-      <h>27</h>
+      <x>308</x>
+      <y>322</y>
+      <w>84</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>projection
 bg=red</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>14</x>
+      <y>245</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>controleur
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>98</x>
+      <y>245</y>
+      <w>91</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>controlSouris
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>42</x>
+      <y>259</y>
+      <w>21</w>
+      <h>287</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;390.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>133</x>
+      <y>259</y>
+      <w>21</w>
+      <h>287</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;390.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>42</x>
+      <y>266</y>
+      <w>112</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+controleSouris</panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>133</x>
+      <y>280</y>
+      <w>147</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+controleSourisBoutons</panel_attributes>
+    <additional_attributes>10.0;30.0;30.0;30.0;30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>133</x>
+      <y>308</y>
+      <w>161</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+commandesSourisZone</panel_attributes>
+    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>273</x>
+      <y>273</y>
+      <w>21</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>238</x>
+      <y>259</y>
+      <w>91</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>commandes
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>133</x>
+      <y>343</y>
+      <w>161</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+controleSourisCliqSelectif</panel_attributes>
+    <additional_attributes>10.0;30.0;30.0;30.0;30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>133</x>
+      <y>322</y>
+      <w>161</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;210.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>133</x>
+      <y>371</y>
+      <w>231</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+projectionChangeParametre</panel_attributes>
+    <additional_attributes>310.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>343</x>
+      <y>336</y>
+      <w>21</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>343</x>
+      <y>385</y>
+      <w>189</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+grapheChangeParametre</panel_attributes>
+    <additional_attributes>250.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>511</x>
+      <y>371</y>
+      <w>21</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
   </element>
 </diagram>

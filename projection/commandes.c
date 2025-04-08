@@ -255,6 +255,7 @@ int commandesSourisZone(commandesT * commandes)
 			}
 		else						//		MENU 3 = zone 8
 			{
+			printf("commandesSourisZone 8\n");
 			return 8;
 			}
 		}
