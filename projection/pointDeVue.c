@@ -64,7 +64,11 @@ int pointDeVueReinitialiseBase(pointDeVueT * pointDeVue)
 	return 0;
 	}
 	//-----------------    CHANGE LE POINT DE VUE     -----------------------//
-
+/*
+int pointDeVueChangeParametre(pointDeVueT * pointDeVue, int parametre, int variation, int pourMille) {
+		//	Changement d'un paramètre du point de vue
+	return 0;	}
+*/
 int pointDeVueChangePhi(pointDeVueT * pointDeVue, float x) {
 
 		// Change la position de l'observateur suivant phi

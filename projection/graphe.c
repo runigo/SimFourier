@@ -34,6 +34,7 @@ termes.
 #include "graphe.h"
 
 int grapheInitialiseSupport(grapheT * graphe);
+int grapheReglagePdv(grapheT * graphe, int axes);
 
 int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY)
 	{
@@ -169,11 +170,11 @@ int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int po
 		switch (parametre)
 			{
 			case 0:	//	axes implicite
-				grapheReglageAxes(graphe, pourMille); break;
+				grapheReglagePdv(graphe, pourMille); break;
 			case 1:	//	axes imaginaire
-				grapheReglageAxes(graphe, pourMille); break;
+				grapheReglagePdv(graphe, pourMille); break;
 			case 2:	//	axes réel
-				grapheReglageAxes(graphe, pourMille); break;
+				grapheReglagePdv(graphe, pourMille); break;
 			case 3:	//	axes sans
 				grapheReglageAxes(graphe, pourMille); break;
 			case 4:	//	trait point
@@ -248,18 +249,18 @@ int grapheReglagePdv(grapheT * graphe, int axes)
 	switch (axes)
 		{
 		case 0:	//	implicite
-pointDeVueReglePhi(&(*graphe).pointDeVue, 1.695699);
-pointDeVueReglePsi(&(*graphe).pointDeVue,  -1.062487);
+pointDeVueReglePhi(&(*graphe).pointDeVue, 0.0);
+pointDeVueReglePsi(&(*graphe).pointDeVue, PIS2);
 			(*graphe).axes = 0;
 			printf("Point de vue implicite\n"); break;
 		case 1:	//	imaginaire
-pointDeVueReglePhi(&(*graphe).pointDeVue, PI);
-pointDeVueReglePsi(&(*graphe).pointDeVue, 0.0);
+pointDeVueReglePhi(&(*graphe).pointDeVue, 1.695699);
+pointDeVueReglePsi(&(*graphe).pointDeVue,  -1.062487);
 			(*graphe).axes = 1;
 			printf("Point de vue imaginaire\n"); break;
 		case 2:	//	réel
-pointDeVueReglePhi(&(*graphe).pointDeVue, PIS2);
-pointDeVueReglePsi(&(*graphe).pointDeVue, 0.0);
+pointDeVueReglePhi(&(*graphe).pointDeVue, 0.0);
+pointDeVueReglePsi(&(*graphe).pointDeVue, PIS2);
 			(*graphe).axes = 2;
 			printf("Point de vue réel\n"); break;
 		default:
