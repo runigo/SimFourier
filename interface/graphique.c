@@ -43,7 +43,7 @@ int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes)
 int graphiqueCommandesGraphes(graphiqueT * graphique, commandesT * commandes);
 
 
-		//		INITIALISATION ,  SUPRESSION ,  FONCTION ÉLÉMENTAIRE
+	//------     INITIALISATION ,  SUPRESSION ,  FONCTION ÉLÉMENTAIRE     ------//
 
 int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface)
 	{
@@ -78,8 +78,6 @@ int graphiqueSuppression(graphiqueT * graphique)
 	return 0;
 	}
 
-		//		CONSTRUCTION DU GRAPHISME
-
 int graphiqueNettoyage(graphiqueT * graphique)
 	{
 			//		Nettoyage du rendu
@@ -102,6 +100,9 @@ int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur)
 
 	return SDL_SetRenderDrawColor((*graphique).affichage.rendu, couleur.r, couleur.g, couleur.b, couleur.a);
 	}
+
+
+		//----------------     CONSTRUCTION DU GRAPHISME     ---------------------//
 
 int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
 	{
@@ -276,7 +277,7 @@ int graphiqueAxeEtFonction(graphiqueT * graphique, grapheT * graphe)
 		//	Point du support
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
 		// Axes x'x, y'y, z'z
-	if((*graphe).arriere <= 0) // Vue de devant
+//	if((*graphe).arriere <= 0) // Vue de devant
 		{
 		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[2], (*graphe).axeY[2], (*graphe).axeX[3], (*graphe).axeY[3]);
@@ -290,7 +291,7 @@ int graphiqueAxeEtFonction(graphiqueT * graphique, grapheT * graphe)
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
 
 		// Axes x'x, y'y, z'z
-	if((*graphe).arriere > 0) // Vue de derrière
+//	if((*graphe).arriere > 0) // Vue de derrière
 		{
 		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[2], (*graphe).axeY[2], (*graphe).axeX[3], (*graphe).axeY[3]);

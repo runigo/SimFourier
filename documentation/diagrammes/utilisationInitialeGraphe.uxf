@@ -4,20 +4,15 @@
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>120</x>
-      <y>250</y>
-      <w>300</w>
-      <h>170</h>
+      <x>180</x>
+      <y>340</y>
+      <w>220</w>
+      <h>100</h>
     </coordinates>
-    <panel_attributes>Change les courbes
+    <panel_attributes>coordonnées
 --
 
-Point reliés ou non
-
-Coordonées
 Vecteur, cartésien, sans
-
-Amplitude
 
 valign=top</panel_attributes>
     <additional_attributes/>
@@ -36,10 +31,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>110</x>
-      <y>70</y>
-      <w>320</w>
-      <h>140</h>
+      <x>160</x>
+      <y>30</y>
+      <w>230</w>
+      <h>130</h>
     </coordinates>
     <panel_attributes>Change les axes
 --
@@ -55,9 +50,9 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>60</x>
-      <y>450</y>
-      <w>300</w>
+      <x>40</x>
+      <y>480</y>
+      <w>280</w>
       <h>160</h>
     </coordinates>
     <panel_attributes>Change le point de vue
@@ -75,30 +70,16 @@ valign=top</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>460</x>
-      <y>100</y>
+      <x>490</x>
+      <y>280</y>
       <w>130</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>axe
-
-
-halign=left</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>460</x>
-      <y>310</y>
-      <w>130</w>
-      <h>90</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>relie
 
 coord
 
-
+axes
 
 halign=left</panel_attributes>
     <additional_attributes/>
@@ -224,24 +205,12 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>460</x>
-      <y>280</y>
+      <x>490</x>
+      <y>250</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>Graphe
-bg=orange</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>460</x>
-      <y>70</y>
-      <w>100</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>Graphique
 bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
@@ -276,6 +245,24 @@ bg=orange</panel_attributes>
       <h>30</h>
     </coordinates>
     <panel_attributes>parametres</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>230</x>
+      <y>190</y>
+      <w>220</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Change les courbes
+--
+
+Point reliés ou non
+
+Amplitude
+
+valign=top</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

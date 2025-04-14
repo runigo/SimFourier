@@ -259,7 +259,7 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 				projectionChangeParametre(&(*controleur).projection, menu, 1, 0, 1);break;
 			case 2: //	point de vue réel
 				projectionChangeParametre(&(*controleur).projection, menu, 2, 0, 2);break;
-			case 3: //	point de vue sans axes ? 
+			case 3: //	point de vue sans axes ?
 				projectionChangeParametre(&(*controleur).projection, menu, 3, 0, 3);break;
 			case 4: //	graphe point
 				projectionChangeParametre(&(*controleur).projection, menu, 4, 0, 0);break;
