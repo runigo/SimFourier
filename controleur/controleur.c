@@ -1,5 +1,5 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
@@ -114,12 +114,12 @@ int controleurEvolution(controleurT * controleur)
 
 int controleurProjection(controleurT * controleur)
 	{
-		//		Projection du modèle sur les graphismes
+			//		Projection du modèle sur les graphes
 
-	    // Mise à jour fenêtre et souris
+	    //	Mise à jour fenêtre et souris
 	controleurFenetre(controleur);
 
-		//	Projection
+		//	Projection du modèle sur les graphes et les commandes
 	projectionModele(&(*controleur).projection, &(*controleur).modele, (*controleur).options.mode);
 
 	return (*controleur).sortie;

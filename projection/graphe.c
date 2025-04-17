@@ -1,5 +1,5 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.3 Transformation de Fourier
 (D'après SiCP 1.3.7  simulateur de chaîne de pendules, septembre 2017)
@@ -33,7 +33,6 @@ termes.
 
 #include "graphe.h"
 
-int grapheInitialiseSupport(grapheT * graphe);
 int grapheReglagePdv(grapheT * graphe, int axes);
 
 int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY)
@@ -64,6 +63,16 @@ int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY)
 		(*graphe).ya[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
 		}
 
+	for(i=0;i<SUPPORT;i++)
+		{
+				// Coordonnees 2D des axes
+			// v = masse - point de vue
+		vecteurDifferenceCartesien(&(*graphe).support[i], &(*graphe).pointDeVue.position, &v);
+			// x = X + v.Psi		 y = Y + v.Phi
+		(*graphe).axeX[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
+		(*graphe).axeY[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
+		}
+
 	return 0;
 	}
 
@@ -82,7 +91,7 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	(*graphe).arriere = 0;
 	(*graphe).gauche = 0;
 
-	(*graphe).echelle = ECHELLE_IMP;
+	(*graphe).echelle = 1;
 	//(*graphe).longueur = LONGUEUR_IMP;
 	//(*graphe).rayon = RAYON_IMP;
 
@@ -111,6 +120,8 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	}
 
 int grapheInitialiseSupport(grapheT * graphe){
+
+			//	Réinitialisation des axes 3D
 //
 //                                                Z
 //                                          Y              X'

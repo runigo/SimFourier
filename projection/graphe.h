@@ -1,5 +1,5 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.3 Transformation de Fourier
 (SiCP 2.5 simulateur de chaîne de pendules fevrier 2021)
@@ -85,6 +85,7 @@ typedef struct GrapheT grapheT;
 
 int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY);
 int grapheInitialisation(grapheT * graphe, int nombre);
+int grapheInitialiseSupport(grapheT * graphe);
 int grapheInitialisePointDeVue(grapheT * graphe, float r, float psi, float phi);
 
 int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int pourMille);

@@ -1,5 +1,5 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.3 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
@@ -79,19 +79,19 @@ int projectionInitialise(projectionT * projection, int nombre)
 
 int projectionModele(projectionT * projection, modeleT * modele, int mode)
 	{
-		//	Projette le modèle sur les graphes et les commandes
+			//	Projette le modèle sur les graphes et les commandes
 
-        //  Fonction du modele -> graphe 3D -> graphe 2D
+        //  Fonction -> graphe 3D -> graphe 2D
 	projectionModeleGraphes(projection, modele);
 
 	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projection.parametrSystem, &(*controleur).capteurs);
 
-		//	Paramètre du modèle -> commandes
+		//	Paramètre -> commandes
 	if(mode == 0)	//	Mode initiale
 		{
 	parametrInitialCommandes(&(*modele).initiale, &(*projection).parametrInitial, &(*projection).commandes);
 		}
-	else
+	else		//	Mode simulation
 		{
 	parametrSystemCommandes(&(*modele).systeme, &(*projection).parametrSystem, &(*projection).commandes);
 		}
@@ -121,7 +121,7 @@ int projectionModeleGraphes3D(modeleT * modele, projectionT * projection)
 	int i;
 	int nombre = (*modele).systeme.nombre;
 
-	for(i=0;i<nombre;i++)
+	for(i=0;i<nombre;i++)	//	Projection de la fonction initiale
 		{
 		(*projection).fonction.point[i].y = (*modele).systeme.actuel.reel[i];//(*projection).fonction.hauteur * 
 		(*projection).fonction.point[i].z = (*modele).systeme.actuel.imag[i];//(*projection).fonction.hauteur * 
@@ -131,7 +131,7 @@ int projectionModeleGraphes3D(modeleT * modele, projectionT * projection)
 
 	int j=nombre/2;
 
-	for(i=0;i<j;i++)	//	Projection et retournement
+	for(i=0;i<j;i++)	//	Projection et retournement de la transformée de fourier
 		{
 		(*projection).fourier.point[i].y = (*modele).fourier.spectre.reel[j-i];		//[2*i]
 		(*projection).fourier.point[i].z = (*modele).fourier.spectre.imag[j-i];		//[2*i]
@@ -164,7 +164,9 @@ int projectionControleurCommandes(parametrSystemT * projection, commandesT * com
 	return 0;
 	}
 
+
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
+
 int projectionChangeParametre(projectionT * projection, int menu, int parametre, int variation, int pourMille)
 	{
 				//	Change un paramètre de la projection
@@ -188,6 +190,8 @@ int projectionChangeFenetre(projectionT * projection, int x, int y) {
 
 	(*projection).fenetreX=x;
 	(*projection).fenetreY=y;
+
+	grapheInitialiseSupport(&(*projection).fourier);
 
 	return 0;
 	}
