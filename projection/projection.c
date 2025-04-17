@@ -64,18 +64,22 @@ int projectionInitialise(projectionT * projection, int nombre)
 		//	Initialisation des graphes
 	grapheInitialisation(&(*projection).fonction, nombre);
 	grapheInitialisation(&(*projection).fourier, nombre);
-	(*projection).fonction.ratiox = 0.5;
-	(*projection).fonction.ratioy = 0.25;
-	(*projection).fourier.ratiox = 0.5;
-	(*projection).fourier.ratioy = 0.75;
+
+		//	Position des graphes dans la fenêtre
+	(*projection).fonction.positionX = 0.5;
+	(*projection).fonction.positionY = 0.25;
+	(*projection).fourier.positionX = 0.5;
+	(*projection).fourier.positionY = 0.75;
+
+		//	Style des courbes
 	(*projection).fonction.trait = 1;
 	(*projection).fourier.trait = 0;
 
 	return 0;
 	}
 
-	//-----------------    PROJECTION      -----------------------//
 
+	//-----------------    PROJECTION      -----------------------//
 
 int projectionModele(projectionT * projection, modeleT * modele, int mode)
 	{

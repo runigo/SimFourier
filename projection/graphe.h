@@ -79,8 +79,8 @@ typedef struct GrapheT grapheT;
 		//int longueur;	// Longueur Ox
 		//int rayon;	// Longueurs Oy et Oz
 		
-		float ratiox;	// rapport décalage X / fenetre X
-		float ratioy;	// rapport décalage Y / fenetre Y
+		float positionX;	// rapport décalage X / fenetre X
+		float positionY;	// rapport décalage Y / fenetre Y
 		};
 
 int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY);

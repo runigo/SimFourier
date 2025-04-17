@@ -35,47 +35,6 @@ termes.
 
 int grapheReglagePdv(grapheT * graphe, int axes);
 
-int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY)
-	{
-						//	Projette un graphe 3D sur son graphe 2D
-	vecteurT v;
-	int i;
-	int nombre = (*graphe).nombre;
-
-		// centrage du graphe
-	int centrageX = (int)( fenetreX * (*graphe).ratiox );
-	int centrageY = (int)( fenetreY * (*graphe).ratioy );
-
-	for(i=0;i<nombre;i++)
-		{
-				// Coordonnees 2D du point
-			// v = masse - point de vue
-		vecteurDifferenceCartesien(&(*graphe).point[i], &(*graphe).pointDeVue.position, &v);
-			// x = X + v.Psi		 y = Y + v.Phi
-		(*graphe).xp[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
-		(*graphe).yp[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
-
-				// Coordonnees 2D de l'axe
-			// v = axe - point de vue
-		vecteurDifferenceCartesien(&(*graphe).axe[i], &(*graphe).pointDeVue.position, &v);
-			// x = X + v.Psi		 y = Y + v.Phi
-		(*graphe).xa[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
-		(*graphe).ya[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
-		}
-
-	for(i=0;i<SUPPORT;i++)
-		{
-				// Coordonnees 2D des axes
-			// v = masse - point de vue
-		vecteurDifferenceCartesien(&(*graphe).support[i], &(*graphe).pointDeVue.position, &v);
-			// x = X + v.Psi		 y = Y + v.Phi
-		(*graphe).axeX[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
-		(*graphe).axeY[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
-		}
-
-	return 0;
-	}
-
 int grapheInitialisation(grapheT * graphe, int nombre)
 	{
 			//	Initalisation d'un graphe
@@ -95,8 +54,8 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	//(*graphe).longueur = LONGUEUR_IMP;
 	//(*graphe).rayon = RAYON_IMP;
 
-	(*graphe).ratiox = 0.0;
-	(*graphe).ratioy = 0.0;
+	(*graphe).positionX = 0.0;	//	Position dans la fenêtre, reste constant
+	(*graphe).positionY = 0.0;	//	Initialisé dans projection
 
 	for(i=0;i<NOMBRE_MAX;i++){
 		vecteurInitialisePolaire(&(*graphe).point[i], 0.0, 0.0, 0.0);
@@ -169,6 +128,47 @@ int grapheInitialiseSupport(grapheT * graphe){
 			(*graphe).point[i].x = (*graphe).axe[i].x ;
 			}
 		}
+	return 0;
+	}
+
+int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY)
+	{
+						//	Projette un graphe 3D sur son graphe 2D
+	vecteurT v;
+	int i;
+	int nombre = (*graphe).nombre;
+
+		// centrage du graphe
+	int centrageX = (int)( fenetreX * (*graphe).positionX );
+	int centrageY = (int)( fenetreY * (*graphe).positionY );
+
+	for(i=0;i<nombre;i++)
+		{
+				// Coordonnees 2D du point
+			// v = masse - point de vue
+		vecteurDifferenceCartesien(&(*graphe).point[i], &(*graphe).pointDeVue.position, &v);
+			// x = X + v.Psi		 y = Y + v.Phi
+		(*graphe).xp[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
+		(*graphe).yp[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
+
+				// Coordonnees 2D de l'axe
+			// v = axe - point de vue
+		vecteurDifferenceCartesien(&(*graphe).axe[i], &(*graphe).pointDeVue.position, &v);
+			// x = X + v.Psi		 y = Y + v.Phi
+		(*graphe).xa[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
+		(*graphe).ya[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
+		}
+
+	for(i=0;i<SUPPORT;i++)
+		{
+				// Coordonnees 2D des axes
+			// v = masse - point de vue
+		vecteurDifferenceCartesien(&(*graphe).support[i], &(*graphe).pointDeVue.position, &v);
+			// x = X + v.Psi		 y = Y + v.Phi
+		(*graphe).axeX[i] = centrageX + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPsi);
+		(*graphe).axeY[i] = centrageY + vecteurScalaireCartesien(&v, &(*graphe).pointDeVue.vecteurPhi);
+		}
+
 	return 0;
 	}
 

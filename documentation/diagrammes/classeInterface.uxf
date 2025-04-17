@@ -46,4 +46,25 @@ int interfaceSuppression(interfaceT * interface);
 </panel_attributes>
     <additional_attributes/>
   </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>90</x>
+      <y>330</y>
+      <w>440</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>graphe
+--
+
+int echelle;    // Echelle du graphe
+		
+float positionX;    // rapport décalage X / fenetre X
+float positionY;    // rapport décalage Y / fenetre Y
+
+     Position dans la fenêtre,  reste constant.
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>
