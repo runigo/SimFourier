@@ -76,8 +76,8 @@ typedef struct GrapheT grapheT;
 		int gauche;		// Vue de gauche
 
 		int echelle;	// Echelle du graphe
-		//int longueur;	// Longueur Ox
-		//int rayon;	// Longueurs Oy et Oz
+		int longueur;	// Longueur Ox
+		int rayon;	// Longueurs Oy et Oz
 		
 		float positionX;	// rapport décalage X / fenetre X
 		float positionY;	// rapport décalage Y / fenetre Y

@@ -51,8 +51,8 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	(*graphe).gauche = 0;
 
 	(*graphe).echelle = 1;
-	//(*graphe).longueur = LONGUEUR_IMP;
-	//(*graphe).rayon = RAYON_IMP;
+	(*graphe).longueur = LONGUEUR_IMP;
+	(*graphe).rayon = RAYON_IMP;
 
 	(*graphe).positionX = 0.0;	//	Position dans la fenêtre, reste constant
 	(*graphe).positionY = 0.0;	//	Initialisé dans projection
@@ -97,21 +97,17 @@ int grapheInitialiseSupport(grapheT * graphe){
 		(*graphe).support[i].z = 0;
 		}
 
-					// AXE X'X
-	(*graphe).support[0].x = -5.2 * (*graphe).echelle;
-	(*graphe).support[1].x = 3.2 * (*graphe).echelle;
+					// AXE X'X (y et z = 0)
+	(*graphe).support[0].x = -(*graphe).longueur * (*graphe).echelle;
+	(*graphe).support[1].x = (*graphe).longueur * (*graphe).echelle;
 
 					// AXE Y'Y
-	(*graphe).support[2].y = -1.2 * (*graphe).echelle;
-	(*graphe).support[3].y = 1.2 * (*graphe).echelle;
-	(*graphe).support[2].x = -4.2 * (*graphe).echelle;
-	(*graphe).support[3].x = -4.2 * (*graphe).echelle;
+	(*graphe).support[2].y = -(*graphe).rayon * (*graphe).echelle;
+	(*graphe).support[3].y = (*graphe).rayon * (*graphe).echelle;
 
 					// AXE Z'Z
-	(*graphe).support[4].z = -1.2 * (*graphe).echelle;
-	(*graphe).support[5].z = 1.2 * (*graphe).echelle;
-	(*graphe).support[4].x = -4.2 * (*graphe).echelle;
-	(*graphe).support[5].x = -4.2 * (*graphe).echelle;
+	(*graphe).support[4].z = -(*graphe).rayon * (*graphe).echelle;
+	(*graphe).support[5].z = (*graphe).rayon * (*graphe).echelle;
 
 		//	Initialisation des abscisses du graphe
 	int nombre=(*graphe).nombre;
@@ -122,9 +118,10 @@ int grapheInitialiseSupport(grapheT * graphe){
 		}
 	else
 		{
+		int longueur = (*graphe).longueur * 2;
 		for(i=0;i<nombre;i++)
 			{
-			(*graphe).axe[i].x = (7.9 * (float)i/nombre - 4.2) * (*graphe).echelle ;
+			(*graphe).axe[i].x = (longueur * (float)i/nombre - (*graphe).longueur) * (*graphe).echelle ;
 			(*graphe).point[i].x = (*graphe).axe[i].x ;
 			}
 		}
