@@ -37,29 +37,28 @@ termes.
 #include "rotatif.h"
 #include "selectif.h"
 
-/*************************************************************
+/***********************************************************************
 
-	Contient la position des zones et de la souris,
+	Ajuste la position des zones en fonction de la taille de la fenêtre
 
-	Détecte la position de la souris dans les menus.
+	Détecte la position de la souris dans les zones et les menus.
 
-*/////////////////////////////////////////////////////////////
+************************************************************************/
 
 typedef struct CommandesT commandesT;
 	struct CommandesT
 		{
-		rotatifT rotatifInitial[ROTATIF_INITIAL];
-		selectifT selectifInitial[SELECTIF_INITIAL];
-		rotatifT rotatifGraph[2][ROTATIF_GRAPHES];		//	Boutons linéaires des graphes
-		selectifT selectifGraph[2][SELECTIF_GRAPHES];
+			//	Tableaux de commandes des menus
+		rotatifT rotatifInitial[ROTATIF_INITIAL];		//	Rotatifs du menu initial
+		selectifT selectifInitial[SELECTIF_INITIAL];	//	Sélectifs du menu initial
+		rotatifT rotatifGraph[2][ROTATIF_GRAPHES];		//	Linéaires des menus graphes
+		selectifT selectifGraph[2][SELECTIF_GRAPHES];	//	Sélectifs des menus graphes
 
-			// Zones suivant X des commandes des menus verticales
-	//	int rotatifsCentre;
-		//int selectifsCentre;
-		int rotatifsDroite;
-		int selectifsDroite;
+			// Zones suivant X des commandes des menus verticaux (initial et simulation)
 		int rotatifsGauche;
+		int rotatifsDroite;
 		int selectifsGauche;
+		int selectifsDroite;
 
 			// Zones suivant Y du menu 1
 		int mode;
@@ -73,7 +72,6 @@ typedef struct CommandesT commandesT;
 		int fonctionBas;	//	limite zone 5 zone 6
 		int fourierHaut;	//	limite zone 6 zone 7
 		int fourierBas;		//	fenetreY
-		int selectifsFonction;	//	Petits bouton du menu graphe-fonction (zone 4)
 
 		int sourisX; // position X de la souris
 		int sourisY; // position Y de la souris
