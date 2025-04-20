@@ -67,14 +67,17 @@ typedef struct GrapheT grapheT;
 			// Position de l'observateur
 		pointDeVueT pointDeVue;
 
-		int axes;	// Change la représentation graphique des axes (avec ou sans)
-		int trait;		// Change la représentation graphique de la fonction (points reliés ou non)
-		int coord;		// Change la représentation graphique des coordonnées (vecteur ou cartésien)
+			// Représentation graphique
+		int axes;		// des axes (devant, derrière ou sans) [2, 1, 0]
+		int trait;		// de la fonction (points reliés ou non) [1, 0]
+		int coord;		// des coordonnées (sans, vecteur ou cartésien) [0, 1, 2]
 
+			//	Position relative
 		int dessous;	// Vue de dessous
 		int arriere;	// Vue de derrière
 		int gauche;		// Vue de gauche
 
+			//	Longueurs caractéristiques
 		int echelle;	// Echelle du graphe
 		int longueur;	// Longueur Ox
 		int rayon;	// Longueurs Oy et Oz

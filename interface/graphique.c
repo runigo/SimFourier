@@ -277,7 +277,7 @@ int graphiqueAxeEtFonction(graphiqueT * graphique, grapheT * graphe)
 		//	Point du support
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
 		// Axes x'x, y'y, z'z
-//	if((*graphe).arriere <= 0) // Vue de devant
+	if((*graphe).arriere <= 0) // Vue de devant
 		{
 		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[2], (*graphe).axeY[2], (*graphe).axeX[3], (*graphe).axeY[3]);
@@ -291,7 +291,7 @@ int graphiqueAxeEtFonction(graphiqueT * graphique, grapheT * graphe)
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
 
 		// Axes x'x, y'y, z'z
-//	if((*graphe).arriere > 0) // Vue de derrière
+	if((*graphe).arriere > 0) // Vue de derrière
 		{
 		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[2], (*graphe).axeY[2], (*graphe).axeX[3], (*graphe).axeY[3]);

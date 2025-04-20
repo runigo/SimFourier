@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="13.3">
-  <zoom_level>10</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>180</x>
-      <y>340</y>
-      <w>220</w>
-      <h>100</h>
+      <x>210</x>
+      <y>175</y>
+      <w>154</w>
+      <h>63</h>
     </coordinates>
-    <panel_attributes>coordonnées
+    <panel_attributes>*coordonnées*
 --
 
 Vecteur, cartésien, sans
@@ -20,10 +20,10 @@ valign=top</panel_attributes>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>0</x>
-      <y>150</y>
-      <w>100</w>
-      <h>100</h>
+      <x>126</x>
+      <y>84</y>
+      <w>70</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Utilisateur</panel_attributes>
     <additional_attributes/>
@@ -31,17 +31,17 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>160</x>
-      <y>30</y>
-      <w>230</w>
-      <h>130</h>
+      <x>238</x>
+      <y>0</y>
+      <w>161</w>
+      <h>91</h>
     </coordinates>
-    <panel_attributes>Change les axes
+    <panel_attributes>*axes*
 --
 
-Avec ou sans
+devant, derrière ou sans
 
-Sens positif
+Sens positif indiqué :
 Im, Re, x ou p
 
 valign=top</panel_attributes>
@@ -50,12 +50,12 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>40</x>
-      <y>480</y>
-      <w>280</w>
-      <h>160</h>
+      <x>133</x>
+      <y>287</y>
+      <w>196</w>
+      <h>112</h>
     </coordinates>
-    <panel_attributes>Change le point de vue
+    <panel_attributes>*point de vue*
 --
 
 Distance
@@ -70,16 +70,18 @@ valign=top</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>490</x>
-      <y>280</y>
-      <w>130</w>
-      <h>130</h>
+      <x>434</x>
+      <y>28</y>
+      <w>126</w>
+      <h>203</h>
     </coordinates>
-    <panel_attributes>relie
+    <panel_attributes>axes
+
+
+trait
+
 
 coord
-
-axes
 
 halign=left</panel_attributes>
     <additional_attributes/>
@@ -88,9 +90,9 @@ halign=left</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>420</x>
-      <y>510</y>
-      <w>140</w>
-      <h>110</h>
+      <y>336</y>
+      <w>98</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>
 r
@@ -103,10 +105,10 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>640</x>
-      <y>100</y>
-      <w>150</w>
-      <h>70</h>
+      <x>574</x>
+      <y>49</y>
+      <w>105</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>var 0 : axe
 
@@ -117,10 +119,10 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>650</x>
-      <y>310</y>
-      <w>150</w>
-      <h>80</h>
+      <x>581</x>
+      <y>196</y>
+      <w>105</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>var 0 : relie
 
@@ -132,10 +134,10 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>640</x>
-      <y>510</y>
-      <w>150</w>
-      <h>90</h>
+      <x>574</x>
+      <y>336</y>
+      <w>105</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>var 0 : 
 
@@ -147,10 +149,10 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>820</x>
-      <y>100</y>
-      <w>140</w>
-      <h>70</h>
+      <x>700</x>
+      <y>49</y>
+      <w>98</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>[0, 1, 2]
 
@@ -161,10 +163,10 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>820</x>
-      <y>310</y>
-      <w>120</w>
-      <h>80</h>
+      <x>700</x>
+      <y>196</y>
+      <w>84</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>[0, 1]
 
@@ -177,10 +179,10 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>820</x>
-      <y>510</y>
-      <w>130</w>
-      <h>90</h>
+      <x>700</x>
+      <y>336</y>
+      <w>91</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>[r_min .. r_max]
 
@@ -194,9 +196,9 @@ halign=left</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>420</x>
-      <y>480</y>
-      <w>100</w>
-      <h>30</h>
+      <y>315</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>PointDeVue
 bg=orange</panel_attributes>
@@ -205,10 +207,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>490</x>
-      <y>250</y>
-      <w>100</w>
-      <h>30</h>
+      <x>434</x>
+      <y>7</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>Graphe
 bg=orange</panel_attributes>
@@ -217,10 +219,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>640</x>
-      <y>70</y>
-      <w>150</w>
-      <h>30</h>
+      <x>574</x>
+      <y>28</y>
+      <w>105</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>parametres</panel_attributes>
     <additional_attributes/>
@@ -228,10 +230,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>650</x>
-      <y>280</y>
-      <w>150</w>
-      <h>30</h>
+      <x>581</x>
+      <y>175</y>
+      <w>105</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>parametres</panel_attributes>
     <additional_attributes/>
@@ -239,10 +241,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>640</x>
-      <y>480</y>
-      <w>150</w>
-      <h>30</h>
+      <x>574</x>
+      <y>315</y>
+      <w>105</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>parametres</panel_attributes>
     <additional_attributes/>
@@ -250,12 +252,12 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>230</x>
-      <y>190</y>
-      <w>220</w>
-      <h>140</h>
+      <x>266</x>
+      <y>98</y>
+      <w>154</w>
+      <h>70</h>
     </coordinates>
-    <panel_attributes>Change les courbes
+    <panel_attributes>*courbes*
 --
 
 Point reliés ou non
