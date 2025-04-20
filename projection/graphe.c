@@ -257,19 +257,16 @@ int grapheReglagePdv(grapheT * graphe, int axes)
 	switch (axes)
 		{
 		case 0:	//	implicite
-pointDeVueReglePhi(&(*graphe).pointDeVue, 0.0);
-pointDeVueReglePsi(&(*graphe).pointDeVue, PIS2);
-			(*graphe).axes = 0;
+			pointDeVueReglePhi(&(*graphe).pointDeVue, PHI);
+			pointDeVueReglePsi(&(*graphe).pointDeVue,  PSI);
 			printf("Point de vue implicite\n"); break;
 		case 1:	//	imaginaire
-pointDeVueReglePhi(&(*graphe).pointDeVue, 1.695699);
-pointDeVueReglePsi(&(*graphe).pointDeVue,  -1.062487);
-			(*graphe).axes = 1;
+			pointDeVueReglePhi(&(*graphe).pointDeVue, PIS2);
+			pointDeVueReglePsi(&(*graphe).pointDeVue, PIS2);
 			printf("Point de vue imaginaire\n"); break;
 		case 2:	//	réel
-pointDeVueReglePhi(&(*graphe).pointDeVue, 0.0);
-pointDeVueReglePsi(&(*graphe).pointDeVue, PIS2);
-			(*graphe).axes = 2;
+			pointDeVueReglePhi(&(*graphe).pointDeVue, 0.0);
+			pointDeVueReglePsi(&(*graphe).pointDeVue, PIS2);
 			printf("Point de vue réel\n"); break;
 		default:
 			printf("ERREUR grapheReglage point de vue\n");

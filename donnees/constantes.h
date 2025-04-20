@@ -61,6 +61,9 @@ termes.
 #define SELECTIF_X 40
 #define SELECTIF_Y 40
 
+	//	POINT DE VUE IMPLICITE
+#define PHI 1.7
+#define PSI -1.1
 
 
 	//	PARAMÈTRES DES CAPTEURS

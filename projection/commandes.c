@@ -78,6 +78,7 @@ int commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	(*commandes).fonctionsDroite = fenetreX - facteur * 100;
 
 		// Zones suivant Y des fonctions
+	(*commandes).selectifsFonction = facteur * 8;	//	position y des selectifs
 	(*commandes).fonctionHaut = facteur * 55;		//	frontière 4-5
 	(*commandes).fonctionBas = fenetreY / 2;		//	frontière 5-6
 	(*commandes).fourierHaut = (*commandes).fonctionBas + (*commandes).fonctionHaut;	//	6-7
