@@ -263,46 +263,22 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 	return 0;
 	}
 
-int graphiqueAxeEtFonction(graphiqueT * graphique, grapheT * graphe)
+int graphiqueAxe(graphiqueT * graphique, grapheT * graphe)
 	{
-//
-//                                                Z
-//                                          Y              X'
-//                                                O
-//                                                      Y'
-//                                                Z'
-//             X
-
-
-		//	Point du support
-	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
-		// Axes x'x, y'y, z'z
-	if((*graphe).arriere <= 0) // Vue de devant
-		{
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[2], (*graphe).axeY[2], (*graphe).axeX[3], (*graphe).axeY[3]);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[4], (*graphe).axeY[4], (*graphe).axeX[5], (*graphe).axeY[5]);
-		}
-
-
-		// Chaine de pendule
-	graphiquePendule(graphique, graphe);
+			//			Dessin des axes xyz
 
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
 
-		// Axes x'x, y'y, z'z
-	if((*graphe).arriere > 0) // Vue de derrière
-		{
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[2], (*graphe).axeY[2], (*graphe).axeX[3], (*graphe).axeY[3]);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[4], (*graphe).axeY[4], (*graphe).axeX[5], (*graphe).axeY[5]);
-		}
+	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[2], (*graphe).axeY[2], (*graphe).axeX[3], (*graphe).axeY[3]);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[4], (*graphe).axeY[4], (*graphe).axeX[5], (*graphe).axeY[5]);
 
 	return 0;
 	}
 
-int graphiquePendule(graphiqueT * graphique, grapheT * graphe)
+int graphiqueFonction(graphiqueT * graphique, grapheT * graphe)
 	{
+				//	Dessin de la fonction
 	int i;
 
 			//	Dessin de la première tige
@@ -314,11 +290,21 @@ int graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 		for(i=0;i<((*graphe).nombre-1);i++)
 			{
 				//	Dessin des tiges
-			graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
-			SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
+			if((*graphe).coord == 1)
+				{
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
+				}
 				//	Dessin de la courbe
 			graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-			SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
+			if((*graphe).trait == 1)
+				{
+	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
+				}
+			else
+				{
+				SDL_RenderDrawPoint((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i]);
+				}
 			}
 		}
 	else
@@ -326,11 +312,21 @@ int graphiquePendule(graphiqueT * graphique, grapheT * graphe)
 		for(i=((*graphe).nombre-2);i>0;i--)
 			{
 				//	Dessin des tiges
-			graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
-			SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
+			if((*graphe).coord == 1)
+				{
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
+				}
 				//	Dessin de la courbe
 			graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-			SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
+			if((*graphe).trait == 1)
+				{
+	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xp[i+1], (*graphe).yp[i+1]);
+				}
+			else
+				{
+				SDL_RenderDrawPoint((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i]);
+				}
 			}
 		}
 	return 0;

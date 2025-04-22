@@ -211,17 +211,19 @@ int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe)
 
 	if((*graphe).axes==0)
 		{
-		graphiquePendule(graphique, graphe);
+		graphiqueFonction(graphique, graphe);
 		}
 	else
 		{
 		if((*graphe).axes==1)
 			{
-			graphiqueAxeEtFonction(graphique, graphe);
+			graphiqueAxe(graphique, graphe);
+			graphiqueFonction(graphique, graphe);
 			}
 		else
 			{
-			//graphiqueAxeEtFonctionPlein(graphique, graphe);
+			graphiqueFonction(graphique, graphe);
+			graphiqueAxe(graphique, graphe);
 			}
 		}
 	return 0;

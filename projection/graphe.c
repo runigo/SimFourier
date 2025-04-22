@@ -302,10 +302,10 @@ int grapheReglageCoord(grapheT * graphe, int coord)
 			(*graphe).coord = 0;
 			printf("Coordonées : sans représentation\n"); break;
 		case 1:
-			(*graphe).trait = 1;
+			(*graphe).coord = 1;
 			printf("Coordonées : style vecteur\n"); break;
 		case 2:
-			(*graphe).trait = 1;
+			(*graphe).coord = 2;
 			printf("Coordonées : style cartésien\n"); break;
 		default:
 			printf("ERREUR grapheChangeCoord\n");

@@ -61,8 +61,8 @@ int graphiqueMiseAJour(graphiqueT * graphique);
 
 		//		CONSTRUCTION DU GRAPHISME
 int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode);
-int graphiqueAxeEtFonction(graphiqueT * graphique, grapheT * graphe);
-int graphiquePendule(graphiqueT * graphique, grapheT * graphe);
+int graphiqueAxe(graphiqueT * graphique, grapheT * graphe);
+int graphiqueFonction(graphiqueT * graphique, grapheT * graphe);
 
 #endif
 /////////////////////////////////////////////////////////////////
