@@ -156,13 +156,15 @@ int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 		//fprintf(stderr, "Filtrage de fourier\n");
 	modeleFiltrageFourier(modele);
 
+		//fprintf(stderr, "Projection du système sur les spectres\n");
+	filtrageProjectionFouFct(&(*modele).filtrage);
+
 		//fprintf(stderr, "Calcul des spectres\n");
 	fourierCalcule(&(*modele).filtrage.fct);
 
 		//fprintf(stderr, "Normalisation des spectres\n");
 	//fonctionNormalise(&(*modele).fourier.spectre, echelle);
 	//fonctionNormalise(&(*modele).fourier.gauche, echelle);
-	//fonctionNormalise(&(*modele).fourier.droite, echelle);
 
 		//fprintf(stderr, "Mise à jour des observables\n");
 	//observablesMiseAJour(&(*modele).observables, &(*modele).modele.systeme);
@@ -214,20 +216,7 @@ int modeleEnergiePotentielle(modeleT * modele, int duree, int echelle)
 
 int modeleFiltrageFourier(modeleT * modele)
 	{
-			//	Filtre fourier et calcul fct
-
-		//	Projection et filtrage de fourier sur fou
-	modeleProjectionFourierFou(modele);
-
-		//	Projection de fou sur fct et calcul de la TF
-	filtrageCalcule(&(*modele).filtrage);
-
-	return 0;
-	}
-
-int modeleProjectionFourierFou(modeleT * modele)
-	{
-		//	Projection et filtrage de fourier sur fou
+		//	Filtrage de fourier et projection sur fou
 	int i;
 	int nombre = (*modele).systeme.nombre;
 

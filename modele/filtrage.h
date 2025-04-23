@@ -42,9 +42,9 @@ typedef struct FiltrageT filtrageT;
 
 		filtreT filtre;
 
-		fonctionT fou;
+		fonctionT fou;	//	spectre filtré
 
-		fourierT fct;
+		fourierT fct;	//	TF du spectre filtré
 
 		};
 
@@ -53,6 +53,8 @@ typedef struct FiltrageT filtrageT;
 int filtrageInitialisation(filtrageT * filtrage, int nombre);
 
 int filtrageCalcule(filtrageT * filtrage);
+
+int filtrageProjectionFouFct(filtrageT * filtrage);
 
 int filtrageAffiche(filtrageT * filtrage);
 
