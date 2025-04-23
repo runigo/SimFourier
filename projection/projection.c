@@ -1,11 +1,10 @@
 /*
 Copyright avril 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.3 Transformation de Fourier
-(d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
+SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -36,17 +35,10 @@ termes.
 				//		Projections entre le modèle et l'interface
 
 	//	INITIALISATION
-//int projectionInitialisePointDeVue(projectionSystemT * projection,  float r,float psi, float phi);
-//int projectionReinitialiseBase(projectionSystemT * projection);
 
 	//	PROJECTION
 int projectionModeleGraphes(projectionT * projection, modeleT * modele);
 int projectionModeleGraphes3D(modeleT * modele, projectionT * projection);
-//int projectionPerspectiveChaine(projectionSystemT * projection, grapheT * graphe);
-//int projectionSystemeGraphes3D(modeleT * modele, graphesT * graphes);
-
-//int projectionInitialiseSupport(projectionSystemT * projection, int nombre);
-//int projectionPerspectiveSupport(projectionSystemT * projection, grapheT * graphe);
 
 	//	CHANGE
 
@@ -64,16 +56,24 @@ int projectionInitialise(projectionT * projection, int nombre)
 		//	Initialisation des graphes
 	grapheInitialisation(&(*projection).fonction, nombre);
 	grapheInitialisation(&(*projection).fourier, nombre);
+	grapheInitialisation(&(*projection).fct, nombre);
+	grapheInitialisation(&(*projection).fou, nombre);
 
 		//	Position des graphes dans la fenêtre
-	(*projection).fonction.positionX = 0.5;
+	(*projection).fonction.positionX = 0.30;
 	(*projection).fonction.positionY = 0.25;
-	(*projection).fourier.positionX = 0.5;
+	(*projection).fourier.positionX = 0.30;
 	(*projection).fourier.positionY = 0.75;
+	(*projection).fct.positionX = 0.75;
+	(*projection).fct.positionY = 0.25;
+	(*projection).fou.positionX = 0.75;
+	(*projection).fou.positionY = 0.75;
 
 		//	Style des courbes
 	(*projection).fonction.trait = 1;
 	(*projection).fourier.trait = 0;
+	(*projection).fct.trait = 1;
+	(*projection).fou.trait = 0;
 
 	return 0;
 	}
@@ -114,6 +114,8 @@ int projectionModeleGraphes(projectionT * projection, modeleT * modele)
 		//		Projection des graphes 3D sur les graphes 2D
 	graphe3D2D(&(*projection).fonction, (*projection).fenetreX, (*projection).fenetreY);
 	graphe3D2D(&(*projection).fourier, (*projection).fenetreX, (*projection).fenetreY);
+	graphe3D2D(&(*projection).fct, (*projection).fenetreX, (*projection).fenetreY);
+	graphe3D2D(&(*projection).fou, (*projection).fenetreX, (*projection).fenetreY);
 
 	return 0;
 	}
@@ -131,16 +133,22 @@ int projectionModeleGraphes3D(modeleT * modele, projectionT * projection)
 		(*projection).fonction.point[i].z = (*modele).systeme.actuel.imag[i];//(*projection).fonction.hauteur * 
 		//(*projection).fourier.point[i].y = (*modele).fourier.spectre.reel[i];//(*projection).fourier.hauteur * 
 		//(*projection).fourier.point[i].z = (*modele).fourier.spectre.imag[i];//(*projection).fourier.hauteur * 
+		(*projection).fct.point[i].y = (*modele).filtrage.fct.spectre.reel[i];
+		(*projection).fct.point[i].z = (*modele).filtrage.fct.spectre.imag[i];
 		}
 
 	int j=nombre/2;
 
-	for(i=0;i<j;i++)	//	Projection et retournement de la transformée de fourier
+	for(i=0;i<j;i++)	//	Projection et retournement des transformées de fourier
 		{
 		(*projection).fourier.point[i].y = (*modele).fourier.spectre.reel[j-i];		//[2*i]
 		(*projection).fourier.point[i].z = (*modele).fourier.spectre.imag[j-i];		//[2*i]
 		(*projection).fourier.point[nombre-i].y = (*modele).fourier.spectre.reel[j+i]; //[2*i+1]
 		(*projection).fourier.point[nombre-i].z = (*modele).fourier.spectre.imag[j+i]; //[2*i+1]
+		(*projection).fou.point[i].y = (*modele).filtrage.fou.reel[j-i];
+		(*projection).fou.point[i].z = (*modele).filtrage.fou.imag[j-i];
+		(*projection).fou.point[nombre-i].y = (*modele).filtrage.fou.reel[j+i];
+		(*projection).fou.point[nombre-i].z = (*modele).filtrage.fou.imag[j+i];
 		}
 
 	return 0;

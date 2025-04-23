@@ -1,10 +1,10 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright avril 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -37,6 +37,8 @@ termes.
 	//		ÉVOLUTION
 int modeleProjectionSystemeFourier(modeleT * modele);
 int modeleProjectionSystemeEnergie(modeleT * modele);
+int modeleFiltrageFourier(modeleT * modele);
+int modeleProjectionFourierFou(modeleT * modele);
 
 	//		CHANGE
 
@@ -56,6 +58,9 @@ int modeleInitialisation(modeleT * modele, int nombre, float dt) {
 
 		//	Initialisation de initiale
 	initialeInitialisation(&(*modele).initiale, nombre);
+
+		//	Initialisation de filtrage
+	filtrageInitialisation(&(*modele).filtrage, nombre);
 
 		// Initialisation du moteurs
 	//moteursInitialisation(moteursT * moteurs);
@@ -145,8 +150,14 @@ int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 		//fprintf(stderr, "Projection du système sur les spectres\n");
 	modeleProjectionSystemeFourier(modele);
 
-		//fprintf(stderr, "Calcul des spectres\n");
+		//fprintf(stderr, "Calcul du spectres\n");
 	fourierCalcule(&(*modele).fourier);
+
+		//fprintf(stderr, "Filtrage de fourier\n");
+	modeleFiltrageFourier(modele);
+
+		//fprintf(stderr, "Calcul des spectres\n");
+	fourierCalcule(&(*modele).filtrage.fct);
 
 		//fprintf(stderr, "Normalisation des spectres\n");
 	//fonctionNormalise(&(*modele).fourier.spectre, echelle);
@@ -198,6 +209,33 @@ int modeleEnergiePotentielle(modeleT * modele, int duree, int echelle)
 		//fprintf(stderr, "Normalisation des spectres\n");
 	//fonctionNormalise(&(*modele).fourier.spectre, echelle);
 
+	return 0;
+	}
+
+int modeleFiltrageFourier(modeleT * modele)
+	{
+			//	Filtre fourier et calcul fct
+
+		//	Projection et filtrage de fourier sur fou
+	modeleProjectionFourierFou(modele);
+
+		//	Projection de fou sur fct et calcul de la TF
+	filtrageCalcule(&(*modele).filtrage);
+
+	return 0;
+	}
+
+int modeleProjectionFourierFou(modeleT * modele)
+	{
+		//	Projection et filtrage de fourier sur fou
+	int i;
+	int nombre = (*modele).systeme.nombre;
+
+	for(i=0;i<nombre;i++)
+		{
+		(*modele).filtrage.fou.reel[i] = (*modele).fourier.spectre.reel[i] * (*modele).filtrage.filtre.direct[i];
+		(*modele).filtrage.fou.imag[i] = (*modele).fourier.spectre.imag[i] * (*modele).filtrage.filtre.direct[i];
+		}
 	return 0;
 	}
 

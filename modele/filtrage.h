@@ -34,6 +34,7 @@ termes.
 #define _FILTRAGE_
 
 #include "filtre.h"
+#include "fourier.h"
 
 typedef struct FiltrageT filtrageT;
 	struct FiltrageT
@@ -43,13 +44,15 @@ typedef struct FiltrageT filtrageT;
 
 		fonctionT fou;
 
-		fonctionT fct;
+		fourierT fct;
 
 		};
 
 	//	Initialisation
 
-int filtrageInitialise(filtrageT * filtrage, int nombre);
+int filtrageInitialisation(filtrageT * filtrage, int nombre);
+
+int filtrageCalcule(filtrageT * filtrage);
 
 int filtrageAffiche(filtrageT * filtrage);
 

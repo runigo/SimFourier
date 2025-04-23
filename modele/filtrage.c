@@ -32,26 +32,44 @@ termes.
 
 #include "filtrage.h"
 
+int filtrageProjectionFouFct(filtrageT * filtrage);
+
 /*----------------  INITIALISATION  -------------------*/
 
 int filtrageInitialisation(filtrageT * filtrage, int nombre)
 	{
 	filtreInitialise(&(*filtrage).filtre, nombre);
 	fonctionInitialise(&(*filtrage).fou, nombre);
-	fonctionInitialise(&(*filtrage).fct, nombre);
+	fourierInitialise(&(*filtrage).fct, nombre);
 	return 0;
 	}
 
-int filtrageModele(filtrageT * filtrage)
+int filtrageCalcule(filtrageT * filtrage)
 	{
-	(void)filtrage;
-/*	switch((*filtrage).generateur)
+			// Projection et calcul de la TF
+
+		//fprintf(stderr, "filtrageCalcule\n");
+		//	Projection de fou sur fct
+	filtrageProjectionFouFct(filtrage);
+
+		//	Calcul de la TF
+	//fourierCalcule(&(*filtrage).fct);
+
+	return 0;
+	}
+
+int filtrageProjectionFouFct(filtrageT * filtrage)
+	{
+				//	Projection de fou sur fct
+	int i;
+	int nombre = (*filtrage).fou.nombre;
+
+	for(i=0;i<nombre;i++)
 		{
-		case 0:	// désactive le filtrage
-			(*filtrage).generateur=1;break;
-		default:
-			(*filtrage).generateur=0;
-		} */
+	(*filtrage).fct.spectre.reel[i] = (*filtrage).fou.reel[i];
+	(*filtrage).fct.spectre.imag[i] = (*filtrage).fou.imag[i];
+		}
+
 	return 0;
 	}
 

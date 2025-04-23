@@ -1,11 +1,10 @@
 /*
 Copyright avril 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.3 Transformation de Fourier
-(D'après SiCF 2.2 simulateur de chaîne de pendules, octobre 2020)
+SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -86,8 +85,8 @@ termes.
 
 	//	PARAMÈTRES GRAPHIQUES DE LA CHAÎNE
 #define SUPPORT 7			// Nombre de point du support (axes)
-#define LONGUEUR_IMP 50		// Longueur implicite de la chaîne
-#define RAYON_IMP 20			// Rayon implicite de la chaîne
+#define LONGUEUR_IMP 25		// Longueur implicite de la chaîne
+#define RAYON_IMP 10			// Rayon implicite de la chaîne
 //#define ECHELLE_IMP 10		// Echelle des graphes
 
 #define DISTANCE_MAX 100
