@@ -289,8 +289,7 @@ int graphiqueFonction(graphiqueT * graphique, grapheT * graphe)
 		{
 		for(i=0;i<((*graphe).nombre-1);i++)
 			{
-				//	Dessin des tiges
-			if((*graphe).coord == 1)
+			if((*graphe).coord == 1)	//	Dessin des tiges
 				{
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
 	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);
@@ -311,8 +310,7 @@ int graphiqueFonction(graphiqueT * graphique, grapheT * graphe)
 		{
 		for(i=((*graphe).nombre-2);i>0;i--)
 			{
-				//	Dessin des tiges
-			if((*graphe).coord == 1)
+			if((*graphe).coord == 1)	//	Dessin des tiges
 				{
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
 	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[i], (*graphe).yp[i], (*graphe).xa[i], (*graphe).ya[i]);

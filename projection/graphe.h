@@ -36,13 +36,13 @@ termes.
 
 #include "pointDeVue.h"
 
-/*************************************************************
+/****************************************************************
 
 	Contient les points des fonctions en 3D et en 2D,
 	la projection en perspective,
 	le point de vue, ses paramètres et les paramètres du graphe.
 
-*/////////////////////////////////////////////////////////////
+****************************************************************/
 
 typedef struct GrapheT grapheT;
 	struct GrapheT
@@ -53,7 +53,6 @@ typedef struct GrapheT grapheT;
 		vecteurT point[NOMBRE_MAX]; // Fonction ou TF
 		vecteurT axe[NOMBRE_MAX]; // Axe x
 		vecteurT support[SUPPORT];	// Axes xyz
-
 
 			// Grandeurs 2D
 		int xp[NOMBRE_MAX];		// Absisse 2D du point
@@ -67,7 +66,7 @@ typedef struct GrapheT grapheT;
 			// Position de l'observateur
 		pointDeVueT pointDeVue;
 
-			// Représentation graphique
+			// Style graphique
 		int axes;		// des axes (devant, derrière ou sans) [2, 1, 0]
 		int trait;		// de la fonction (points reliés ou non) [1, 0]
 		int coord;		// des coordonnées (sans, vecteur ou cartésien) [0, 1, 2]
@@ -80,22 +79,19 @@ typedef struct GrapheT grapheT;
 			//	Longueurs caractéristiques
 		int echelle;	// Echelle du graphe
 		int longueur;	// Longueur Ox
-		int rayon;	// Longueurs Oy et Oz
-		
+		int rayon;		// Longueurs Oy et Oz
+
 		float positionX;	// rapport décalage X / fenetre X
 		float positionY;	// rapport décalage Y / fenetre Y
 		};
 
 int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY);
+
 int grapheInitialisation(grapheT * graphe, int nombre);
 int grapheInitialiseSupport(grapheT * graphe);
 int grapheInitialisePointDeVue(grapheT * graphe, float r, float psi, float phi);
 
 int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int pourMille);
 
-int grapheReglageAxes(grapheT * graphe, int axes);
-int grapheReglageTrait(grapheT * graphe, int trait);
-int grapheReglageCoord(grapheT * graphe, int coord);
-int grapheChangeCoord(grapheT * graphe, int coord);
 int grapheAffiche(grapheT * graphe);
 #endif

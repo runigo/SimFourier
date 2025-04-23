@@ -33,6 +33,10 @@ termes.
 
 #include "graphe.h"
 
+int grapheReglageAxes(grapheT * graphe, int axes);
+int grapheReglageTrait(grapheT * graphe, int trait);
+int grapheReglageCoord(grapheT * graphe, int coord);
+int grapheChangeCoord(grapheT * graphe, int coord);
 int grapheReglagePdv(grapheT * graphe, int axes);
 
 int grapheInitialisation(grapheT * graphe, int nombre)
@@ -42,7 +46,7 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	int i;
 	(*graphe).nombre=nombre;
 
-	(*graphe).axes = 1;	//	Avec ou sans axes
+	(*graphe).axes = 1;		//	Avec ou sans axes
 	(*graphe).trait = 1;	//	Points reliés ou non
 	(*graphe).coord = 1;	//	Style des coordonnées
 
@@ -177,13 +181,13 @@ int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int po
 		{
 		switch (parametre)
 			{
-			case 0:	//	axes implicite
+			case 0:	//	Point de vue implicite
 				grapheReglagePdv(graphe, pourMille); break;
-			case 1:	//	axes imaginaire
+			case 1:	//	Point de vue imaginaire
 				grapheReglagePdv(graphe, pourMille); break;
-			case 2:	//	axes réel
+			case 2:	//	Point de vue réel
 				grapheReglagePdv(graphe, pourMille); break;
-			case 3:	//	axes sans
+			case 3:	//	axes ?
 				grapheReglageAxes(graphe, pourMille); break;
 			case 4:	//	trait point
 				grapheReglageTrait(graphe, pourMille); break;
@@ -231,7 +235,7 @@ int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int po
 
 int grapheReglageAxes(grapheT * graphe, int axes)
 	{
-		// Change la représentation graphique des axes (avec ou sans)
+		// Change la représentation graphique des axes (Derrière ou devant la courbe, sans)
 
 	switch (axes)
 		{
@@ -240,10 +244,10 @@ int grapheReglageAxes(grapheT * graphe, int axes)
 			printf("Axes : non représentés\n"); break;
 		case 1:	//	trait
 			(*graphe).axes = 1;
-			printf("Axes :  représentés\n"); break;
+			printf("Axes : Derrière la courbe\n"); break;
 		case 2:	//	trait
 			(*graphe).axes = 2;
-			printf("Axes :  avec le nom\n"); break;
+			printf("Axes : Devant la courbe\n"); break;
 		default:
 			printf("ERREUR grapheRegleAxes\n");
 		}
