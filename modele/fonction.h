@@ -53,6 +53,9 @@ int fonctionInitialise(fonctionT * spectre, int nombre);
 int fonctionChangeNombre(fonctionT * spectre, int nombre);
 int fonctionAnnule(fonctionT * fonction);
 
+
+double fonctionSommeModuleCarre(fonctionT * fonction);
+
 double fonctionModuleMax1(fonctionT * fonction);
 double fonctionsModuleMax1(fonctionT * f1, fonctionT * f2);
 int fonctionModuleDivise(fonctionT * fonction, double max);
@@ -68,6 +71,7 @@ int fonctionEgale(fonctionT * fonction, fonctionT * resultat);
 int fonctionReplier(fonctionT * spectre, int diviseur);
 int fonctionNormale(fonctionT * f, fonctionT * nf);
 int fonctionNormalise(fonctionT * f,  double max);
+int fonctionNormaliseNombre(fonctionT * f);
 
 //int fonctionModuleCarre(fonctionT * f, fonctionT * modCar);
 int fonctionModuleCarreMax1(fonctionT * f, fonctionT * modCar);

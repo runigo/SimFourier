@@ -149,9 +149,13 @@ int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 
 		//fprintf(stderr, "Projection du système sur les spectres\n");
 	modeleProjectionSystemeFourier(modele);
+//fprintf(stderr, "S2 systeme = %f\n", fonctionSommeModuleCarre(&(*modele).fourier.spectre));
 
-		//fprintf(stderr, "Calcul du spectres\n");
+		//fprintf(stderr, "Calcul du spectres et normalisation\n");
 	fourierCalcule(&(*modele).fourier);
+	fonctionNormaliseNombre(&(*modele).fourier.spectre);
+//fprintf(stderr, "S2 spectre = %f\n", fonctionSommeModuleCarre(&(*modele).fourier.spectre));
+
 
 		//fprintf(stderr, "Filtrage de fourier\n");
 	modeleFiltrageFourier(modele);
@@ -159,8 +163,10 @@ int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 		//fprintf(stderr, "Projection du système sur les spectres\n");
 	filtrageProjectionFouFct(&(*modele).filtrage);
 
-		//fprintf(stderr, "Calcul des spectres\n");
+		//fprintf(stderr, "Calcul des spectres et normalisation\n");
 	fourierCalcule(&(*modele).filtrage.fct);
+	fonctionNormaliseNombre(&(*modele).filtrage.fct.spectre);
+//fprintf(stderr, "S2 fct = %f\n", fonctionSommeModuleCarre(&(*modele).filtrage.fct.spectre));
 
 		//fprintf(stderr, "Normalisation des spectres\n");
 	//fonctionNormalise(&(*modele).fourier.spectre, echelle);

@@ -207,6 +207,22 @@ int fonctionModuleCarre(fonctionT * fonction)
 	return 0;
 	}
 
+double fonctionSommeModuleCarre(fonctionT * fonction)
+	{
+			//	Calcul de la Somme des |f(i)|^2
+	int i;
+	double somme;
+
+	fonctionModuleCarre(fonction);
+
+	for(i=0;i<(*fonction).nombre;i++)
+		{
+		somme = (*fonction).module[i] + somme;
+		}
+
+	return somme;
+	}
+
 int fonctionFiltreCoupe0(fonctionT * fonction)
 	{
 		//	Filtre l'harmonique correspondant à
@@ -245,6 +261,24 @@ int fonctionReplier(fonctionT * spectre, int diviseur)
 	return 0;
 	}
 */
+int fonctionNormaliseNombre(fonctionT * fonction)
+	{
+	int i;
+		//	
+	double normale = sqrt((*fonction).nombre);
+
+		//
+	if(normale>0) {
+	for(i=0;i<(*fonction).nombre;i++)
+		{
+		(*fonction).reel[i]=(*fonction).reel[i] / normale;
+		(*fonction).imag[i]=(*fonction).imag[i] / normale;
+		}}
+	else{printf("ERREUR fonctionNormaliseNombre");}
+
+	return 0;
+	}
+
 int fonctionNormalise(fonctionT * fonction,  double nouveauMax)
 	{
 	int i;
