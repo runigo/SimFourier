@@ -42,13 +42,13 @@ termes.
 typedef struct ModeleT modeleT;
 	struct ModeleT
 		{
-		systemeT systeme;
+		systemeT systeme;			//	Système et évolution temporelle
 
-		fourierT fourier;
+		fourierT fourier;			//	Transformation de fourier
 
-		initialeT initiale;
+		initialeT initiale;			//	Fonctions motif, enveloppe et porteuse
 
-		filtrageT filtrage;
+		filtrageT filtrage;			//	Filtre et fonctions filtrées
 
 		//moteursT moteurs;				// Moteur périodique et impulsion
 
@@ -66,6 +66,9 @@ int modeleInitialiseHbar(modeleT * modele, int hbar);
 int modeleInitialiseMasse(modeleT * modele, float masse);
 
 	//	Variation d'une variable d'initiale
+int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int variation, int pourMille);
+
+	//	Variation d'une variable de filtrage
 int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int variation, int pourMille);
 
 	//	Évolution du modèle

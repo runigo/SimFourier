@@ -127,14 +127,14 @@ int projectionModeleGraphes3D(modeleT * modele, projectionT * projection)
 	int i;
 	int nombre = (*modele).systeme.nombre;
 
-	for(i=0;i<nombre;i++)	//	Projection de la fonction initiale
+	for(i=0;i<nombre;i++)	//	Projection de la fonction initiale et de fct
 		{
 		(*projection).fonction.point[i].y = (*modele).systeme.actuel.reel[i];//(*projection).fonction.hauteur * 
 		(*projection).fonction.point[i].z = (*modele).systeme.actuel.imag[i];//(*projection).fonction.hauteur * 
 		//(*projection).fourier.point[i].y = (*modele).fourier.spectre.reel[i];//(*projection).fourier.hauteur * 
 		//(*projection).fourier.point[i].z = (*modele).fourier.spectre.imag[i];//(*projection).fourier.hauteur * 
-		(*projection).fct.point[i].y = (*modele).filtrage.fct.spectre.reel[i];
-		(*projection).fct.point[i].z = (*modele).filtrage.fct.spectre.imag[i];
+		(*projection).fct.point[i].y = (*modele).filtrage.fct.spectre.reel[nombre - 1 - i];
+		(*projection).fct.point[i].z = (*modele).filtrage.fct.spectre.imag[nombre - 1 - i];
 		}
 
 	int j=nombre/2;
@@ -184,10 +184,12 @@ int projectionChangeParametre(projectionT * projection, int menu, int parametre,
 				//	Change un paramètre de la projection
 
 	switch(menu) {
-		case 4:	//		Fonction
-			grapheChangeParametre(&(*projection).fonction, parametre, variation, pourMille); break;
-		case 6:	//		Fourier
-			grapheChangeParametre(&(*projection).fourier, parametre, variation, pourMille); break;
+		case 4:	//		Fonction et fct
+			grapheChangeParametre(&(*projection).fonction, parametre, variation, pourMille);
+			grapheChangeParametre(&(*projection).fct, parametre, variation, pourMille); break;
+		case 6:	//		Fourier et fou
+			grapheChangeParametre(&(*projection).fourier, parametre, variation, pourMille);
+			grapheChangeParametre(&(*projection).fou, parametre, variation, pourMille); break;
 		default:
 			printf("ERREUR projectionChangeParametre\n");
 		}

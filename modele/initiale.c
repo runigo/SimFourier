@@ -172,7 +172,7 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 			case 2:	// Porteuse
 				partieRegleParametre(&(*initiale).porteuse, parametre, pourMille);break;
 			default:
-				;
+				fprintf(stderr, "ERREUR : initialeChangeParametre(initiale, %d, %d, %d, %d)", fonction, parametre, variation, pourMille);
 			}
 		}
 	else
@@ -186,7 +186,7 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 			case 2:	// Porteuse
 				partieVariationParametre(&(*initiale).porteuse, parametre, variation);break;
 			default:
-				;
+				fprintf(stderr, "ERREUR : initialeChangeParametre(initiale, %d, %d, %d, %d)", fonction, parametre, variation, pourMille);
 			}
 		}
 

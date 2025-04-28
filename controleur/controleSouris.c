@@ -88,11 +88,15 @@ int controleSourisMouvement(controleurT * controleur)
 			{
 			pointDeVueChangePsi(&(*controleur).projection.fonction.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
 			pointDeVueChangePhi(&(*controleur).projection.fonction.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+			pointDeVueChangePsi(&(*controleur).projection.fct.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+			pointDeVueChangePhi(&(*controleur).projection.fct.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
 			}
 		if(zone == 7)
 			{
 			pointDeVueChangePsi(&(*controleur).projection.fourier.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
 			pointDeVueChangePhi(&(*controleur).projection.fourier.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
+			pointDeVueChangePsi(&(*controleur).projection.fou.pointDeVue, (-0.0031*(float)((*controleur).interface.evenement.motion.xrel)));
+			pointDeVueChangePhi(&(*controleur).projection.fou.pointDeVue, (0.0031*(float)((*controleur).interface.evenement.motion.yrel)));
 			}
 		}
 	return 0;
@@ -111,11 +115,13 @@ int controleSourisMolette(controleurT * controleur)
 		case 4: // zone des curseurs linéaires de la fonction (TF = 0)
 			controleSourisMoletteRotatifsGraphe(controleur, 0);break;
 		case 5: //	Zone de la fonction
-			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fonction);break;
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fonction);
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fct);break;
 		case 6: // zone des curseurs linéaires de fourier (TF = 1)
 			controleSourisMoletteRotatifsGraphe(controleur, 1);break;
 		case 7: //	Zone de fourier
-			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fourier);break;
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fourier);
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fou);break;
 		default:
 			;
 		}
