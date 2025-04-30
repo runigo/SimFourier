@@ -4,24 +4,25 @@
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>210</x>
-      <y>175</y>
+      <x>168</x>
+      <y>266</y>
       <w>154</w>
-      <h>63</h>
+      <h>84</h>
     </coordinates>
     <panel_attributes>*coordonnées*
 --
 
-Vecteur, cartésien, sans
+Vecteur, sans, 
 
+cartésien
 valign=top</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>126</x>
-      <y>84</y>
+      <x>70</x>
+      <y>112</y>
       <w>70</w>
       <h>70</h>
     </coordinates>
@@ -31,8 +32,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>238</x>
-      <y>0</y>
+      <x>63</x>
+      <y>385</y>
       <w>161</w>
       <h>91</h>
     </coordinates>
@@ -50,19 +51,18 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>133</x>
-      <y>287</y>
-      <w>196</w>
-      <h>112</h>
+      <x>168</x>
+      <y>14</y>
+      <w>189</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>*point de vue*
 --
 
-Distance
-
 Implicite,
 partie imaginaire, partie réelle
 
+Distance
 
 valign=top</panel_attributes>
     <additional_attributes/>
@@ -70,34 +70,32 @@ valign=top</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>434</x>
-      <y>28</y>
-      <w>126</w>
-      <h>203</h>
+      <x>399</x>
+      <y>189</y>
+      <w>91</w>
+      <h>112</h>
     </coordinates>
-    <panel_attributes>axes
-
-
+    <panel_attributes>
 trait
-
 
 coord
 
+axes
+
 halign=left</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>420</x>
-      <y>336</y>
+      <x>399</x>
+      <y>42</y>
       <w>98</w>
       <h>77</h>
     </coordinates>
-    <panel_attributes>
-r
-
-psi et phi
+    <panel_attributes>0 implicite
+1 imaginaire
+2 réel
 
 halign=left</panel_attributes>
     <additional_attributes/>
@@ -105,52 +103,31 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>574</x>
-      <y>49</y>
+      <x>546</x>
+      <y>42</y>
       <w>105</w>
-      <h>49</h>
+      <h>273</h>
     </coordinates>
-    <panel_attributes>var 0 : axe
+    <panel_attributes>0 implicite
+1 imaginaire
+2 réel
+3
 
+4 point
+5 courbe
 
+6 vecteur
+7 sans
+8
+9
 halign=left</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>581</x>
-      <y>196</y>
-      <w>105</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>var 0 : relie
-
-var 1 : coord
-
-halign=left</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>574</x>
-      <y>336</y>
-      <w>105</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>var 0 : 
-
-var 1 : 
-
-halign=left</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>700</x>
-      <y>49</y>
+      <x>686</x>
+      <y>301</y>
       <w>98</w>
       <h>49</h>
     </coordinates>
@@ -179,8 +156,8 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>700</x>
-      <y>336</y>
+      <x>679</x>
+      <y>42</y>
       <w>91</w>
       <h>63</h>
     </coordinates>
@@ -195,9 +172,9 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>420</x>
-      <y>315</y>
-      <w>70</w>
+      <x>399</x>
+      <y>21</y>
+      <w>91</w>
       <h>21</h>
     </coordinates>
     <panel_attributes>PointDeVue
@@ -207,9 +184,9 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>434</x>
-      <y>7</y>
-      <w>70</w>
+      <x>399</x>
+      <y>168</y>
+      <w>77</w>
       <h>21</h>
     </coordinates>
     <panel_attributes>Graphe
@@ -219,30 +196,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>574</x>
-      <y>28</y>
-      <w>105</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>parametres</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLFrame</id>
-    <coordinates>
-      <x>581</x>
-      <y>175</y>
-      <w>105</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>parametres</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLFrame</id>
-    <coordinates>
-      <x>574</x>
-      <y>315</y>
+      <x>546</x>
+      <y>21</y>
       <w>105</w>
       <h>21</h>
     </coordinates>
@@ -252,8 +207,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>266</x>
-      <y>98</y>
+      <x>210</x>
+      <y>154</y>
       <w>154</w>
       <h>70</h>
     </coordinates>

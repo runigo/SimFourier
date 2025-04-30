@@ -33,7 +33,7 @@ termes.
 
 #include "commandes.h"
 
-int commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY);
+float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY);
 int commandesAjusteRotatifsInitiale(commandesT * commandes, float facteur);
 int commandesAjusteSelectifsInitiale(commandesT * commandes, float facteur);
 int commandesAjusteRotatifsGraphes(commandesT * commandes, float facteur);
@@ -44,13 +44,7 @@ int commandesAjusteCommandes(commandesT * commandes, int fenetreX, int fenetreY)
 	{
 			//	Réglage des positions des zones et des commandes en fonction de la taille de la fenêtre
 
-	commandesAjusteZones(commandes, fenetreX, fenetreY);
-
-	float facteur = 1.0;
-	if(fenetreY<MENUS_Y)
-		{
-		facteur = (float)fenetreY/MENUS_Y;
-		}
+	float facteur = commandesAjusteZones(commandes, fenetreX, fenetreY);
 
 	commandesAjusteRotatifsInitiale(commandes, facteur);
 	commandesAjusteSelectifsInitiale(commandes, facteur);
@@ -60,7 +54,7 @@ int commandesAjusteCommandes(commandesT * commandes, int fenetreX, int fenetreY)
 	return 0;
 	}
 
-int commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
+float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	{
 				//	Positions des zones
 
@@ -92,7 +86,7 @@ int commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	(*commandes).selectifsGauche = facteur * 97;
 	(*commandes).selectifsDroite = facteur * 129;
 
-	return 0;
+	return facteur;
 	}
 
 int commandesAjusteRotatifsInitiale(commandesT * commandes, float facteur)
