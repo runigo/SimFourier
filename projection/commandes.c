@@ -74,7 +74,7 @@ int commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	(*commandes).mode = facteur * 24;
 
 		// Zones suivant X des fonctions (zones 4, 5, 6, 7)
-	(*commandes).fonctionsGauche = facteur * 200;
+	(*commandes).fonctionsGauche = facteur * 145;
 	(*commandes).fonctionsDroite = fenetreX - facteur * 100;
 
 		// Zones suivant Y des fonctions
@@ -85,12 +85,12 @@ int commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	(*commandes).fourierBas = fenetreY;				//	frontière basse
 
 			//	Zones des commandes du menu 2 suivant X
-	(*commandes).rotatifsGauche = facteur * 20;
-	(*commandes).rotatifsDroite = facteur * 100;
+	(*commandes).rotatifsGauche = facteur * 19;
+	(*commandes).rotatifsDroite = facteur * 78;
 
 			//	Zones des commandes du menu 3 suivant X
-	(*commandes).selectifsGauche = facteur * 134;
-	(*commandes).selectifsDroite = facteur * 176;
+	(*commandes).selectifsGauche = facteur * 97;
+	(*commandes).selectifsDroite = facteur * 129;
 
 	return 0;
 	}
@@ -103,12 +103,14 @@ int commandesAjusteRotatifsInitiale(commandesT * commandes, float facteur)
 		{
 		rotatifInitialise(&(*commandes).rotatifInitial[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
 		}
-	(*commandes).rotatifInitial[0].Y = facteur * 75; 	//	Largeur
-	(*commandes).rotatifInitial[1].Y = facteur * 168;	//	Largeur
-	(*commandes).rotatifInitial[2].Y = facteur * 285;	//	Symetrie
-	(*commandes).rotatifInitial[3].Y = facteur * 404;	//	Phase
-	(*commandes).rotatifInitial[4].Y = facteur * 548;	//	Période
-	(*commandes).rotatifInitial[5].Y = facteur * 640;	//	Période
+	(*commandes).rotatifInitial[0].Y = facteur * 51; 	//	Largeur
+	(*commandes).rotatifInitial[1].Y = facteur * 122;	//	Largeur
+	(*commandes).rotatifInitial[2].Y = facteur * 221;	//	Symetrie
+	(*commandes).rotatifInitial[3].Y = facteur * 291;	//	Phase
+	(*commandes).rotatifInitial[4].Y = facteur * 398;	//	Amplitude
+	(*commandes).rotatifInitial[5].Y = facteur * 468;	//	Décalage
+	(*commandes).rotatifInitial[6].Y = facteur * 602;	//	Période
+	(*commandes).rotatifInitial[7].Y = facteur * 673;	//	Période
 
 	return 0;
 	}
@@ -122,19 +124,21 @@ int commandesAjusteSelectifsInitiale(commandesT * commandes, float facteur)
 		selectifInitialise(&(*commandes).selectifInitial[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
 		}
 			// BOUTONS SELECTIFS SUIVANT Y
-	(*commandes).selectifInitial[0].Y = facteur * 69;  	//	Constant
-	(*commandes).selectifInitial[1].Y = facteur * 114;		//	Rectangle
-	(*commandes).selectifInitial[2].Y = facteur * 159;		//	Scie
-	(*commandes).selectifInitial[3].Y = facteur * 203;		//	Sinus
-	(*commandes).selectifInitial[4].Y = facteur * 264;		//	Apériodique
-	(*commandes).selectifInitial[5].Y = facteur * 310;		//	Périodique
-	(*commandes).selectifInitial[6].Y = facteur * 355;		//	Gaussienne
-	(*commandes).selectifInitial[7].Y = facteur * 400;		//	Lorentzienne
-	(*commandes).selectifInitial[8].Y = facteur * 444;		//	Sinus Cardinal
-	(*commandes).selectifInitial[9].Y = facteur * 543;		//	Constant
-	(*commandes).selectifInitial[10].Y = facteur * 588;	//	Dirac
-	(*commandes).selectifInitial[11].Y = facteur * 631;	//	Sinus
-	(*commandes).selectifInitial[12].Y = facteur * 677;	//	Complexe
+	(*commandes).selectifInitial[0].Y = facteur * 51;		//	Constant
+	(*commandes).selectifInitial[1].Y = facteur * 83;		//	Rectangle
+	(*commandes).selectifInitial[2].Y = facteur * 114;		//	Scie
+	(*commandes).selectifInitial[3].Y = facteur * 146;		//	Sinus
+	(*commandes).selectifInitial[4].Y = facteur * 217;		//	Apériodique
+	(*commandes).selectifInitial[5].Y = facteur * 251;		//	Périodique
+	(*commandes).selectifInitial[6].Y = facteur * 282;		//	Gaussienne
+	(*commandes).selectifInitial[7].Y = facteur * 314;		//	Lorentzienne
+	(*commandes).selectifInitial[8].Y = facteur * 346;		//	Sinus Cardinal
+	(*commandes).selectifInitial[9].Y = facteur * 458;		//	Zéro
+	(*commandes).selectifInitial[10].Y = facteur * 491;		//	Un
+	(*commandes).selectifInitial[11].Y = facteur * 601;		//	Constant
+	(*commandes).selectifInitial[12].Y = facteur * 633;		//	Dirac
+	(*commandes).selectifInitial[13].Y = facteur * 664;		//	Sinus
+	(*commandes).selectifInitial[14].Y = facteur * 696;		//	Complexe
 
 	return 0;
 	}

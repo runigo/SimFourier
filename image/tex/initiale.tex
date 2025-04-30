@@ -105,19 +105,17 @@
   \end{scope}
 
 
-  \begin{scope}[xshift=0.2 cm,yshift=7.1cm, scale=0.7] % Décalage verticale
+  \begin{scope}[xshift=0.2 cm,yshift=6.5cm, scale=0.7] % Décalage verticale
     \begin{scope}[xshift=3.2 cm]  %      Grille
-      \fill[boutonEteint] (-0.075,0) rectangle (1.075,3.5);
-      %\foreach \i in {1.15,2.3,...,3} {\draw[boutonEteint] (-0.075,\i)--(1.075,\i);}
-     % \draw[boutonEteint] (-0.075,0)--(-0.075,3.5);
-      \draw[boutonEteint] (1.075,0)--(1.075,3.5);
-      \begin{scope}[xshift=0.4 cm,yshift=2.4 cm] % Nulle
-          \draw[styleEteint] (0.1,0.5) node [gray]{\Large{\bf{0}}};
-      \end{scope}
-      \begin{scope}[xshift=0.4 cm,yshift=1.2 cm] % Unité
-          \draw[styleEteint] (0.1,0.5) node [gray]{\Large{\bf{1}}};
-      \end{scope}
-      \begin{scope}[yshift=1.25 cm] % ?
+      \fill[boutonEteint] (-0.075,1.15) rectangle (1.075,3.5);
+      \draw[boutonEteint] (-0.075,2.3)--(1.075,2.3);
+          \draw[styleEteint] (0.5,2.9) node [gray]{\Large{\bf{0}}}; % Nulle
+          \draw[styleEteint] (0.5,1.7) node [gray]{\Large{\bf{1}}}; % Unité
+      \begin{scope}[xshift=2.4 cm,yshift=2.4 cm]
+      \draw (-0.075,1.15) rectangle (1.075,3.5);
+      \draw (-0.075,2.3)--(1.075,2.3);
+          \draw (0.5,2.9) node {\Large{\bf{0}}}; % Nulle
+          \draw (0.5,1.7) node {\Large{\bf{1}}}; % Unité
       \end{scope}
     \end{scope}
   \end{scope}

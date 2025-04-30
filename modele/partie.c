@@ -381,7 +381,11 @@ int partieRegleParametre(partieT * partie, int parametre, int pourMille) {
 			partieRegleRho(partie, pourMille);break;
 		case 3:
 			partieRegleKhi(partie, pourMille);break;
-		default:
+	/*	case 4:
+			partieRegleAmplitude(partie, pourMille);break;
+		case 5:
+			partieRegleDecalage(partie, pourMille);break;
+	*/	default:
 			;
 		}
 
@@ -640,6 +644,43 @@ int partieRegleKhi(partieT * partie, int pourMille) {
 
 	return 0;
 	}
+/*
+int partieRegleAmplitude(partieT * partie, float facteur) {
+
+			//	Règle l'amplitude du signal
+
+	float amplitude = (*partie).amplitude * facteur;
+	if(amplitude < AMPLITUDE_MAX && amplitude > AMPLITUDE_MIN)
+		{
+		(*partie).amplitude = amplitude;
+		}
+	else
+		{
+		printf("Amplitude limite atteinte. ");
+		}
+	printf("Amplitude = %6.3f\n", (*partie).amplitude);
+
+	return 0;
+	}
+
+int partieRegleDecalage(partieT * partie, float facteur) {
+
+			//	Fait varier le décalage verticale du signal
+
+	float decalage = (*partie).decalage * facteur;
+	if(decalage < AMPLITUDE_MAX && decalage > AMPLITUDE_MIN)
+		{
+		(*partie).decalage = (*partie).decalage * facteur;
+		}
+	else
+		{
+		printf("Décalage limite atteinte. ");
+		}
+	printf("Décalage = %6.3f\n", (*partie).decalage);
+
+	return 0;
+	}
+	*/
 /*
 int partieVariationAmplitude(partieT * partie, float facteur) {
 

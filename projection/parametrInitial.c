@@ -166,13 +166,13 @@ int parametrInitialSelectifs(initialeT * initiale, commandesT * commandes)
 	switch((*initiale).porteuse.complexe)
 		{
 		case 0:
-			(*commandes).selectifInitial[11].etat = 1;break;	//	Réel
+			(*commandes).selectifInitial[13].etat = 1;break;	//	Réel
 		case 1:
-			(*commandes).selectifInitial[12].etat = 1;break;	//	Complexe
+			(*commandes).selectifInitial[14].etat = 1;break;	//	Complexe
 		case 2:
-			(*commandes).selectifInitial[10].etat = 1;break;	//	Peigne de dirac
+			(*commandes).selectifInitial[12].etat = 1;break;	//	Peigne de dirac
 		case 3:
-			(*commandes).selectifInitial[9].etat = 1;break;	//	Constant
+			(*commandes).selectifInitial[11].etat = 1;break;	//	Constant
 		default:
 			;
 		}

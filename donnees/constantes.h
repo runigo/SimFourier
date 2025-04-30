@@ -51,9 +51,9 @@ termes.
 
 	//  TAILLE IMPLICITE DE LA FENÊTRE
 #define FENETRE_X 1200
-#define FENETRE_Y 800
+#define FENETRE_Y 774
 	//  TAILLE IMPLICITE DU MENU. X = Y / 4
-#define MENUS_X FENETRE_Y / 4
+#define MENUS_X FENETRE_Y / 5.375
 #define MENUS_Y FENETRE_Y
 
 	//  TAILLE IMPLICITE DES BOUTONS
@@ -69,9 +69,9 @@ termes.
 #define GRAPHES 2 // Nombres de graphes
 
 	//  NOMBRE DE COMMANDES
-#define SELECTIF_INITIAL 13	// Nombres de boutons selectifs du menu initial
+#define SELECTIF_INITIAL 15	// Nombres de boutons selectifs du menu initial
 #define SELECTIF_GRAPHES 9	// Nombres de boutons selectifs des menus graphes
-#define ROTATIF_INITIAL 6		// Nombre de boutons rotatifs du menu initial
+#define ROTATIF_INITIAL 8		// Nombre de boutons rotatifs du menu initial
 #define ROTATIF_GRAPHES 1		// Nombre de boutons linéaires des menus graphes
 #define CARRE_COMMANDES 13	    // Nombres de boutons carré
 #define LINEAIRE_COMMANDES 4	// Nombres de commandes linéaires
