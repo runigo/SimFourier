@@ -1,11 +1,11 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright mai 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.3 Transformation de Fourier
+SimFourier 1.4 Transformation de Fourier
 (D'après SiCP 1.3.7  simulateur de chaîne de pendules, septembre 2017)
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+Ce logiciel est un programme informatique permettant de donner une représentation
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -187,17 +187,13 @@ int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int po
 				grapheReglagePdv(graphe, pourMille); break;
 			case 2:	//	Point de vue réel
 				grapheReglagePdv(graphe, pourMille); break;
-			case 3:	//	axes ?
-				grapheReglageAxes(graphe, pourMille); break;
-			case 4:	//	trait point
+			case 3:	//	trait point
 				grapheReglageTrait(graphe, pourMille); break;
-			case 5:	//	trait courbe
+			case 4:	//	trait courbe
 				grapheReglageTrait(graphe, pourMille); break;
-			case 6:	//	coord vecteur
+			case 5:	//	coord vecteur
 				grapheReglageCoord(graphe, pourMille); break;
-			case 7:	//	coord cartésien
-				grapheReglageCoord(graphe, pourMille); break;
-			case 8:	//	coord sans
+			case 6:	//	coord sans
 				grapheReglageCoord(graphe, pourMille); break;
 			default:
 				printf("ERREUR grapheChangeParametre\n");

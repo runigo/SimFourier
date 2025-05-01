@@ -1,10 +1,10 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright mai 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+SimFourier 1.4 Transformation de Fourier
+Ce logiciel est un programme informatique permettant de donner une représentation
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -50,7 +50,7 @@ typedef struct MotifT motifT;
 		double symetrie;	//	0 <= symetrie <= 1
 
 		double amplitude;	//	amplitude
-		double moyenne;	//	décalage verticale
+		double decalage;	//	décalage verticale
 		};
 
 	//	Initialisation

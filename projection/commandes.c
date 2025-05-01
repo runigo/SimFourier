@@ -1,11 +1,11 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright mai 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.3 Transformation de Fourier
+SimFourier 1.4 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+Ce logiciel est un programme informatique permettant de donner une représentation
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -72,8 +72,8 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	(*commandes).fonctionsDroite = fenetreX - facteur * 100;
 
 		// Zones suivant Y des fonctions
-	(*commandes).selectifsFonction = facteur * 8;	//	position y des selectifs
-	(*commandes).fonctionHaut = facteur * 55;		//	frontière 4-5
+	(*commandes).selectifsFonction = facteur * 10;	//	position y des selectifs
+	(*commandes).fonctionHaut = facteur * 43;		//	frontière 4-5
 	(*commandes).fonctionBas = fenetreY / 2;		//	frontière 5-6
 	(*commandes).fourierHaut = (*commandes).fonctionBas + (*commandes).fonctionHaut;	//	6-7
 	(*commandes).fourierBas = fenetreY;				//	frontière basse
@@ -164,15 +164,13 @@ int commandesAjusteSelectifsGraphes(commandesT * commandes, float facteur)
 			selectifInitialise(&(*commandes).selectifGraph[j][i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
 			}
 				// BOUTONS SELECTIFS SUIVANT X
-		(*commandes).selectifGraph[j][0].X = facteur * 290;  	//	Implicite
-		(*commandes).selectifGraph[j][1].X = facteur * 330;		//	Imaginaire
-		(*commandes).selectifGraph[j][2].X = facteur * 377;		//	Reel
-		(*commandes).selectifGraph[j][3].X = facteur * 424;		//	Sans
-		(*commandes).selectifGraph[j][4].X = facteur * 683;		//	Point
-		(*commandes).selectifGraph[j][5].X = facteur * 723;		//	Relié
-		(*commandes).selectifGraph[j][6].X = facteur * 786;		//	Vecteur
-		(*commandes).selectifGraph[j][7].X = facteur * 825;		//	Cartésien
-		(*commandes).selectifGraph[j][8].X = facteur * 872;		//	Sans
+		(*commandes).selectifGraph[j][0].X = facteur * 207;  	//	Implicite
+		(*commandes).selectifGraph[j][1].X = facteur * 234;		//	Imaginaire
+		(*commandes).selectifGraph[j][2].X = facteur * 267;		//	Reel
+		(*commandes).selectifGraph[j][3].X = facteur * 325;		//	Point
+		(*commandes).selectifGraph[j][4].X = facteur * 352;		//	Relié
+		(*commandes).selectifGraph[j][5].X = facteur * 402;		//	Vecteur
+		(*commandes).selectifGraph[j][6].X = facteur * 429;		//	Sans
 		}
 	return 0;
 	}

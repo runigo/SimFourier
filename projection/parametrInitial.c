@@ -1,10 +1,10 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright mai 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.3 Transformation de Fourier
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+SimFourier 1.4 Transformation de Fourier
+Ce logiciel est un programme informatique permettant de donner une représentation
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -49,6 +49,9 @@ int parametrInitialInitialise(parametrInitialT * parametre, int nombre)
 	(*parametre).radianRho = log2(nombre)/2;
 	(*parametre).radianKhi = nombre/2;
 	(*parametre).radianSym = PIS2;
+
+	(*parametre).radianAmplitude = PIS2/(AMPLITUDE_MAX - AMPLITUDE_MIN);
+	(*parametre).radianDecalage = PIS2/AMPLITUDE_MAX/2;
 
 	return 0;
 	}
@@ -99,6 +102,14 @@ int parametrInitialRotatifs(initialeT * initiale, parametrInitialT * parametre, 
 	theta = (*parametre).radianKhi * ( (*initiale).enveloppe.khi );
 	(*commandes).rotatifInitial[3].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[3].positionY = (int)(-longueur*sin(theta));
+		//	Amplitude motif
+	theta = (*parametre).radianAmplitude * ((*initiale).motif.amplitude + AMPLITUDE_MAX);
+	(*commandes).rotatifInitial[4].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifInitial[4].positionY = (int)(-longueur*sin(theta));
+		//	Décalage verticale
+	theta = (*parametre).radianDecalage * ((*initiale).motif.decalage);
+	(*commandes).rotatifInitial[5].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifInitial[5].positionY = (int)(-longueur*sin(theta));
 
 		// facteur de proportionalité entre les grandeurs de la porteuse et la position des rotatifs
 	(*parametre).radianEta = PIS2 / ((*initiale).porteuse.etaMax - (*initiale).porteuse.etaMin);
@@ -107,12 +118,12 @@ int parametrInitialRotatifs(initialeT * initiale, parametrInitialT * parametre, 
 		//	Projection sur les boutons rotatifs de la partie porteuse
 	//	Période porteuse, eta
 	theta = (*parametre).radianEta * ((*initiale).porteuse.eta - (*initiale).porteuse.etaMin);
-	(*commandes).rotatifInitial[4].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatifInitial[4].positionY = (int)(-longueur*sin(theta));
+	(*commandes).rotatifInitial[6].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifInitial[6].positionY = (int)(-longueur*sin(theta));
 	//	Période porteuse, rho
 	theta = (*parametre).radianRho * ((*initiale).porteuse.rho);
-	(*commandes).rotatifInitial[5].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatifInitial[5].positionY = (int)(-longueur*sin(theta));
+	(*commandes).rotatifInitial[7].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifInitial[7].positionY = (int)(-longueur*sin(theta));
 
 	return 0;
 	}

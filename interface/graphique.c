@@ -1,11 +1,11 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright mai 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.3 Transformation de Fourier
+SimFourier 1.4 Transformation de Fourier
 (d'après SimFoule 2.2 simulateur de foule, décembre 2019)
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+Ce logiciel est un programme informatique permettant de donner une représentation
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -147,8 +147,8 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 
 			//	Menu des graphes
 		//	Taille et position du menu du graphe fonction (zone 4)
-	coordonnee.w = (*graphique).facteur * 800;
-	coordonnee.h = (*graphique).facteur * 55;
+	coordonnee.w = (*graphique).facteur * 366;
+	coordonnee.h = (*graphique).facteur * 43;
 	coordonnee.y = 0;
 	coordonnee.x = (*graphique).facteur * MENUS_X;
 	if ((*graphique).textures.graphes != 0)

@@ -1,11 +1,11 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright mai 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.3 Transformation de Fourier
+SimFourier 1.4 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+Ce logiciel est un programme informatique permettant de donner une représentation
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -273,18 +273,14 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 				projectionChangeParametre(&(*controleur).projection, menu, 1, 0, 1);break;
 			case 2: //	point de vue réel
 				projectionChangeParametre(&(*controleur).projection, menu, 2, 0, 2);break;
-			case 3: //	point de vue sans axes ?
-				projectionChangeParametre(&(*controleur).projection, menu, 3, 0, 3);break;
-			case 4: //	graphe point
-				projectionChangeParametre(&(*controleur).projection, menu, 4, 0, 0);break;
-			case 5: //	graphe courbe
+			case 3: //	graphe point
+				projectionChangeParametre(&(*controleur).projection, menu, 3, 0, 0);break;
+			case 4: //	graphe courbe
+				projectionChangeParametre(&(*controleur).projection, menu, 4, 0, 1);break;
+			case 5: //	coordonnées vecteur
 				projectionChangeParametre(&(*controleur).projection, menu, 5, 0, 1);break;
-			case 6: //	coordonnées vecteur
+			case 6: //	coordonnées sans
 				projectionChangeParametre(&(*controleur).projection, menu, 6, 0, 0);break;
-			case 7: //	coordonnées cartésien
-				projectionChangeParametre(&(*controleur).projection, menu, 7, 0, 1);break;
-			case 8: //	coordonnées sans
-				projectionChangeParametre(&(*controleur).projection, menu, 8, 0, 2);break;
 			default:
 				;
 			}
@@ -320,8 +316,12 @@ int controleSourisMoletteRotatifsInitial(controleurT * controleur)
 			case 3:
 				modeleChangeInitiale(&(*controleur).modele, 1, 3, 1, 0);break;
 			case 4:
-				modeleChangeInitiale(&(*controleur).modele, 2, 1, 1, 0);break;
+				modeleChangeInitiale(&(*controleur).modele, 0, 2, 1, 0);break;
 			case 5:
+				modeleChangeInitiale(&(*controleur).modele, 0, 3, 1, 0);break;
+			case 6:
+				modeleChangeInitiale(&(*controleur).modele, 2, 1, 1, 0);break;
+			case 7:
 				modeleChangeInitiale(&(*controleur).modele, 2, 2, 1, 0);break;
 			default:
 				;
@@ -340,8 +340,12 @@ int controleSourisMoletteRotatifsInitial(controleurT * controleur)
 			case 3:
 				modeleChangeInitiale(&(*controleur).modele, 1, 3, -1, 0);break;
 			case 4:
-				modeleChangeInitiale(&(*controleur).modele, 2, 1, -1, 0);break;
+				modeleChangeInitiale(&(*controleur).modele, 0, 2, -1, 0);break;
 			case 5:
+				modeleChangeInitiale(&(*controleur).modele, 0, 3, -1, 0);break;
+			case 6:
+				modeleChangeInitiale(&(*controleur).modele, 2, 1, -1, 0);break;
+			case 7:
 				modeleChangeInitiale(&(*controleur).modele, 2, 2, -1, 0);break;
 			default:
 				;

@@ -1,11 +1,11 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright mai 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.3 Transformation de Fourier
+SimFourier 1.4 Transformation de Fourier
 (d'après SimFoule 2.2  simulateur de foule, décembre 2019)
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+Ce logiciel est un programme informatique permettant de donner une représentation
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -307,26 +307,14 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
 
-	image = SDL_LoadBMP("./image/vide.bmp");
-	if (!image)
-		{
-		fprintf(stderr,"Erreur chargement image ./image/vide.bmp : %s\n",SDL_GetError());
-		}
-	(*textures).selectifGraph[3] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
-	SDL_FreeSurface(image);
-	if ((*textures).selectifGraph[3] == 0)
-		{
-		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		}
-
 	image = SDL_LoadBMP("./image/point.bmp");
 	if (!image)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/point.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraph[4] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[3] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraph[4] == 0)
+	if ((*textures).selectifGraph[3] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -336,9 +324,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/relie.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraph[5] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[4] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraph[5] == 0)
+	if ((*textures).selectifGraph[4] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -348,21 +336,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/vecteur.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraph[6] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[5] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraph[6] == 0)
-		{
-		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		}
-
-	image = SDL_LoadBMP("./image/cartesien.bmp");
-	if (!image)
-		{
-		fprintf(stderr,"Erreur chargement image ./image/cartesien.bmp : %s\n",SDL_GetError());
-		}
-	(*textures).selectifGraph[7] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
-	SDL_FreeSurface(image);
-	if ((*textures).selectifGraph[7] == 0)
+	if ((*textures).selectifGraph[5] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -372,9 +348,9 @@ int texturesSelectifsGraphes(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/vide.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifGraph[8] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifGraph[6] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifGraph[8] == 0)
+	if ((*textures).selectifGraph[6] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}

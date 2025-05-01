@@ -1,8 +1,8 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright mai 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
-Ce logiciel est un programme informatique servant à donner une représentation
+Ce logiciel est un programme informatique permettant de donner une représentation
 graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
 d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -70,7 +70,7 @@ termes.
 
 	//  NOMBRE DE COMMANDES
 #define SELECTIF_INITIAL 15	// Nombres de boutons selectifs du menu initial
-#define SELECTIF_GRAPHES 9	// Nombres de boutons selectifs des menus graphes
+#define SELECTIF_GRAPHES 7	// Nombres de boutons selectifs des menus graphes
 #define ROTATIF_INITIAL 8		// Nombre de boutons rotatifs du menu initial
 #define ROTATIF_GRAPHES 1		// Nombre de boutons linéaires des menus graphes
 #define CARRE_COMMANDES 13	    // Nombres de boutons carré

@@ -1,10 +1,10 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright mai 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.3 Transformation de Fourier
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+SimFourier 1.4 Transformation de Fourier
+Ce logiciel est un programme informatique permettant de donner une représentation
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -100,26 +100,22 @@ int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes)
 				(*commandes).selectifGraph[j][1].etat = 1; break;	//	Imaginaire
 			case 2:
 				(*commandes).selectifGraph[j][2].etat = 1; break;	//	Réel
-			case 5:
-				(*commandes).selectifGraph[j][3].etat = 1; break;	//	Sans axe
 			default:
 				; }
 
 		switch((*graphe).trait) {	//	Tracé de la courbe
 			case 0:
-				(*commandes).selectifGraph[j][4].etat = 1; break;	//	Point
+				(*commandes).selectifGraph[j][3].etat = 1; break;	//	Point
 			case 1:
-				(*commandes).selectifGraph[j][5].etat = 1; break;	//	Relié
+				(*commandes).selectifGraph[j][4].etat = 1; break;	//	Relié
 			default:
 				; }
 
 		switch((*graphe).coord) {	//	Tracé des coordonnées
 			case 0:
-				(*commandes).selectifGraph[j][8].etat = 1; break;	//	vide
+				(*commandes).selectifGraph[j][6].etat = 1; break;	//	vide
 			case 1:
-				(*commandes).selectifGraph[j][7].etat = 1; break;	//	cartésien
-			case 2:
-				(*commandes).selectifGraph[j][6].etat = 1; break;	//	vecteur
+				(*commandes).selectifGraph[j][5].etat = 1; break;	//	vecteur
 			default:
 				; }
 		}

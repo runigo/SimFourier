@@ -1,10 +1,10 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright mai 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+SimFourier 1.4 Transformation de Fourier
+Ce logiciel est un programme informatique permettant de donner une représentation
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -36,11 +36,11 @@ termes.
 
 	//		CHANGEMENT DES PARAMÈTRES
 int motifVariationAmplitude(motifT * motif, int delta);
-int motifVariationMoyenne(motifT * motif, int delta);
+int motifVariationDecalage(motifT * motif, int delta);
 int motifVariationForme(motifT * motif, int forme);
 int motifVariationSymetrie(motifT * motif, int delta);
 int motifRegleAmplitude(motifT * motif, int pourMille);
-int motifRegleMoyenne(motifT * motif, int pourMille);
+int motifRegleDecalage(motifT * motif, int pourMille);
 int motifRegleForme(motifT * motif, int forme);
 int motifRegleSymetrie(motifT * motif, int pourMille);
 
@@ -61,7 +61,7 @@ int motifInitialisation(motifT * motif, int nombre) {
 		(*motif).symetrie = 0.5;	//	facteur de symétrie
 
 		(*motif).amplitude = 5.3;			//	Amplitude
-		(*motif).moyenne = 0.0;			//	Décalage verticale
+		(*motif).decalage = 0.0;			//	Décalage verticale
 		//(*motif).sym = (float)(*motif).a / (float)(*motif).b;	//	facteur de symétrie (a/b)
 
 		(*motif).forme = 3;			//	0 : constante, 1 : harmonique, 2 : carrée, 3 : triangle.
@@ -251,7 +251,7 @@ int motifVariationParametre(motifT * motif, int parametre, int variation){
 		case 2:
 			motifVariationAmplitude(motif, variation);break;
 		case 3:
-			motifVariationMoyenne(motif, variation);break;
+			motifVariationDecalage(motif, variation);break;
 		default:
 			;
 		}
@@ -266,10 +266,10 @@ int motifRegleParametre(motifT * motif, int parametre, int pourMille){
 			motifRegleForme(motif, pourMille);break;
 		case 1:
 			motifRegleSymetrie(motif, pourMille);break;
-	//	case 2:
-		//	motifRegleA(motif, pourMille);break;
-	//	case 3:
-		//	motifRegleB(motif, pourMille);break;
+		case 2:
+			motifRegleAmplitude(motif, pourMille);break;
+		case 3:
+			motifRegleDecalage(motif, pourMille);break;
 		default:
 			;
 		}
@@ -345,28 +345,28 @@ int motifVariationAmplitude(motifT * motif, int delta) {
 	return 0;
 	}
 
-int motifVariationMoyenne(motifT * motif, int delta) {
+int motifVariationDecalage(motifT * motif, int delta) {
 
 	// Fait varier le décalage verticale du motif
 
-	float moyenne = (*motif).moyenne + (double)delta / 10;
+	float decalage = (*motif).decalage + (double)delta / 10;
 
-	if(moyenne < AMPLITUDE_MIN)
+	if(decalage < AMPLITUDE_MIN)
 		{
-		(*motif).moyenne = AMPLITUDE_MIN;
-		printf("Moyenne minimale atteinte, moyenne  = %f\n", (*motif).moyenne);
+		(*motif).decalage = AMPLITUDE_MIN;
+		printf("Décalage minimale atteinte, decalage  = %f\n", (*motif).decalage);
 		return -1;
 		}
 
-	if(moyenne > AMPLITUDE_MAX)
+	if(decalage > AMPLITUDE_MAX)
 		{
-		(*motif).moyenne = AMPLITUDE_MAX;
-		printf("Moyenne maximale atteinte, moyenne  = %f\n", (*motif).moyenne);
+		(*motif).decalage = AMPLITUDE_MAX;
+		printf("Décalage maximale atteinte, decalage  = %f\n", (*motif).decalage);
 		return 1;
 		}
 
-	(*motif).moyenne = moyenne;
-	printf("Amplitude motif = %f\n", (*motif).moyenne);
+	(*motif).decalage = decalage;
+	printf("Amplitude motif = %f\n", (*motif).decalage);
 
 	return 0;
 	}
@@ -416,12 +416,12 @@ int motifRegleSymetrie(motifT * motif, int pourMille) {
 
 	return 0;
 	}
-/*
-int motifRegleA(motifT * motif, int pourMille) {
+
+int motifRegleAmplitude(motifT * motif, int pourMille) {
 
 	// Règle l'amplitude du motif
 
-	float amplitude = ((*motif).amplitude * delta)/100;
+	float amplitude = ((*motif).amplitude * pourMille)/1000;
 
 	if(amplitude < AMPLITUDE_MIN)
 		{
@@ -445,39 +445,39 @@ int motifRegleA(motifT * motif, int pourMille) {
 	return 0;
 	}
 
-int motifRegleB(motifT * motif, int delta) {
+int motifRegleDecalage(motifT * motif, int pourMille) {
 
 	// Règle le décalage verticale du motif
 
-	float decalage = ((*motif).amplitude * delta)/100;
+	float decalage = ((*motif).amplitude * pourMille)/1000;
 
-	if(decalage < AMPLITUDE_MIN)
+	if(decalage < -AMPLITUDE_MAX)
 		{
-		(*motif).amplitude = AMPLITUDE_MIN;
+		(*motif).decalage = -AMPLITUDE_MAX;
 		printf("Décalage minimale atteinte. ");
 		}
 	else
 		{
 		if(decalage > AMPLITUDE_MAX)
 			{
-			(*motif).amplitude = AMPLITUDE_MAX;
+			(*motif).decalage = AMPLITUDE_MAX;
 			printf("Décalage maximale atteinte. ");
 			}
 		else
 			{
-			(*motif).amplitude = decalage;
+			(*motif).decalage = decalage;
 			}
 		}
 	printf("Décalage verticale = %f\n", (*motif).amplitude);
 
 	return 0;
 	}
-*/
+
 int motifAffiche(motifT * motif)
 	{
 	printf("\nParamètres du motif : \n");
 	printf("     forme = %d", (*motif).forme);printf("     symetrie = %f\n", (*motif).symetrie);
-	printf("     amplitude = %f", (*motif).amplitude);printf("     moyenne = %f\n", (*motif).moyenne);
+	printf("     amplitude = %f", (*motif).amplitude);printf("     decalage = %f\n", (*motif).decalage);
 	return 0;
 	}
 //////////////////////////////////////////////////////////////////////////
