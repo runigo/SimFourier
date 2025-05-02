@@ -49,8 +49,10 @@ typedef struct FiltrageT filtrageT;
 		};
 
 	//	Initialisation
-
 int filtrageInitialisation(filtrageT * filtrage, int nombre);
+
+	// Changement d'un paramètre
+int filtrageChangeParametre(filtrageT * filtrage, int fonction, int parametre, int variation, int pourMille);
 
 int filtrageCalcule(filtrageT * filtrage);
 

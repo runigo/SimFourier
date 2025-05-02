@@ -69,25 +69,6 @@ int modeleInitialisation(modeleT * modele, int nombre, float dt) {
 
 /*------------------------  ÉVOLUTION DU MODÈLE  -------------------------*/
 
-int modeleIncrementationInitiale(modeleT * modele) {
-
-			//	Initialisation des positions "ancien" et "nouveau"
-			//	au positions "actuel" (initialisées par "modeleProjectionInitiale")
-
-		//fprintf(stderr, " Initialisation ancien et nouveau \n");
-
-	int i;
-	for(i=0;i<(*modele).systeme.nombre;i++)
-		{
-		(*modele).systeme.nouveau.reel[i] = (*modele).systeme.actuel.reel[i];
-		(*modele).systeme.nouveau.imag[i] = (*modele).systeme.actuel.imag[i];
-		(*modele).systeme.ancien.reel[i] = (*modele).systeme.actuel.reel[i];
-		(*modele).systeme.ancien.imag[i] = (*modele).systeme.actuel.imag[i];
-		}
-
-	return 0;
-}
-
 int modeleProjectionInitiale(modeleT * modele) {
 
 	// Projette les positions initiales sur le système = Calcul de la fonction initiale
@@ -118,27 +99,6 @@ int modeleProjectionInitiale(modeleT * modele) {
 
 	return 0;
 }
-/*
-int modeleProjectionInitiale(modeleT * modele) {
-
-	// Projette les positions initiales sur le système
-		//fprintf(stderr, " Projection sur le système\n");
-	int i;
-	for(i=0;i<(*modele).systeme.nombre;i++)
-		{
-		(*modele).systeme.actuel.reel[i]
-			= (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.reel[i];
-		(*modele).systeme.actuel.imag[i]
-			= (*modele).initiale.enveloppe.fonction.reel[i] * (*modele).initiale.porteuse.fonction.imag[i];
-		(*modele).systeme.nouveau.reel[i] = (*modele).systeme.actuel.reel[i];
-		(*modele).systeme.nouveau.imag[i] = (*modele).systeme.actuel.imag[i];
-		(*modele).systeme.ancien.reel[i] = (*modele).systeme.actuel.reel[i];
-		(*modele).systeme.ancien.imag[i] = (*modele).systeme.actuel.imag[i];
-		}
-
-	return 0;
-}
-*/
 
 int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 	{
@@ -149,12 +109,12 @@ int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 
 		//fprintf(stderr, "Projection du système sur les spectres\n");
 	modeleProjectionSystemeFourier(modele);
-//fprintf(stderr, "S2 systeme = %f\n", fonctionSommeModuleCarre(&(*modele).fourier.spectre));
+		//fprintf(stderr, "S2 systeme = %f\n", fonctionSommeModuleCarre(&(*modele).fourier.spectre));
 
 		//fprintf(stderr, "Calcul du spectres et normalisation\n");
 	fourierCalcule(&(*modele).fourier);
 	fonctionNormaliseNombre(&(*modele).fourier.spectre);
-//fprintf(stderr, "S2 spectre = %f\n", fonctionSommeModuleCarre(&(*modele).fourier.spectre));
+		//fprintf(stderr, "S2 spectre = %f\n", fonctionSommeModuleCarre(&(*modele).fourier.spectre));
 
 
 		//fprintf(stderr, "Filtrage de fourier\n");
@@ -167,10 +127,6 @@ int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 	fourierCalcule(&(*modele).filtrage.fct);
 	fonctionNormaliseNombre(&(*modele).filtrage.fct.spectre);
 //fprintf(stderr, "S2 fct = %f\n", fonctionSommeModuleCarre(&(*modele).filtrage.fct.spectre));
-
-		//fprintf(stderr, "Normalisation des spectres\n");
-	//fonctionNormalise(&(*modele).fourier.spectre, echelle);
-	//fonctionNormalise(&(*modele).fourier.gauche, echelle);
 
 		//fprintf(stderr, "Mise à jour des observables\n");
 	//observablesMiseAJour(&(*modele).observables, &(*modele).modele.systeme);
@@ -282,6 +238,19 @@ int modeleChangeInitiale(modeleT * modele, int fonction, int parametre, int vari
 
 		// Changement du parametre
 	initialeChangeParametre(&(*modele).initiale, fonction, parametre, variation, pourMille);
+
+		// Projection sur le système
+	modeleProjectionInitiale(modele);
+
+	return 0;
+	}
+
+int modeleChangeFiltrage(modeleT * modele, int fonction, int parametre, int variation, int pourMille)
+	{
+			//	Change un paramètre de filtrage
+
+		// Changement du parametre
+	filtrageChangeParametre(&(*modele).filtrage, fonction, parametre, variation, pourMille);
 
 		// Projection sur le système
 	modeleProjectionInitiale(modele);

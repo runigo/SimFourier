@@ -73,6 +73,26 @@ int filtrageProjectionFouFct(filtrageT * filtrage)
 	return 0;
 	}
 
+
+		/*************       CHANGEMENT D'UN PARAMÈTRE        **************/
+
+int filtrageChangeParametre(filtrageT * filtrage, int fonction, int parametre, int variation, int pourMille)
+	{
+			// 	Change un paramètre du filtrage
+
+	(void)filtrage;
+	(void)fonction;
+	(void)parametre;
+	(void)variation;
+	(void)pourMille;
+
+	//printf("(*filtrage). = %6.3f\n", (*filtrage).);
+
+	//printf("(*filtrage). = %d", (*filtrage).);
+
+	return 0;
+	}
+
 int filtrageAffiche(filtrageT * filtrage)
 	{
 			// 	Affiche les paramètres du filtrage

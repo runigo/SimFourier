@@ -60,6 +60,10 @@ int initialeInitialisation(initialeT * initiale, int nombre) {
 
 	return 0;
 }
+
+
+/*--------------------  CALCUL DE LA FONCTION INITIALE  ---------------------*/
+
 int initialeNettoyage(initialeT * initiale) {
 
 		//	Annule les fonctions
@@ -70,15 +74,9 @@ int initialeNettoyage(initialeT * initiale) {
 	return 0;
 }
 
-/*--------------------  CALCUL DE LA FONCTION INITIALE  ---------------------*/
-
 int initialeCalculInitiale(initialeT * initiale) {
-	//	Mise à jour des fonctions initiales
-		//fprintf(stderr, " Calcul des fonctions initiales \n");
 
-		//	Calcul des périodes
-	//partieCalculParametres(&(*initiale).enveloppe);
-	//partieCalculParametres(&(*initiale).porteuse);
+			//fprintf(stderr, " Calcul des fonctions initiales \n");
 
 		//	Calcul du motif
 	motifCalculMotif(&(*initiale).motif, (*initiale).enveloppe.periode);

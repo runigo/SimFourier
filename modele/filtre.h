@@ -44,6 +44,8 @@ typedef struct FiltreT filtreT;
 		double direct[NOMBRE_MAX];	//   fonction du filtre
 		double inverse[NOMBRE_MAX];	//   filtre complémentaire
 
+		double frequence;
+
 		int nombre;					// Nombre de points
 		};
 

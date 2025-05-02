@@ -38,6 +38,10 @@ int filtreInitialise(filtreT * filtre, int nombre)
 
 		//	Nombre de point
 	(*filtre).nombre = nombre;
+
+		//	Fréquence implicite
+	(*filtre).frequence = nombre / 4;
+
 		//	x, y et |filtre| = 0
 	filtreUniforme(filtre);
 	return 0;
