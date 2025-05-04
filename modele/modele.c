@@ -120,9 +120,7 @@ int modeleEvolutionInitiale(modeleT * modele, int duree, int echelle)
 		//fprintf(stderr, "Filtrage de fourier\n");
 	modeleFiltrageFourier(modele);
 
-		//fprintf(stderr, "Projection du système sur les spectres\n");
-
-//fprintf(stderr, "S2 fct = %f\n", fonctionSommeModuleCarre(&(*modele).filtrage.fct.spectre));
+		//fprintf(stderr, "S2 fct = %f\n", fonctionSommeModuleCarre(&(*modele).filtrage.fct.spectre));
 
 		//fprintf(stderr, "Mise à jour des observables\n");
 	//observablesMiseAJour(&(*modele).observables, &(*modele).modele.systeme);
@@ -174,6 +172,7 @@ int modeleEnergiePotentielle(modeleT * modele, int duree, int echelle)
 
 int modeleFiltrageFourier(modeleT * modele)
 	{
+			//	Filtrage de la TF et calcul de la TF inverse.
 	int i;
 	int nombre = (*modele).systeme.nombre;
 
@@ -184,7 +183,7 @@ int modeleFiltrageFourier(modeleT * modele)
 		(*modele).filtrage.fou.imag[i] = (*modele).fourier.spectre.imag[i] * (*modele).filtrage.filtre[i];
 		}
 
-		//	Calcule de la TF
+		//	Calcule de la TF inverse
 	filtrageCalcule(&(*modele).filtrage);
 
 	return 0;
