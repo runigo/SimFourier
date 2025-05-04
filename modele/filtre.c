@@ -42,8 +42,8 @@ int filtreInitialise(filtreT * filtre, int nombre)
 		//	Fréquence implicite
 	(*filtre).frequence = nombre / 4;
 
-		//	x, y et |filtre| = 0
 	filtreUniforme(filtre);
+
 	return 0;
 	}
 
@@ -59,11 +59,12 @@ int filtreUniforme(filtreT * filtre)
 	return 0;
 	}
 
-int filtrePasseBas(filtreT * filtre, int frequence)
+int filtrePasseBas(filtreT * filtre)
 	{
 			//	Crée un filtre passe bas
 	int i;
 	int max = (*filtre).nombre - 1;
+	int frequence = (*filtre).frequence;
 	for(i=0;i<frequence;i++)
 		{
 		(*filtre).direct[i]=1.0;
@@ -76,10 +77,30 @@ int filtrePasseBas(filtreT * filtre, int frequence)
 	return 0;
 	}
 
-int filtrePasseHaut(filtreT * filtre, int frequence)
+int filtrePasseHaut(filtreT * filtre)
 	{
 			//	Crée un filtre passe haut
 	int i;
+	int frequence = (*filtre).frequence;
+	int max = (*filtre).nombre - 1 - frequence;
+	for(i=frequence;i<max;i++)
+		{
+		(*filtre).direct[i]=1.0;
+		(*filtre).direct[max-i]=1.0;
+		}
+	for(i=0;i<(*filtre).nombre;i++)
+		{
+		(*filtre).inverse[i] = 1.0 - (*filtre).direct[i];
+		}
+	return 0;
+	}
+
+
+int filtrePasseBande(filtreT * filtre)
+	{
+			//	Crée un filtre passe bande
+	int i;
+	int frequence = (*filtre).frequence;
 	int max = (*filtre).nombre - 1 - frequence;
 	for(i=frequence;i<max;i++)
 		{

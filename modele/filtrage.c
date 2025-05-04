@@ -38,9 +38,24 @@ int filtrageProjectionFouFct(filtrageT * filtrage);
 
 int filtrageInitialisation(filtrageT * filtrage, int nombre)
 	{
-	filtreInitialise(&(*filtrage).filtre, nombre);
+	filtreInitialise(&(*filtrage).passeBas, nombre);
+	filtreInitialise(&(*filtrage).passeHaut, nombre);
+	filtreInitialise(&(*filtrage).passeBande, nombre);
+
+	filtrePasseBas(&(*filtrage).passeBas);
+	filtrePasseHaut(&(*filtrage).passeHaut);
+	filtrePasseBande(&(*filtrage).passeBande);
+
+	int i;
+	for(i=0;i<NOMBRE_MAX;i++)
+		{
+		(*filtrage).filtre[i]=1.0;
+		}
+
+
 	fonctionInitialise(&(*filtrage).fou, nombre);
 	fourierInitialise(&(*filtrage).fct, nombre);
+
 	return 0;
 	}
 
@@ -52,6 +67,9 @@ int filtrageCalcule(filtrageT * filtrage)
 		//	Projection de fou sur fct
 	filtrageProjectionFouFct(filtrage);
 
+		//fprintf(stderr, "Calcul des spectres et normalisation\n");
+	fourierCalcule(&(*filtrage).fct);
+	fonctionNormaliseNombre(&(*filtrage).fct.spectre);
 		//	Calcul de la TF
 	//fourierCalcule(&(*filtrage).fct);
 

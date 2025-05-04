@@ -39,8 +39,13 @@ termes.
 typedef struct FiltrageT filtrageT;
 	struct FiltrageT
 		{
+				//	filtre élémentaire
+		filtreT passeBas;
+		filtreT passeHaut;
+		filtreT passeBande;
 
-		filtreT filtre;
+		double filtre[NOMBRE_MAX];	//	produit des filtres élémentaires
+		float gain;					//	gain du filtre
 
 		fonctionT fou;	//	spectre filtré
 
