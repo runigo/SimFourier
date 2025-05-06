@@ -41,12 +41,16 @@ termes.
 typedef struct FiltreT filtreT;
 	struct FiltreT
 		{
-		double direct[NOMBRE_MAX];	//   fonction du filtre
-		double inverse[NOMBRE_MAX];	//   filtre complémentaire
+		double gain[NOMBRE_MAX];	//   gain du filtre
 
 		double frequence;
 
-		int nombre;					// Nombre de points
+		int largeur;	//	Ordre du filtre, pour mille
+
+		int nombre;		// Nombre de points
+
+		int mode;		//	Symétrie
+
 		};
 
 int filtreInitialise(filtreT * filtre, int nombre);
@@ -54,6 +58,8 @@ int filtreUniforme(filtreT * filtre);
 int filtrePasseBas(filtreT * filtre);
 int filtrePasseHaut(filtreT * filtre);
 int filtrePasseBande(filtreT * filtre);
+
+int filtreChangeParametre(filtreT * filtre, int parametre, int variation, int pourMille);
 
 int filtreAffiche(filtreT * f);
 int filtreTest(filtreT * f);

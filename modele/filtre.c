@@ -42,6 +42,12 @@ int filtreInitialise(filtreT * filtre, int nombre)
 		//	Fréquence implicite
 	(*filtre).frequence = nombre / 4;
 
+		//	Largeur implicite
+	(*filtre).largeur = nombre / 16;
+
+		//	mode symétrie implicite
+	(*filtre).mode = 1;
+
 	filtreUniforme(filtre);
 
 	return 0;
@@ -53,8 +59,7 @@ int filtreUniforme(filtreT * filtre)
 	int i;
 	for(i=0;i<NOMBRE_MAX;i++)
 		{
-		(*filtre).direct[i] = 1.0;
-		(*filtre).inverse[i] = 0.0;
+		(*filtre).gain[i] = 1.0;
 		}
 	return 0;
 	}
@@ -67,12 +72,8 @@ int filtrePasseBas(filtreT * filtre)
 	int frequence = (*filtre).frequence;
 	for(i=0;i<frequence;i++)
 		{
-		(*filtre).direct[i]=1.0;
-		(*filtre).direct[max-i]=1.0;
-		}
-	for(i=0;i<(*filtre).nombre;i++)
-		{
-		(*filtre).inverse[i] = 1.0 - (*filtre).direct[i];
+		(*filtre).gain[i]=1.0;
+		(*filtre).gain[max-i]=1.0;
 		}
 	return 0;
 	}
@@ -85,12 +86,8 @@ int filtrePasseHaut(filtreT * filtre)
 	int max = (*filtre).nombre - 1 - frequence;
 	for(i=frequence;i<max;i++)
 		{
-		(*filtre).direct[i]=1.0;
-		(*filtre).direct[max-i]=1.0;
-		}
-	for(i=0;i<(*filtre).nombre;i++)
-		{
-		(*filtre).inverse[i] = 1.0 - (*filtre).direct[i];
+		(*filtre).gain[i]=1.0;
+		(*filtre).gain[max-i]=1.0;
 		}
 	return 0;
 	}
@@ -104,13 +101,20 @@ int filtrePasseBande(filtreT * filtre)
 	int max = (*filtre).nombre - 1 - frequence;
 	for(i=frequence;i<max;i++)
 		{
-		(*filtre).direct[i]=1.0;
-		(*filtre).direct[max-i]=1.0;
+		(*filtre).gain[i]=1.0;
+		(*filtre).gain[max-i]=1.0;
 		}
-	for(i=0;i<(*filtre).nombre;i++)
-		{
-		(*filtre).inverse[i] = 1.0 - (*filtre).direct[i];
-		}
+	return 0;
+	}
+
+		///////////////      CHANGEMENT D'UN PARAMETRE       /////////////////////////////
+
+int filtreChangeParametre(filtreT * filtre, int parametre, int variation, int pourMille)
+	{
+	(void) filtre;
+	(void)parametre;
+	(void)variation;
+	(void)pourMille;
 	return 0;
 	}
 

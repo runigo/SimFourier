@@ -45,7 +45,7 @@ typedef struct FiltrageT filtrageT;
 		filtreT passeBande;
 
 		double filtre[NOMBRE_MAX];	//	produit des filtres élémentaires
-		float gain;					//	gain du filtre
+		float amplification;					//	amplification du filtre
 
 		fonctionT fou;	//	spectre filtré
 

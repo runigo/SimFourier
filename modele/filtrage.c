@@ -52,6 +52,7 @@ int filtrageInitialisation(filtrageT * filtrage, int nombre)
 		(*filtrage).filtre[i]=1.0;
 		}
 
+	(*filtrage).amplification = 1.0;
 
 	fonctionInitialise(&(*filtrage).fou, nombre);
 	fourierInitialise(&(*filtrage).fct, nombre);
@@ -63,15 +64,29 @@ int filtrageCalcule(filtrageT * filtrage)
 	{
 			// Projection et calcul de la TF
 
-		//fprintf(stderr, "filtrageCalcule\n");
-		//	Projection de fou sur fct
+		//fprintf(stderr, "Projection de fou sur fct\n");
 	filtrageProjectionFouFct(filtrage);
 
 		//fprintf(stderr, "Calcul des spectres et normalisation\n");
 	fourierCalcule(&(*filtrage).fct);
 	fonctionNormaliseNombre(&(*filtrage).fct.spectre);
-		//	Calcul de la TF
-	//fourierCalcule(&(*filtrage).fct);
+
+	return 0;
+	}
+
+int filtrageCalculeFiltre(filtrageT * filtrage)
+	{
+			// Calcul du filtre
+	int i;
+	int nombre = (*filtrage).fou.nombre;
+
+	for(i=0;i<nombre;i++)
+		{
+	(*filtrage).fct.spectre.reel[i] = (*filtrage).fou.reel[i];
+	(*filtrage).fct.spectre.imag[i] = (*filtrage).fou.imag[i];
+		}
+
+		//fprintf(stderr, "Projection de fou sur fct\n");
 
 	return 0;
 	}
@@ -98,11 +113,17 @@ int filtrageChangeParametre(filtrageT * filtrage, int fonction, int parametre, i
 	{
 			// 	Change un paramètre du filtrage
 
-	(void)filtrage;
-	(void)fonction;
-	(void)parametre;
-	(void)variation;
-	(void)pourMille;
+	switch (fonction)
+		{
+		case 1:	//	Passe bas
+			filtreChangeParametre(&(*filtrage).passeBas, parametre, variation, pourMille);break;
+		case 2:	//	Passe haut
+			filtreChangeParametre(&(*filtrage).passeHaut, parametre, variation, pourMille);break;
+		case 3:	//	Passe bande
+			filtreChangeParametre(&(*filtrage).passeBande, parametre, variation, pourMille);break;
+		default:
+			printf("ERREUR filtrageChangeParametre fonction = %d", fonction);
+		}
 
 	//printf("(*filtrage). = %6.3f\n", (*filtrage).);
 

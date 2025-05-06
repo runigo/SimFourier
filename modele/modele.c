@@ -251,9 +251,6 @@ int modeleChangeFiltrage(modeleT * modele, int fonction, int parametre, int vari
 		// Changement du parametre
 	filtrageChangeParametre(&(*modele).filtrage, fonction, parametre, variation, pourMille);
 
-		// Projection sur le système
-	modeleProjectionInitiale(modele);
-
 	return 0;
 	}
 
