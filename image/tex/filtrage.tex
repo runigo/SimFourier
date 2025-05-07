@@ -4,9 +4,9 @@
 
                    %  Panneau
   \begin{scope}[xshift=0 cm,yshift=0cm]
-    \fill[gray,draw=gray!10!] (-6.2, -0.2) rectangle (9.2,0.9);
+    \fill[gray,draw=gray!10!] (-6.2, -0.2) rectangle (8.2,0.9);
     \fill[panneauControles]
-      (-6.1, -0.1) rectangle (9.1, 0.8);
+      (-6.1, -0.1) rectangle (8.1, 0.8);
   \end{scope}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      PASSE  BAS
@@ -18,14 +18,14 @@
       \begin{scope}[xshift=0 cm] %             éteint
         \draw (0.6,0.5) node [gray]{\bf{1}};
       \end{scope}
-      \begin{scope}[xshift=1.2 cm] %              Passe bas
-        \draw[styleEteint] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
+      \begin{scope}[xshift=1.2 cm] %              Symétrique
+        \draw[styleEteint] (0.1,0.3)--(0.3,0.3)--(0.3,0.7)--(0.7,0.7)--(0.7,0.3)--(0.9,0.3);
       \end{scope}
       \begin{scope}[xshift=2.4 cm] %              Dissymétrie 1
-        \draw[styleEteint] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--((0.9,0.3);
+        \draw[styleEteint] (0.1,0.3)--(0.3,0.3)--(0.3,0.7)--(0.9,0.7);
       \end{scope}
       \begin{scope}[xshift=3.6 cm] %              Dissymétrie 2
-        \draw[styleEteint] (0.1,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
+        \draw[styleEteint] (0.1,0.7)--(0.7,0.7)--(0.7,0.3)--(0.9,0.3);
       \end{scope}
     \end{scope}
   \end{scope}
@@ -40,7 +40,7 @@
       \begin{scope}[xshift=0 cm] %             éteint
         \draw (0.6,0.5) node [gray]{\bf{2}};
       \end{scope}
-      \begin{scope}[xshift=1.2 cm] %              Passe haut
+      \begin{scope}[xshift=1.2 cm] %              Symétrique
         \draw[styleEteint] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
       \end{scope}
       \begin{scope}[xshift=2.4 cm] %              Dissymétrie 1
@@ -57,19 +57,92 @@
 
   \begin{scope}[xshift=2 cm,yshift=0cm, scale=0.7]
     \begin{scope}[xshift=2 cm,yshift=0cm] %      Grille
-      \fill[boutonEteint] (0.1,0.0) rectangle (4.6,1);
-      \foreach \i in {1.1, 2.3,...,4} {\draw[boutonEteint] (\i,-0.0)--(\i,1.0);}
+      \fill[boutonEteint] (0.1,0.0) rectangle (5.8,1);
+      \foreach \i in {1.1, 2.3,...,5} {\draw[boutonEteint] (\i,-0.0)--(\i,1.0);}
       \begin{scope}[xshift=0 cm] %             éteint
         \draw (0.6,0.5) node [gray]{\bf{3}};
       \end{scope}
-      \begin{scope}[xshift=1.2 cm] %              Passe bas
-        \draw[styleEteint] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
+      \begin{scope}[xshift=1.2 cm] %              Symétrique
+        \draw[styleEteint] (0.1,0.3)--(0.2,0.3)--(0.2,0.7)--(0.3,0.7)--(0.3,0.3)--(0.7,0.3)
+        --(0.7,0.7)--(0.8,0.7)--(0.8,0.3)--(0.9,0.3);
       \end{scope}
       \begin{scope}[xshift=2.4 cm] %              Dissymétrie 1
-        \draw[styleEteint] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--((0.9,0.3);
+        \draw[styleEteint] (0.1,0.3)--(0.2,0.3)--(0.2,0.7)--(0.3,0.7)--(0.3,0.3)--(0.9,0.3);
       \end{scope}
       \begin{scope}[xshift=3.6 cm] %              Dissymétrie 2
-        \draw[styleEteint] (0.1,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
+        \draw[styleEteint] (0.1,0.3)--(0.7,0.3)--(0.7,0.7)--(0.8,0.7)--(0.8,0.3)--(0.9,0.3);
+      \end{scope}
+      \begin{scope}[xshift=4.8 cm] %              Inverse
+        \draw (0.5,0.5) node [gray]{inv};
+      \end{scope}
+    \end{scope}
+  \end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      PASSE  BAS  ACTIVÉ
+
+  \begin{scope}[xshift=-7 cm,yshift=1.3cm, scale=0.7]
+    \begin{scope}[xshift=2 cm,yshift=0cm] %      Grille
+      \fill[boutonSelect] (0.1,0.0) rectangle (4.6,1);
+      \foreach \i in {1.1, 2.3,...,4} {\draw[boutonSelect] (\i,-0.0)--(\i,1.0);}
+      \begin{scope}[xshift=0 cm] %             éteint
+        \draw (0.6,0.5) node [gray]{\bf{1}};
+      \end{scope}
+      \begin{scope}[xshift=1.2 cm] %              Symétrique
+        \draw[boutonSelect] (0.1,0.3)--(0.3,0.3)--(0.3,0.7)--(0.7,0.7)--(0.7,0.3)--(0.9,0.3);
+      \end{scope}
+      \begin{scope}[xshift=2.4 cm] %              Dissymétrie 1
+        \draw[boutonSelect] (0.1,0.3)--(0.3,0.3)--(0.3,0.7)--(0.9,0.7);
+      \end{scope}
+      \begin{scope}[xshift=3.6 cm] %              Dissymétrie 2
+        \draw[boutonSelect] (0.1,0.7)--(0.7,0.7)--(0.7,0.3)--(0.9,0.3);
+      \end{scope}
+    \end{scope}
+  \end{scope}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      PASSE  HAUT
+
+  \begin{scope}[xshift=-2.5 cm,yshift=1.3cm, scale=0.7]
+    \begin{scope}[xshift=2 cm,yshift=0cm] %      Grille
+      \fill[boutonSelect] (0.1,0.0) rectangle (4.6,1);
+      \foreach \i in {1.1, 2.3,...,4} {\draw[boutonSelect] (\i,-0.0)--(\i,1.0);}
+      \begin{scope}[xshift=0 cm] %             éteint
+        \draw (0.6,0.5) node [gray]{\bf{2}};
+      \end{scope}
+      \begin{scope}[xshift=1.2 cm] %              Symétrique
+        \draw[boutonSelect] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
+      \end{scope}
+      \begin{scope}[xshift=2.4 cm] %              Dissymétrie 1
+        \draw[boutonSelect] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--((0.9,0.3);
+      \end{scope}
+      \begin{scope}[xshift=3.6 cm] %              Dissymétrie 2
+        \draw[boutonSelect] (0.1,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
+      \end{scope}
+    \end{scope}
+  \end{scope}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      PASSE  BANDE
+
+  \begin{scope}[xshift=2 cm,yshift=1.3cm, scale=0.7]
+    \begin{scope}[xshift=2 cm,yshift=0cm] %      Grille
+      \fill[boutonSelect] (0.1,0.0) rectangle (5.8,1);
+      \foreach \i in {1.1, 2.3,...,5} {\draw[boutonSelect] (\i,-0.0)--(\i,1.0);}
+      \begin{scope}[xshift=0 cm] %             éteint
+        \draw (0.6,0.5) node [gray]{\bf{3}};
+      \end{scope}
+      \begin{scope}[xshift=1.2 cm] %              Symétrique
+        \draw[boutonSelect] (0.1,0.3)--(0.2,0.3)--(0.2,0.7)--(0.3,0.7)--(0.3,0.3)--(0.7,0.3)
+        --(0.7,0.7)--(0.8,0.7)--(0.8,0.3)--(0.9,0.3);
+      \end{scope}
+      \begin{scope}[xshift=2.4 cm] %              Dissymétrie 1
+        \draw[boutonSelect] (0.1,0.3)--(0.2,0.3)--(0.2,0.7)--(0.3,0.7)--(0.3,0.3)--(0.9,0.3);
+      \end{scope}
+      \begin{scope}[xshift=3.6 cm] %              Dissymétrie 2
+        \draw[boutonSelect] (0.1,0.3)--(0.7,0.3)--(0.7,0.7)--(0.8,0.7)--(0.8,0.3)--(0.9,0.3);
+      \end{scope}
+      \begin{scope}[xshift=4.8 cm] %              Inverse
+        \draw (0.5,0.5) node {inv};
       \end{scope}
     \end{scope}
   \end{scope}
@@ -80,38 +153,14 @@
 
                    %  Onglets et panneau
   \begin{scope}[xshift=0 cm,yshift=19cm]
-    \fill[gray,draw=gray!10!] (-0.0, 0.6) rectangle (2.2,-15.1);
+    \fill[gray,draw=gray!10!] (-0.0, 0.6) rectangle (2.2,-16.6);
     \fill[panneauControles]
-      (0.1, 0.5) -- (2.1, 0.5) -- (2.1, -15) -- (0.1, -15) -- cycle;
+      (0.1, 0.5) -- (2.1, 0.5) -- (2.1, -16.5) -- (0.1, -16.5) -- cycle;
   \end{scope}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      MOTIF  ENVELOPPE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      
 
-  \begin{scope}[xshift=0.2 cm,yshift=13.9cm, scale=0.7]
-    \draw (2.25,8.7) node [black]{ENVELOPPE};
-
-    \begin{scope}[xshift=3.2 cm,yshift=3.1cm] %      Grille
-      \fill[boutonEteint] (-0.075,0) rectangle (1.075,4.6);
-      \foreach \i in {0,1.15,...,5} {\draw[boutonEteint] (-0.075,\i)--(1.075,\i);}
-      \draw[boutonEteint] (-0.075,0)--(-0.075,4.6);
-      \draw[boutonEteint] (1.075,0)--(1.075,4.6);
-      \begin{scope}[yshift=3.54 cm] %              Constant
-        \draw[styleEteint] (0.1,0.7)--(0.9,0.7);
-      \end{scope}
-      \begin{scope}[yshift=2.37 cm] %              Carré NS
-        \draw[styleEteint] (0.1,0.5)--(0.1,0.9)--(0.6,0.9)--(0.6,0.1)--(0.9,0.1)--(0.9,0.5);
-      \end{scope}
-      \begin{scope}[yshift=1.24 cm] %           Triangle NS
-        \draw[styleEteint] (0.1,0.5)--(0.4,0.9)--(0.6,0.1)--(0.9,0.5);
-      \end{scope}
-      \begin{scope}[yshift=0.1 cm] %               Sinus
-        \draw[styleEteint] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
-      \end{scope}
-    \end{scope}
-
-  \end{scope}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FRÉQUENCE  ENVELOPPE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FILTRE 1
 
   \begin{scope}[xshift=1.9 cm,yshift=17.8cm, scale=0.5]
     \input{./fonction/rotatif.tex}
@@ -122,7 +171,7 @@
     \draw (-2.7,2.6) node [black]{$\Delta_1$};
   \end{scope}
   
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  MOYENNE  ET  SYMÉTRIE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FILTRE 2
 
 
   \begin{scope}[xshift=1.9 cm,yshift=13.5cm, scale=0.5]
@@ -134,40 +183,7 @@
     \draw (-2.7,2.6) node [black]{$\Delta_2$};
   \end{scope}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    PÉRIODICITÉ,  BOSSES
-
-  \begin{scope}[xshift=0.2 cm,yshift=11cm, scale=0.7]
-    \begin{scope}[xshift=3.2 cm,yshift=0cm]
-      \fill[boutonEteint] (-0.075,0) rectangle (1.075,5.8);
-      \foreach \i in {0,1.15,...,5} {\draw[boutonEteint] (-0.075,\i)--(1.075,\i);}
-      \draw[boutonEteint] (-0.075,0)--(-0.075,4.6);\draw[boutonEteint] (1.075,0)--(1.075,4.6);
-      \begin{scope}[yshift=4.7 cm] % 0
-        \draw[styleEteint] (0.1,0.3)--(0.9,0.3);
-        \draw[styleEteint] (0.5,0.3)--(0.5,0.7);
-      \end{scope}
-      \begin{scope}[yshift=3.5 cm] % 1
-        \draw[styleEteint] (0.2,0.3)--(0.2,0.7);\draw[styleEteint] (0.5,0.3)--(0.5,0.7);
-        \draw[styleEteint] (0.8,0.3)--(0.8,0.7); 
-        \draw[styleEteint] (0.1,0.3)--(0.9,0.3);
-      \end{scope}
-      \begin{scope}[xshift=0.1 cm,yshift=2.45 cm] % Gaussienne
-          \draw [styleEteint, domain=-0.4:0.4, samples=80]
-            plot (\x+0.4, {0.1+0.6*exp(-100 *\x * \x)}) ;
-      \end{scope}
-      \begin{scope}[xshift=0.1 cm,yshift=1.33 cm] % Lorentzienne
-          \draw [styleEteint, domain=-0.4:0.4, samples=80]
-            plot (\x+0.4, {0.7/(1 + 100 * \x * \x)}) ;
-      \end{scope}
-      \begin{scope}[xshift=0.1 cm,yshift=0.3 cm] % sinc
-          \draw [styleEteint, domain=-3.55:3.55, samples=80]
-            plot (0.1*\x+0.4, {(1 - \x * \x * ( 0.31) + \x * \x * \x * \x * (0.05)
-             - \x * \x * \x * \x * \x * \x * ( 0.0023)-0.4}) ;
-      \end{scope}
-    \end{scope}
-  \end{scope}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  DÉCALAGE ET AMPLITUDE
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FILTRE 3
 
   \begin{scope}[xshift=1.9 cm,yshift=9cm, scale=0.5]
     \input{./fonction/rotatif.tex}
@@ -177,50 +193,13 @@
     \input{./fonction/rotatif.tex}
     \draw (-2.7,2.6) node [black]{$\Delta_3$};
   \end{scope}
+  \begin{scope}[xshift=1.9 cm,yshift=5.4cm, scale=0.5]
+    \input{./fonction/rotatif.tex}
+    \draw (-2.7,2.6) node [black]{$\Delta f$};
+  \end{scope}
 
-
-  \begin{scope}[xshift=0.2 cm,yshift=6.5cm, scale=0.7] % Décalage verticale
-    \begin{scope}[xshift=3.2 cm]  %      Grille
-      \fill[boutonEteint] (-0.075,1.15) rectangle (1.075,3.5);
-      \draw[boutonEteint] (-0.075,2.3)--(1.075,2.3);
-          \draw[styleEteint] (0.5,2.9) node [gray]{\Large{\bf{0}}}; % Nulle
-          \draw[styleEteint] (0.5,1.7) node [gray]{\Large{\bf{1}}}; % Unité
-      \begin{scope}[xshift=2.4 cm,yshift=2.4 cm]
-      \draw (-0.075,1.15) rectangle (1.075,3.5);
-      \draw (-0.075,2.3)--(1.075,2.3);
-          \draw (0.5,2.9) node {\Large{\bf{0}}}; % Nulle
-          \draw (0.5,1.7) node {\Large{\bf{1}}}; % Unité
-      \end{scope}
-    \end{scope}
-  \end{scope}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PORTEUSE
-  %  \draw (1.7,6) node [black]{PORTEUSE};
-  \begin{scope}[xshift=0.2 cm,yshift=2.1cm, scale=0.7] % style de la porteuse
-    \begin{scope}[xshift=3.2 cm]  %      Grille
-      \fill[boutonEteint] (-0.075,0) rectangle (1.075,4.6);
-      \foreach \i in {0,1.15,...,5} {\draw[boutonEteint] (-0.075,\i)--(1.075,\i);}
-      \draw[boutonEteint] (-0.075,0)--(-0.075,4.6);\draw[boutonEteint] (1.075,0)--(1.075,4.6);
-      \begin{scope}[yshift=3.8 cm] % Constant
-          \draw[styleEteint] (0.1,0.5)--(0.9,0.5);
-      \end{scope}
-      \begin{scope}[yshift=2.4 cm] % dirac
-          \draw[styleEteint, >=latex, ->] (0.3,0.15)--(0.3,0.85);
-          \draw[styleEteint, >=latex, ->] (0.7,0.15)--(0.7,0.85);
-          \draw[styleEteint] (0.1,0.15)--(0.9,0.15);
-      \end{scope}
-      \begin{scope}[yshift=1.25 cm] % Sinus
-          \draw[styleEteint] (0.1,0.5) sin (0.3,0.9) cos (0.5,0.5) sin (0.7,0.1) cos (0.9,0.5);
-      \end{scope}
-  \begin{scope}[xshift=0.3 cm,yshift=0.15cm] % spirale
-  \draw [styleEteint, domain=0.08:0.9, samples=80]
-  plot (\x, {0.6+0.35*sin(15*\x r)}, {0.6+0.35*cos(15*\x r)}) ;
-  \end{scope}
-    \end{scope}
-  \end{scope}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FRÉQUENCE  PORTEUSE
-   % \draw (2.5,6.35) node [black]{Fréquence};
-%      Carrés gris
-  \begin{scope}[xshift=1.9 cm,yshift=4.6cm, scale=0.5]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  AMPLIFICATION
+  \begin{scope}[xshift=1.9 cm,yshift=2.8cm, scale=0.5]
     \input{./fonction/rotatif.tex}
     \draw (-2.7,2.6) node [black]{G};
   \end{scope}
