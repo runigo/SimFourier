@@ -47,6 +47,11 @@ struct TexturesT {
 	SDL_Texture *graphes;			//	Menu graphes
 	SDL_Texture *selectifGraph[SELECTIF_GRAPHES];
 
+	SDL_Texture *filtreRotatoire;			//	Menu filtrage
+	SDL_Texture *filtreSelectif;
+	SDL_Texture *selectifFiltr[SELECTIF_FILTRES];
+
+
 		//	 voyants
 	SDL_Texture *lumiereVerte;
 	SDL_Texture *lumiereRouge;
