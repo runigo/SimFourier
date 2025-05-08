@@ -69,18 +69,14 @@ termes.
 #define GRAPHES 2 // Nombres de graphes
 
 	//  NOMBRE DE COMMANDES
-#define SELECTIF_INITIAL 15	// Nombres de boutons selectifs du menu initial
-#define SELECTIF_GRAPHES 7	// Nombres de boutons selectifs des menus graphes
-#define SELECTIF_FILTRES 10	// Nombres de boutons selectifs du menu filtrage
+#define SELECTIF_INITIAL 15		// Nombres de boutons selectifs du menu initial
+#define SELECTIF_GRAPHES 7		// Nombres de boutons selectifs des menus graphes
+#define SELECTIF_FILTRES 13		// Nombres de boutons selectifs du menu filtrage
 #define ROTATIF_INITIAL 8		// Nombre de boutons rotatifs du menu initial
 #define ROTATIF_GRAPHES 1		// Nombre de boutons linéaires des menus graphes
 #define ROTATIF_FILTRES 8		// Nombre de boutons rotatifs du menu filtrage
-#define CARRE_COMMANDES 13	    // Nombres de boutons carré
-#define LINEAIRE_COMMANDES 4	// Nombres de commandes linéaires
-#define TRIANGLE_COMMANDES 21	// Nombres de commandes triangulaires
 
 	//	PARAMÈTRES DES CAPTEURS
-
 #define OBSERVABLES 4 // Nombres d'observables
 #define CAPTEURS 6 // Nombres de capteurs
 #define DUREE_CAPTEURS 128 // Nombre de points en mémoire
@@ -99,7 +95,6 @@ termes.
 #define RATIO_C_X 0.399		// Ratio Centrage X
 #define RATIO_C_Y_Q 0.263		// Ratio Centrage Y Fonction
 #define RATIO_C_Y_F 0.526		// Ratio Centrage Y Fourier
-
 
 
 
@@ -134,15 +129,15 @@ termes.
 	//	PARAMÈTRES QUANTIQUE
 
 #define MASSE_MAX 77.7	//	Masse maximale
-#define MASSE_IMP 1.0		//	Masse implicite
+#define MASSE_IMP 1.0	//	Masse implicite
 #define MASSE_MIN 0.7	//	Masse minimale
 
 #define HBAR_MAX 10.0	//	hbar maximale
-#define HBAR_IMP 1.0		//	hbar implicite
+#define HBAR_IMP 1.0	//	hbar implicite
 #define HBAR_MIN 0.01	//	hbar minimale
 
 #define DX_MAX 10.0		//	Pas spatial maximale
-#define DX_IMP 1.0			//	Pas spatial implicite
+#define DX_IMP 1.0		//	Pas spatial implicite
 #define DX_MIN 0.01		//	Pas spatial minimale
 
 

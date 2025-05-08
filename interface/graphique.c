@@ -159,6 +159,31 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 			//	Affichage du menu de la zone 6
 		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.graphes, NULL, &coordonnee);
 		}
+
+		//	Position du  menu rotatif filtrage (zone 8)
+	coordonnee.w = (*graphique).facteur * 85;
+	coordonnee.h = (*graphique).facteur * 676;
+	coordonnee.y = (*graphique).fenetreY - coordonnee.h;
+	coordonnee.x = (*graphique).fenetreX - coordonnee.w;
+
+	if(mode==0)	//	Mode initiale
+		{
+		if ((*graphique).textures.filtreRotatoire != 0)
+			{
+			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.filtreRotatoire, NULL, &coordonnee);
+			}
+		}
+
+			//	Menu selectif du filtrage
+		//	Taille et position du menu du graphe fonction (zone 4)
+	coordonnee.w = (*graphique).facteur * 563;
+	coordonnee.h = (*graphique).facteur * 42;
+	coordonnee.y = (*graphique).fenetreY / 2;
+	coordonnee.x = (*graphique).fenetreX - coordonnee.w - (*graphique).facteur * 85;
+	if ((*graphique).textures.filtreSelectif != 0)
+		{	//	Affichage du menu de la zone 6
+		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.filtreSelectif, NULL, &coordonnee);
+		}
 	return 0;
 	}
 
@@ -218,6 +243,49 @@ int graphiqueCommandesGraphes(graphiqueT * graphique, commandesT * commandes)
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y+1, x, y+1);
 		}
 */
+	return 0;
+	}
+
+int graphiqueCommandesFiltres(graphiqueT * graphique, commandesT * commandes)
+	{
+		//	Dessine les commandes du menu filtrage
+
+	SDL_Rect coordonnee = {0, 0, 35, 35};
+		//	Position et taille des boutons selectifs
+	coordonnee.w = (*commandes).selectifsDroite-(*commandes).selectifsGauche;
+	coordonnee.h = coordonnee.w;
+	coordonnee.y = (*commandes).selectifsFonction + (*graphique).fenetreY / 2;
+	coordonnee.x = 0;
+
+		//	Dessine les petits boutons sélectionés
+	int i;
+	for(i=0;i<SELECTIF_FILTRES;i++)
+		{
+		if((*commandes).selectifFiltr[i].etat==1)
+			{
+			coordonnee.x = (*commandes).selectifFiltr[i].X; // Position x du bouton
+			if ((*graphique).textures.selectifFiltr[i] != 0)
+				{
+				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifFiltr[i], NULL, &coordonnee);
+				}
+			}
+		}
+
+		//	Dessine les aiguilles des boutons rotatifs
+	int X, Y, x, y;
+	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
+	X = (*commandes).rotatifsDroite;
+	for(i=0;i<ROTATIF_FILTRES;i++)
+		{
+		Y = (*commandes).rotatifFiltr[i].Y + (*commandes).rotatifFiltr[i].dY;
+		x = X + (*commandes).rotatifFiltr[i].positionX;
+		y = Y + (*commandes).rotatifFiltr[i].positionY;
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);
+		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y+1, x, y+1);
+		}
+
 	return 0;
 	}
 

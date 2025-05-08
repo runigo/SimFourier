@@ -1,11 +1,11 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright mai 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.3 Transformation de Fourier
+SimFourier 1.4 Transformation de Fourier
 (d'après SiCP 2.3 simulateur de chaîne de pendules, mai 2018)
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+Ce logiciel est un programme informatique permettant de donner une représentation
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -53,6 +53,8 @@ typedef struct CommandesT commandesT;
 		selectifT selectifInitial[SELECTIF_INITIAL];	//	Sélectifs du menu initial
 		rotatifT rotatifGraph[2][ROTATIF_GRAPHES];		//	Linéaires des menus graphes
 		selectifT selectifGraph[2][SELECTIF_GRAPHES];	//	Sélectifs des menus graphes
+		rotatifT rotatifFiltr[ROTATIF_FILTRES];		//	Rotatifs du menu filtrage
+		selectifT selectifFiltr[SELECTIF_FILTRES];	//	Sélectifs du menu filtrage
 
 			// Zones suivant X des commandes des menus verticaux (initial et simulation)
 		int rotatifsGauche;
@@ -65,7 +67,7 @@ typedef struct CommandesT commandesT;
 
 			// Zones suivant X des fonctions (zones 4, 5, 6, 7)
 		int fonctionsGauche;
-		int fonctionsDroite;
+		int fonctionsDroite;	//	Début de la zone 8
 
 			// Zones suivant Y des fonctions
 		int fonctionHaut;	//	limite zone 4 zone 5
@@ -95,7 +97,7 @@ int commandeSelectifsInitiale(commandesT * commandes);
 int commandeRotatifsInitiale(commandesT * commandes);
 int commandeSelectifsGraphes(commandesT * commandes);
 int commandeRotatifsGraphes(commandesT * commandes);
-int commandeTriangles(commandesT * commandes);
-int commandeLineaires(commandesT * commandes);
+int commandeSelectifsFiltres(commandesT * commandes);
+int commandeRotatifsFiltres(commandesT * commandes);
 
 #endif

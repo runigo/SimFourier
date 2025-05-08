@@ -38,6 +38,8 @@ int commandesAjusteRotatifsInitiale(commandesT * commandes, float facteur);
 int commandesAjusteSelectifsInitiale(commandesT * commandes, float facteur);
 int commandesAjusteRotatifsGraphes(commandesT * commandes, float facteur);
 int commandesAjusteSelectifsGraphes(commandesT * commandes, float facteur);
+int commandesAjusteRotatifsFiltres(commandesT * commandes, float facteur);
+int commandesAjusteSelectifsFiltres(commandesT * commandes, float facteur);
 //int commandesInitialise(commandesT * commandes, float facteur);
 
 int commandesAjusteCommandes(commandesT * commandes, int fenetreX, int fenetreY)
@@ -50,15 +52,19 @@ int commandesAjusteCommandes(commandesT * commandes, int fenetreX, int fenetreY)
 	commandesAjusteSelectifsInitiale(commandes, facteur);
 	commandesAjusteRotatifsGraphes(commandes, facteur);
 	commandesAjusteSelectifsGraphes(commandes, facteur);
+	commandesAjusteRotatifsFiltres(commandes, facteur);
+	commandesAjusteSelectifsFiltres(commandes, facteur);
 
 	return 0;
 	}
 
 float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	{
-				//	Positions des zones
+				//	Calcul de facteur et positions des zones
 
-	float facteur = 1.0;
+	(void)fenetreX;
+
+	float facteur = 1.0;	//	Facteur lié à la taille de la fenêtre
 	if(fenetreY < MENUS_Y)
 		{
 		facteur = (float)fenetreY / MENUS_Y;
@@ -69,7 +75,7 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 
 		// Zones suivant X des fonctions (zones 4, 5, 6, 7)
 	(*commandes).fonctionsGauche = facteur * 145;
-	(*commandes).fonctionsDroite = fenetreX - facteur * 100;
+	(*commandes).fonctionsDroite = fenetreX - facteur * 85;	//	Début de la zone 8
 
 		// Zones suivant Y des fonctions
 	(*commandes).selectifsFonction = facteur * 10;	//	position y des selectifs
@@ -175,30 +181,69 @@ int commandesAjusteSelectifsGraphes(commandesT * commandes, float facteur)
 	return 0;
 	}
 
+int commandesAjusteRotatifsFiltres(commandesT * commandes, float facteur)
+	{
+				//	Positions des boutons rotatifs du menu filtrage
+	int i;
+	for(i=0;i<ROTATIF_FILTRES;i++)
+		{
+		rotatifInitialise(&(*commandes).rotatifFiltr[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
+		}
+	(*commandes).rotatifFiltr[0].Y = facteur * 102; 	//	Fréquence 1
+	(*commandes).rotatifFiltr[1].Y = facteur * 167;	//	Ordre 1
+	(*commandes).rotatifFiltr[2].Y = facteur * 258;	//	Fréquence 2
+	(*commandes).rotatifFiltr[3].Y = facteur * 324;	//	Ordre 2
+	(*commandes).rotatifFiltr[4].Y = facteur * 422;	//	Fréquence 3
+	(*commandes).rotatifFiltr[5].Y = facteur * 487;	//	Ordre 3
+	(*commandes).rotatifFiltr[6].Y = facteur * 554;	//	Delta f
+	(*commandes).rotatifFiltr[7].Y = facteur * 647;	//	Amplification
+
+	return 0;
+	}
+
+int commandesAjusteSelectifsFiltres(commandesT * commandes, float facteur)
+	{
+				//	Positions des boutons selectifs du menu filtres
+	int i;
+
+	for(i=0;i<SELECTIF_FILTRES;i++)
+		{
+		selectifInitialise(&(*commandes).selectifFiltr[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
+		}
+				// BOUTONS SELECTIFS SUIVANT X
+	(*commandes).selectifFiltr[0].X = facteur * 626;  		//	Passe bas éteint
+	(*commandes).selectifFiltr[1].X = facteur * 652;		//	Passe bas
+	(*commandes).selectifFiltr[2].X = facteur * 682;		//	Passe bas droite
+	(*commandes).selectifFiltr[3].X = facteur * 713;		//	Passe bas gauche
+	(*commandes).selectifFiltr[4].X = facteur * 790;		//	Passe haut éteint
+	(*commandes).selectifFiltr[5].X = facteur * 815;		//	Passe haut
+	(*commandes).selectifFiltr[6].X = facteur * 846;		//	Passe haut gauche
+	(*commandes).selectifFiltr[7].X = facteur * 876;  		//	Passe haut droite
+	(*commandes).selectifFiltr[8].X = facteur * 954;		//	Passe bande éteint
+	(*commandes).selectifFiltr[9].X = facteur * 976;		//	Passe bande
+	(*commandes).selectifFiltr[10].X = facteur * 1010;		//	Passe bande gauche
+	(*commandes).selectifFiltr[11].X = facteur * 1040;		//	Passe bande droite
+	(*commandes).selectifFiltr[12].X = facteur * 1071;		//	Passe bande inverse
+
+	return 0;
+	}
+
 int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY)
 	{
 		 // Rayon des petits boutons
 	int rayonX=(*commandes).selectifsDroite-(*commandes).selectifsGauche;
 	int rayonY=rayonX;
 
-	if(sourisX<(*commandes).rotatifsDroite)
-		{
+	if(sourisX<(*commandes).rotatifsDroite || sourisX>(*commandes).fonctionsDroite)
+		{	//	Zones des boutons rotatifs
 		rayonX=(*commandes).rotatifsDroite-(*commandes).rotatifsGauche;
 		rayonY=rayonX;
 		}
-/*	else 
-		{
-		if(sourisY>(*commandes).bas) // Zone du bas
-			{
-			rayonX=(*commandes).triangleX;
-			rayonY=(*commandes).triangleY;
-			}
-		}
-*/
-		// POSITION DE LA SOURIS
+
+		//	Position de la souris
 	(*commandes).sourisX = sourisX; // position X de la souris
 	(*commandes).sourisY = sourisY; // position Y de la souris
-
+		//	"Région d'action" de la souris
 	(*commandes).sourisGauche = sourisX-rayonX; // position X de la souris - RayonBoutonX
 	(*commandes).sourisDroite = sourisX+rayonX; // position X de la souris + RayonBoutonX
 	(*commandes).sourisHaut = sourisY-rayonY; // position Y de la souris - RayonBoutonY
@@ -292,6 +337,7 @@ int commandeRotatifsInitiale(commandesT * commandes)
 		}
 	return -1;
 	}
+
 int commandeSelectifsGraphes(commandesT * commandes)
 	{
 			// Retourne le numéro du boutons sélectif des menus graphes
@@ -323,6 +369,40 @@ int commandeRotatifsGraphes(commandesT * commandes)
 		}
 	return -1;
 	}
+
+int commandeSelectifsFiltres(commandesT * commandes)
+	{
+			// Retourne le numéro du boutons sélectif du menu filtrage
+	int i;
+		{
+		for(i=0;i<SELECTIF_FILTRES;i++)
+			{
+			//	Si dans la zone suivant X
+			if((*commandes).selectifFiltr[i].X>(*commandes).sourisGauche
+				&& ((*commandes).selectifFiltr[i].X+(*commandes).selectifFiltr[i].dX)<(*commandes).sourisDroite)
+				return i;
+			}
+		}
+	return -1;
+	}
+
+int commandeRotatifsFiltres(commandesT * commandes)
+	{
+			// Retourne le numéro du boutons rotatif du menu filtrage
+	int i;
+		{
+		for(i=0;i<ROTATIF_FILTRES;i++)
+			{
+			//	Si dans la zone suivant Y
+			if((*commandes).rotatifFiltr[i].Y>(*commandes).sourisHaut
+				&& ((*commandes).rotatifFiltr[i].Y+(*commandes).rotatifFiltr[i].dY)<(*commandes).sourisBas)
+				return i;
+			}
+		}
+	return -1;
+	}
+
+
 /*
 int commandesSourisZone(commandesT * commandes)
 	{
