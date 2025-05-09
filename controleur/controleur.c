@@ -187,13 +187,40 @@ int controleurConstructionGraphique(controleurT * controleur)
 	        //  Construction du graphisme
 
 		//fprintf(stderr, "Nettoyage de l'affichage\n");
-	graphiqueNettoyage(&(*controleur).graphique);
+	//graphiqueNettoyage(&(*controleur).graphique);
 
 		//fprintf(stderr, "Dessin des graphes\n");
-	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fonction);
-	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fourier);
-	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fct);
+	SDL_Rect rectangle;
+	rectangle.x = (*controleur).graphique.fenetreX/2;
+	rectangle.y = (*controleur).graphique.fenetreY/2;
+	rectangle.w = (*controleur).graphique.fenetreX/2;
+	rectangle.h = (*controleur).graphique.fenetreY/2;
+
+	SDL_SetRenderDrawColor((*controleur).graphique.affichage.rendu, (*controleur).graphique.affichage.fond.r,  (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g);
+
+	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
 	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fou);
+
+	rectangle.x = 0;
+
+	SDL_SetRenderDrawColor((*controleur).graphique.affichage.rendu, (*controleur).graphique.affichage.fond.r,  (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g);
+
+	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fourier);
+
+	rectangle.x = (*controleur).graphique.fenetreX/2;
+	rectangle.y = 0;
+
+	SDL_SetRenderDrawColor((*controleur).graphique.affichage.rendu, (*controleur).graphique.affichage.fond.r,  (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g);
+
+	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fct);
+
+	rectangle.x = 0;
+	SDL_SetRenderDrawColor((*controleur).graphique.affichage.rendu, (*controleur).graphique.affichage.fond.r,  (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g);
+
+	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fonction);
 
 		//fprintf(stderr, "Dessin des Commandes\n");
 	graphiqueCommandes(&(*controleur).graphique, &(*controleur).projection.commandes, (*controleur).options.mode);
