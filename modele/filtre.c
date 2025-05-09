@@ -32,6 +32,18 @@ termes.
 
 #include "filtre.h"
 
+int filtreVariationFrequence(filtreT * filtre, int variation);
+int filtreVariationOrdre(filtreT * filtre, int variation);
+int filtreVariationDeltaF(filtreT * filtre, int variation);
+int filtreVariationSymetrie(filtreT * filtre, int variation);
+int filtreVariationMode(filtreT * filtre, int variation);
+int filtreRegleFrequence(filtreT * filtre, int pourMille);
+int filtreRegleOrdre(filtreT * filtre, int pourMille);
+int filtreRegleDeltaF(filtreT * filtre, int pourMille);
+int filtreRegleSymetrie(filtreT * filtre, int pourMille);
+int filtreRegleMode(filtreT * filtre, int pourMille);
+
+
 int filtreInitialise(filtreT * filtre, int nombre)
 	{
 			//	Initialisation du filtre
@@ -39,13 +51,10 @@ int filtreInitialise(filtreT * filtre, int nombre)
 		//	Nombre de point
 	(*filtre).nombre = nombre;
 
-		//	Fréquence implicite
 	(*filtre).frequence = nombre / 4;
-
-		//	Largeur implicite
-	(*filtre).largeur = nombre / 16;
-
-		//	mode symétrie implicite
+	(*filtre).ordre = nombre / 16;
+	(*filtre).deltaF = nombre / 16;	//	Ecart de fréquence (passe bande)
+	(*filtre).symetrie = 1;
 	(*filtre).mode = 1;
 
 	filtreUniforme(filtre);
@@ -111,12 +120,227 @@ int filtrePasseBande(filtreT * filtre)
 
 int filtreChangeParametre(filtreT * filtre, int parametre, int variation, int pourMille)
 	{
-	(void) filtre;
-	(void)parametre;
-	(void)variation;
-	(void)pourMille;
+	if(variation==0)	//	Règle le paramètre à pourMille
+		{
+		switch (parametre)
+			{
+			case 1:	//	Fréquence
+				filtreRegleFrequence(filtre, pourMille);break;
+			case 2:	//	Ordre
+				filtreRegleOrdre(filtre, pourMille);break;
+			case 3:	//	Delta fréquence
+				filtreRegleDeltaF(filtre, pourMille);break;
+			case 4:	//	Symétrie
+				filtreRegleSymetrie(filtre, pourMille);break;
+			case 5:	//	Mode
+				filtreRegleMode(filtre, pourMille);break;
+			default:
+				fprintf(stderr, "ERREUR : filtreChangeParametre");
+			}
+		}
+	else				//	Variation du paramètre
+		{
+		switch (parametre)
+			{
+			case 1:	//	Fréquence
+				filtreVariationFrequence(filtre, variation);break;
+			case 2:	//	Ordre
+				filtreVariationOrdre(filtre, variation);break;
+			case 3:	//	Delta fréquence
+				filtreVariationDeltaF(filtre, variation);break;
+			case 4:	//	Symétrie
+				filtreVariationSymetrie(filtre, variation);break;
+			case 5:	//	Mode
+				filtreVariationMode(filtre, variation);break;
+			default:
+				fprintf(stderr, "ERREUR : filtreChangeParametre");
+			}
+		}
+
 	return 0;
 	}
+
+
+int filtreVariationFrequence(filtreT * filtre, int variation)
+	{
+	int frequence = (*filtre).frequence + variation;
+	if(frequence>(*filtre).nombre)
+		{
+		printf("Fréquence filtre maximal atteint\n");
+		}
+	else
+		{
+		if(frequence<(*filtre).nombre)
+			{
+			printf("Fréquence filtre minimal atteint\n");
+			}
+		else
+			{
+			(*filtre).frequence = frequence;
+			printf("Fréquence filtre = %d \n", (*filtre).frequence);
+			}
+		}
+	return 0;
+	}
+
+int filtreVariationOrdre(filtreT * filtre, int variation)
+	{
+	int ordre = (*filtre).ordre + variation;
+	if(ordre>(*filtre).nombre)
+		{
+		printf("Ordre filtre maximal atteint\n");
+		}
+	else
+		{
+		if(ordre<0)
+			{
+			printf("Ordre filtre minimal atteint\n");
+			}
+		else
+			{
+			(*filtre).ordre = ordre;
+			printf("Ordre filtre = %d \n", (*filtre).ordre);
+			}
+		}
+	return 0;
+	}
+
+int filtreVariationDeltaF(filtreT * filtre, int variation)
+	{
+	int deltaF = (*filtre).deltaF + variation;
+	if(deltaF>(*filtre).nombre)
+		{
+		printf("Delta fréquence filtre maximal atteint\n");
+		}
+	else
+		{
+		if(deltaF<0)
+			{
+			printf("Delta fréquence filtre minimal atteint\n");
+			}
+		else
+			{
+			(*filtre).deltaF = deltaF;
+			printf("Delta fréquence filtre = %d \n", (*filtre).deltaF);
+			}
+		}
+	return 0;
+	}
+
+int filtreVariationSymetrie(filtreT * filtre, int variation)
+	{
+	(void)filtre;
+	(void)variation;
+	fprintf(stderr,"ERREUR : filtreVariationSymetrie");
+	return 0;
+	}
+
+int filtreVariationMode(filtreT * filtre, int variation)
+	{
+	(void)filtre;
+	(void)variation;
+	fprintf(stderr,"ERREUR : filtreVariationMode");
+	return 0;
+	}
+
+int filtreRegleFrequence(filtreT * filtre, int pourMille)
+	{
+	int frequence = pourMille * (*filtre).nombre / 1000;
+	if(frequence>(*filtre).nombre)
+		{
+		printf("Fréquence filtre maximal atteint\n");
+		}
+	else
+		{
+		if(frequence<0)
+			{
+			printf("Fréquence filtre minimal atteint\n");
+			}
+		else
+			{
+			(*filtre).frequence = frequence;
+			printf("Fréquence filtre = %d \n", (*filtre).frequence);
+			}
+		}
+	return 0;
+	}
+
+int filtreRegleOrdre(filtreT * filtre, int pourMille)
+	{
+	int ordre = pourMille * (*filtre).nombre / 1000;
+	if(ordre>(*filtre).nombre)
+		{
+		printf("Ordre filtre maximal atteint\n");
+		}
+	else
+		{
+		if(ordre<0)
+			{
+			printf("Ordre filtre minimal atteint\n");
+			}
+		else
+			{
+			(*filtre).ordre = ordre;
+			printf("Ordre filtre = %d \n", (*filtre).ordre);
+			}
+		}
+	return 0;
+	}
+
+int filtreRegleDeltaF(filtreT * filtre, int pourMille)
+	{
+	int deltaF = pourMille * (*filtre).nombre / 1000;
+	if(deltaF>(*filtre).nombre)
+		{
+		printf("Delta fréquence filtre maximal atteint\n");
+		}
+	else
+		{
+		if(deltaF<0)
+			{
+			printf("Delta fréquence filtre minimal atteint\n");
+			}
+		else
+			{
+			(*filtre).deltaF = deltaF;
+			printf("Delta fréquence filtre = %d \n", (*filtre).deltaF);
+			}
+		}
+	return 0;
+	}
+
+int filtreRegleSymetrie(filtreT * filtre, int pourMille)
+	{
+	switch (pourMille)
+		{
+		case 1:		//	Droite
+			(*filtre).symetrie = 1;break;
+		case 0:		//	Symétrique
+			(*filtre).symetrie = 0;break;
+		case -1:	//	Gauche
+			(*filtre).symetrie = -1;break;
+		default:
+			fprintf(stderr, "ERREUR : filtreRegleSymetrie");
+		}
+	return 0;
+	}
+
+int filtreRegleMode(filtreT * filtre, int pourMille)
+	{
+	switch (pourMille)
+		{
+		case 1:		//	Allumé
+			(*filtre).mode = 1;break;
+		case 0:		//	Éteint
+			(*filtre).mode = 0;break;
+		case -1:	//	Inverse
+			(*filtre).mode = -1;break;
+		default:
+			fprintf(stderr, "ERREUR : filtreRegleMode");
+		}
+	return 0;
+	}
+
 
 int filtreAffiche(filtreT * filtre)
 	{
