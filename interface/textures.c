@@ -57,7 +57,7 @@ int texturesNULL(texturesT * textures)
 
 	for(i=0;i<SELECTIF_FILTRES;i++)
 		{
-		(*textures).selectifFiltr[i] = NULL;
+		(*textures).selectifFiltrag[i] = NULL;
 		}
 
 	(*textures).simulation = NULL;
@@ -377,9 +377,9 @@ int texturesSelectifsFiltres(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/passeBas.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifFiltr[1] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifFiltrag[1] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifFiltr[1] == 0)
+	if ((*textures).selectifFiltrag[1] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -389,9 +389,9 @@ int texturesSelectifsFiltres(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/passeBasDroite.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifFiltr[2] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifFiltrag[2] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifFiltr[2] == 0)
+	if ((*textures).selectifFiltrag[2] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -401,9 +401,9 @@ int texturesSelectifsFiltres(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/passeBasGauche.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifFiltr[3] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifFiltrag[3] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifFiltr[3] == 0)
+	if ((*textures).selectifFiltrag[3] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -413,9 +413,9 @@ int texturesSelectifsFiltres(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/passeHaut.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifFiltr[5] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifFiltrag[5] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifFiltr[5] == 0)
+	if ((*textures).selectifFiltrag[5] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -425,9 +425,9 @@ int texturesSelectifsFiltres(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/passeHautGauche.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifFiltr[6] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifFiltrag[6] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifFiltr[6] == 0)
+	if ((*textures).selectifFiltrag[6] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -437,9 +437,9 @@ int texturesSelectifsFiltres(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/passeHautDroite.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifFiltr[7] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifFiltrag[7] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifFiltr[7] == 0)
+	if ((*textures).selectifFiltrag[7] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -449,9 +449,9 @@ int texturesSelectifsFiltres(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/passeBande.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifFiltr[9] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifFiltrag[9] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifFiltr[9] == 0)
+	if ((*textures).selectifFiltrag[9] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -461,9 +461,9 @@ int texturesSelectifsFiltres(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/passeBandeGauche.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifFiltr[10] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifFiltrag[10] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifFiltr[10] == 0)
+	if ((*textures).selectifFiltrag[10] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -473,9 +473,9 @@ int texturesSelectifsFiltres(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/passeBandeDroite.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifFiltr[11] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifFiltrag[11] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifFiltr[11] == 0)
+	if ((*textures).selectifFiltrag[11] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -485,9 +485,9 @@ int texturesSelectifsFiltres(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"Erreur chargement image ./image/inverse.bmp : %s\n",SDL_GetError());
 		}
-	(*textures).selectifFiltr[12] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
+	(*textures).selectifFiltrag[12] = SDL_CreateTextureFromSurface((*affichage).rendu, image);
 	SDL_FreeSurface(image);
-	if ((*textures).selectifFiltr[12] == 0)
+	if ((*textures).selectifFiltrag[12] == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
@@ -536,10 +536,10 @@ int texturesMenus(texturesT * textures, affichageT * affichage)
 		fprintf(stderr,"ERREUR grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
 
-	panneau = SDL_LoadBMP("./image/filtreRotatoire.bmp");
+	panneau = SDL_LoadBMP("./image/filtrageRotatoire.bmp");
 	if (!panneau)
 		{
-		fprintf(stderr,"ERREUR chargement image, ./image/filtreRotatoire.bmp : %s\n",SDL_GetError());
+		fprintf(stderr,"ERREUR chargement image, ./image/filtrageRotatoire.bmp : %s\n",SDL_GetError());
 		}
 	(*textures).filtreRotatoire = SDL_CreateTextureFromSurface((*affichage).rendu, panneau);
 	SDL_FreeSurface(panneau);
@@ -548,10 +548,10 @@ int texturesMenus(texturesT * textures, affichageT * affichage)
 		fprintf(stderr,"ERREUR grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
 
-	panneau = SDL_LoadBMP("./image/filtreSelectif.bmp");
+	panneau = SDL_LoadBMP("./image/filtrageSelectif.bmp");
 	if (!panneau)
 		{
-		fprintf(stderr,"ERREUR chargement image, ./image/filtreSelectif.bmp : %s\n",SDL_GetError());
+		fprintf(stderr,"ERREUR chargement image, ./image/filtrageSelectif.bmp : %s\n",SDL_GetError());
 		}
 	(*textures).filtreSelectif = SDL_CreateTextureFromSurface((*affichage).rendu, panneau);
 	SDL_FreeSurface(panneau);

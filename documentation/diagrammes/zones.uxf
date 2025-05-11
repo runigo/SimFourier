@@ -50,7 +50,7 @@
     <coordinates>
       <x>200</x>
       <y>220</y>
-      <w>430</w>
+      <w>160</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>6</panel_attributes>
@@ -109,6 +109,17 @@
       <h>350</h>
     </coordinates>
     <panel_attributes>8</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>370</x>
+      <y>220</y>
+      <w>260</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>9</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

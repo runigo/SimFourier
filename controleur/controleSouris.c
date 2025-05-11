@@ -359,6 +359,62 @@ int controleSourisMoletteRotatifsGraphe(controleurT * controleur, int TF)
 	int commande = commandeRotatifsGraphes(&(*controleur).projection.commandes);
 	printf("controleSourisMoletteRotatifsGraphe %d\n", TF);
 
+	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
+		{
+		switch(commande)
+			{
+			case 0:	//	Fréquence 1
+				modeleChangeFiltrage(&(*controleur).modele, 1, 1, 1, 0);break;
+			case 1:	//	Ordre 1
+				modeleChangeFiltrage(&(*controleur).modele, 1, 2, 1, 0);break;
+			case 2:	//	Fréquence 2
+				modeleChangeFiltrage(&(*controleur).modele, 2, 1, 1, 0);break;
+			case 3:	//	Ordre 2
+				modeleChangeFiltrage(&(*controleur).modele, 2, 2, 1, 0);break;
+			case 4:	//	Fréquence 3
+				modeleChangeFiltrage(&(*controleur).modele, 3, 1, 1, 0);break;
+			case 5:	//	Ordre 3
+				modeleChangeFiltrage(&(*controleur).modele, 3, 2, 1, 0);break;
+			case 6:	//	Delta f 3
+				modeleChangeFiltrage(&(*controleur).modele, 3, 3, 1, 0);break;
+			case 7:	//	Amplification
+				modeleChangeFiltrage(&(*controleur).modele, 0, 2, 1, 0);break;
+			default:
+				;
+			}
+		}
+	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
+		{
+		switch(commande)	
+			{
+			case 0:	//	Fréquence 1
+				modeleChangeFiltrage(&(*controleur).modele, 1, 1, -1, 0);break;
+			case 1:	//	Ordre 1
+				modeleChangeFiltrage(&(*controleur).modele, 1, 2, -1, 0);break;
+			case 2:	//	Fréquence 2
+				modeleChangeFiltrage(&(*controleur).modele, 2, 1, -1, 0);break;
+			case 3:	//	Ordre 2
+				modeleChangeFiltrage(&(*controleur).modele, 2, 2, -1, 0);break;
+			case 4:	//	Fréquence 3
+				modeleChangeFiltrage(&(*controleur).modele, 3, 1, -1, 0);break;
+			case 5:	//	Ordre 3
+				modeleChangeFiltrage(&(*controleur).modele, 3, 2, -1, 0);break;
+			case 6:	//	Delta f 3
+				modeleChangeFiltrage(&(*controleur).modele, 3, 3, -1, 0);break;
+			case 7:	//	Amplification
+				modeleChangeFiltrage(&(*controleur).modele, 0, 2, -1, 0);break;
+			default:
+				;
+			}
+		}
+	return 0;
+	}
+
+int controleSourisMoletteRotatifsFiltre(controleurT * controleur, int TF)
+	{
+	int commande = commandeRotatifsFiltres(&(*controleur).projection.commandes);
+	printf("controleSourisMoletteRotatifsFiltres %d\n", TF);
+
 	if(commande == 0)
 		{	
 		if(TF == 1)	//	Rotatif du graphe de la TF

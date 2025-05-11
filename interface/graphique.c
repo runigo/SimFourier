@@ -175,13 +175,13 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 		}
 
 			//	Menu selectif du filtrage
-		//	Taille et position du menu du graphe fonction (zone 4)
+		//	Taille et position des sélectif du filtrage (zone 9)
 	coordonnee.w = (*graphique).facteur * 563;
 	coordonnee.h = (*graphique).facteur * 42;
 	coordonnee.y = (*graphique).fenetreY / 2;
 	coordonnee.x = (*graphique).fenetreX - coordonnee.w - (*graphique).facteur * 85;
 	if ((*graphique).textures.filtreSelectif != 0)
-		{	//	Affichage du menu de la zone 6
+		{	//	Affichage du menu de la zone 9
 		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.filtreSelectif, NULL, &coordonnee);
 		}
 	return 0;
@@ -261,12 +261,12 @@ int graphiqueCommandesFiltres(graphiqueT * graphique, commandesT * commandes)
 	int i;
 	for(i=0;i<SELECTIF_FILTRES;i++)
 		{
-		if((*commandes).selectifFiltr[i].etat==1)
+		if((*commandes).selectifFiltrag[i].etat==1)
 			{
-			coordonnee.x = (*commandes).selectifFiltr[i].X; // Position x du bouton
-			if ((*graphique).textures.selectifFiltr[i] != 0)
+			coordonnee.x = (*commandes).selectifFiltrag[i].X; // Position x du bouton
+			if ((*graphique).textures.selectifFiltrag[i] != 0)
 				{
-				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifFiltr[i], NULL, &coordonnee);
+				SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.selectifFiltrag[i], NULL, &coordonnee);
 				}
 			}
 		}
@@ -277,9 +277,9 @@ int graphiqueCommandesFiltres(graphiqueT * graphique, commandesT * commandes)
 	X = (*commandes).rotatifsDroite;
 	for(i=0;i<ROTATIF_FILTRES;i++)
 		{
-		Y = (*commandes).rotatifFiltr[i].Y + (*commandes).rotatifFiltr[i].dY;
-		x = X + (*commandes).rotatifFiltr[i].positionX;
-		y = Y + (*commandes).rotatifFiltr[i].positionY;
+		Y = (*commandes).rotatifFiltrag[i].Y + (*commandes).rotatifFiltrag[i].dY;
+		x = X + (*commandes).rotatifFiltrag[i].positionX;
+		y = Y + (*commandes).rotatifFiltrag[i].positionY;
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
 		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);

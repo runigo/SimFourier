@@ -53,8 +53,8 @@ typedef struct CommandesT commandesT;
 		selectifT selectifInitial[SELECTIF_INITIAL];	//	Sélectifs du menu initial
 		rotatifT rotatifGraph[2][ROTATIF_GRAPHES];		//	Linéaires des menus graphes
 		selectifT selectifGraph[2][SELECTIF_GRAPHES];	//	Sélectifs des menus graphes
-		rotatifT rotatifFiltr[ROTATIF_FILTRES];		//	Rotatifs du menu filtrage
-		selectifT selectifFiltr[SELECTIF_FILTRES];	//	Sélectifs du menu filtrage
+		rotatifT rotatifFiltrag[ROTATIF_FILTRES];		//	Rotatifs du menu filtrage
+		selectifT selectifFiltrag[SELECTIF_FILTRES];	//	Sélectifs du menu filtrage
 
 			// Zones suivant X des commandes des menus verticaux (initial et simulation)
 		int rotatifsGauche;
@@ -68,6 +68,7 @@ typedef struct CommandesT commandesT;
 			// Zones suivant X des fonctions (zones 4, 5, 6, 7)
 		int fonctionsGauche;
 		int fonctionsDroite;	//	Début de la zone 8
+		int filtrageGauche;	//	Début de la zone 9
 
 			// Zones suivant Y des fonctions
 		int fonctionHaut;	//	limite zone 4 zone 5

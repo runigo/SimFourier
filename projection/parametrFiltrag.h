@@ -2,10 +2,11 @@
 Copyright mai 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
-(d'après SimFoule 2.2  simulateur de foule, décembre 2019)
 Ce logiciel est un programme informatique permettant de donner une représentation
 graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
 d'un filtrage.
+Ce logiciel est un programme informatique servant à donner une représentation
+graphique de la transformation de Fourier à 1 dimension.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -31,37 +32,32 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _TEXTURES_
-#define _TEXTURES_
+#ifndef _PARAMETRFILTRAG_
+#define _PARAMETRFILTRAG_
 
-#include "affichage.h"
+#include "../modele/modele.h"
+#include "commandes.h"
 
-struct TexturesT {
+			//		Projections des parametres du filtrage
+			//		sur les commandes
 
-	SDL_Texture *simulation;			//	Menu simulation
-	SDL_Texture *mobile;
+typedef struct ParametrFiltragT parametrFiltragT;
+	struct ParametrFiltragT
+		{
+			// facteurs entre les grandeurs et la position des boutons rotatifs
+		float radianFrequence;
+		float radianOrdre;
+		float radianDeltaF;
+		float radianAmplification;
+		};
 
-	SDL_Texture *initiale;			//	Menu initiale
-	SDL_Texture *selectifInitial[SELECTIF_INITIAL];
+	//-----------------    INITIALISATION      -----------------------//
+int parametrFiltragInitialise(parametrFiltragT * parametre, int nombre);
 
-	SDL_Texture *graphes;			//	Menu graphes
-	SDL_Texture *selectifGraph[SELECTIF_GRAPHES];
+	//-----------------    PROJECTION      -----------------------//
+int parametrFiltragCommandes(filtrageT * filtrage, parametrFiltragT * parametre, commandesT * commandes);
 
-	SDL_Texture *filtreRotatoire;			//	Menu filtrage
-	SDL_Texture *filtreSelectif;
-	SDL_Texture *selectifFiltrag[SELECTIF_FILTRES];
-
-
-		//	 voyants
-	SDL_Texture *lumiereVerte;
-	SDL_Texture *lumiereRouge;
-	SDL_Texture *lumiereOrange;
-	SDL_Texture *lumiereJaune;
-
-};
-typedef struct TexturesT texturesT;
-
-int texturesInitialisation(texturesT * textures, affichageT * affichage);
+	//-----------------    AFFICHAGE      -----------------------//
+int parametrFiltragAffiche(parametrFiltragT * parametre);
 
 #endif
-/////////////////////////////////////////////////////////////////

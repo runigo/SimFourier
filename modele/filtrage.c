@@ -34,6 +34,8 @@ termes.
 
 int filtrageProjectionFouFct(filtrageT * filtrage);
 
+int filtrageChangeAmplification(filtrageT * filtrage, int variation, int pourMille);
+
 /*----------------  INITIALISATION  -------------------*/
 
 int filtrageInitialisation(filtrageT * filtrage, int nombre)
@@ -115,6 +117,8 @@ int filtrageChangeParametre(filtrageT * filtrage, int fonction, int parametre, i
 
 	switch (fonction)
 		{
+		case 0:	//	Amplification du filtrage
+			filtrageChangeAmplification(filtrage, variation, pourMille);break;
 		case 1:	//	Passe bas
 			filtreChangeParametre(&(*filtrage).passeBas, parametre, variation, pourMille);break;
 		case 2:	//	Passe haut
@@ -122,13 +126,22 @@ int filtrageChangeParametre(filtrageT * filtrage, int fonction, int parametre, i
 		case 3:	//	Passe bande
 			filtreChangeParametre(&(*filtrage).passeBande, parametre, variation, pourMille);break;
 		default:
-			printf("ERREUR filtrageChangeParametre fonction = %d", fonction);
+			printf("ERREUR filtrageChangeParametre fonction = %d\n", fonction);
 		}
 
 	//printf("(*filtrage). = %6.3f\n", (*filtrage).);
 
 	//printf("(*filtrage). = %d", (*filtrage).);
 
+	return 0;
+	}
+
+int filtrageChangeAmplification(filtrageT * filtrage, int variation, int pourMille)
+	{
+	(void)filtrage;
+	(void)variation;
+	(void)pourMille;
+			printf("ERREUR filtrageChangeAmplification\n");
 	return 0;
 	}
 

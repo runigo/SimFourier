@@ -76,6 +76,7 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 		// Zones suivant X des fonctions (zones 4, 5, 6, 7)
 	(*commandes).fonctionsGauche = facteur * 145;
 	(*commandes).fonctionsDroite = fenetreX - facteur * 85;	//	Début de la zone 8
+	(*commandes).filtrageGauche = fenetreX - facteur * 648;	//	Début de la zone 9
 
 		// Zones suivant Y des fonctions
 	(*commandes).selectifsFonction = facteur * 10;	//	position y des selectifs
@@ -187,16 +188,16 @@ int commandesAjusteRotatifsFiltres(commandesT * commandes, float facteur)
 	int i;
 	for(i=0;i<ROTATIF_FILTRES;i++)
 		{
-		rotatifInitialise(&(*commandes).rotatifFiltr[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
+		rotatifInitialise(&(*commandes).rotatifFiltrag[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
 		}
-	(*commandes).rotatifFiltr[0].Y = facteur * 102; 	//	Fréquence 1
-	(*commandes).rotatifFiltr[1].Y = facteur * 167;	//	Ordre 1
-	(*commandes).rotatifFiltr[2].Y = facteur * 258;	//	Fréquence 2
-	(*commandes).rotatifFiltr[3].Y = facteur * 324;	//	Ordre 2
-	(*commandes).rotatifFiltr[4].Y = facteur * 422;	//	Fréquence 3
-	(*commandes).rotatifFiltr[5].Y = facteur * 487;	//	Ordre 3
-	(*commandes).rotatifFiltr[6].Y = facteur * 554;	//	Delta f
-	(*commandes).rotatifFiltr[7].Y = facteur * 647;	//	Amplification
+	(*commandes).rotatifFiltrag[0].Y = facteur * 102; 	//	Fréquence 1
+	(*commandes).rotatifFiltrag[1].Y = facteur * 167;	//	Ordre 1
+	(*commandes).rotatifFiltrag[2].Y = facteur * 258;	//	Fréquence 2
+	(*commandes).rotatifFiltrag[3].Y = facteur * 324;	//	Ordre 2
+	(*commandes).rotatifFiltrag[4].Y = facteur * 422;	//	Fréquence 3
+	(*commandes).rotatifFiltrag[5].Y = facteur * 487;	//	Ordre 3
+	(*commandes).rotatifFiltrag[6].Y = facteur * 554;	//	Delta f
+	(*commandes).rotatifFiltrag[7].Y = facteur * 647;	//	Amplification
 
 	return 0;
 	}
@@ -208,22 +209,22 @@ int commandesAjusteSelectifsFiltres(commandesT * commandes, float facteur)
 
 	for(i=0;i<SELECTIF_FILTRES;i++)
 		{
-		selectifInitialise(&(*commandes).selectifFiltr[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
+		selectifInitialise(&(*commandes).selectifFiltrag[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
 		}
 				// BOUTONS SELECTIFS SUIVANT X
-	(*commandes).selectifFiltr[0].X = facteur * 626;  		//	Passe bas éteint
-	(*commandes).selectifFiltr[1].X = facteur * 652;		//	Passe bas
-	(*commandes).selectifFiltr[2].X = facteur * 682;		//	Passe bas droite
-	(*commandes).selectifFiltr[3].X = facteur * 713;		//	Passe bas gauche
-	(*commandes).selectifFiltr[4].X = facteur * 790;		//	Passe haut éteint
-	(*commandes).selectifFiltr[5].X = facteur * 815;		//	Passe haut
-	(*commandes).selectifFiltr[6].X = facteur * 846;		//	Passe haut gauche
-	(*commandes).selectifFiltr[7].X = facteur * 876;  		//	Passe haut droite
-	(*commandes).selectifFiltr[8].X = facteur * 954;		//	Passe bande éteint
-	(*commandes).selectifFiltr[9].X = facteur * 976;		//	Passe bande
-	(*commandes).selectifFiltr[10].X = facteur * 1010;		//	Passe bande gauche
-	(*commandes).selectifFiltr[11].X = facteur * 1040;		//	Passe bande droite
-	(*commandes).selectifFiltr[12].X = facteur * 1071;		//	Passe bande inverse
+	(*commandes).selectifFiltrag[0].X = facteur * 626;  		//	Passe bas éteint
+	(*commandes).selectifFiltrag[1].X = facteur * 652;		//	Passe bas
+	(*commandes).selectifFiltrag[2].X = facteur * 682;		//	Passe bas droite
+	(*commandes).selectifFiltrag[3].X = facteur * 713;		//	Passe bas gauche
+	(*commandes).selectifFiltrag[4].X = facteur * 790;		//	Passe haut éteint
+	(*commandes).selectifFiltrag[5].X = facteur * 815;		//	Passe haut
+	(*commandes).selectifFiltrag[6].X = facteur * 846;		//	Passe haut gauche
+	(*commandes).selectifFiltrag[7].X = facteur * 876;  		//	Passe haut droite
+	(*commandes).selectifFiltrag[8].X = facteur * 954;		//	Passe bande éteint
+	(*commandes).selectifFiltrag[9].X = facteur * 976;		//	Passe bande
+	(*commandes).selectifFiltrag[10].X = facteur * 1010;		//	Passe bande gauche
+	(*commandes).selectifFiltrag[11].X = facteur * 1040;		//	Passe bande droite
+	(*commandes).selectifFiltrag[12].X = facteur * 1071;		//	Passe bande inverse
 
 	return 0;
 	}
@@ -276,7 +277,7 @@ int commandesSourisZone(commandesT * commandes)
 		}
 	else
 		{
-		if((*commandes).sourisX < (*commandes).fonctionsDroite)	//		MENU 2 = zones 4, 5, 6 et 7
+		if((*commandes).sourisX < (*commandes).fonctionsDroite)	//		MENU 2 = zones 4, 5, 6 et 7, et 9
 			{
 			if((*commandes).sourisY < (*commandes).fonctionHaut)
 				{	//	Menu fonction
@@ -289,9 +290,17 @@ int commandesSourisZone(commandesT * commandes)
 				return 5;
 				}
 			if((*commandes).sourisY < (*commandes).fourierHaut)
-				{	//	Menu fourier
-				printf("commandesSourisZone 6\n");
-				return 6;
+				{	//	Menu fourier et sélectifs des filtres
+				if((*commandes).sourisX < (*commandes).filtrageGauche)
+					{
+					printf("commandesSourisZone 6\n");
+					return 6;
+					}
+				else
+					{
+					printf("commandesSourisZone 9\n");
+					return 9;
+					}
 				}
 			printf("commandesSourisZone 7\n");
 			return 7;	//	Fourier
@@ -378,8 +387,8 @@ int commandeSelectifsFiltres(commandesT * commandes)
 		for(i=0;i<SELECTIF_FILTRES;i++)
 			{
 			//	Si dans la zone suivant X
-			if((*commandes).selectifFiltr[i].X>(*commandes).sourisGauche
-				&& ((*commandes).selectifFiltr[i].X+(*commandes).selectifFiltr[i].dX)<(*commandes).sourisDroite)
+			if((*commandes).selectifFiltrag[i].X>(*commandes).sourisGauche
+				&& ((*commandes).selectifFiltrag[i].X+(*commandes).selectifFiltrag[i].dX)<(*commandes).sourisDroite)
 				return i;
 			}
 		}
@@ -394,8 +403,8 @@ int commandeRotatifsFiltres(commandesT * commandes)
 		for(i=0;i<ROTATIF_FILTRES;i++)
 			{
 			//	Si dans la zone suivant Y
-			if((*commandes).rotatifFiltr[i].Y>(*commandes).sourisHaut
-				&& ((*commandes).rotatifFiltr[i].Y+(*commandes).rotatifFiltr[i].dY)<(*commandes).sourisBas)
+			if((*commandes).rotatifFiltrag[i].Y>(*commandes).sourisHaut
+				&& ((*commandes).rotatifFiltrag[i].Y+(*commandes).rotatifFiltrag[i].dY)<(*commandes).sourisBas)
 				return i;
 			}
 		}

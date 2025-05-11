@@ -50,7 +50,7 @@ typedef struct FiltreT filtreT;
 
 		int deltaF;	//	Ecart de fréquence (passe bande), pour mille
 
-		int symetrie;		//	Symétrie [sym, droite, gauche]
+		int symetrie;		//	Symétrie [sym, droite, gauche] (1, 2, 3)
 
 		int mode;		//	Allume, éteint, inverse le filtre (1, 0, -1)
 
