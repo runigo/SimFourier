@@ -190,14 +190,14 @@ int commandesAjusteRotatifsFiltres(commandesT * commandes, float facteur)
 		{
 		rotatifInitialise(&(*commandes).rotatifFiltrag[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
 		}
-	(*commandes).rotatifFiltrag[0].Y = facteur * 102; 	//	Fréquence 1
-	(*commandes).rotatifFiltrag[1].Y = facteur * 167;	//	Ordre 1
-	(*commandes).rotatifFiltrag[2].Y = facteur * 258;	//	Fréquence 2
-	(*commandes).rotatifFiltrag[3].Y = facteur * 324;	//	Ordre 2
-	(*commandes).rotatifFiltrag[4].Y = facteur * 422;	//	Fréquence 3
-	(*commandes).rotatifFiltrag[5].Y = facteur * 487;	//	Ordre 3
-	(*commandes).rotatifFiltrag[6].Y = facteur * 554;	//	Delta f
-	(*commandes).rotatifFiltrag[7].Y = facteur * 647;	//	Amplification
+	(*commandes).rotatifFiltrag[0].Y = facteur * 110; 	//	Fréquence 1
+	(*commandes).rotatifFiltrag[1].Y = facteur * 180;	//	Ordre 1
+	(*commandes).rotatifFiltrag[2].Y = facteur * 278;	//	Fréquence 2
+	(*commandes).rotatifFiltrag[3].Y = facteur * 349;	//	Ordre 2
+	(*commandes).rotatifFiltrag[4].Y = facteur * 456;	//	Fréquence 3
+	(*commandes).rotatifFiltrag[5].Y = facteur * 527;	//	Ordre 3
+	(*commandes).rotatifFiltrag[6].Y = facteur * 598;	//	Delta f
+	(*commandes).rotatifFiltrag[7].Y = facteur * 700;	//	Amplification
 
 	return 0;
 	}

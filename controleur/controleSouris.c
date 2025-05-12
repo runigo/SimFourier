@@ -33,25 +33,17 @@ termes.
 
 #include "controleSouris.h"
 
-//int controleSourisPosition(controleurT * controleur);
-
-int controleSourisMolette(controleurT * controleur);
 int controleSourisMouvement(controleurT * controleur);
+
 int controleSourisBouton(controleurT * controleur, int appui);
-
-
-int controleSourisMoletteRotatifsGraphe(controleurT * controleur, int TF);
-
-int controleSourisCommandes(controleurT * controleur, int zone);
-int controleSourisMolettePointDeVue(controleurT * controleur, grapheT * graphe);
-int controleSourisMoletteRotatifsInitial(controleurT * controleur);
-int controleSourisInitialisePosition(controleurT * controleur, int position);
-
 int controleSourisCliqRotatif(controleurT * controleur, int menu);
 int controleSourisCliqSelectif(controleurT * controleur, int menu);
 
-
-
+int controleSourisMolette(controleurT * controleur);
+int controleSourisMolettePointDeVue(controleurT * controleur, grapheT * graphe);
+int controleSourisMoletteRotatifsGraphes(controleurT * controleur, int TF);
+int controleSourisMoletteRotatifsInitial(controleurT * controleur);
+int controleSourisMoletteRotatifsFiltres(controleurT * controleur);
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -74,6 +66,8 @@ int controleSouris(controleurT * controleur, int action)
 		}
 	return 0;
 	}
+
+///////////////////////           ACTION DU MOUVEMENT DE LA SOURIS
 
 int controleSourisMouvement(controleurT * controleur)
 	{
@@ -102,47 +96,7 @@ int controleSourisMouvement(controleurT * controleur)
 	return 0;
 	}
 
-int controleSourisMolette(controleurT * controleur)
-	{
-				// Action des mouvements de la mollette
-
-		//	Le pointeur de la souris se trouvant dans la zone
-	int zone = commandesSourisZone(&(*controleur).projection.commandes);
-	switch(zone)	//	
-		{
-		case 2: //	Boutons rotatif initial
-			controleSourisMoletteRotatifsInitial(controleur);break;
-		case 4: // zone des curseurs linéaires de la fonction (TF = 0)
-			controleSourisMoletteRotatifsGraphe(controleur, 0);break;
-		case 5: //	Zone de la fonction
-			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fonction);
-			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fct);break;
-		case 6: // zone des curseurs linéaires de fourier (TF = 1)
-			controleSourisMoletteRotatifsGraphe(controleur, 1);break;
-		case 7: //	Zone de fourier
-			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fourier);
-			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fou);break;
-		default:
-			;
-		}
-	return 0;
-	}
-
-int controleSourisMolettePointDeVue(controleurT * controleur, grapheT * graphe)
-	{
-				// Action des mouvements de la mollette dans la zone des fonctions
-
-	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
-		{
-		pointDeVueChangeDistance(&(*graphe).pointDeVue, 1.03);
-		}
-	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
-		{
-		pointDeVueChangeDistance(&(*graphe).pointDeVue, 0.97);
-		}
-
-	return 0;
-	}
+//////////////////////////        ACTION  DU BOUTON DE LA SOURIS
 
 int controleSourisBouton(controleurT * controleur, int appui)
 	{
@@ -173,10 +127,9 @@ int controleSourisBouton(controleurT * controleur, int appui)
 	return 0;
 	}
 
-
 int controleSourisCliqRotatif(controleurT * controleur, int menu)
 	{
-			//	Action du cliq de souris dans le menu rotatif
+			//	Action du cliq de souris dans le menu rotatif initiale
 	(void)menu;
 			//	Numéro du rotatif
 	int rotatif = commandeRotatifsInitiale(&(*controleur).projection.commandes);
@@ -216,8 +169,7 @@ int controleSourisCliqRotatif(controleurT * controleur, int menu)
 
 int controleSourisCliqSelectif(controleurT * controleur, int menu)
 	{
-			//	Action du cliq de souris
-			//	dans le menu selectif
+			//	Action du cliq de souris dans les menus selectifs
 
 	int selectif = 0;
 
@@ -261,7 +213,7 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 			}
 		}
 
-			printf("controleSourisCliqSelectif, menu == %d\n", menu);
+		//	printf("controleSourisCliqSelectif, menu == %d\n", menu);
 	if (menu == 4 || 6)
 		{
 		selectif = commandeSelectifsGraphes(&(*controleur).projection.commandes);
@@ -285,20 +237,91 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 				;
 			}
 		}
+
+		//	printf("controleSourisCliqSelectif, menu == %d\n", menu);
+	if (menu == 9)
+		{
+		selectif = commandeSelectifsFiltres(&(*controleur).projection.commandes);
+		switch(selectif)	//	fonction ,  parametre ,  variation ,  pourMille
+			{
+			case 0: //	Éteint le filtre passe bas
+				modeleChangeFiltrage(&(*controleur).modele, 1, 0, 0, 0);break;
+			case 1: //	Passe bas symétrique
+				modeleChangeFiltrage(&(*controleur).modele, 1, 1, 0, 1);break;
+			case 2: //	Passe bas droite
+				modeleChangeFiltrage(&(*controleur).modele, 1, 2, 0, 2);break;
+			case 3: //	Passe bas gauche
+				modeleChangeFiltrage(&(*controleur).modele, 1, 3, 0, 0);break;
+			case 4: //	Éteint le filtre passe haut
+				modeleChangeFiltrage(&(*controleur).modele, 2, 4, 0, 1);break;
+			case 5: //	Passe haut symétrique
+				modeleChangeFiltrage(&(*controleur).modele, 2, 5, 0, 1);break;
+			case 6: //	Passe haut gauche
+				modeleChangeFiltrage(&(*controleur).modele, 2, 6, 0, 0);break;
+			case 7: //	Passe haut droite
+				modeleChangeFiltrage(&(*controleur).modele, 2, 6, 0, 0);break;
+			case 8: //	Éteint le filtre passe bande
+				modeleChangeFiltrage(&(*controleur).modele, 3, 6, 0, 0);break;
+			case 9: //	Passe bande symétrique
+				modeleChangeFiltrage(&(*controleur).modele, 3, 6, 0, 0);break;
+			case 10: //	Passe bande gauche
+				modeleChangeFiltrage(&(*controleur).modele, 3, 6, 0, 0);break;
+			case 11: //	Passe bande droite
+				modeleChangeFiltrage(&(*controleur).modele, 3, 6, 0, 0);break;
+			case 12: //	Passe bande inverse
+				modeleChangeFiltrage(&(*controleur).modele, 3, 6, 0, 0);break;
+			default:
+				;
+			}
+		}
 	return 0;
 	}
 
+/////////////////////////         ACTION DE LA MOLLETTE
 
-int controleSourisInitialisePosition(controleurT * controleur, int position) {
+int controleSourisMolette(controleurT * controleur)
+	{
+				// Action des mouvements de la mollette
 
-		//		Réinitialise les positions.
-(void)position;
-	modeleProjectionInitiale(&(*controleur).modele);
-
+		//	Le pointeur de la souris se trouvant dans la zone
+	int zone = commandesSourisZone(&(*controleur).projection.commandes);
+	switch(zone)	//	
+		{
+		case 2: //	Boutons rotatif initial
+			controleSourisMoletteRotatifsInitial(controleur);break;
+		case 4: // zone des curseurs linéaires de la fonction (TF = 0)
+			controleSourisMoletteRotatifsGraphes(controleur, 0);break;
+		case 5: //	Zone de la fonction
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fonction);
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fct);break;
+		case 6: // zone des curseurs linéaires de fourier (TF = 1)
+			controleSourisMoletteRotatifsGraphes(controleur, 1);break;
+		case 7: //	Zone de fourier
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fourier);
+			controleSourisMolettePointDeVue(controleur, &(*controleur).projection.fou);break;
+		case 8: //	Boutons rotatif initial
+			controleSourisMoletteRotatifsFiltres(controleur);break;
+		default:
+			;
+		}
 	return 0;
 	}
 
+int controleSourisMolettePointDeVue(controleurT * controleur, grapheT * graphe)
+	{
+				// Action des mouvements de la mollette dans la zone des fonctions
 
+	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
+		{
+		pointDeVueChangeDistance(&(*graphe).pointDeVue, 1.03);
+		}
+	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
+		{
+		pointDeVueChangeDistance(&(*graphe).pointDeVue, 0.97);
+		}
+
+	return 0;
+	}
 int controleSourisMoletteRotatifsInitial(controleurT * controleur)
 	{
 	int commande = commandeRotatifsInitiale(&(*controleur).projection.commandes);
@@ -354,10 +377,10 @@ int controleSourisMoletteRotatifsInitial(controleurT * controleur)
 	return 0;
 	}
 
-int controleSourisMoletteRotatifsGraphe(controleurT * controleur, int TF)
+int controleSourisMoletteRotatifsFiltres(controleurT * controleur)
 	{
-	int commande = commandeRotatifsGraphes(&(*controleur).projection.commandes);
-	printf("controleSourisMoletteRotatifsGraphe %d\n", TF);
+	int commande = commandeRotatifsFiltres(&(*controleur).projection.commandes);
+	printf("controleSourisMoletteRotatifsFiltres %d\n", commande);
 
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
@@ -410,10 +433,10 @@ int controleSourisMoletteRotatifsGraphe(controleurT * controleur, int TF)
 	return 0;
 	}
 
-int controleSourisMoletteRotatifsFiltre(controleurT * controleur, int TF)
+int controleSourisMoletteRotatifsGraphes(controleurT * controleur, int TF)
 	{
-	int commande = commandeRotatifsFiltres(&(*controleur).projection.commandes);
-	printf("controleSourisMoletteRotatifsFiltres %d\n", TF);
+	int commande = commandeRotatifsGraphes(&(*controleur).projection.commandes);
+	printf("controleSourisMoletteRotatifsGraphes %d\n", TF);
 
 	if(commande == 0)
 		{	
@@ -435,9 +458,6 @@ int controleSourisAffiche(controleurT * controleur)
 	printf("(*controleur).commandes.sourisY = %d\n", (*controleur).projection.commandes.sourisY);
 	printf("(*controleur).graphique.fenetreX = %d\n", (*controleur).graphique.fenetreX);
 	printf("(*controleur).commandes.sourisX = %d\n", (*controleur).projection.commandes.sourisX);
-
-	//printf("\nsourisY / fenetreY = %f\n\n", (float)(*controleur).projection.commandes.sourisY / (*controleur).graphique.fenetreY);
-	//printf("sourisX / fenetreX = %f\n", (float)(*controleur).projection.commandes.sourisX / (*controleur).graphique.fenetreX);
 
 	return 0;
 	}
