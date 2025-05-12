@@ -128,11 +128,11 @@ int parametrFiltragSelectifs(filtrageT * filtrage, commandesT * commandes)
 	if((*filtrage).passeBas.mode != 0)
 		{
 		switch((*filtrage).passeBas.symetrie) {
-			case 1:
+			case 0:
 				(*commandes).selectifFiltrag[1].etat = 1; break;	//	Symétrique
-			case 2:
+			case 1:
 				(*commandes).selectifFiltrag[2].etat = 1; break;	//	Droite
-			case 3:
+			case -1:
 				(*commandes).selectifFiltrag[3].etat = 1; break;	//	Gauche
 			default:
 				fprintf(stderr, "ERREUR parametrFiltragSelectifs, passeBas.symetrie");
@@ -142,11 +142,11 @@ int parametrFiltragSelectifs(filtrageT * filtrage, commandesT * commandes)
 	if((*filtrage).passeHaut.mode != 0)
 		{
 		switch((*filtrage).passeHaut.symetrie) {
-			case 1:
+			case 0:
 				(*commandes).selectifFiltrag[5].etat = 1; break;	//	Symétrique
-			case 2:
+			case 1:
 				(*commandes).selectifFiltrag[7].etat = 1; break;	//	Droite
-			case 3:
+			case -1:
 				(*commandes).selectifFiltrag[6].etat = 1; break;	//	Gauche
 			default:
 				fprintf(stderr, "ERREUR parametrFiltragSelectifs, passeHaut.symetrie");
@@ -156,11 +156,11 @@ int parametrFiltragSelectifs(filtrageT * filtrage, commandesT * commandes)
 	if((*filtrage).passeBande.mode != 0)
 		{
 		switch((*filtrage).passeBande.symetrie) {
-			case 1:
+			case 0:
 				(*commandes).selectifFiltrag[9].etat = 1; break;	//	Symétrique
-			case 2:
+			case 1:
 				(*commandes).selectifFiltrag[11].etat = 1; break;	//	Droite
-			case 3:
+			case -1:
 				(*commandes).selectifFiltrag[10].etat = 1; break;	//	Gauche
 			default:
 				fprintf(stderr, "ERREUR parametrFiltragSelectifs, passeBande.symetrie");

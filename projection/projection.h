@@ -36,6 +36,7 @@ termes.
 #include "../projection/parametrSystem.h"		//	Projection du système vers le graphisme.
 #include "../projection/parametrGraph.h"		//	Projection des graphes 3D sur les graphes 2D.
 #include "../projection/parametrInitial.h"	//	Projection de initiale sur commande.
+#include "../projection/parametrFiltrag.h"	//	Projection du filtrage sur commande.
 
 				//		Projections entre le modèle et l'interface
 
@@ -47,6 +48,8 @@ typedef struct ProjectionT projectionT;
 		parametrGraphT parametrGraph;	//	Projection des courbes 3D sur les courbes 2D
 
 		parametrInitialT parametrInitial;	//	Projection des paramètres initiale sur le graphisme
+
+		parametrFiltragT parametrFiltrag;	//	Projection des paramètres du filtrage sur le graphisme
 
 		grapheT fonction;	//	Graphe de la fonction
 

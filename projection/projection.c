@@ -100,6 +100,8 @@ int projectionModele(projectionT * projection, modeleT * modele, int mode)
 	parametrSystemCommandes(&(*modele).systeme, &(*projection).parametrSystem, &(*projection).commandes);
 		}
 
+			//		Filtrage -> commandes
+	parametrFiltragCommandes(&(*modele).filtrage, &(*projection).parametrFiltrag, &(*projection).commandes);
 
 	return 0;
 	}

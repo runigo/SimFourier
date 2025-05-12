@@ -54,8 +54,8 @@ int filtreInitialise(filtreT * filtre, int nombre)
 	(*filtre).frequence = nombre / 4;
 	(*filtre).ordre = nombre / 16;
 	(*filtre).deltaF = nombre / 16;	//	Ecart de fréquence (passe bande)
-	(*filtre).symetrie = 1;
-	(*filtre).mode = 1;
+	(*filtre).symetrie = 0;
+	(*filtre).mode = 0;
 
 	filtreUniforme(filtre);
 

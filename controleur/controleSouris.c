@@ -242,34 +242,34 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 	if (menu == 9)
 		{
 		selectif = commandeSelectifsFiltres(&(*controleur).projection.commandes);
-		switch(selectif)	//	fonction ,  parametre ,  variation ,  pourMille
+		switch(selectif)	//	filtre ,  parametre ,  variation ,  pourMille
 			{
 			case 0: //	Éteint le filtre passe bas
-				modeleChangeFiltrage(&(*controleur).modele, 1, 0, 0, 0);break;
-			case 1: //	Passe bas symétrique
-				modeleChangeFiltrage(&(*controleur).modele, 1, 1, 0, 1);break;
-			case 2: //	Passe bas droite
-				modeleChangeFiltrage(&(*controleur).modele, 1, 2, 0, 2);break;
-			case 3: //	Passe bas gauche
-				modeleChangeFiltrage(&(*controleur).modele, 1, 3, 0, 0);break;
+				modeleChangeFiltrage(&(*controleur).modele, 1, 5, 0, 0);break;
+			case 1: 	//	Passe bas symétrique
+				modeleChangeFiltrage(&(*controleur).modele, 1, 4, 0, 0);break;
+			case 2: 	//	Passe bas droite
+				modeleChangeFiltrage(&(*controleur).modele, 1, 4, 0, 1);break;
+			case 3: 	//	Passe bas gauche
+				modeleChangeFiltrage(&(*controleur).modele, 1, 3, 0, -1);break;
 			case 4: //	Éteint le filtre passe haut
+				modeleChangeFiltrage(&(*controleur).modele, 2, 5, 0, 0);break;
+			case 5:		//	Passe haut symétrique
+				modeleChangeFiltrage(&(*controleur).modele, 2, 4, 0, 0);break;
+			case 6:		//	Passe haut gauche
+				modeleChangeFiltrage(&(*controleur).modele, 2, 4, 0, -1);break;
+			case 7:		//	Passe haut droite
 				modeleChangeFiltrage(&(*controleur).modele, 2, 4, 0, 1);break;
-			case 5: //	Passe haut symétrique
-				modeleChangeFiltrage(&(*controleur).modele, 2, 5, 0, 1);break;
-			case 6: //	Passe haut gauche
-				modeleChangeFiltrage(&(*controleur).modele, 2, 6, 0, 0);break;
-			case 7: //	Passe haut droite
-				modeleChangeFiltrage(&(*controleur).modele, 2, 6, 0, 0);break;
 			case 8: //	Éteint le filtre passe bande
-				modeleChangeFiltrage(&(*controleur).modele, 3, 6, 0, 0);break;
-			case 9: //	Passe bande symétrique
-				modeleChangeFiltrage(&(*controleur).modele, 3, 6, 0, 0);break;
-			case 10: //	Passe bande gauche
-				modeleChangeFiltrage(&(*controleur).modele, 3, 6, 0, 0);break;
-			case 11: //	Passe bande droite
-				modeleChangeFiltrage(&(*controleur).modele, 3, 6, 0, 0);break;
-			case 12: //	Passe bande inverse
-				modeleChangeFiltrage(&(*controleur).modele, 3, 6, 0, 0);break;
+				modeleChangeFiltrage(&(*controleur).modele, 3, 5, 0, 0);break;
+			case 9: 	//	Passe bande symétrique
+				modeleChangeFiltrage(&(*controleur).modele, 3, 4, 0, 0);break;
+			case 10: 	//	Passe bande gauche
+				modeleChangeFiltrage(&(*controleur).modele, 3, 4, 0, -1);break;
+			case 11: 	//	Passe bande droite
+				modeleChangeFiltrage(&(*controleur).modele, 3, 4, 0, 1);break;
+			case 12: 	//	Passe bande inverse
+				modeleChangeFiltrage(&(*controleur).modele, 3, 5, 0, -1);break;
 			default:
 				;
 			}
