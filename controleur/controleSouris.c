@@ -111,14 +111,18 @@ int controleSourisBouton(controleurT * controleur, int appui)
 		int zone = commandesSourisZone(&(*controleur).projection.commandes);
 		switch(zone)	//	
 			{
-			case 2: //	Boutons rotatif
+			case 2: //	Boutons rotatif de initiale
 				controleSourisCliqRotatif(controleur, 2);break;
-			case 3: //	Boutons selectif
+			case 3: //	Boutons selectif de initiale
 				controleSourisCliqSelectif(controleur, 3);break;
 			case 4: // zone du menu graphe-fonction
 				controleSourisCliqSelectif(controleur, 4);break;
 			case 6: // zone du menu graphe-fourier
 				controleSourisCliqSelectif(controleur, 6);break;
+			case 8: // Boutons rotatif du filtrage
+				controleSourisCliqRotatif(controleur, 8);break;
+			case 9: // Boutons selectif du filtrage
+				controleSourisCliqSelectif(controleur, 9);break;
 			default:
 				;
 			}
@@ -129,39 +133,76 @@ int controleSourisBouton(controleurT * controleur, int appui)
 
 int controleSourisCliqRotatif(controleurT * controleur, int menu)
 	{
-			//	Action du cliq de souris dans le menu rotatif initiale
-	(void)menu;
+	int rotatif;
+	int pourMille;
+	double angle;
+	if(menu==2)
+		{			//	Action du cliq de souris dans le menu rotatif initiale
 			//	Numéro du rotatif
-	int rotatif = commandeRotatifsInitiale(&(*controleur).projection.commandes);
-	//fprintf(stderr, "\n controleSourisCliqRotatif, numéro : %d\n", rotatif);
+		rotatif = commandeRotatifsInitiale(&(*controleur).projection.commandes);
+		fprintf(stderr, "\n controleSourisCliqRotatif, numéro : %d\n", rotatif);
 			//	Position angulaire de la souris dans le rotatif
-	double angle = atan( (double)((*controleur).projection.commandes.rotatifInitial[rotatif].Y
+		angle = atan( (double)((*controleur).projection.commandes.rotatifInitial[rotatif].Y
 		+ (*controleur).projection.commandes.rotatifInitial[rotatif].dY - (*controleur).projection.commandes.sourisY)
 		/ ((*controleur).projection.commandes.rotatifsDroite - (*controleur).projection.commandes.sourisX));
-	//fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
+		fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
+		pourMille = (int)(angle*1000/PIS2);
 
-	int pourMille = (int)(angle*1000/PIS2);
+		switch(rotatif)	//	
+			{
+			case 0: //	enveloppe Période 1
+				modeleChangeInitiale(&(*controleur).modele, 1, 1, 0, pourMille);break;
+			case 1: //	enveloppe Période 2
+				modeleChangeInitiale(&(*controleur).modele, 1, 2, 0, pourMille);break;
+			case 2: //	motif Symétrie
+				modeleChangeInitiale(&(*controleur).modele, 0, 1, 0, pourMille);break;
+			case 3: //	enveloppe Phase
+				modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, pourMille);break;
+			case 4: //	enveloppe Amplitude
+				modeleChangeInitiale(&(*controleur).modele, 1, 4, 0, pourMille);break;
+			case 5: //	enveloppe Décalage
+				modeleChangeInitiale(&(*controleur).modele, 1, 5, 0, pourMille);break;
+			case 6: //	porteuse Période 1
+				modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, pourMille);break;
+			case 7: //	porteuse Période 2
+				modeleChangeInitiale(&(*controleur).modele, 2, 2, 0, pourMille);break;
+			default:
+				printf("ERREUR : controleSourisCliqRotatif");
+			}
+		}
 
-	switch(rotatif)	//	
-		{
-		case 0: //	enveloppe Période 1
-			modeleChangeInitiale(&(*controleur).modele, 1, 1, 0, pourMille);break;
-		case 1: //	enveloppe Période 2
-			modeleChangeInitiale(&(*controleur).modele, 1, 2, 0, pourMille);break;
-		case 2: //	motif Symétrie
-			modeleChangeInitiale(&(*controleur).modele, 0, 1, 0, pourMille);break;
-		case 3: //	enveloppe Phase
-			modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, pourMille);break;
-		case 4: //	enveloppe Amplitude
-			modeleChangeInitiale(&(*controleur).modele, 1, 4, 0, pourMille);break;
-		case 5: //	enveloppe Décalage
-			modeleChangeInitiale(&(*controleur).modele, 1, 5, 0, pourMille);break;
-		case 6: //	porteuse Période 1
-			modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, pourMille);break;
-		case 7: //	porteuse Période 2
-			modeleChangeInitiale(&(*controleur).modele, 2, 2, 0, pourMille);break;
-		default:
-			printf("ERREUR : controleSourisCliqRotatif");
+	if(menu==8)
+		{			//	Action du cliq de souris dans le menu rotatif filtrage
+			//	Numéro du rotatif
+		rotatif = commandeRotatifsFiltres(&(*controleur).projection.commandes);
+		fprintf(stderr, "\n controleSourisCliqRotatif, numéro : %d\n", rotatif);
+			//	Position angulaire de la souris dans le rotatif
+		angle = atan( (double)((*controleur).projection.commandes.rotatifInitial[rotatif].Y + (*controleur).projection.commandes.rotatifInitial[rotatif].dY - (*controleur).projection.commandes.sourisY) / ((*controleur).projection.commandes.rotatifsDroite - (*controleur).projection.commandes.sourisX));
+	//	angle = atan( (double)((*controleur).projection.commandes.rotatifFiltrag[rotatif].Y + (*controleur).projection.commandes.rotatifFiltrag[rotatif].dY - (*controleur).projection.commandes.sourisY) / ((*controleur).projection.commandes.rotatifsDroite - (*controleur).projection.commandes.sourisX));
+		fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
+		pourMille = (int)(angle*1000/PIS2);
+
+		switch(rotatif)	//	
+			{
+			case 0: //	Fréquence 1
+				modeleChangeFiltrage(&(*controleur).modele, 1, 1, 0, pourMille);break;
+			case 1: //	Ordre 1
+				modeleChangeFiltrage(&(*controleur).modele, 1, 2, 0, pourMille);break;
+			case 2: //	Fréquence 2
+				modeleChangeFiltrage(&(*controleur).modele, 2, 1, 0, pourMille);break;
+			case 3: //	Ordre 2
+				modeleChangeFiltrage(&(*controleur).modele, 2, 2, 0, pourMille);break;
+			case 4: //	Fréquence 3
+				modeleChangeFiltrage(&(*controleur).modele, 3, 1, 0, pourMille);break;
+			case 5: //	Ordre 3
+				modeleChangeFiltrage(&(*controleur).modele, 3, 2, 0, pourMille);break;
+			case 6: //	Delta fréquence
+				modeleChangeFiltrage(&(*controleur).modele, 3, 3, 0, pourMille);break;
+			case 7: //	Amplification
+				modeleChangeFiltrage(&(*controleur).modele, 0, 1, 0, pourMille);break;
+			default:
+				printf("ERREUR : controleSourisCliqRotatif");
+			}
 		}
 	return 0;
 	}
