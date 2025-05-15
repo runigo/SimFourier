@@ -138,10 +138,37 @@ int filtrageChangeParametre(filtrageT * filtrage, int fonction, int parametre, i
 
 int filtrageChangeAmplification(filtrageT * filtrage, int variation, int pourMille)
 	{
-	(void)filtrage;
-	(void)variation;
-	(void)pourMille;
-			printf("ERREUR filtrageChangeAmplification\n");
+	float amplification;
+
+	if(variation==0)
+		{
+		//filtragePourMilleAmplification(filtrage, pourMille);
+		amplification = AMPLIFICATION_MIN + (float)(AMPLIFICATION_MAX-AMPLIFICATION_MIN)*pourMille/1000.0;
+		}
+	else
+		{
+		//filtrageVariationAmplification(filtrage, variation);
+		amplification = (*filtrage).amplification + variation;
+		}
+
+	if(amplification>AMPLIFICATION_MAX)
+		{
+		(*filtrage).amplification = AMPLIFICATION_MAX;
+		printf("Amplification maximale atteinte, amplification = %6.3f\n", (*filtrage).amplification);
+		}
+	else
+		{
+		if(amplification<AMPLIFICATION_MIN)
+			{
+			(*filtrage).amplification = AMPLIFICATION_MIN;
+			printf("Amplification minimale atteinte, amplification = %6.3f\n", (*filtrage).amplification);
+			}
+		else
+			{
+			(*filtrage).amplification = amplification;
+			printf("Amplification = %6.3f\n", (*filtrage).amplification);
+			}
+		}
 	return 0;
 	}
 

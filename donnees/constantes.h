@@ -114,6 +114,12 @@ termes.
 #define DT_MAX 0.003		// Discrétisation maximale du temps
 
 
+		//---------------- PARAMÈTRES DU FILTRAGE ---------------------
+
+#define AMPLIFICATION_MAX 100.0	//	Valeur maximale de l'amplification
+#define AMPLIFICATION_MIN 1.0	//	Valeur minimale de l'amplification
+
+
 		//---------------- PARAMÈTRES DE LA CORDE ---------------------
 
 #define NOMBRE_MIN 64 	//	Nombre minimal de points

@@ -46,7 +46,7 @@ typedef struct RotatifT rotatifT;
 		int positionX;	//	position x de l'aiguille
 		int positionY;	//	position y de l'aiguille
 
-		int centre; // centre du rotatif
+	//	int centre; // centre du rotatif
 		};
 
 int rotatifInitialise(rotatifT * rotatif, int taille);

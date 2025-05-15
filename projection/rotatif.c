@@ -43,7 +43,7 @@ int rotatifInitialise(rotatifT * rotatif, int taille)
 		(*rotatif).positionX=-sqrt(0.5*taille*taille);	//	position x de l'aiguille-
 		(*rotatif).positionY=(*rotatif).positionX;	//	position y de l'aiguille
 
-		(*rotatif).centre=20; // centre du rotatif
+	//	(*rotatif).centre=20; // centre du rotatif
 
 	return 0;
 	}

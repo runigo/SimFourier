@@ -68,6 +68,7 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	if(fenetreY < MENUS_Y)
 		{
 		facteur = (float)fenetreY / MENUS_Y;
+		printf("commandesAjusteZones FACTEUR = %f\n", facteur);
 		}
 
 		// Zones suivant Y du menu 1
@@ -307,6 +308,11 @@ int commandesSourisZone(commandesT * commandes)
 			}
 		else						//		MENU 3 = zone 8
 			{
+			if((*commandes).sourisX < (*commandes).rotatifsDroite && (*commandes).sourisX > (*commandes).rotatifsGauche)
+				{	//	Rotatif
+					printf("commandesSourisZone 2\n");
+				return 2;
+				}
 			printf("commandesSourisZone 8\n");
 			return 8;
 			}
