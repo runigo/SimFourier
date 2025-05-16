@@ -66,7 +66,7 @@ int parametrGraphRotatifs(grapheT * graphe, parametrGraphT * parametrGraph, comm
 			// Projection sur les boutons linéaire des menus graphes
 	int j;
 	float theta;
-	int longueur = (*commandes).rotatifsDroite - (*commandes).rotatifsGauche;
+	int longueur = (*commandes).rotatifInitialDroite - (*commandes).rotatifInitialGauche;
 
 	for(j=0;j<2;j++)
 		{

@@ -248,7 +248,7 @@ int modeleChangeFiltrage(modeleT * modele, int fonction, int parametre, int vari
 	{
 			//	Change un paramètre de filtrage
 
-	if(fonction==0)
+	if(fonction==0)	//	filtrage
 		{
 		switch(parametre)
 			{
@@ -258,7 +258,7 @@ int modeleChangeFiltrage(modeleT * modele, int fonction, int parametre, int vari
 				fprintf(stderr, "ERREUR : modeleChangeFiltrage , %d, %d", fonction, parametre);
 			}
 		}
-	else
+	else			//	filtre
 		{
 		switch(fonction)
 			{

@@ -192,7 +192,7 @@ int graphiqueCommandesGraphes(graphiqueT * graphique, commandesT * commandes)
 		//	Dessine les commandes des menus graphes
 
 	SDL_Rect coordonnee = {0, 0, 35, 35};	//	Position et taille des boutons selectifs
-	coordonnee.w = (*commandes).selectifsDroite-(*commandes).selectifsGauche;
+	coordonnee.w = (*commandes).selectifInitialDroite-(*commandes).selectifInitialGauche;
 	coordonnee.h = coordonnee.w;
 	coordonnee.y = (*commandes).selectifsFonction;	//	position y du menu graphe-fonction
 	coordonnee.x = 0;
@@ -231,7 +231,7 @@ int graphiqueCommandesGraphes(graphiqueT * graphique, commandesT * commandes)
 		//	Dessine les aiguilles des boutons rotatifs
 	int X, Y, x, y;
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-	X = (*commandes).rotatifsDroite;
+	X = (*commandes).rotatifInitialDroite;
 	for(i=0;i<ROTATIF_INITIAL;i++)
 		{
 		Y = (*commandes).rotatifInitial[i].Y + (*commandes).rotatifInitial[i].dY;
@@ -252,7 +252,7 @@ int graphiqueCommandesFiltres(graphiqueT * graphique, commandesT * commandes)
 
 	SDL_Rect coordonnee = {0, 0, 35, 35};
 		//	Position et taille des boutons selectifs
-	coordonnee.w = (*commandes).selectifsDroite-(*commandes).selectifsGauche;
+	coordonnee.w = (*commandes).selectifInitialDroite-(*commandes).selectifInitialGauche;
 	coordonnee.h = coordonnee.w;
 	coordonnee.y = (*commandes).selectifsFonction + (*graphique).fenetreY / 2;
 	coordonnee.x = 0;
@@ -274,7 +274,7 @@ int graphiqueCommandesFiltres(graphiqueT * graphique, commandesT * commandes)
 		//	Dessine les aiguilles des boutons rotatifs
 	int X, Y, x, y;
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-	X = (*commandes).rotatifsDroite;
+	X = (*commandes).rotatifInitialDroite;
 	for(i=0;i<ROTATIF_FILTRES;i++)
 		{
 		Y = (*commandes).rotatifFiltrag[i].Y + (*commandes).rotatifFiltrag[i].dY;
@@ -294,10 +294,10 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 		// Dessine les commandes du menu initiale
 
 	SDL_Rect coordonnee = {0, 0, 35, 35};	//	Position et taille des boutons selectifs
-	coordonnee.w = (*commandes).selectifsDroite-(*commandes).selectifsGauche;
+	coordonnee.w = (*commandes).selectifInitialDroite-(*commandes).selectifInitialGauche;
 	coordonnee.h = coordonnee.w;
 	coordonnee.y = 0;
-	coordonnee.x = (*commandes).selectifsGauche;
+	coordonnee.x = (*commandes).selectifInitialGauche;
 
 		//	Dessine les petits boutons sélectionés
 	int i;
@@ -316,7 +316,7 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 		//	Dessine les aiguilles des boutons rotatifs
 	int X, Y, x, y;
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-	X = (*commandes).rotatifsDroite;
+	X = (*commandes).rotatifInitialDroite;
 	for(i=0;i<ROTATIF_INITIAL;i++)
 		{
 		Y = (*commandes).rotatifInitial[i].Y + (*commandes).rotatifInitial[i].dY;

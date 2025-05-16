@@ -96,18 +96,6 @@ Fixe la valeur,
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>651</x>
-      <y>350</y>
-      <w>126</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>point de vue fourier
-bg=orange</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
       <x>476</x>
       <y>357</y>
       <w>91</w>
@@ -120,36 +108,12 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>476</x>
-      <y>336</y>
-      <w>91</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>graphe fonction
-bg=green</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>644</x>
-      <y>329</y>
-      <w>126</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>point de vue fonction
-bg=green</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>308</x>
-      <y>322</y>
+      <x>287</x>
+      <y>343</y>
       <w>84</w>
       <h>21</h>
     </coordinates>
-    <panel_attributes>projection
+    <panel_attributes>modele
 bg=red</panel_attributes>
     <additional_attributes/>
   </element>
@@ -194,10 +158,10 @@ bg=orange</panel_attributes>
       <x>133</x>
       <y>259</y>
       <w>21</w>
-      <h>287</h>
+      <h>105</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;390.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -261,8 +225,8 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>133</x>
-      <y>343</y>
+      <x>147</x>
+      <y>364</y>
       <w>161</w>
       <h>35</h>
     </coordinates>
@@ -284,25 +248,25 @@ controleSourisCliqSelectif</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>133</x>
-      <y>371</y>
-      <w>231</w>
+      <x>147</x>
+      <y>392</y>
+      <w>189</w>
       <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-projectionChangeParametre</panel_attributes>
-    <additional_attributes>310.0;20.0;10.0;20.0</additional_attributes>
+modeleChangeFiltrage</panel_attributes>
+    <additional_attributes>250.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>343</x>
-      <y>336</y>
+      <x>315</x>
+      <y>357</y>
       <w>21</w>
-      <h>147</h>
+      <h>133</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -326,5 +290,73 @@ grapheChangeParametre</panel_attributes>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Systemborder</type>
+    <coordinates>
+      <x>567</x>
+      <y>266</y>
+      <w>133</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>center:Sélectif</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>147</x>
+      <y>490</y>
+      <w>154</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+controleSourisCliqRotatif</panel_attributes>
+    <additional_attributes>10.0;30.0;30.0;30.0;30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>147</x>
+      <y>350</y>
+      <w>21</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>147</x>
+      <y>476</y>
+      <w>21</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>315</x>
+      <y>588</y>
+      <w>21</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>280</x>
+      <y>574</y>
+      <w>84</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>modele
+bg=red</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>

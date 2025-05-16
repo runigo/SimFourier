@@ -71,13 +71,21 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 		printf("commandesAjusteZones FACTEUR = %f\n", facteur);
 		}
 
-		// Zones suivant Y du menu 1
-	(*commandes).mode = facteur * 24;
+			//	Zones des commandes du menu 2 suivant X
+	(*commandes).rotatifInitialGauche = facteur * 19;
+	(*commandes).rotatifInitialDroite = facteur * 78;
+
+			//	Zones des commandes du menu 3 suivant X
+	(*commandes).selectifInitialGauche = facteur * 97;
+	(*commandes).selectifInitialDroite = facteur * 129;
 
 		// Zones suivant X des fonctions (zones 4, 5, 6, 7)
 	(*commandes).fonctionsGauche = facteur * 145;
 	(*commandes).fonctionsDroite = fenetreX - facteur * 85;	//	Début de la zone 8
 	(*commandes).filtrageGauche = fenetreX - facteur * 648;	//	Début de la zone 9
+
+		// Zones suivant Y du menu 1
+	(*commandes).mode = facteur * 24;
 
 		// Zones suivant Y des fonctions
 	(*commandes).selectifsFonction = facteur * 10;	//	position y des selectifs
@@ -85,14 +93,6 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	(*commandes).fonctionBas = fenetreY / 2;		//	frontière 5-6
 	(*commandes).fourierHaut = (*commandes).fonctionBas + (*commandes).fonctionHaut;	//	6-7
 	(*commandes).fourierBas = fenetreY;				//	frontière basse
-
-			//	Zones des commandes du menu 2 suivant X
-	(*commandes).rotatifsGauche = facteur * 19;
-	(*commandes).rotatifsDroite = facteur * 78;
-
-			//	Zones des commandes du menu 3 suivant X
-	(*commandes).selectifsGauche = facteur * 97;
-	(*commandes).selectifsDroite = facteur * 129;
 
 	return facteur;
 	}
@@ -103,7 +103,7 @@ int commandesAjusteRotatifsInitiale(commandesT * commandes, float facteur)
 	int i;
 	for(i=0;i<ROTATIF_INITIAL;i++)
 		{
-		rotatifInitialise(&(*commandes).rotatifInitial[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
+		rotatifInitialise(&(*commandes).rotatifInitial[i], (*commandes).rotatifInitialDroite-(*commandes).rotatifInitialGauche);
 		}
 	(*commandes).rotatifInitial[0].Y = facteur * 51; 	//	Largeur
 	(*commandes).rotatifInitial[1].Y = facteur * 122;	//	Largeur
@@ -123,7 +123,7 @@ int commandesAjusteSelectifsInitiale(commandesT * commandes, float facteur)
 	int i;
 	for(i=0;i<SELECTIF_INITIAL;i++)
 		{
-		selectifInitialise(&(*commandes).selectifInitial[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
+		selectifInitialise(&(*commandes).selectifInitial[i], (*commandes).selectifInitialDroite - (*commandes).selectifInitialGauche);
 		}
 			// BOUTONS SELECTIFS SUIVANT Y
 	(*commandes).selectifInitial[0].Y = facteur * 51;		//	Constant
@@ -169,7 +169,7 @@ int commandesAjusteSelectifsGraphes(commandesT * commandes, float facteur)
 		{
 		for(i=0;i<SELECTIF_GRAPHES;i++)
 			{
-			selectifInitialise(&(*commandes).selectifGraph[j][i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
+			selectifInitialise(&(*commandes).selectifGraph[j][i], (*commandes).selectifInitialDroite - (*commandes).selectifInitialGauche);
 			}
 				// BOUTONS SELECTIFS SUIVANT X
 		(*commandes).selectifGraph[j][0].X = facteur * 207;  	//	Implicite
@@ -189,7 +189,7 @@ int commandesAjusteRotatifsFiltres(commandesT * commandes, float facteur)
 	int i;
 	for(i=0;i<ROTATIF_FILTRES;i++)
 		{
-		rotatifInitialise(&(*commandes).rotatifFiltrag[i], (*commandes).rotatifsDroite-(*commandes).rotatifsGauche);
+		rotatifInitialise(&(*commandes).rotatifFiltrag[i], (*commandes).rotatifInitialDroite-(*commandes).rotatifInitialGauche);
 		}
 	(*commandes).rotatifFiltrag[0].Y = facteur * 110; 	//	Fréquence 1
 	(*commandes).rotatifFiltrag[1].Y = facteur * 180;	//	Ordre 1
@@ -210,7 +210,7 @@ int commandesAjusteSelectifsFiltres(commandesT * commandes, float facteur)
 
 	for(i=0;i<SELECTIF_FILTRES;i++)
 		{
-		selectifInitialise(&(*commandes).selectifFiltrag[i], (*commandes).selectifsDroite - (*commandes).selectifsGauche);
+		selectifInitialise(&(*commandes).selectifFiltrag[i], (*commandes).selectifInitialDroite - (*commandes).selectifInitialGauche);
 		}
 				// BOUTONS SELECTIFS SUIVANT X
 	(*commandes).selectifFiltrag[0].X = facteur * 626;  		//	Passe bas éteint
@@ -233,12 +233,12 @@ int commandesAjusteSelectifsFiltres(commandesT * commandes, float facteur)
 int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY)
 	{
 		 // Rayon des petits boutons
-	int rayonX=(*commandes).selectifsDroite-(*commandes).selectifsGauche;
+	int rayonX=(*commandes).selectifInitialDroite-(*commandes).selectifInitialGauche;
 	int rayonY=rayonX;
 
-	if(sourisX<(*commandes).rotatifsDroite || sourisX>(*commandes).fonctionsDroite)
+	if(sourisX<(*commandes).rotatifInitialDroite || sourisX>(*commandes).fonctionsDroite)
 		{	//	Zones des boutons rotatifs
-		rayonX=(*commandes).rotatifsDroite-(*commandes).rotatifsGauche;
+		rayonX=(*commandes).rotatifInitialDroite-(*commandes).rotatifInitialGauche;
 		rayonY=rayonX;
 		}
 
@@ -265,12 +265,12 @@ int commandesSourisZone(commandesT * commandes)
 				printf("commandesSourisZone 1\n");
 			return 1;
 			}
-		if((*commandes).sourisX < (*commandes).rotatifsDroite && (*commandes).sourisX > (*commandes).rotatifsGauche)
+		if((*commandes).sourisX < (*commandes).rotatifInitialDroite && (*commandes).sourisX > (*commandes).rotatifInitialGauche)
 			{	//	Rotatif
 				printf("commandesSourisZone 2\n");
 			return 2;
 			}
-		if((*commandes).sourisX < (*commandes).selectifsDroite && (*commandes).sourisX > (*commandes).selectifsGauche)
+		if((*commandes).sourisX < (*commandes).selectifInitialDroite && (*commandes).sourisX > (*commandes).selectifInitialGauche)
 			{	//	Selectif
 				printf("commandesSourisZone 3\n");
 			return 3;
@@ -308,7 +308,7 @@ int commandesSourisZone(commandesT * commandes)
 			}
 		else						//		MENU 3 = zone 8
 			{
-			if((*commandes).sourisX < (*commandes).rotatifsDroite && (*commandes).sourisX > (*commandes).rotatifsGauche)
+			if((*commandes).sourisX < (*commandes).rotatifInitialDroite && (*commandes).sourisX > (*commandes).rotatifInitialGauche)
 				{	//	Rotatif
 					printf("commandesSourisZone 2\n");
 				return 2;
@@ -431,13 +431,13 @@ int commandesSourisZone(commandesT * commandes)
 			}
 		else
 			{
-			if((*commandes).sourisX < (*commandes).rotatifsDroite && (*commandes).sourisX > (*commandes).rotatifsGauche)
+			if((*commandes).sourisX < (*commandes).rotatifInitialDroite && (*commandes).sourisX > (*commandes).rotatifInitialGauche)
 				{	//	Rotatif
 				return 2;
 				}
 			else
 				{	//	Selectif
-				if((*commandes).sourisX < (*commandes).selectifsDroite && (*commandes).sourisX > (*commandes).selectifsGauche)
+				if((*commandes).sourisX < (*commandes).selectifInitialDroite && (*commandes).sourisX > (*commandes).selectifInitialGauche)
 					{
 					return 3;
 					}

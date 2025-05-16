@@ -78,7 +78,7 @@ int parametrInitialRotatifs(initialeT * initiale, parametrInitialT * parametre, 
 		//		boutons rotatifs dans le mode initiale
 
 	float theta;
-	int longueur = (*commandes).rotatifsDroite - (*commandes).rotatifsGauche;
+	int longueur = (*commandes).rotatifInitialDroite - (*commandes).rotatifInitialGauche;
 
 		// facteur de proportionalité entre les grandeurs de l'enveloppe et la position des rotatifs
 	(*parametre).radianEta = PIS2 / ((*initiale).enveloppe.etaMax - (*initiale).enveloppe.etaMin);
