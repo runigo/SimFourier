@@ -74,7 +74,7 @@ int parametrFiltragRotatifs(filtrageT * filtrage, parametrFiltragT * parametre, 
 		//		boutons rotatifs
 
 	float theta;
-	int longueur = (*commandes).rotatifInitialDroite - (*commandes).rotatifInitialGauche;
+	int longueur = (*commandes).rotatifFiltrDroite - (*commandes).rotatifFiltrGauche;
 
 			//	Projection sur les boutons rotatifs du filtrage
 		//	Fréquence 1

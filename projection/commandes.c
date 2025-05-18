@@ -71,18 +71,22 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 		printf("commandesAjusteZones FACTEUR = %f\n", facteur);
 		}
 
-			//	Zones des commandes du menu 2 suivant X
+			//	Zones suivant X des rotatifs du menu initiale
 	(*commandes).rotatifInitialGauche = facteur * 19;
 	(*commandes).rotatifInitialDroite = facteur * 78;
 
-			//	Zones des commandes du menu 3 suivant X
+			//	Zones suivant X des selectifs du menu initiale
 	(*commandes).selectifInitialGauche = facteur * 97;
 	(*commandes).selectifInitialDroite = facteur * 129;
 
-		// Zones suivant X des fonctions (zones 4, 5, 6, 7)
+			// Zones suivant X des fonctions (zones 4, 5, 6, 7)
 	(*commandes).fonctionsGauche = facteur * 145;
 	(*commandes).fonctionsDroite = fenetreX - facteur * 85;	//	Début de la zone 8
 	(*commandes).filtrageGauche = fenetreX - facteur * 648;	//	Début de la zone 9
+
+			//	Zones suivant X des rotatifs du menu filtrage
+	(*commandes).rotatifFiltrGauche = fenetreX - facteur * 70;
+	(*commandes).rotatifFiltrDroite = fenetreX - facteur * 11;
 
 		// Zones suivant Y du menu 1
 	(*commandes).mode = facteur * 24;
@@ -189,16 +193,16 @@ int commandesAjusteRotatifsFiltres(commandesT * commandes, float facteur)
 	int i;
 	for(i=0;i<ROTATIF_FILTRES;i++)
 		{
-		rotatifInitialise(&(*commandes).rotatifFiltrag[i], (*commandes).rotatifInitialDroite-(*commandes).rotatifInitialGauche);
+		rotatifInitialise(&(*commandes).rotatifFiltrag[i], (*commandes).rotatifFiltrDroite-(*commandes).rotatifFiltrGauche);
 		}
-	(*commandes).rotatifFiltrag[0].Y = facteur * 110; 	//	Fréquence 1
-	(*commandes).rotatifFiltrag[1].Y = facteur * 180;	//	Ordre 1
-	(*commandes).rotatifFiltrag[2].Y = facteur * 278;	//	Fréquence 2
-	(*commandes).rotatifFiltrag[3].Y = facteur * 349;	//	Ordre 2
-	(*commandes).rotatifFiltrag[4].Y = facteur * 456;	//	Fréquence 3
-	(*commandes).rotatifFiltrag[5].Y = facteur * 527;	//	Ordre 3
-	(*commandes).rotatifFiltrag[6].Y = facteur * 598;	//	Delta f
-	(*commandes).rotatifFiltrag[7].Y = facteur * 700;	//	Amplification
+	(*commandes).rotatifFiltrag[0].Y = facteur * 12; 	//	Fréquence 1
+	(*commandes).rotatifFiltrag[1].Y = facteur * 83;	//	Ordre 1
+	(*commandes).rotatifFiltrag[2].Y = facteur * 181;	//	Fréquence 2
+	(*commandes).rotatifFiltrag[3].Y = facteur * 252;	//	Ordre 2
+	(*commandes).rotatifFiltrag[4].Y = facteur * 358;	//	Fréquence 3
+	(*commandes).rotatifFiltrag[5].Y = facteur * 429;	//	Ordre 3
+	(*commandes).rotatifFiltrag[6].Y = facteur * 501;	//	Delta f
+	(*commandes).rotatifFiltrag[7].Y = facteur * 603;	//	Amplification
 
 	return 0;
 	}
@@ -308,13 +312,13 @@ int commandesSourisZone(commandesT * commandes)
 			}
 		else						//		MENU 3 = zone 8
 			{
-			if((*commandes).sourisX < (*commandes).rotatifInitialDroite && (*commandes).sourisX > (*commandes).rotatifInitialGauche)
+			if((*commandes).sourisX < (*commandes).rotatifFiltrDroite && (*commandes).sourisX > (*commandes).rotatifFiltrGauche)
 				{	//	Rotatif
-					printf("commandesSourisZone 2\n");
-				return 2;
+					printf("commandesSourisZone 8\n");
+				return 8;
 				}
-			printf("commandesSourisZone 8\n");
-			return 8;
+		//	printf("commandesSourisZone 8\n");
+		//	return 8;
 			}
 		}
 	

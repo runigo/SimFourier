@@ -56,12 +56,12 @@ typedef struct CommandesT commandesT;
 		rotatifT rotatifFiltrag[ROTATIF_FILTRES];		//	Rotatifs du menu filtrage
 		selectifT selectifFiltrag[SELECTIF_FILTRES];	//	Sélectifs du menu filtrage
 
-			// Zones suivant X des commandes des menus verticaux (initial et simulation)
+			// Zones suivant X des commandes du menus initial
 		int rotatifInitialGauche;
 		int rotatifInitialDroite;
 		int selectifInitialGauche;
 		int selectifInitialDroite;
-			// Zones suivant X des commandes des menus verticaux (initial et simulation)
+			// Zones suivant X des rotatifs du menu filtrage
 		int rotatifFiltrGauche;
 		int rotatifFiltrDroite;
 

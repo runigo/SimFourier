@@ -41,6 +41,7 @@ int graphiqueMenus(graphiqueT * graphique, int mode);
 int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes);
 int graphiqueCommandesSimulation(graphiqueT * graphique, commandesT * commandes);
 int graphiqueCommandesGraphes(graphiqueT * graphique, commandesT * commandes);
+int graphiqueCommandesFiltres(graphiqueT * graphique, commandesT * commandes);
 
 
 	//------     INITIALISATION ,  SUPRESSION ,  FONCTION ÉLÉMENTAIRE     ------//
@@ -114,6 +115,7 @@ int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
 		{
 		graphiqueCommandesInitiale(graphique, commandes);
 		graphiqueCommandesGraphes(graphique, commandes);
+		graphiqueCommandesFiltres(graphique, commandes);
 		}
 /*	else	//	Mode simulation
 		{
@@ -163,7 +165,7 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 		//	Position du  menu rotatif filtrage (zone 8)
 	coordonnee.w = (*graphique).facteur * 85;
 	coordonnee.h = (*graphique).facteur * 676;
-	coordonnee.y = (*graphique).fenetreY - coordonnee.h;
+	coordonnee.y = 0;
 	coordonnee.x = (*graphique).fenetreX - coordonnee.w;
 
 	if(mode==0)	//	Mode initiale
@@ -227,22 +229,6 @@ int graphiqueCommandesGraphes(graphiqueT * graphique, commandesT * commandes)
 				}
 			}
 		}
-/*
-		//	Dessine les aiguilles des boutons rotatifs
-	int X, Y, x, y;
-	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-	X = (*commandes).rotatifInitialDroite;
-	for(i=0;i<ROTATIF_INITIAL;i++)
-		{
-		Y = (*commandes).rotatifInitial[i].Y + (*commandes).rotatifInitial[i].dY;
-		x = X + (*commandes).rotatifInitial[i].positionX;
-		y = Y + (*commandes).rotatifInitial[i].positionY;
-		SDL_RenderDrawLine((*graphique).affichage.rendu, X-1, Y, x-1, y);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y-1, x, y-1);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, X+1, Y, x+1, y);
-		SDL_RenderDrawLine((*graphique).affichage.rendu, X, Y+1, x, y+1);
-		}
-*/
 	return 0;
 	}
 
@@ -274,8 +260,8 @@ int graphiqueCommandesFiltres(graphiqueT * graphique, commandesT * commandes)
 		//	Dessine les aiguilles des boutons rotatifs
 	int X, Y, x, y;
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.orange);
-	X = (*commandes).rotatifInitialDroite;
-	for(i=0;i<ROTATIF_FILTRES;i++)
+	X = (*commandes).rotatifFiltrDroite;
+	for(i=0;i<ROTATIF_FILTRES;i++) // (*graphique).fenetreY - (*graphique).facteur * 676 + 
 		{
 		Y = (*commandes).rotatifFiltrag[i].Y + (*commandes).rotatifFiltrag[i].dY;
 		x = X + (*commandes).rotatifFiltrag[i].positionX;

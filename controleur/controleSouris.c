@@ -177,8 +177,8 @@ int controleSourisCliqRotatif(controleurT * controleur, int menu)
 		rotatif = commandeRotatifsFiltres(&(*controleur).projection.commandes);
 		fprintf(stderr, "\n controleSourisCliqRotatif, numéro : %d\n", rotatif);
 			//	Position angulaire de la souris dans le rotatif
-		angle = atan( (double)((*controleur).projection.commandes.rotatifInitial[rotatif].Y + (*controleur).projection.commandes.rotatifInitial[rotatif].dY - (*controleur).projection.commandes.sourisY) / ((*controleur).projection.commandes.rotatifInitialDroite - (*controleur).projection.commandes.sourisX));
-	//	angle = atan( (double)((*controleur).projection.commandes.rotatifFiltrag[rotatif].Y + (*controleur).projection.commandes.rotatifFiltrag[rotatif].dY - (*controleur).projection.commandes.sourisY) / ((*controleur).projection.commandes.rotatifInitialDroite - (*controleur).projection.commandes.sourisX));
+	//	angle = atan( (double)((*controleur).projection.commandes.rotatifFiltr[rotatif].Y + (*controleur).projection.commandes.rotatifFiltr[rotatif].dY - (*controleur).projection.commandes.sourisY) / ((*controleur).projection.commandes.rotatifFiltrDroite - (*controleur).projection.commandes.sourisX));
+		angle = atan( (double)((*controleur).projection.commandes.rotatifFiltrag[rotatif].Y + (*controleur).projection.commandes.rotatifFiltrag[rotatif].dY - (*controleur).projection.commandes.sourisY) / ((*controleur).projection.commandes.rotatifFiltrDroite - (*controleur).projection.commandes.sourisX));
 		fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
 		pourMille = (int)(angle*1000/PIS2);
 
@@ -201,7 +201,7 @@ int controleSourisCliqRotatif(controleurT * controleur, int menu)
 			case 7: //	Amplification
 				modeleChangeFiltrage(&(*controleur).modele, 0, 1, 0, pourMille);break;
 			default:
-				printf("ERREUR : controleSourisCliqRotatif");
+				printf("ERREUR : controleSourisCliqRotatif\n");
 			}
 		}
 	return 0;
