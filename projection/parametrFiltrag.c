@@ -47,7 +47,7 @@ int parametrFiltragInitialise(parametrFiltragT * parametre, int nombre)
 	(*parametre).radianFrequence = PIS2 / (nombre);
 	(*parametre).radianOrdre = PIS2 / (nombre);
 	(*parametre).radianDeltaF = PIS2 / (nombre);
-	(*parametre).radianAmplification = PIS2 / (nombre);
+	(*parametre).radianAmplification = PIS2 / (100);
 
 	return 0;
 	}

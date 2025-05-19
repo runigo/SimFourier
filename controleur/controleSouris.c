@@ -145,7 +145,7 @@ int controleSourisCliqRotatif(controleurT * controleur, int menu)
 		angle = atan( (double)((*controleur).projection.commandes.rotatifInitial[rotatif].Y
 		+ (*controleur).projection.commandes.rotatifInitial[rotatif].dY - (*controleur).projection.commandes.sourisY)
 		/ ((*controleur).projection.commandes.rotatifInitialDroite - (*controleur).projection.commandes.sourisX));
-		fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
+		//fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
 		pourMille = (int)(angle*1000/PIS2);
 
 		switch(rotatif)	//	
@@ -177,9 +177,10 @@ int controleSourisCliqRotatif(controleurT * controleur, int menu)
 		rotatif = commandeRotatifsFiltres(&(*controleur).projection.commandes);
 		fprintf(stderr, "\n controleSourisCliqRotatif, numéro : %d\n", rotatif);
 			//	Position angulaire de la souris dans le rotatif
-	//	angle = atan( (double)((*controleur).projection.commandes.rotatifFiltr[rotatif].Y + (*controleur).projection.commandes.rotatifFiltr[rotatif].dY - (*controleur).projection.commandes.sourisY) / ((*controleur).projection.commandes.rotatifFiltrDroite - (*controleur).projection.commandes.sourisX));
-		angle = atan( (double)((*controleur).projection.commandes.rotatifFiltrag[rotatif].Y + (*controleur).projection.commandes.rotatifFiltrag[rotatif].dY - (*controleur).projection.commandes.sourisY) / ((*controleur).projection.commandes.rotatifFiltrDroite - (*controleur).projection.commandes.sourisX));
-		fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
+		angle = atan( (double)((*controleur).projection.commandes.rotatifFiltrag[rotatif].Y
+		 + (*controleur).projection.commandes.rotatifFiltrag[rotatif].dY - (*controleur).projection.commandes.sourisY)
+		 / ((*controleur).projection.commandes.rotatifFiltrDroite - (*controleur).projection.commandes.sourisX));
+		//fprintf(stderr, " controleSourisCliqRotatif, angle = %f\n", angle);
 		pourMille = (int)(angle*1000/PIS2);
 
 		switch(rotatif)	//	
@@ -442,7 +443,7 @@ int controleSourisMoletteRotatifsFiltres(controleurT * controleur)
 			case 6:	//	Delta f 3
 				modeleChangeFiltrage(&(*controleur).modele, 3, 3, 1, 0);break;
 			case 7:	//	Amplification
-				modeleChangeFiltrage(&(*controleur).modele, 0, 2, 1, 0);break;
+				modeleChangeFiltrage(&(*controleur).modele, 0, 1, 1, 0);break;
 			default:
 				;
 			}
@@ -466,7 +467,7 @@ int controleSourisMoletteRotatifsFiltres(controleurT * controleur)
 			case 6:	//	Delta f 3
 				modeleChangeFiltrage(&(*controleur).modele, 3, 3, -1, 0);break;
 			case 7:	//	Amplification
-				modeleChangeFiltrage(&(*controleur).modele, 0, 2, -1, 0);break;
+				modeleChangeFiltrage(&(*controleur).modele, 0, 1, -1, 0);break;
 			default:
 				;
 			}

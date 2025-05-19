@@ -52,6 +52,7 @@ int projectionInitialise(projectionT * projection, int nombre)
 	parametrGraphInitialise(&(*projection).parametrGraph, nombre);
 	parametrSystemInitialise(&(*projection).parametrSystem);
 	parametrInitialInitialise(&(*projection).parametrInitial, nombre);
+	parametrFiltragInitialise(&(*projection).parametrFiltrag, nombre);
 
 		//	Initialisation des graphes
 	grapheInitialisation(&(*projection).fonction, nombre);

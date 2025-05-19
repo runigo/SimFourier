@@ -170,7 +170,7 @@ int filtreVariationFrequence(filtreT * filtre, int variation)
 		}
 	else
 		{
-		if(frequence<(*filtre).nombre)
+		if(frequence<0)
 			{
 			printf("Fréquence filtre minimal atteint\n");
 			}
