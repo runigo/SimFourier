@@ -158,28 +158,6 @@ int projectionModeleGraphes3D(modeleT * modele, projectionT * projection)
 	}
 
 
-int projectionCommandes(systemeT * systeme, parametrSystemT * projection, commandesT * commandes) {
-
-		// Projette le système sur les commandes dans le mode simulation
-
-(void)systeme;
-(void)projection;
-(void)commandes;
-	return 0;
-	}
-
-int projectionControleurCommandes(parametrSystemT * projection, commandesT * commandes, int duree, int mode) {
-
-		// Projette le controleur sur les commandes
-
-(void)projection;
-(void)commandes;
-(void)duree;
-(void)mode;
-	return 0;
-	}
-
-
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
 int projectionChangeParametre(projectionT * projection, int menu, int parametre, int variation, int pourMille)
