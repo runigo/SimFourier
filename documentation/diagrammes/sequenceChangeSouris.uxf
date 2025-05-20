@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="13.3">
-  <zoom_level>10</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>10</x>
-      <y>20</y>
-      <w>430</w>
-      <h>120</h>
+      <x>35</x>
+      <y>7</y>
+      <w>301</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>controleur
 --
@@ -22,10 +22,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>510</x>
-      <y>70</y>
-      <w>360</w>
-      <h>100</h>
+      <x>385</x>
+      <y>42</y>
+      <w>252</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>controleSouris
 --
@@ -39,10 +39,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>20</x>
-      <y>210</y>
-      <w>390</w>
-      <h>70</h>
+      <x>42</x>
+      <y>140</y>
+      <w>273</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>
 --
@@ -53,10 +53,10 @@ bg=orange</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>430</x>
-      <y>30</y>
-      <w>430</w>
-      <h>60</h>
+      <x>329</x>
+      <y>14</y>
+      <w>301</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;
 controleSouris(controleur, 2)</panel_attributes>
@@ -65,10 +65,10 @@ controleSouris(controleur, 2)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>40</x>
-      <y>160</y>
-      <w>530</w>
-      <h>70</h>
+      <x>56</x>
+      <y>105</y>
+      <w>371</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;
 controleSourisBouton(controleur, 1, zone)</panel_attributes>
@@ -77,10 +77,10 @@ controleSourisBouton(controleur, 1, zone)</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>430</x>
-      <y>360</y>
-      <w>590</w>
-      <h>140</h>
+      <x>329</x>
+      <y>245</y>
+      <w>413</w>
+      <h>98</h>
     </coordinates>
     <panel_attributes>modele
 --
@@ -96,10 +96,10 @@ bg=orange</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>400</x>
-      <y>220</y>
-      <w>490</w>
-      <h>70</h>
+      <x>308</x>
+      <y>147</y>
+      <w>343</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;
 controleSourisCliqSelectif(controleur)</panel_attributes>
@@ -108,10 +108,10 @@ controleSourisCliqSelectif(controleur)</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>50</x>
-      <y>290</y>
-      <w>360</w>
-      <h>80</h>
+      <x>63</x>
+      <y>196</y>
+      <w>252</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>zone = 3
 
@@ -123,10 +123,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>30</x>
-      <y>570</y>
-      <w>510</w>
-      <h>90</h>
+      <x>49</x>
+      <y>392</y>
+      <w>357</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>initiale
 --
@@ -139,10 +139,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>790</x>
-      <y>560</y>
-      <w>360</w>
-      <h>70</h>
+      <x>581</x>
+      <y>385</y>
+      <w>252</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>variation = 0
                =&gt; réglage du paramètre
@@ -154,10 +154,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>920</x>
-      <y>130</y>
-      <w>200</w>
-      <h>80</h>
+      <x>672</x>
+      <y>84</y>
+      <w>140</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>action = 2
 
@@ -170,10 +170,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>70</x>
-      <y>490</y>
-      <w>770</w>
-      <h>100</h>
+      <x>77</x>
+      <y>336</y>
+      <w>539</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;
 initialeRegleParametre(initiale, fonction, parametre, pourMille)</panel_attributes>
@@ -182,10 +182,10 @@ initialeRegleParametre(initiale, fonction, parametre, pourMille)</panel_attribut
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>510</x>
-      <y>270</y>
-      <w>560</w>
-      <h>70</h>
+      <x>385</x>
+      <y>182</y>
+      <w>392</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>modeleChangeInitiale(modele, fonction, 0, variation, pourMille)</panel_attributes>
     <additional_attributes/>
@@ -193,10 +193,10 @@ initialeRegleParametre(initiale, fonction, parametre, pourMille)</panel_attribut
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>970</x>
-      <y>90</y>
-      <w>150</w>
-      <h>30</h>
+      <x>707</x>
+      <y>56</y>
+      <w>105</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>controleSouris
                                        
@@ -206,10 +206,10 @@ bg=red</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>900</x>
-      <y>40</y>
-      <w>150</w>
-      <h>30</h>
+      <x>658</x>
+      <y>21</y>
+      <w>105</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>controleur
                                   
@@ -219,10 +219,10 @@ bg=red</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>90</x>
-      <y>390</y>
-      <w>150</w>
-      <h>30</h>
+      <x>91</x>
+      <y>266</y>
+      <w>105</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>modele
                                        
@@ -232,10 +232,10 @@ bg=red</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>170</x>
-      <y>460</y>
-      <w>150</w>
-      <h>30</h>
+      <x>147</x>
+      <y>315</y>
+      <w>105</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>initiale
                                        

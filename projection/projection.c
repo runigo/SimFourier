@@ -95,14 +95,14 @@ int projectionModele(projectionT * projection, modeleT * modele, int mode)
 	if(mode == 0)	//	Mode initiale
 		{
 	parametrInitialCommandes(&(*modele).initiale, &(*projection).parametrInitial, &(*projection).commandes);
+	parametrGraphCommandes(&(*projection).fonction, &(*projection).parametrGraph, &(*projection).commandes);
+	parametrGraphCommandes(&(*projection).fourier, &(*projection).parametrGraph, &(*projection).commandes);
+	parametrFiltragCommandes(&(*modele).filtrage, &(*projection).parametrFiltrag, &(*projection).commandes);
 		}
 	else		//	Mode simulation
 		{
 	parametrSystemCommandes(&(*modele).systeme, &(*projection).parametrSystem, &(*projection).commandes);
 		}
-
-			//		Filtrage -> commandes
-	parametrFiltragCommandes(&(*modele).filtrage, &(*projection).parametrFiltrag, &(*projection).commandes);
 
 	return 0;
 	}

@@ -101,7 +101,7 @@ int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes)
 			case 2:
 				(*commandes).selectifGraph[j][2].etat = 1; break;	//	Réel
 			default:
-				; }
+				fprintf(stderr, "ERREUR : parametrGraphSelectifs, axes = %d\n", (*graphe).axes); }
 
 		switch((*graphe).trait) {	//	Tracé de la courbe
 			case 0:
@@ -109,7 +109,7 @@ int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes)
 			case 1:
 				(*commandes).selectifGraph[j][4].etat = 1; break;	//	Relié
 			default:
-				; }
+				fprintf(stderr, "ERREUR : parametrGraphSelectifs, trait = %d\n", (*graphe).trait); }
 
 		switch((*graphe).coord) {	//	Tracé des coordonnées
 			case 0:
@@ -117,7 +117,7 @@ int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes)
 			case 1:
 				(*commandes).selectifGraph[j][5].etat = 1; break;	//	vecteur
 			default:
-				; }
+				fprintf(stderr, "ERREUR : parametrGraphSelectifs, coord = %d\n", (*graphe).coord); }
 		}
 	return 0;
 	}
