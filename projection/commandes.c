@@ -42,7 +42,7 @@ int commandesAjusteRotatifsFiltres(commandesT * commandes, float facteur);
 int commandesAjusteSelectifsFiltres(commandesT * commandes, float facteur);
 //int commandesInitialise(commandesT * commandes, float facteur);
 
-int commandesAjusteCommandes(commandesT * commandes, int fenetreX, int fenetreY)
+float commandesAjusteCommandes(commandesT * commandes, int fenetreX, int fenetreY)
 	{
 			//	Réglage des positions des zones et des commandes en fonction de la taille de la fenêtre
 
@@ -55,7 +55,7 @@ int commandesAjusteCommandes(commandesT * commandes, int fenetreX, int fenetreY)
 	commandesAjusteRotatifsFiltres(commandes, facteur);
 	commandesAjusteSelectifsFiltres(commandes, facteur);
 
-	return 0;
+	return facteur;
 	}
 
 float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)

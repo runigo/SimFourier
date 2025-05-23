@@ -140,15 +140,7 @@ int controleurFenetre(controleurT * controleur)
 		(*controleur).graphique.fenetreX=x;
 		(*controleur).graphique.fenetreY=y;
 		projectionChangeFenetre(&(*controleur).projection, x, y);
-		commandesAjusteCommandes(&(*controleur).projection.commandes, x, y);
-		if(y<MENUS_Y)
-			{
-			(*controleur).graphique.facteur = (float)y/MENUS_Y;
-			}
-		else
-			{
-			(*controleur).graphique.facteur = 1.0;
-			}
+		(*controleur).graphique.facteur = commandesAjusteCommandes(&(*controleur).projection.commandes, x, y);
 		capteursMiseAJourLongueur(&(*controleur).capteurs, x, y);
 		}
 

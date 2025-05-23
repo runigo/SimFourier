@@ -93,7 +93,7 @@ typedef struct CommandesT commandesT;
 //int commandesInitialise(commandesT * commandes, double facteur);
 
 int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY);
-int commandesAjusteCommandes(commandesT * commandes, int x, int y);
+float commandesAjusteCommandes(commandesT * commandes, int x, int y);
 
 int commandesSourisZone(commandesT * commandes);
 
