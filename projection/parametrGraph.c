@@ -91,15 +91,20 @@ int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes)
 		(*commandes).selectifGraph[(*graphe).j][i].etat = 0;
 		}
 
-	switch((*graphe).axes) {	//	Tracé des axes, position du point de vue
-		case 0:
-			(*commandes).selectifGraph[(*graphe).j][0].etat = 1; break;	//	Implicite
-		case 1:
-			(*commandes).selectifGraph[(*graphe).j][1].etat = 1; break;	//	Imaginaire
-		case 2:
-			(*commandes).selectifGraph[(*graphe).j][2].etat = 1; break;	//	Réel
-		default:
-			fprintf(stderr, "ERREUR : parametrGraphSelectifs, axes = %d\n", (*graphe).axes); }
+		//	Position du point de vue
+	if( ((*graphe).pointDeVue.position.phi > PHI-0.01) && ((*graphe).pointDeVue.position.phi < PHI+0.01)
+	 && ((*graphe).pointDeVue.position.psi > PSI-0.01) && ((*graphe).pointDeVue.position.psi < PSI+0.01) )
+		{	(*commandes).selectifGraph[(*graphe).j][0].etat = 1; }	//	Implicite
+
+	if( ((*graphe).pointDeVue.position.psi > -PIS2-0.01) && ((*graphe).pointDeVue.position.psi < -PIS2+0.01) )
+		{
+		if( ((*graphe).pointDeVue.position.phi > PIS2-0.01) && ((*graphe).pointDeVue.position.phi < PIS2+0.01) )
+			{	(*commandes).selectifGraph[(*graphe).j][1].etat = 1;	}	//	Imaginaire
+
+		if( ((*graphe).pointDeVue.position.phi > PI-0.01) && ((*graphe).pointDeVue.position.phi < PI+0.01) )
+			{	(*commandes).selectifGraph[(*graphe).j][2].etat = 1;	}	//	Réel
+		}
+
 
 	switch((*graphe).trait) {	//	Tracé de la courbe
 		case 0:

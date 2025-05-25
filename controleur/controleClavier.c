@@ -68,9 +68,10 @@ int controleClavier(controleurT * controleur)
 		//	projectionSystemAffiche(&(*controleur).projection.parametreSystem);break;
 		case SDLK_F2: // Position de la souris
 			controleSourisAffiche(controleur);break;
-	//	case SDLK_F3:
-		//	pointDeVueAffiche(&(*controleur).graphes.fonction.pointDeVue);break;
-	//	case SDLK_F4:
+		case SDLK_F3:
+			pointDeVueAffiche(&(*controleur).projection.fonction.pointDeVue);break;
+		case SDLK_F4:
+			pointDeVueAffiche(&(*controleur).projection.fourier.pointDeVue);break;
 		//	printf("GRAPHE FONCTION :\n");
 		//	grapheAffiche(&(*controleur).graphes.fonction);break;
 	//	case SDLK_F5:

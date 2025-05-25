@@ -37,7 +37,7 @@ int grapheReglageAxes(grapheT * graphe, int axes);
 int grapheReglageTrait(grapheT * graphe, int trait);
 int grapheReglageCoord(grapheT * graphe, int coord);
 int grapheChangeCoord(grapheT * graphe, int coord);
-int grapheReglagePdv(grapheT * graphe, int axes);
+int grapheReglagePdv(grapheT * graphe, int position);
 
 int grapheInitialisation(grapheT * graphe, int nombre)
 	{
@@ -250,23 +250,23 @@ int grapheReglageAxes(grapheT * graphe, int axes)
 	return 0;
 	}
 
-int grapheReglagePdv(grapheT * graphe, int axes)
+int grapheReglagePdv(grapheT * graphe, int position)
 	{
-		// Change la position du point de vue
+		// Regle la position du point de vue
 
-	switch (axes)
+	switch (position)
 		{
 		case 0:	//	implicite
 			pointDeVueReglePhi(&(*graphe).pointDeVue, PHI);
-			pointDeVueReglePsi(&(*graphe).pointDeVue,  PSI);
+			pointDeVueReglePsi(&(*graphe).pointDeVue, PSI);
 			printf("Point de vue implicite\n"); break;
 		case 1:	//	imaginaire
 			pointDeVueReglePhi(&(*graphe).pointDeVue, PIS2);
-			pointDeVueReglePsi(&(*graphe).pointDeVue, PIS2);
+			pointDeVueReglePsi(&(*graphe).pointDeVue, -PIS2);
 			printf("Point de vue imaginaire\n"); break;
 		case 2:	//	réel
-			pointDeVueReglePhi(&(*graphe).pointDeVue, 0.0);
-			pointDeVueReglePsi(&(*graphe).pointDeVue, PIS2);
+			pointDeVueReglePhi(&(*graphe).pointDeVue, PI);
+			pointDeVueReglePsi(&(*graphe).pointDeVue, -PIS2);
 			printf("Point de vue réel\n"); break;
 		default:
 			printf("ERREUR grapheReglage point de vue\n");
