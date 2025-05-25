@@ -56,9 +56,13 @@ int projectionInitialise(projectionT * projection, int nombre)
 
 		//	Initialisation des graphes
 	grapheInitialisation(&(*projection).fonction, nombre);
+	(*projection).fonction.j = 0;
 	grapheInitialisation(&(*projection).fourier, nombre);
+	(*projection).fourier.j = 1;
 	grapheInitialisation(&(*projection).fct, nombre);
+	(*projection).fct.j = 0;
 	grapheInitialisation(&(*projection).fou, nombre);
+	(*projection).fou.j = 1;
 
 		//	Position des graphes dans la fenêtre
 	(*projection).fonction.positionX = 0.30;

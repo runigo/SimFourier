@@ -65,9 +65,20 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	(void)fenetreX;
 
 	float facteur = 1.0;	//	Facteur lié à la taille de la fenêtre
-	if(fenetreY < MENUS_Y)
+	float facteurX = 1.0;	//	Facteur lié à la taille de la fenêtre
+	if(fenetreY < FENETRE_Y)
 		{
-		facteur = (float)fenetreY / MENUS_Y;
+		facteur = (float)fenetreY / FENETRE_Y;
+		printf("commandesAjusteZones FACTEUR Y = %f\n", facteur);
+		}
+	if(fenetreX < FENETRE_X)
+		{
+		facteurX = (float)fenetreX / FENETRE_X;
+		printf("commandesAjusteZones FACTEUR X = %f\n", facteur);
+		}
+	if(facteurX < facteur)
+		{
+		facteur = facteurX;
 		printf("commandesAjusteZones FACTEUR = %f\n", facteur);
 		}
 
@@ -415,7 +426,11 @@ int commandeRotatifsFiltres(commandesT * commandes)
 			//	Si dans la zone suivant Y
 			if((*commandes).rotatifFiltrag[i].Y>(*commandes).sourisHaut
 				&& ((*commandes).rotatifFiltrag[i].Y+(*commandes).rotatifFiltrag[i].dY)<(*commandes).sourisBas)
+				{
+				printf("i = %d, ", i);
+				rotatifAffiche(&(*commandes).rotatifFiltrag[i]);
 				return i;
+				}
 			}
 		}
 	return -1;

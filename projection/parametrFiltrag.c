@@ -116,7 +116,7 @@ int parametrFiltragRotatifs(filtrageT * filtrage, parametrFiltragT * parametre, 
 int parametrFiltragSelectifs(filtrageT * filtrage, commandesT * commandes)
 	{
 		//	Projette les caractéristiques du filtrage sur les
-		//		boutons séelectifs
+		//		boutons sélectifs
 
 	int i;
 

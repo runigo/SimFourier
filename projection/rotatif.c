@@ -47,6 +47,14 @@ int rotatifInitialise(rotatifT * rotatif, int taille)
 
 	return 0;
 	}
+int rotatifAffiche(rotatifT * rotatif) {
+
+		//	Affiche les coordonnées du rotatif
+
+	printf("(*rotatif).X = %d, (*rotatif).Y = %d\n", (*rotatif).X, (*rotatif).Y);
+	return 0;
+	}
+
 /*
 int rotatifRotatifs(rotatifT * rotatif)
 	{
