@@ -78,7 +78,6 @@ typedef struct GrapheT grapheT;
 		int gauche;		// Vue de gauche
 
 			//	Longueurs caractéristiques
-		int echelle;	// Echelle du graphe
 		int longueur;	// Longueur Ox
 		int rayon;		// Longueurs Oy et Oz
 

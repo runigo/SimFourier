@@ -54,7 +54,6 @@ int grapheInitialisation(grapheT * graphe, int nombre)
 	(*graphe).arriere = 0;
 	(*graphe).gauche = 0;
 
-	(*graphe).echelle = 1;
 	(*graphe).longueur = LONGUEUR_IMP;
 	(*graphe).rayon = RAYON_IMP;
 
@@ -102,16 +101,16 @@ int grapheInitialiseSupport(grapheT * graphe){
 		}
 
 					// AXE X'X (y et z = 0)
-	(*graphe).support[0].x = -(*graphe).longueur * (*graphe).echelle;
-	(*graphe).support[1].x = (*graphe).longueur * (*graphe).echelle;
+	(*graphe).support[0].x = -(*graphe).longueur;
+	(*graphe).support[1].x = (*graphe).longueur;
 
 					// AXE Y'Y
-	(*graphe).support[2].y = -(*graphe).rayon * (*graphe).echelle;
-	(*graphe).support[3].y = (*graphe).rayon * (*graphe).echelle;
+	(*graphe).support[2].y = -(*graphe).rayon;
+	(*graphe).support[3].y = (*graphe).rayon;
 
 					// AXE Z'Z
-	(*graphe).support[4].z = -(*graphe).rayon * (*graphe).echelle;
-	(*graphe).support[5].z = (*graphe).rayon * (*graphe).echelle;
+	(*graphe).support[4].z = -(*graphe).rayon;
+	(*graphe).support[5].z = (*graphe).rayon;
 
 		//	Initialisation des abscisses du graphe
 	int nombre=(*graphe).nombre;
@@ -125,7 +124,7 @@ int grapheInitialiseSupport(grapheT * graphe){
 		int longueur = (*graphe).longueur * 2;
 		for(i=0;i<nombre;i++)
 			{
-			(*graphe).axe[i].x = (longueur * (float)i/nombre - (*graphe).longueur) * (*graphe).echelle ;
+			(*graphe).axe[i].x = (longueur * (float)i/nombre - (*graphe).longueur);
 			(*graphe).point[i].x = (*graphe).axe[i].x ;
 			}
 		}
@@ -196,34 +195,12 @@ int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int po
 			case 6:	//	coord sans
 				grapheReglageCoord(graphe, pourMille); break;
 			default:
-				printf("ERREUR grapheChangeParametre\n");
+				printf("ERREUR : grapheChangeParametre, paramètre inexistant\n");
 			}
 		}
 	else	//	Variation du paramètre
 		{
-	/*	switch (parametre)
-			{
-			case 0:	//	axes implicite
-				grapheVariationAxes(graphe, Variation); break;
-			case 1:	//	axes imaginaire
-				grapheVariationTrait(graphe, Variation); break;
-			case 2:	//	axes réel
-				grapheVariationCoord(graphe, Variation); break;
-			case 3:	//	axes sans
-				grapheVariationAxes(graphe, Variation); break;
-			case 4:	//	trait point
-				grapheVariationTrait(graphe, Variation); break;
-			case 5:	//	trait courbe
-				grapheVariationCoord(graphe, Variation); break;
-			case 6:	//	coord vecteur
-				grapheVariationCoord(graphe, Variation); break;
-			case 7:	//	coord cartésien
-				grapheVariationCoord(graphe, Variation); break;
-			case 8:	//	coord sans
-				grapheVariationCoord(graphe, Variation); break;
-			default:
-				printf("ERREUR grapheChangeParametre\n");
-			}*/
+		printf("ERREUR : grapheChangeParametre, variation != 0\n");
 		}
 
 	return 0;
