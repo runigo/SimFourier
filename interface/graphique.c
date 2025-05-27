@@ -323,7 +323,7 @@ int graphiqueAxe(graphiqueT * graphique, grapheT * graphe)
 
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
 
-	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
+	//SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
 	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[2], (*graphe).axeY[2], (*graphe).axeX[3], (*graphe).axeY[3]);
 	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[4], (*graphe).axeY[4], (*graphe).axeX[5], (*graphe).axeY[5]);
 
@@ -334,14 +334,11 @@ int graphiqueFonction(graphiqueT * graphique, grapheT * graphe)
 	{
 				//	Dessin de la fonction
 	int i;
-
-			//	Dessin de la première tige
-	//	graphiqueChangeCouleur(graphique, (*graphique).affichage.grisClair);
-	//	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xp[(*graphe).nombre], (*graphe).yp[(*graphe).nombre], (*graphe).xa[(*graphe).nombre], (*graphe).ya[(*graphe).nombre]);
+	int tronque = (*graphe).tronque;
 
 	if((*graphe).arriere == 0)
 		{
-		for(i=0;i<((*graphe).nombre-1);i++)
+		for(i=tronque;i<((*graphe).nombre-1-tronque);i++)
 			{
 			if((*graphe).coord == 1)	//	Dessin des tiges
 				{
@@ -362,7 +359,7 @@ int graphiqueFonction(graphiqueT * graphique, grapheT * graphe)
 		}
 	else
 		{
-		for(i=((*graphe).nombre-2);i>0;i--)
+		for(i=((*graphe).nombre-2-tronque);i>tronque;i--)
 			{
 			if((*graphe).coord == 1)	//	Dessin des tiges
 				{

@@ -48,7 +48,8 @@ typedef struct GrapheT grapheT;
 	struct GrapheT
 		{
 		int nombre;
-		int j;	//	0 : fonction, 1 : fourier
+		int espace;	//	0 : fonction, 1 : fourier
+		int tronque;	//	Tronque le graphe
 
 			// Grandeurs 3D
 		vecteurT point[NOMBRE_MAX]; // Fonction ou TF

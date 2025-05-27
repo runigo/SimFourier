@@ -235,19 +235,30 @@ void optionsChangeMode(optionsT * options) {
 	}
 
 
-void optionsInitialiseMode(optionsT * options, int mode) {
+void optionsRegleMode(optionsT * options, int mode) {
 
-		//		Initialise le mode 
+		//		Regle le mode 
 
-	if(mode > -2 && mode < 3)
-		{
-		(*options).mode = mode;
+	switch(mode) {
+		case -1: //		Simulation pause
+			(*options).mode = -1;
+			printf("\n"); break;
+		case 0:	//		Initiale sans filtre
+			(*options).mode = 0;
+			printf("\n"); break;
+		case 1:	//		Simulation
+			(*options).mode = 1;
+			printf("\n"); break;
+		case 2:	//		Initiale avec filtre
+			(*options).mode = 2;
+			printf("\n"); break;
+		case 3:	//		Énergie potentielle
+			(*options).mode = 3;
+			printf("\n"); break;
+		default:
+			fprintf(stderr, "ERREUR : optionsRegleMode\n");
 		}
-	else
-		{
-		fprintf(stderr, "Erreur dans optionsChangeMode()");
-		}
-	fprintf(stderr, "(*options).mode = %d \n",(*options).mode);
+	printf("(*options).mode = %d \n",(*options).mode);
 	return;
 	}
 

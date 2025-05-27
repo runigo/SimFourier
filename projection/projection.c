@@ -37,8 +37,9 @@ termes.
 	//	INITIALISATION
 
 	//	PROJECTION
-int projectionModeleGraphes(projectionT * projection, modeleT * modele);
+int projectionModeleGraphes(projectionT * projection, modeleT * modele, int mode);
 int projectionModeleGraphes3D(modeleT * modele, projectionT * projection);
+int projectionTronqueGraphes(projectionT * projection);
 
 	//	CHANGE
 
@@ -56,13 +57,13 @@ int projectionInitialise(projectionT * projection, int nombre)
 
 		//	Initialisation des graphes
 	grapheInitialisation(&(*projection).fonction, nombre);
-	(*projection).fonction.j = 0;
+	(*projection).fonction.espace = 0;
 	grapheInitialisation(&(*projection).fourier, nombre);
-	(*projection).fourier.j = 1;
+	(*projection).fourier.espace = 1;
 	grapheInitialisation(&(*projection).fct, nombre);
-	(*projection).fct.j = 0;
+	(*projection).fct.espace = 0;
 	grapheInitialisation(&(*projection).fou, nombre);
-	(*projection).fou.j = 1;
+	(*projection).fou.espace = 1;
 
 		//	Position des graphes dans la fenêtre
 	(*projection).fonction.positionX = 0.30;
@@ -91,7 +92,7 @@ int projectionModele(projectionT * projection, modeleT * modele, int mode)
 			//	Projette le modèle sur les graphes et les commandes
 
         //  Fonction -> graphe 3D -> graphe 2D
-	projectionModeleGraphes(projection, modele);
+	projectionModeleGraphes(projection, modele, mode);
 
 	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projection.parametrSystem, &(*controleur).capteurs);
 
@@ -111,10 +112,10 @@ int projectionModele(projectionT * projection, modeleT * modele, int mode)
 	return 0;
 	}
 
-int projectionModeleGraphes(projectionT * projection, modeleT * modele)
+int projectionModeleGraphes(projectionT * projection, modeleT * modele, int mode)
 	{
 		// Projection des fonctions du modèle sur les graphes en perspective
-
+	(void) mode;
 		//		Projection des fonctions sur les graphes 3D
 	projectionModeleGraphes3D(modele, projection);
 
@@ -123,6 +124,9 @@ int projectionModeleGraphes(projectionT * projection, modeleT * modele)
 	graphe3D2D(&(*projection).fourier, (*projection).fenetreX, (*projection).fenetreY);
 	graphe3D2D(&(*projection).fct, (*projection).fenetreX, (*projection).fenetreY);
 	graphe3D2D(&(*projection).fou, (*projection).fenetreX, (*projection).fenetreY);
+
+		//	Tronque les graphes
+	projectionTronqueGraphes(projection);
 
 	return 0;
 	}
@@ -161,6 +165,36 @@ int projectionModeleGraphes3D(modeleT * modele, projectionT * projection)
 	return 0;
 	}
 
+int projectionTronqueGraphes(projectionT * projection) {
+
+		//	Tronque les graphes
+		//	Calcul de l'indice à partir duquel le graphe est dans ses limites
+
+	int i = 0;
+	int nombre = (*projection).fonction.nombre;
+
+	while( ( (*projection).fonction.xa[i] < (*projection).commandes.fonctionsGauche
+	 || (*projection).fonction.xa[nombre-1-i] < (*projection).commandes.fonctionsGauche )
+	 && (i < nombre/2) )
+		{
+		i++;
+		}
+	(*projection).fonction.tronque = i;
+	(*projection).fct.tronque = i;
+
+	i = 0;
+	while( ( (*projection).fourier.xa[i] < (*projection).commandes.fonctionsGauche
+	 || (*projection).fourier.xa[nombre-1-i] < (*projection).commandes.fonctionsGauche )
+	 && (i < nombre/2) )
+		{
+		i++;
+		}
+	(*projection).fourier.tronque = i;
+	(*projection).fou.tronque = i;
+
+	return 0;
+	}
+
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
@@ -180,8 +214,6 @@ int projectionChangeParametre(projectionT * projection, int menu, int parametre,
 		}
 	return 0;
 	}
-
-
 
 int projectionChangeFenetre(projectionT * projection, int x, int y) {
 

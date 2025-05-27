@@ -84,7 +84,7 @@ int controleClavier(controleurT * controleur)
 			projectionAffiche(&(*controleur).projection);break;
 	// Support
 		case SDLK_F8:
-			optionsInitialiseMode(&(*controleur).options, 2);break;
+			optionsRegleMode(&(*controleur).options, 2);break;
 
 	// Paramètres motif
 		case SDLK_t: // Amplitude +

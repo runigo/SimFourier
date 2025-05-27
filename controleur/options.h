@@ -44,7 +44,7 @@ typedef struct OptionsT optionsT;
 		int fond;		// couleur du fond de l'affichage
 		int modeDemo;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
 		int modeClavier;	// Ctrl F1 :  SiCP, Ctrl F2 : Graphiques, Ctrl F3 : Paramètres, Ctrl F4 : moteurs
-		int mode;		//	0 : initiale, 1 : simulation, -1 : pause, 2 : énergie potentielle
+		int mode;		//	0 : initiale, 1 : simulation, -1 : pause, 2 : filtrage, 3 : énergie potentielle
 		int duree;		// Nombre d'évolution du système entre les affichages
 
 			// OPTIONS MODELE
@@ -59,7 +59,7 @@ typedef struct OptionsT optionsT;
 int optionsTraitement(optionsT * options, int nbOpt, char *option[]);
 void optionsChangePause(optionsT * options);
 void optionsChangeMode(optionsT * options);
-void optionsInitialiseMode(optionsT * options, int mode);
+void optionsRegleMode(optionsT * options, int mode);
 void optionsChangeVitesse(optionsT * options, float facteur);
 int optionsChangeEchelle(optionsT * options, float facteur);
 #endif

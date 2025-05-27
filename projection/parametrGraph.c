@@ -88,37 +88,37 @@ int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes)
 
 	for(i=0;i<SELECTIF_GRAPHES;i++)
 		{
-		(*commandes).selectifGraph[(*graphe).j][i].etat = 0;
+		(*commandes).selectifGraph[(*graphe).espace][i].etat = 0;
 		}
 
 		//	Position du point de vue
 	if( ((*graphe).pointDeVue.position.phi > PHI-0.01) && ((*graphe).pointDeVue.position.phi < PHI+0.01)
 	 && ((*graphe).pointDeVue.position.psi > PSI-0.01) && ((*graphe).pointDeVue.position.psi < PSI+0.01) )
-		{	(*commandes).selectifGraph[(*graphe).j][0].etat = 1; }	//	Implicite
+		{	(*commandes).selectifGraph[(*graphe).espace][0].etat = 1; }	//	Implicite
 
 	if( ((*graphe).pointDeVue.position.psi > -PIS2-0.01) && ((*graphe).pointDeVue.position.psi < -PIS2+0.01) )
 		{
 		if( ((*graphe).pointDeVue.position.phi > PIS2-0.01) && ((*graphe).pointDeVue.position.phi < PIS2+0.01) )
-			{	(*commandes).selectifGraph[(*graphe).j][1].etat = 1;	}	//	Imaginaire
+			{	(*commandes).selectifGraph[(*graphe).espace][1].etat = 1;	}	//	Imaginaire
 
 		if( ((*graphe).pointDeVue.position.phi > PI-0.01) && ((*graphe).pointDeVue.position.phi < PI+0.01) )
-			{	(*commandes).selectifGraph[(*graphe).j][2].etat = 1;	}	//	Réel
+			{	(*commandes).selectifGraph[(*graphe).espace][2].etat = 1;	}	//	Réel
 		}
 
 
 	switch((*graphe).trait) {	//	Tracé de la courbe
 		case 0:
-			(*commandes).selectifGraph[(*graphe).j][3].etat = 1; break;	//	Point
+			(*commandes).selectifGraph[(*graphe).espace][3].etat = 1; break;	//	Point
 		case 1:
-			(*commandes).selectifGraph[(*graphe).j][4].etat = 1; break;	//	Relié
+			(*commandes).selectifGraph[(*graphe).espace][4].etat = 1; break;	//	Relié
 		default:
 			fprintf(stderr, "ERREUR : parametrGraphSelectifs, trait = %d\n", (*graphe).trait); }
 
 	switch((*graphe).coord) {	//	Tracé des coordonnées
 		case 0:
-			(*commandes).selectifGraph[(*graphe).j][6].etat = 1; break;	//	vide
+			(*commandes).selectifGraph[(*graphe).espace][6].etat = 1; break;	//	vide
 		case 1:
-			(*commandes).selectifGraph[(*graphe).j][5].etat = 1; break;	//	vecteur
+			(*commandes).selectifGraph[(*graphe).espace][5].etat = 1; break;	//	vecteur
 		default:
 			fprintf(stderr, "ERREUR : parametrGraphSelectifs, coord = %d\n", (*graphe).coord); }
 
