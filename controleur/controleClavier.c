@@ -74,10 +74,14 @@ int controleClavier(controleurT * controleur)
 			pointDeVueAffiche(&(*controleur).projection.fourier.pointDeVue);break;
 		//	printf("GRAPHE FONCTION :\n");
 		//	grapheAffiche(&(*controleur).graphes.fonction);break;
-	//	case SDLK_F5:
+		case SDLK_F5:
+			printf("tronque fonction = %d\n", (*controleur).projection.fonction.tronque);
+			printf("tronque fourier = %d\n", (*controleur).projection.fourier.tronque);
+			printf("tronque fct = %d\n", (*controleur).projection.fct.tronque);
+			printf("tronque fou = %d\n", (*controleur).projection.fou.tronque);break;
 		//	printf("GRAPHE FOURIER :\n");
 		//	grapheAffiche(&(*controleur).graphes.fourier);break;
-		//	observablesAfficheEnergie(&(*controleur).modele.systeme);break;
+		//	observablesAfficheEnergie(&(*controleur).modele.systeme);
 	//	case SDLK_F6:
 		//	moteursAfficheHorloge(&(*controleur).modele.systeme.moteurs);break;
 		case SDLK_F7:

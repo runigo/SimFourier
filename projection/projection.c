@@ -170,7 +170,7 @@ int projectionTronqueGraphes(projectionT * projection) {
 		//	Tronque les graphes
 		//	Calcul de l'indice à partir duquel le graphe est dans ses limites
 
-	int i = 0;
+	int i = 1;
 	int nombre = (*projection).fonction.nombre;
 
 	while( ( (*projection).fonction.xa[i] < (*projection).commandes.fonctionsGauche
@@ -182,7 +182,7 @@ int projectionTronqueGraphes(projectionT * projection) {
 	(*projection).fonction.tronque = i;
 	(*projection).fct.tronque = i;
 
-	i = 0;
+	i = 1;
 	while( ( (*projection).fourier.xa[i] < (*projection).commandes.fonctionsGauche
 	 || (*projection).fourier.xa[nombre-1-i] < (*projection).commandes.fonctionsGauche )
 	 && (i < nombre/2) )

@@ -320,12 +320,37 @@ int graphiqueCommandesInitiale(graphiqueT * graphique, commandesT * commandes)
 int graphiqueAxe(graphiqueT * graphique, grapheT * graphe)
 	{
 			//			Dessin des axes xyz
-
+	int min = (*graphe).tronque;
+	int max = (*graphe).nombre - (*graphe).tronque;
 	graphiqueChangeCouleur(graphique, (*graphique).affichage.contraste);
 
-	//SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[0], (*graphe).axeY[0], (*graphe).axeX[1], (*graphe).axeY[1]);
+	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).xa[min], (*graphe).ya[min], (*graphe).xa[max], (*graphe).ya[max]);
 	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[2], (*graphe).axeY[2], (*graphe).axeX[3], (*graphe).axeY[3]);
 	SDL_RenderDrawLine((*graphique).affichage.rendu, (*graphe).axeX[4], (*graphe).axeY[4], (*graphe).axeX[5], (*graphe).axeY[5]);
+
+		//	Extrémité des axes
+	int delta = 2;
+	SDL_Rect rectangle;
+	rectangle.x = (*graphe).axeX[3]-delta;
+	rectangle.y = (*graphe).axeY[3]-delta;
+	rectangle.w = 2*delta;
+	rectangle.h = 2*delta;
+	SDL_RenderFillRect((*graphique).affichage.rendu, &rectangle);
+
+	rectangle.x = (*graphe).axeX[5]-delta;
+	rectangle.y = (*graphe).axeY[5]-delta;
+	rectangle.w = 2*delta;
+	rectangle.h = 2*delta;
+	SDL_RenderFillRect((*graphique).affichage.rendu, &rectangle);
+
+	if((*graphe).tronque<2)
+		{
+		rectangle.x = (*graphe).xa[max]-delta;
+		rectangle.y = (*graphe).ya[max]-delta;
+		rectangle.w = 2*delta;
+		rectangle.h = 2*delta;
+		SDL_RenderFillRect((*graphique).affichage.rendu, &rectangle);
+		}
 
 	return 0;
 	}
