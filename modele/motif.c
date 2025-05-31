@@ -116,14 +116,14 @@ int motifCalculCarre(motifT * motif, int periode) {
 
 	for(i=0;i<a;i++)
 		{
-		(*motif).fonction.reel[i] = (*motif).amplitude;
-		(*motif).fonction.imag[i] = (*motif).amplitude;
+		(*motif).fonction.reel[i] = (*motif).decalage + (*motif).amplitude;
+		(*motif).fonction.imag[i] = (*motif).decalage + (*motif).amplitude;
 		}
 
 	for(i=a;i<periode;i++)
 		{
-		(*motif).fonction.reel[i] = -(*motif).amplitude;
-		(*motif).fonction.imag[i] = -(*motif).amplitude;
+		(*motif).fonction.reel[i] = (*motif).decalage -(*motif).amplitude;
+		(*motif).fonction.imag[i] = (*motif).decalage -(*motif).amplitude;
 		}
 	return 0;
 }
@@ -204,7 +204,7 @@ int motifCalculTriangle(motifT * motif, int periode) {
 		beta = (*motif).amplitude;
 		for(i=0;i<periode;i++)
 			{
-			(*motif).fonction.reel[i] = i*alpha + beta;
+			(*motif).fonction.reel[i] = (*motif).decalage + i*alpha + beta;
 			}
 		}
 	else
@@ -215,7 +215,7 @@ int motifCalculTriangle(motifT * motif, int periode) {
 			beta = -(*motif).amplitude;
 			for(i=0;i<periode;i++)
 				{
-				(*motif).fonction.reel[i] = i*alpha + beta;
+				(*motif).fonction.reel[i] = (*motif).decalage + i*alpha + beta;
 				}
 			}
 		else	//	a et b sont différent de 0
@@ -223,13 +223,13 @@ int motifCalculTriangle(motifT * motif, int periode) {
 			alpha = (*motif).amplitude / a;
 			for(i=0;i<a;i++)
 				{
-				(*motif).fonction.reel[i] = i * alpha;
+				(*motif).fonction.reel[i] = (*motif).decalage + i * alpha;
 				}
 			alpha = (*motif).amplitude / (a-periode);
 			beta = ((*motif).amplitude * periode) / b;
 			for(i=a;i<periode;i++)
 				{
-				(*motif).fonction.reel[i] = i * alpha + beta;
+				(*motif).fonction.reel[i] = (*motif).decalage + i * alpha + beta;
 				}
 			}
 		}
@@ -421,7 +421,7 @@ int motifRegleAmplitude(motifT * motif, int pourMille) {
 
 	// Règle l'amplitude du motif
 
-	float amplitude = ((*motif).amplitude * pourMille)/1000;
+	float amplitude = AMPLITUDE_MIN + ((AMPLITUDE_MAX * pourMille)/1000);
 
 	if(amplitude < AMPLITUDE_MIN)
 		{
@@ -449,26 +449,26 @@ int motifRegleDecalage(motifT * motif, int pourMille) {
 
 	// Règle le décalage verticale du motif
 
-	float decalage = ((*motif).amplitude * pourMille)/1000;
+	float decalage = (AMPLITUDE_MAX * pourMille)/1000;
 
-	if(decalage < -AMPLITUDE_MAX)
+	if(decalage < 0)
 		{
-		(*motif).decalage = -AMPLITUDE_MAX;
-		printf("Décalage minimale atteinte. ");
+		(*motif).decalage = 0;
+		printf("Décalage minimale atteint. ");
 		}
 	else
 		{
 		if(decalage > AMPLITUDE_MAX)
 			{
 			(*motif).decalage = AMPLITUDE_MAX;
-			printf("Décalage maximale atteinte. ");
+			printf("Décalage maximale atteint. ");
 			}
 		else
 			{
 			(*motif).decalage = decalage;
 			}
 		}
-	printf("Décalage verticale = %f\n", (*motif).amplitude);
+	printf("Décalage verticale = %f\n", (*motif).decalage);
 
 	return 0;
 	}

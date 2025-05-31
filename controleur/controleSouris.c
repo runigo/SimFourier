@@ -135,7 +135,7 @@ int controleSourisCliqRotatif(controleurT * controleur, int menu)
 	{
 	int rotatif;
 	int pourMille;
-	double angle;
+	double angle = PI/4;
 	if(menu==2)
 		{			//	Action du cliq de souris dans le menu rotatif initiale
 			//	Numéro du rotatif
@@ -158,10 +158,10 @@ int controleSourisCliqRotatif(controleurT * controleur, int menu)
 				modeleChangeInitiale(&(*controleur).modele, 0, 1, 0, pourMille);break;
 			case 3: //	enveloppe Phase
 				modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, pourMille);break;
-			case 4: //	enveloppe Amplitude
-				modeleChangeInitiale(&(*controleur).modele, 1, 4, 0, pourMille);break;
-			case 5: //	enveloppe Décalage
-				modeleChangeInitiale(&(*controleur).modele, 1, 5, 0, pourMille);break;
+			case 4: //	motif Amplitude
+				modeleChangeInitiale(&(*controleur).modele, 0, 2, 0, pourMille);break;
+			case 5: //	motif Décalage
+				modeleChangeInitiale(&(*controleur).modele, 0, 3, 0, pourMille);break;
 			case 6: //	porteuse Période 1
 				modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, pourMille);break;
 			case 7: //	porteuse Période 2

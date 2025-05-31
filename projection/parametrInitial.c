@@ -51,7 +51,7 @@ int parametrInitialInitialise(parametrInitialT * parametre, int nombre)
 	(*parametre).radianSym = PIS2;
 
 	(*parametre).radianAmplitude = PIS2/(AMPLITUDE_MAX - AMPLITUDE_MIN);
-	(*parametre).radianDecalage = PIS2/AMPLITUDE_MAX/2;
+	(*parametre).radianDecalage = PIS2/AMPLITUDE_MAX;
 
 	return 0;
 	}
@@ -103,7 +103,7 @@ int parametrInitialRotatifs(initialeT * initiale, parametrInitialT * parametre, 
 	(*commandes).rotatifInitial[3].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[3].positionY = (int)(-longueur*sin(theta));
 		//	Amplitude motif
-	theta = (*parametre).radianAmplitude * ((*initiale).motif.amplitude + AMPLITUDE_MAX);
+	theta = (*parametre).radianAmplitude * ((*initiale).motif.amplitude );
 	(*commandes).rotatifInitial[4].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[4].positionY = (int)(-longueur*sin(theta));
 		//	Décalage verticale

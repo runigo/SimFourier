@@ -52,6 +52,8 @@ int partieRegleNature(partieT * partie, int etat); // complexe / périodique
 int partieRegleEta(partieT * partie, int pourMille);
 int partieRegleRho(partieT * partie, int pourMille);
 int partieRegleKhi(partieT * partie, int pourMille);
+int partieRegleAmplitude(partieT * partie, int pourMille);
+int partieRegleDecalage(partieT * partie, float facteur);
 //int partieVariationPhase(partieT * partie, int forme);
 
 	//		JAUGE ET NORMALISATION
@@ -640,11 +642,11 @@ int partieRegleKhi(partieT * partie, int pourMille) {
 	return 0;
 	}
 /*
-int partieRegleAmplitude(partieT * partie, float facteur) {
+int partieRegleAmplitude(partieT * partie, int pourMille) {
 
 			//	Règle l'amplitude du signal
 
-	float amplitude = (*partie).amplitude * facteur;
+	float amplitude = (pourMille * AMPLITUDE_MAX) / 1000;
 	if(amplitude < AMPLITUDE_MAX && amplitude > AMPLITUDE_MIN)
 		{
 		(*partie).amplitude = amplitude;
@@ -675,7 +677,7 @@ int partieRegleDecalage(partieT * partie, float facteur) {
 
 	return 0;
 	}
-	*/
+*/
 /*
 int partieVariationAmplitude(partieT * partie, float facteur) {
 
