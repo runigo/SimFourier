@@ -38,6 +38,8 @@ int controleurEvolution(controleurT * controleur);
 int controleurEvolutionModele(controleurT * controleur);
 int controleurProjection(controleurT * controleur);
 int controleurConstructionGraphique(controleurT * controleur);
+int controleurConstructionGrapheFiltrage(controleurT * controleur);
+int controleurConstructionGrapheFourier(controleurT * controleur);
 int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe);
 int controleurTraiteEvenement(controleurT * controleur);
 int controleurKEYDOWN(controleurT * controleur);
@@ -164,9 +166,10 @@ int controleurEvolutionModele(controleurT * controleur)
 		case 1:
 			modeleEvolutionSimulation(&(*controleur).modele, 1, (*controleur).options.echelle);break;
 		case 2:
+			modeleEvolutionInitiale(&(*controleur).modele, 1, (*controleur).options.echelle);break;
+		case 3:
 			modeleEnergiePotentielle(&(*controleur).modele, 1, (*controleur).options.echelle);
-			(*controleur).options.mode=0;
-			break;
+			(*controleur).options.mode=0;break;
 		default:
 			;
 		}
@@ -182,37 +185,14 @@ int controleurConstructionGraphique(controleurT * controleur)
 	//graphiqueNettoyage(&(*controleur).graphique);
 
 		//fprintf(stderr, "Dessin des graphes\n");
-	SDL_Rect rectangle;
-	rectangle.x = (*controleur).graphique.fenetreX/2;
-	rectangle.y = (*controleur).graphique.fenetreY/2;
-	rectangle.w = (*controleur).graphique.fenetreX/2;
-	rectangle.h = (*controleur).graphique.fenetreY/2;
-
-	SDL_SetRenderDrawColor((*controleur).graphique.affichage.rendu, (*controleur).graphique.affichage.fond.r,  (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g);
-
-	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
-	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fou);
-
-	rectangle.x = 0;
-
-	SDL_SetRenderDrawColor((*controleur).graphique.affichage.rendu, (*controleur).graphique.affichage.fond.r,  (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g);
-
-	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
-	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fourier);
-
-	rectangle.x = (*controleur).graphique.fenetreX/2;
-	rectangle.y = 0;
-
-	SDL_SetRenderDrawColor((*controleur).graphique.affichage.rendu, (*controleur).graphique.affichage.fond.r,  (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g);
-
-	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
-	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fct);
-
-	rectangle.x = 0;
-	SDL_SetRenderDrawColor((*controleur).graphique.affichage.rendu, (*controleur).graphique.affichage.fond.r,  (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g, (*controleur).graphique.affichage.fond.g);
-
-	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
-	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fonction);
+	if((*controleur).options.mode==2)
+		{
+		controleurConstructionGrapheFiltrage(controleur);
+		}
+	else
+		{
+		controleurConstructionGrapheFourier(controleur);
+		}
 
 		//fprintf(stderr, "Dessin des Commandes\n");
 	graphiqueCommandes(&(*controleur).graphique, &(*controleur).projection.commandes, (*controleur).options.mode);
@@ -224,6 +204,72 @@ int controleurConstructionGraphique(controleurT * controleur)
 	graphiqueMiseAJour(&(*controleur).graphique);
 
 	return (*controleur).sortie;
+	}
+
+int controleurConstructionGrapheFiltrage(controleurT * controleur)
+	{
+	        //  Construction des graphe en mode Filtrage
+		//fprintf(stderr, "Dessin des graphes\n");
+
+	SDL_Rect rectangle;
+	rectangle.x = (*controleur).graphique.fenetreX/2;
+	rectangle.y = (*controleur).graphique.fenetreY/2;
+	rectangle.w = (*controleur).graphique.fenetreX/2;
+	rectangle.h = (*controleur).graphique.fenetreY/2;
+
+	graphiqueChangeCouleur(&(*controleur).graphique, (*controleur).graphique.affichage.fond);
+	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
+
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fou);
+
+	rectangle.x = 0;
+
+	graphiqueChangeCouleur(&(*controleur).graphique, (*controleur).graphique.affichage.fond);
+	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
+
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fourier);
+
+	rectangle.x = (*controleur).graphique.fenetreX/2;
+	rectangle.y = 0;
+
+	graphiqueChangeCouleur(&(*controleur).graphique, (*controleur).graphique.affichage.fond);
+	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
+
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fct);
+
+	rectangle.x = 0;
+
+	graphiqueChangeCouleur(&(*controleur).graphique, (*controleur).graphique.affichage.fond);
+	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
+
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fonction);
+
+	return 0;
+	}
+
+int controleurConstructionGrapheFourier(controleurT * controleur)
+	{
+	        //  Construction du graphisme en mode Fourier
+		//fprintf(stderr, "Dessin des graphes\n");
+	SDL_Rect rectangle;
+	rectangle.x = 0;
+	rectangle.y = (*controleur).graphique.fenetreY/2;
+	rectangle.w = (*controleur).graphique.fenetreX;
+	rectangle.h = (*controleur).graphique.fenetreY/2;
+
+	graphiqueChangeCouleur(&(*controleur).graphique, (*controleur).graphique.affichage.fond);
+	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
+
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fourier);
+
+	rectangle.y = 0;
+
+	graphiqueChangeCouleur(&(*controleur).graphique, (*controleur).graphique.affichage.fond);
+	SDL_RenderFillRect((*controleur).graphique.affichage.rendu, &rectangle);
+
+	controleurConstructionGraphe(&(*controleur).graphique, &(*controleur).projection.fonction);
+
+	return 0;
 	}
 
 int controleurConstructionGraphe(graphiqueT * graphique, grapheT * graphe)

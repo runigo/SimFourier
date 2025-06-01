@@ -97,7 +97,7 @@ int projectionModele(projectionT * projection, modeleT * modele, int mode)
 	//projectionObservablesCapteurs(&(*controleur).observables, &(*controleur).projection.parametrSystem, &(*controleur).capteurs);
 
 		//	Paramètre -> commandes
-	if(mode == 0)	//	Mode initiale
+	if(mode == 0 || mode == 2)	//	Mode initiale
 		{
 	parametrInitialCommandes(&(*modele).initiale, &(*projection).parametrInitial, &(*projection).commandes);
 	parametrGraphCommandes(&(*projection).fonction, &(*projection).parametrGraph, &(*projection).commandes);
@@ -118,7 +118,12 @@ int projectionModeleGraphes(projectionT * projection, modeleT * modele, int mode
 	(void) mode;
 		//		Projection des fonctions sur les graphes 3D
 	projectionModeleGraphes3D(modele, projection);
-
+	if(mode == 2)
+		{
+		}
+	else
+		{
+		}
 		//		Projection des graphes 3D sur les graphes 2D
 	graphe3D2D(&(*projection).fonction, (*projection).fenetreX, (*projection).fenetreY);
 	graphe3D2D(&(*projection).fourier, (*projection).fenetreX, (*projection).fenetreY);

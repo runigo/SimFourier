@@ -111,17 +111,17 @@ int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode)
 
 	graphiqueMenus(graphique, mode);
 
-	if(mode == 0)	//	Mode initiale
+	if(mode == 2)	//	Mode filtrage
 		{
 		graphiqueCommandesInitiale(graphique, commandes);
 		graphiqueCommandesGraphes(graphique, commandes);
 		graphiqueCommandesFiltres(graphique, commandes);
 		}
-/*	else	//	Mode simulation
+	else
 		{
-		graphiqueCommandesSimulation(graphique, commandes);
+		graphiqueCommandesInitiale(graphique, commandes);
 		graphiqueCommandesGraphes(graphique, commandes);
-		}*/
+		}
 	return 0;
 	}
 
@@ -132,7 +132,7 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 		//	Position du premier menu (zone 1, 2 et 3)
 	SDL_Rect coordonnee = {0, 0, (*graphique).facteur * MENUS_X, (*graphique).facteur * MENUS_Y};
 
-	if(mode==0)	//	Mode initiale
+	if(mode == 0 || mode == 2)	//	Mode initiale avec ou sans filtrage
 		{
 		if ((*graphique).textures.initiale != 0)
 			{
@@ -168,23 +168,22 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 	coordonnee.y = 0;
 	coordonnee.x = (*graphique).fenetreX - coordonnee.w;
 
-	if(mode==0)	//	Mode initiale
+	if(mode==2)	//	Mode filtrage
 		{
 		if ((*graphique).textures.filtreRotatoire != 0)
 			{
 			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.filtreRotatoire, NULL, &coordonnee);
 			}
-		}
-
-			//	Menu selectif du filtrage
-		//	Taille et position des sélectif du filtrage (zone 9)
-	coordonnee.w = (*graphique).facteur * 563;
-	coordonnee.h = (*graphique).facteur * 42;
-	coordonnee.y = (*graphique).fenetreY / 2;
-	coordonnee.x = (*graphique).fenetreX - coordonnee.w - (*graphique).facteur * 85;
-	if ((*graphique).textures.filtreSelectif != 0)
-		{	//	Affichage du menu de la zone 9
-		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.filtreSelectif, NULL, &coordonnee);
+				//	Menu selectif du filtrage
+			//	Taille et position des sélectif du filtrage (zone 9)
+		coordonnee.w = (*graphique).facteur * 563;
+		coordonnee.h = (*graphique).facteur * 42;
+		coordonnee.y = (*graphique).fenetreY / 2;
+		coordonnee.x = (*graphique).fenetreX - coordonnee.w - (*graphique).facteur * 85;
+		if ((*graphique).textures.filtreSelectif != 0)
+			{	//	Affichage du menu de la zone 9
+			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.filtreSelectif, NULL, &coordonnee);
+			}
 		}
 	return 0;
 	}

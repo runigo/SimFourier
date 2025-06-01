@@ -44,11 +44,25 @@ int controleClavier(controleurT * controleur)
 			optionsChangePause(&(*controleur).options);break;
 		case SDLK_SPACE:
 			optionsChangePause(&(*controleur).options);break;
-		case SDLK_ESCAPE:
-			optionsChangeMode(&(*controleur).options);break;
+	//	case SDLK_ESCAPE:
+		//	optionsChangeMode(&(*controleur).options);break;
+
+			// Changement de mode
+/*		case SDLK_KP_PLUS:
+			optionsChangeVitesse(&(*controleur).options, 1.1);break;
+		case SDLK_KP_MINUS:
+			optionsChangeVitesse(&(*controleur).options, 0.91);break;
+		case SDLK_F9:
+			optionsChangeVitesse(&(*controleur).options, 0.32);break;	*/
+		case SDLK_F10:
+			optionsRegleMode(&(*controleur).options, 0);break;
+		case SDLK_F11:
+			optionsRegleMode(&(*controleur).options, 1);break;
+		case SDLK_F12:
+			optionsRegleMode(&(*controleur).options, 2);break;
 
 			// Vitesse de la simulation
-		case SDLK_KP_PLUS:
+/*		case SDLK_KP_PLUS:
 			optionsChangeVitesse(&(*controleur).options, 1.1);break;
 		case SDLK_KP_MINUS:
 			optionsChangeVitesse(&(*controleur).options, 0.91);break;
@@ -60,7 +74,7 @@ int controleClavier(controleurT * controleur)
 			optionsChangeVitesse(&(*controleur).options, 1.1);break;
 		case SDLK_F12:
 			optionsChangeVitesse(&(*controleur).options, 3.1);break;
-
+*/
 
 			// Afficher des informations
 

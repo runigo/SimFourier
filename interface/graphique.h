@@ -58,6 +58,7 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface);
 int graphiqueSuppression(graphiqueT * graphique);
 int graphiqueNettoyage(graphiqueT * graphique);
 int graphiqueMiseAJour(graphiqueT * graphique);
+int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
 
 		//		CONSTRUCTION DU GRAPHISME
 int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes, int mode);

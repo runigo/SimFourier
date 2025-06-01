@@ -37,6 +37,7 @@ void optionsDt(optionsT * options, char *opt);
 void optionsDuree(optionsT * options, char *opt);
 
 void optionsSupport(optionsT * options, char *opt);
+int optionsMode(optionsT * options, char *opt);
 void optionsNombre(optionsT * options, char *opt);
 void optionsSoliton(optionsT * options, char *opt);
 int optionsEchelle(optionsT * options, char *opt);
@@ -59,6 +60,8 @@ int optionsTraitement(optionsT * options, int nb, char *opt[])
 			optionsEchelle(options, opt[i+1]);		  // Echelle de la TF
 		if(strcmp(opt[i], "support")==0 && opt[i+1]!=NULL)
 			optionsSupport(options, opt[i+1]);			// Avec ou sans support
+		if(strcmp(opt[i], "mode")==0 && opt[i+1]!=NULL)
+			optionsMode(options, opt[i+1]);			// Mode {-1, 0, 1, 2, 3}
 		if(strcmp(opt[i], "aide")==0)
 			optionsAide();			// Affiche l'aide.
 		if(strcmp(opt[i], "help")==0)
@@ -122,6 +125,32 @@ void optionsEquation(optionsT * options, char *opt) {
 		printf("	option equation : 1 < equation < 5\n");
 		}
 	return;
+	}
+
+int optionsMode(optionsT * options, char *opt) {
+
+	// -1 : pause, 0, 1, 2, 3
+
+	int mode = atoi(opt);
+
+/*	switch (mode)
+		{
+		case -1:
+			(*options).mode = -1;
+			printf("Mode : Simulation pause\n"); break;
+		case 0:
+			(*options).mode = 0;
+			printf("Mode : Transformé de fourier\n"); break;
+		case 1:
+			(*options).mode = 1;
+			printf("Mode : Simulation\n"); break;
+		case 2:
+			(*options).mode = 2;
+			printf("Mode : Filtrage\n"); break;
+		default:
+			printf("ERREUR optionsMode\n");
+		}*/
+	return optionsRegleMode(options, mode);
 	}
 
 void optionsSupport(optionsT * options, char *opt) {
@@ -210,7 +239,7 @@ void optionsChangePause(optionsT * options) {
 	fprintf(stderr, "(*options).mode = %d \n",(*options).mode);
 	return;
 	}
-
+/*
 void optionsChangeMode(optionsT * options) {
 
 		//		Change le mode 
@@ -233,33 +262,33 @@ void optionsChangeMode(optionsT * options) {
 	fprintf(stderr, "(*options).mode = %d \n",(*options).mode);
 	return;
 	}
+*/
 
-
-void optionsRegleMode(optionsT * options, int mode) {
+int optionsRegleMode(optionsT * options, int mode) {
 
 		//		Regle le mode 
 
 	switch(mode) {
 		case -1: //		Simulation pause
 			(*options).mode = -1;
-			printf("\n"); break;
+			printf("Mode : simulation pause\n"); break;
 		case 0:	//		Initiale sans filtre
 			(*options).mode = 0;
-			printf("\n"); break;
+			printf("Mode : initiale sans filtre\n"); break;
 		case 1:	//		Simulation
 			(*options).mode = 1;
-			printf("\n"); break;
+			printf("Mode : simulation\n"); break;
 		case 2:	//		Initiale avec filtre
 			(*options).mode = 2;
-			printf("\n"); break;
+			printf("Mode : initiale avec filtre\n"); break;
 		case 3:	//		Énergie potentielle
 			(*options).mode = 3;
-			printf("\n"); break;
+			printf("Mode : énergie potentielle\n"); break;
 		default:
 			fprintf(stderr, "ERREUR : optionsRegleMode\n");
 		}
-	printf("(*options).mode = %d \n",(*options).mode);
-	return;
+	//printf("(*options).mode = %d \n",(*options).mode);
+	return 0;
 	}
 
 void optionsChangeVitesse(optionsT * options, float facteur) {

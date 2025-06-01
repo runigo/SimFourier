@@ -60,10 +60,10 @@ int affichageInitialisation(affichageT * affichage, interfaceT * interface)
 
 	int fond = 245;
 	//SDL_Color orange = {255, 127, 40, 255};
-	(*affichage).fond.r = 255;
-	(*affichage).fond.g = 250;
-	(*affichage).fond.g = 200;
-	(*affichage).fond.g = 255;
+	(*affichage).fond.r = fond;
+	(*affichage).fond.g = fond;
+	(*affichage).fond.b = fond;
+	(*affichage).fond.a = 255;
 	(*affichage).contraste.r = 255-fond;
 	(*affichage).contraste.g = 255-fond;
 	(*affichage).contraste.b = 255-fond;
