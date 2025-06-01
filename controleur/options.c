@@ -1,11 +1,11 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.2.2 Transformation de Fourier
+SimFourier 1.4 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -129,27 +129,10 @@ void optionsEquation(optionsT * options, char *opt) {
 
 int optionsMode(optionsT * options, char *opt) {
 
-	// -1 : pause, 0, 1, 2, 3
+	// -1 : pause, 0 : initiale, 1 : simulation, 2 : filtrage, 3 : potentiel
 
 	int mode = atoi(opt);
 
-/*	switch (mode)
-		{
-		case -1:
-			(*options).mode = -1;
-			printf("Mode : Simulation pause\n"); break;
-		case 0:
-			(*options).mode = 0;
-			printf("Mode : Transformé de fourier\n"); break;
-		case 1:
-			(*options).mode = 1;
-			printf("Mode : Simulation\n"); break;
-		case 2:
-			(*options).mode = 2;
-			printf("Mode : Filtrage\n"); break;
-		default:
-			printf("ERREUR optionsMode\n");
-		}*/
 	return optionsRegleMode(options, mode);
 	}
 

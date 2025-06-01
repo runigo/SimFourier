@@ -1,11 +1,11 @@
 /*
-Copyright mars 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
-SimFourier 1.3 Transformation de Fourier
+SimFourier 1.4 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
 Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension et de la simulation
-d'équations de propagation.
+graphique de la transformation de Fourier à 1 dimension et d'observer l'effet
+d'un filtrage.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -42,12 +42,12 @@ int donneesOptions(optionsT * options)
 	{
 		// Préréglage des valeurs optionnelles
 
-	(*options).mode = 0;		//	0 : initiale, 1 : simulation, 2 : énergie potentielle
+	(*options).mode = 0;		//	0 : initiale, 1 : simulation, 2 : filtrage, 3 : énergie potentielle
 											//		-1 : pause simulation
 
 	(*options).duree = DUREE_IMP;		// 100 : temps réèl.
 
-	(*options).fond=240;			// couleur du fond de l'affichage
+	(*options).fond=200;			// couleur du fond de l'affichage
 	(*options).support=-1;			// Graphisme du support de la chaîne
 
 	(*options).dt=DT_IMP;			// discrétisation du temps
@@ -76,6 +76,18 @@ int donneesControleur(controleurT * controleur)
 
 		fprintf(stderr, " Initialisation des projections\n");
 	projectionInitialise(&(*controleur).projection, (*controleur).options.nombre);
+
+		//fprintf(stderr, " Fonction implicite\n");
+		//	enveloppe Période 1
+	modeleChangeInitiale(&(*controleur).modele, 1, 1, 0, 500);
+		//	porteuse Période 1
+	modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, 50);
+		//	motif	dent de scie
+	modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 3);
+		//	enveloppe Phase
+	modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, 500);
+		//	Mode transformé de fourier
+	controleurRegleMode(controleur, 0);
 
 		fprintf(stderr, " Initialisation SDL\n");
 	interfaceInitialisationSDL();

@@ -1,5 +1,5 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -351,6 +351,41 @@ void controleurPostReinitialisation(controleurT * controleur) {
 	(void)controleur;
 	//observablesInitialise(&(*controleur).observables);
 	return;
+	}
+
+int controleurRegleMode(controleurT * controleur, int mode) {
+
+		//		Regle le mode de fonctionnement
+
+	optionsRegleMode(&(*controleur).options, mode);
+
+		//	Position des graphes dans la fenêtre
+	if(mode == 2)	//	mode filtrage
+		{
+		(*controleur).projection.fonction.longueur = LONGUEUR_IMP;
+		(*controleur).projection.fonction.positionX = 0.30;
+		(*controleur).projection.fonction.positionY = 0.25;
+		(*controleur).projection.fourier.longueur = LONGUEUR_IMP;
+		(*controleur).projection.fourier.positionX = 0.30;
+		(*controleur).projection.fourier.positionY = 0.75;
+		(*controleur).projection.fct.positionX = 0.75;
+		(*controleur).projection.fct.positionY = 0.25;
+		(*controleur).projection.fou.positionX = 0.75;
+		(*controleur).projection.fou.positionY = 0.75;
+		}
+	else	//	mode sans filtre
+		{
+		(*controleur).projection.fonction.longueur = 2 * LONGUEUR_IMP;
+		(*controleur).projection.fonction.positionX = 0.50;
+		(*controleur).projection.fonction.positionY = 0.25;
+		(*controleur).projection.fourier.longueur = 2 * LONGUEUR_IMP;
+		(*controleur).projection.fourier.positionX = 0.50;
+		(*controleur).projection.fourier.positionY = 0.75;
+		}
+
+projectionChangeFenetre(&(*controleur).projection, (*controleur).graphique.fenetreX, (*controleur).graphique.fenetreY);
+
+	return 0;
 	}
 
 	//	-------  SUPPRESSION  -------  //

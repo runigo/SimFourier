@@ -1,5 +1,5 @@
 /*
-Copyright mai 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 (d'après SimFoule 2.2 simulateur de foule, décembre 2019)

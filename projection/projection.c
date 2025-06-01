@@ -1,5 +1,5 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -228,6 +228,9 @@ int projectionChangeFenetre(projectionT * projection, int x, int y) {
 	(*projection).fenetreY=y;
 
 	grapheInitialiseSupport(&(*projection).fourier);
+	grapheInitialiseSupport(&(*projection).fonction);
+	grapheInitialiseSupport(&(*projection).fou);
+	grapheInitialiseSupport(&(*projection).fct);
 
 	return 0;
 	}
