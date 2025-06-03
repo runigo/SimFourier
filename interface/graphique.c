@@ -193,9 +193,9 @@ int graphiqueCommandesGraphes(graphiqueT * graphique, commandesT * commandes)
 		//	Dessine les commandes des menus graphes
 
 	SDL_Rect coordonnee = {0, 0, 35, 35};	//	Position et taille des boutons selectifs
-	coordonnee.w = (*commandes).selectifInitialDroite-(*commandes).selectifInitialGauche;
+	coordonnee.w = (*commandes).selectifsFonctionBas-(*commandes).selectifsFonctionHaut;
 	coordonnee.h = coordonnee.w;
-	coordonnee.y = (*commandes).selectifsFonction;	//	position y du menu graphe-fonction
+	coordonnee.y = (*commandes).selectifsFonctionHaut;	//	position y du menu graphe-fonction
 	coordonnee.x = 0;
 
 		//	Dessine les petits boutons sélectionés
@@ -214,7 +214,7 @@ int graphiqueCommandesGraphes(graphiqueT * graphique, commandesT * commandes)
 		}
 
 		//	position y du menu graphe-fourier
-		coordonnee.y = (*commandes).selectifsFonction + (*graphique).fenetreY / 2;
+		coordonnee.y = (*commandes).selectifsFonctionHaut + (*graphique).fenetreY / 2;
 
 			//	Boutons du menu graphe-fourier
 	for(i=0;i<SELECTIF_GRAPHES;i++)
@@ -237,9 +237,9 @@ int graphiqueCommandesFiltres(graphiqueT * graphique, commandesT * commandes)
 
 	SDL_Rect coordonnee = {0, 0, 35, 35};
 		//	Position et taille des boutons selectifs
-	coordonnee.w = (*commandes).selectifInitialDroite-(*commandes).selectifInitialGauche;
+	coordonnee.w = (*commandes).selectifsFonctionBas-(*commandes).selectifsFonctionHaut;
 	coordonnee.h = coordonnee.w;
-	coordonnee.y = (*commandes).selectifsFonction + (*graphique).fenetreY / 2;
+	coordonnee.y = (*commandes).selectifsFonctionHaut + (*graphique).fenetreY / 2;
 	coordonnee.x = 0;
 
 		//	Dessine les petits boutons sélectionés

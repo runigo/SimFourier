@@ -78,7 +78,8 @@ typedef struct CommandesT commandesT;
 		int fonctionBas;	//	limite zone 5 zone 6
 		int fourierHaut;	//	limite zone 6 zone 7
 		int fourierBas;		//	fenetreY
-		int selectifsFonction;	//	Petits bouton du menu graphe-fonction (zone 4)
+		int selectifsFonctionHaut;	//	Petits bouton du menu graphe-fonction (zone 4)
+		int selectifsFonctionBas;
 
 		int sourisX; // position X de la souris
 		int sourisY; // position Y de la souris
