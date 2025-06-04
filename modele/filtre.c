@@ -77,12 +77,36 @@ int filtrePasseBas(filtreT * filtre)
 	{
 			//	Crée un filtre passe bas
 	int i;
-	int max = (*filtre).nombre - 1;
 	int frequence = (*filtre).frequence;
-	for(i=0;i<frequence;i++)
+
+		//	Filtre passe bas droite
+	if((*filtre).ordre == 0)
 		{
-		(*filtre).gain[i]=1.0;
-		(*filtre).gain[max-i]=1.0;
+		for(i=0;i<frequence;i++)
+			{
+			(*filtre).gain[i]=1.0;
+			}
+		for(i=frequence;i<(*filtre).nombre;i++)
+			{
+			(*filtre).gain[i]=0.0;
+			}
+		}
+	else
+		{
+		for(i=0;i<(*filtre).nombre;i++)
+			{
+			(*filtre).gain[i]=0.5 + (atan((float)(i-(*filtre).frequence) / (*filtre).ordre))/PI;
+			}
+		}
+
+		int max = (*filtre).nombre - 1;
+		int nombreSur2 = (*filtre).nombre / 2 ;
+	if((*filtre).symetrie==0)	//	Filtre symétrique
+		{
+		for(i=0;i<nombreSur2;i++)
+			{
+			(*filtre).gain[max-i] = (*filtre).gain[i];
+			}
 		}
 	return 0;
 	}
@@ -156,7 +180,6 @@ int filtreChangeParametre(filtreT * filtre, int parametre, int variation, int po
 				fprintf(stderr, "ERREUR : filtreChangeParametre");
 			}
 		}
-
 	return 0;
 	}
 

@@ -87,7 +87,7 @@ int donneesControleur(controleurT * controleur)
 		//	enveloppe Phase
 	modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, 500);
 		//	Mode transformé de fourier
-	controleurRegleMode(controleur, 0);
+	controleurRegleMode(controleur, (*controleur).options.mode);
 
 		fprintf(stderr, " Initialisation SDL\n");
 	interfaceInitialisationSDL();
