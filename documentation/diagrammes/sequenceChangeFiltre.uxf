@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>14</x>
-      <y>35</y>
+      <y>0</y>
       <w>784</w>
       <h>189</h>
     </coordinates>
@@ -17,7 +17,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>196</x>
-      <y>84</y>
+      <y>49</y>
       <w>154</w>
       <h>35</h>
     </coordinates>
@@ -30,7 +30,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>21</x>
-      <y>84</y>
+      <y>49</y>
       <w>126</w>
       <h>84</h>
     </coordinates>
@@ -46,7 +46,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>196</x>
-      <y>126</y>
+      <y>91</y>
       <w>154</w>
       <h>77</h>
     </coordinates>
@@ -61,7 +61,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>406</x>
-      <y>63</y>
+      <y>28</y>
       <w>168</w>
       <h>133</h>
     </coordinates>
@@ -78,7 +78,7 @@ fait varier le paramètre
     <id>UMLClass</id>
     <coordinates>
       <x>616</x>
-      <y>63</y>
+      <y>28</y>
       <w>161</w>
       <h>140</h>
     </coordinates>
@@ -96,12 +96,12 @@ Fixe la valeur,
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>476</x>
-      <y>357</y>
+      <x>420</x>
+      <y>294</y>
       <w>91</w>
       <h>21</h>
     </coordinates>
-    <panel_attributes>graphe fourier
+    <panel_attributes>filtrage
 bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
@@ -109,7 +109,7 @@ bg=orange</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>287</x>
-      <y>343</y>
+      <y>308</y>
       <w>84</w>
       <h>21</h>
     </coordinates>
@@ -121,7 +121,7 @@ bg=red</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>14</x>
-      <y>245</y>
+      <y>210</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -133,7 +133,7 @@ bg=red</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>98</x>
-      <y>245</y>
+      <y>210</y>
       <w>91</w>
       <h>21</h>
     </coordinates>
@@ -145,7 +145,7 @@ bg=orange</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>42</x>
-      <y>259</y>
+      <y>224</y>
       <w>21</w>
       <h>287</h>
     </coordinates>
@@ -156,7 +156,7 @@ bg=orange</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>133</x>
-      <y>259</y>
+      <y>224</y>
       <w>21</w>
       <h>105</h>
     </coordinates>
@@ -167,7 +167,7 @@ bg=orange</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>42</x>
-      <y>266</y>
+      <y>231</y>
       <w>112</w>
       <h>28</h>
     </coordinates>
@@ -179,7 +179,7 @@ controleSouris</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>133</x>
-      <y>280</y>
+      <y>245</y>
       <w>147</w>
       <h>35</h>
     </coordinates>
@@ -191,7 +191,7 @@ controleSourisBoutons</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>133</x>
-      <y>308</y>
+      <y>273</y>
       <w>161</w>
       <h>28</h>
     </coordinates>
@@ -203,7 +203,7 @@ commandesSourisZone</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>273</x>
-      <y>273</y>
+      <y>238</y>
       <w>21</w>
       <h>77</h>
     </coordinates>
@@ -214,7 +214,7 @@ commandesSourisZone</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>238</x>
-      <y>259</y>
+      <y>224</y>
       <w>91</w>
       <h>21</h>
     </coordinates>
@@ -226,7 +226,7 @@ bg=yellow</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>147</x>
-      <y>364</y>
+      <y>329</y>
       <w>161</w>
       <h>35</h>
     </coordinates>
@@ -238,7 +238,7 @@ controleSourisCliqSelectif</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>133</x>
-      <y>322</y>
+      <y>287</y>
       <w>161</w>
       <h>21</h>
     </coordinates>
@@ -249,7 +249,7 @@ controleSourisCliqSelectif</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>147</x>
-      <y>392</y>
+      <y>357</y>
       <w>189</w>
       <h>28</h>
     </coordinates>
@@ -261,41 +261,41 @@ modeleChangeFiltrage</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>315</x>
-      <y>357</y>
+      <y>322</y>
       <w>21</w>
-      <h>133</h>
+      <h>182</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;240.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>343</x>
-      <y>385</y>
-      <w>189</w>
-      <h>28</h>
+      <x>315</x>
+      <y>329</y>
+      <w>161</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 grapheChangeParametre</panel_attributes>
-    <additional_attributes>250.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>210.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>511</x>
-      <y>371</y>
+      <x>455</x>
+      <y>308</y>
       <w>21</w>
-      <h>105</h>
+      <h>91</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <type>com.baselet.element.old.element.Systemborder</type>
     <coordinates>
       <x>567</x>
-      <y>266</y>
+      <y>231</y>
       <w>133</w>
       <h>28</h>
     </coordinates>
@@ -306,7 +306,7 @@ grapheChangeParametre</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>147</x>
-      <y>490</y>
+      <y>455</y>
       <w>154</w>
       <h>35</h>
     </coordinates>
@@ -318,7 +318,7 @@ controleSourisCliqRotatif</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>147</x>
-      <y>350</y>
+      <y>315</y>
       <w>21</w>
       <h>119</h>
     </coordinates>
@@ -329,7 +329,7 @@ controleSourisCliqRotatif</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>147</x>
-      <y>476</y>
+      <y>441</y>
       <w>21</w>
       <h>140</h>
     </coordinates>
@@ -340,7 +340,7 @@ controleSourisCliqRotatif</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>315</x>
-      <y>588</y>
+      <y>553</y>
       <w>21</w>
       <h>133</h>
     </coordinates>
@@ -351,12 +351,59 @@ controleSourisCliqRotatif</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>280</x>
-      <y>574</y>
+      <y>539</y>
       <w>84</w>
       <h>21</h>
     </coordinates>
     <panel_attributes>modele
 bg=red</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>315</x>
+      <y>378</y>
+      <w>245</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+filtreChangeParametre</panel_attributes>
+    <additional_attributes>330.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>504</x>
+      <y>371</y>
+      <w>84</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>filtre
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>539</x>
+      <y>385</y>
+      <w>21</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>455</x>
+      <y>343</y>
+      <w>168</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+filtrageChangeAmplification</panel_attributes>
+    <additional_attributes>10.0;30.0;30.0;30.0;30.0;10.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>

@@ -1,5 +1,5 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -41,8 +41,11 @@ int filtrageChangeAmplification(filtrageT * filtrage, int variation, int pourMil
 int filtrageInitialisation(filtrageT * filtrage, int nombre)
 	{
 	filtreInitialise(&(*filtrage).passeBas, nombre);
+	(*filtrage).passeBas.type = 1;
 	filtreInitialise(&(*filtrage).passeHaut, nombre);
+	(*filtrage).passeHaut.type = 2;
 	filtreInitialise(&(*filtrage).passeBande, nombre);
+	(*filtrage).passeBande.type = 3;
 
 	filtrePasseBas(&(*filtrage).passeBas);
 	filtrePasseHaut(&(*filtrage).passeHaut);
@@ -84,10 +87,9 @@ int filtrageCalculeFiltre(filtrageT * filtrage)
 
 	for(i=0;i<nombre;i++)
 		{
-	(*filtrage).filtre[i] = (*filtrage).amplification * (*filtrage).passeBas.gain[i];
+	(*filtrage).filtre[i] = (*filtrage).amplification * (*filtrage).passeBas.gain[i]
+	 * (*filtrage).passeHaut.gain[i] * (*filtrage).passeBande.gain[i];
 		}
-
-		//fprintf(stderr, "Projection de fou sur fct\n");
 
 	return 0;
 	}

@@ -43,15 +43,12 @@ typedef struct FiltreT filtreT;
 		{
 		double gain[NOMBRE_MAX];	//   gain du filtre
 		int nombre;		// Nombre de points
+		int type;		//	1 : passe bas, 2 : passe haut, 3 ; passe bande.
 
-		int frequence;
-
+		int frequence;	//	[ 1 .. nombre/2 ]
 		int ordre;	//	Ordre du filtre, pour mille
-
 		int deltaF;	//	Ecart de fréquence (passe bande), pour mille
-
 		int symetrie;		//	Symétrie [sym, droite, gauche] (0, 1, -1)
-
 		int mode;		//	Allume, éteint, inverse le filtre (1, 0, -1)
 
 		};

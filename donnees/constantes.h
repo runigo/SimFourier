@@ -112,14 +112,6 @@ termes.
 #define DT_MIN 0.00003		// Discrétisation minimale du temps
 #define DT_IMP 0.0011			// Discrétisation implicite du temps
 #define DT_MAX 0.003		// Discrétisation maximale du temps
-
-
-		//---------------- PARAMÈTRES DU FILTRAGE ---------------------
-
-#define AMPLIFICATION_MAX 100.0	//	Valeur maximale de l'amplification
-#define AMPLIFICATION_MIN 1.0	//	Valeur minimale de l'amplification
-
-
 		//---------------- PARAMÈTRES DE LA CORDE ---------------------
 
 #define NOMBRE_MIN 64 	//	Nombre minimal de points
@@ -145,6 +137,17 @@ termes.
 #define DX_MAX 10.0		//	Pas spatial maximale
 #define DX_IMP 1.0		//	Pas spatial implicite
 #define DX_MIN 0.01		//	Pas spatial minimale
+
+
+
+		//---------------- PARAMÈTRES DU FILTRAGE ---------------------
+
+#define AMPLIFICATION_MAX 100.0	//	Valeur maximale de l'amplification
+#define AMPLIFICATION_MIN 1.0	//	Valeur minimale de l'amplification
+
+#define FREQUENCE_MAX NOMBRE_MAX / 2	//	Valeur maximale de la fréquence des filtre
+#define FREQUENCE_MIN NOMBRE_MIN / 2	//	Valeur minimale de la fréquence des filtre
+
 
 
 	//	PARAMÈTRES MOTEUR
