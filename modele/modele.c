@@ -248,30 +248,19 @@ int modeleChangeFiltrage(modeleT * modele, int fonction, int parametre, int vari
 	{
 			//	Change un paramètre de filtrage
 
-	if(fonction==0)	//	filtrage
-		{
-		switch(parametre)
-			{
-			case 1: //	Amplification
-				filtrageChangeParametre(&(*modele).filtrage, 0, 1, variation, pourMille);break;
-			default:
-				fprintf(stderr, "ERREUR : modeleChangeFiltrage , %d, %d", fonction, parametre);
-			}
-		}
-	else			//	filtre
-		{
 		switch(fonction)
 			{
+			case 0: //	Amplification
+				filtrageChangeParametre(&(*modele).filtrage, 0, 1, variation, pourMille);break;
 			case 1: //	passe bas
-				filtreChangeParametre(&(*modele).filtrage.passeBas, parametre, variation, pourMille);break;
+				filtrageChangeParametre(&(*modele).filtrage, 1, parametre, variation, pourMille);break;
 			case 2: //	passehaut
-				filtreChangeParametre(&(*modele).filtrage.passeHaut, parametre, variation, pourMille);break;
+				filtrageChangeParametre(&(*modele).filtrage, 2, parametre, variation, pourMille);break;
 			case 3: //	passe bande
-				filtreChangeParametre(&(*modele).filtrage.passeBande, parametre, variation, pourMille);break;
+				filtrageChangeParametre(&(*modele).filtrage, 3, parametre, variation, pourMille);break;
 			default:
 				fprintf(stderr, "ERREUR : modeleChangeFiltrage , %d, %d", fonction, parametre);
 			}
-		}
 	return 0;
 	}
 
