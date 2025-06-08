@@ -54,7 +54,6 @@ typedef struct FiltreT filtreT;
 		};
 
 int filtreInitialise(filtreT * filtre, int nombre);
-int filtreUniforme(filtreT * filtre);
 int filtrePasseBas(filtreT * filtre);
 int filtrePasseHaut(filtreT * filtre);
 int filtrePasseBande(filtreT * filtre);

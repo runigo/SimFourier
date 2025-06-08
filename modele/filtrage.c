@@ -87,8 +87,8 @@ int filtrageCalculeFiltre(filtrageT * filtrage)
 
 	for(i=0;i<nombre;i++)
 		{
-	(*filtrage).filtre[i] = (*filtrage).amplification * (*filtrage).passeBas.gain[i]
-	 * (*filtrage).passeHaut.gain[i] * (*filtrage).passeBande.gain[i];
+		(*filtrage).filtre[i] = (*filtrage).amplification * (*filtrage).passeBas.gain[i]
+		 * (*filtrage).passeHaut.gain[i] * (*filtrage).passeBande.gain[i];
 		}
 
 	return 0;
