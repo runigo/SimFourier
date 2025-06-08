@@ -42,7 +42,7 @@ typedef struct OptionsT optionsT;
 		{
 			// OPTIONS CONTROLEUR
 		int fond;		// couleur du fond de l'affichage
-		int modeDemo;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
+		int initiale;		// fonction initiale au démarrage
 		int modeClavier;	// Ctrl F1 :  SiCP, Ctrl F2 : Graphiques, Ctrl F3 : Paramètres, Ctrl F4 : moteurs
 		int mode;		//	0 : initiale, 1 : simulation, -1 : pause, 2 : filtrage, 3 : énergie potentielle
 		int duree;		// Nombre d'évolution du système entre les affichages

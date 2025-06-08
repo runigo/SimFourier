@@ -62,6 +62,8 @@ int optionsTraitement(optionsT * options, int nb, char *opt[])
 			optionsSupport(options, opt[i+1]);			// Avec ou sans support
 		if(strcmp(opt[i], "mode")==0 && opt[i+1]!=NULL)
 			optionsMode(options, opt[i+1]);			// Mode {-1, 0, 1, 2, 3}
+		if(strcmp(opt[i], "initiale")==0 && opt[i+1]!=NULL)
+			optionsInitiale(options, opt[i+1]);			// Mode {-1, 0, 1, 2, 3}
 		if(strcmp(opt[i], "aide")==0)
 			optionsAide();			// Affiche l'aide.
 		if(strcmp(opt[i], "help")==0)
@@ -128,6 +130,15 @@ void optionsEquation(optionsT * options, char *opt) {
 	}
 
 int optionsMode(optionsT * options, char *opt) {
+
+	// -1 : pause, 0 : initiale, 1 : simulation, 2 : filtrage, 3 : potentiel
+
+	int mode = atoi(opt);
+
+	return optionsRegleMode(options, mode);
+	}
+
+int optionsInitiale(optionsT * options, char *opt) {
 
 	// -1 : pause, 0 : initiale, 1 : simulation, 2 : filtrage, 3 : potentiel
 

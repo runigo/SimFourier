@@ -142,11 +142,11 @@ termes.
 
 		//---------------- PARAMÈTRES DU FILTRAGE ---------------------
 
-#define AMPLIFICATION_MAX 100.0	//	Valeur maximale de l'amplification
+#define AMPLIFICATION_MAX 10.0	//	Valeur maximale de l'amplification
 #define AMPLIFICATION_MIN 1.0	//	Valeur minimale de l'amplification
 
-#define FREQUENCE_MAX NOMBRE_MAX / 2	//	Valeur maximale de la fréquence des filtre
-#define FREQUENCE_MIN NOMBRE_MIN / 2	//	Valeur minimale de la fréquence des filtre
+//#define FREQUENCE_MAX NOMBRE_MAX / 2	//	Valeur maximale de la fréquence des filtre
+//#define FREQUENCE_MIN NOMBRE_MIN / 2	//	Valeur minimale de la fréquence des filtre
 
 
 

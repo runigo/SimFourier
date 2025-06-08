@@ -44,10 +44,10 @@ int parametrFiltragSelectifs(filtrageT * filtrage, commandesT * commandes);
 int parametrFiltragInitialise(parametrFiltragT * parametre, int nombre)
 	{
 		//	facteur entre les grandeurs et la position des rotatifs
-	(*parametre).radianFrequence = PIS2 / (nombre);
-	(*parametre).radianOrdre = PIS2 / (nombre);
-	(*parametre).radianDeltaF = PIS2 / (nombre);
-	(*parametre).radianAmplification = PIS2 / (100);
+	(*parametre).radianFrequence = PI / (nombre);
+	(*parametre).radianOrdre = PI / (nombre);
+	(*parametre).radianDeltaF = PI / (nombre);
+	(*parametre).radianAmplification = PIS2 / (AMPLIFICATION_MAX-AMPLIFICATION_MIN);
 
 	return 0;
 	}

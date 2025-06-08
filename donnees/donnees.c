@@ -96,6 +96,7 @@ int donneesControleur(controleurT * controleur)
 		fprintf(stderr, " Création du rendu\n");
 	graphiqueInitialisation(&(*controleur).graphique, &(*controleur).interface);
 
+		//	Ajuste les grandeurs souris et fenêtre
 	controleurFenetre(controleur);
 
 		fprintf(stderr, " Initialisation de l'horloge SDL\n");

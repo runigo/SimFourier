@@ -81,6 +81,33 @@ int filtreUniforme(filtreT * filtre)
 	return 0;
 	}
 
+int filtrePasseHautGauche(filtreT * filtre)
+	{
+			//	Crée un filtre passe bas à gauche
+	int i;
+	int frequence = (*filtre).frequence;
+
+	if((*filtre).ordre == 0)
+		{
+		for(i=0;i<frequence;i++)
+			{
+			(*filtre).gain[i]=1.0;
+			}
+		for(i=frequence;i<(*filtre).nombre;i++)
+			{
+			(*filtre).gain[i]=0.0;
+			}
+		}
+	else
+		{
+		for(i=0;i<(*filtre).nombre;i++)
+			{
+			(*filtre).gain[i]=0.5 + (atan((float)(i-frequence) / (*filtre).ordre))/PI;
+			}
+		}
+	return 0;
+	}
+
 int filtrePasseBasGauche(filtreT * filtre)
 	{
 			//	Crée un filtre passe bas à gauche
