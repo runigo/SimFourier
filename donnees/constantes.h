@@ -148,7 +148,8 @@ termes.
 //#define FREQUENCE_MAX NOMBRE_MAX / 2	//	Valeur maximale de la fréquence des filtre
 //#define FREQUENCE_MIN NOMBRE_MIN / 2	//	Valeur minimale de la fréquence des filtre
 
-
+#define ORDRE_RATIO 8	//	NOMBRE / ORDRE_MAX
+#define DELTA_F_RATIO 2		//	NOMBRE / DELTA_F_MAX
 
 	//	PARAMÈTRES MOTEUR
 

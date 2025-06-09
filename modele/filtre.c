@@ -91,11 +91,11 @@ int filtrePasseHautGauche(filtreT * filtre)
 		{
 		for(i=0;i<frequence;i++)
 			{
-			(*filtre).gain[i]=1.0;
+			(*filtre).gain[i]=0.0;
 			}
 		for(i=frequence;i<(*filtre).nombre;i++)
 			{
-			(*filtre).gain[i]=0.0;
+			(*filtre).gain[i]=1.0;
 			}
 		}
 	else
@@ -168,12 +168,30 @@ int filtrePasseBas(filtreT * filtre)
 int filtrePasseHaut(filtreT * filtre)
 	{
 			//	Crée un filtre passe haut
-	//int i;
-	//int frequence = (*filtre).frequence;
-	//int max = (*filtre).nombre - 1 - frequence;
 
-	//if((*filtre).mode==0)
-		{filtreUniforme(filtre);}
+	if((*filtre).mode==0)
+		{
+		filtreUniforme(filtre);	//	Filtre inactif
+		}
+	else
+		{
+		filtrePasseHautGauche(filtre);	//	Passe bas gauche
+		if((*filtre).symetrie==0)
+			{
+			filtreSymetrise(filtre);	//	Symétrique
+			}
+		else
+			{
+			if((*filtre).symetrie==1)
+				{
+				filtreInverseGD(filtre);	//	Droite
+				}
+			}
+		if((*filtre).mode<0)
+			{
+			filtreInverseHB(filtre);	//	Passant -> coupant
+			}
+		}
 
 	return 0;
 	}
@@ -291,13 +309,13 @@ int filtreChangeOrdre(filtreT * filtre, int variation, int pourMille)
 
 	if(variation==0)	//	Règle le paramètre à pourMille
 		{
-		ordre = pourMille * (*filtre).nombre / 2000 ;
+		ordre = pourMille * (*filtre).nombre / ORDRE_RATIO / 1000 ;
 		}
 
-	if(ordre>(*filtre).nombre)
+	if(ordre > ((*filtre).nombre / ORDRE_RATIO))
 		{
 		printf("Ordre filtre maximal atteint. ");
-		(*filtre).ordre = (*filtre).nombre/2;
+		(*filtre).ordre = (*filtre).nombre / ORDRE_RATIO;
 		}
 	else
 		{
@@ -321,13 +339,13 @@ int filtreChangeDeltaF(filtreT * filtre, int variation, int pourMille)
 
 	if(variation==0)	//	Règle le paramètre à pourMille
 		{
-		deltaF = pourMille * (*filtre).nombre / 2000 ;
+		deltaF = pourMille * (*filtre).nombre / DELTA_F_RATIO / 1000 ;
 		}
 
-	if(deltaF>(*filtre).nombre)
+	if(deltaF>(*filtre).nombre / DELTA_F_RATIO)
 		{
 		printf("Delta fréquence filtre maximal atteint. ");
-		(*filtre).deltaF = (*filtre).nombre / 2;
+		(*filtre).deltaF = (*filtre).nombre / DELTA_F_RATIO;
 		}
 	else
 		{

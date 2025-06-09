@@ -45,8 +45,8 @@ int parametrFiltragInitialise(parametrFiltragT * parametre, int nombre)
 	{
 		//	facteur entre les grandeurs et la position des rotatifs
 	(*parametre).radianFrequence = PI / (nombre);
-	(*parametre).radianOrdre = PI / (nombre);
-	(*parametre).radianDeltaF = PI / (nombre);
+	(*parametre).radianOrdre = ORDRE_RATIO / 2 * PI / (nombre);
+	(*parametre).radianDeltaF = DELTA_F_RATIO * PI / (nombre);
 	(*parametre).radianAmplification = PIS2 / (AMPLIFICATION_MAX-AMPLIFICATION_MIN);
 
 	return 0;
@@ -106,7 +106,7 @@ int parametrFiltragRotatifs(filtrageT * filtrage, parametrFiltragT * parametre, 
 	(*commandes).rotatifFiltrag[6].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifFiltrag[6].positionY = (int)(-longueur*sin(theta));
 		//	Amplification
-	theta = (*parametre).radianAmplification * ((*filtrage).amplification);
+	theta = (*parametre).radianAmplification * ((*filtrage).amplification-AMPLIFICATION_MIN);
 	(*commandes).rotatifFiltrag[7].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifFiltrag[7].positionY = (int)(-longueur*sin(theta));
 
