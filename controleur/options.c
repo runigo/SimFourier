@@ -38,6 +38,7 @@ void optionsDuree(optionsT * options, char *opt);
 
 void optionsSupport(optionsT * options, char *opt);
 int optionsMode(optionsT * options, char *opt);
+int optionsInitiale(optionsT * options, char *opt);
 void optionsNombre(optionsT * options, char *opt);
 void optionsSoliton(optionsT * options, char *opt);
 int optionsEchelle(optionsT * options, char *opt);
@@ -140,11 +141,11 @@ int optionsMode(optionsT * options, char *opt) {
 
 int optionsInitiale(optionsT * options, char *opt) {
 
-	// -1 : pause, 0 : initiale, 1 : simulation, 2 : filtrage, 3 : potentiel
+	//	Réglage de initiale au démarrage
 
-	int mode = atoi(opt);
+	(*options).initiale = atoi(opt);
 
-	return optionsRegleMode(options, mode);
+	return 0;
 	}
 
 void optionsSupport(optionsT * options, char *opt) {

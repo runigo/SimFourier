@@ -35,6 +35,7 @@ termes.
 
 	//		Initialisation du controleur
 
+int donneesInitiale(controleurT * controleur);
 int donneesModele(modeleT * modele, optionsT * options);
 int donneesGraphe(grapheT * graphe, optionsT * options);
 
@@ -77,17 +78,7 @@ int donneesControleur(controleurT * controleur)
 		fprintf(stderr, " Initialisation des projections\n");
 	projectionInitialise(&(*controleur).projection, (*controleur).options.nombre);
 
-		//fprintf(stderr, " Fonction implicite\n");
-		//	enveloppe Période 1
-	modeleChangeInitiale(&(*controleur).modele, 1, 1, 0, 500);
-		//	porteuse Période 1
-	modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, 50);
-		//	motif	dent de scie
-	modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 3);
-		//	enveloppe Phase
-	modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, 500);
-		//	Mode transformé de fourier
-	controleurRegleMode(controleur, (*controleur).options.mode);
+	donneesInitiale(controleur);
 
 		fprintf(stderr, " Initialisation SDL\n");
 	interfaceInitialisationSDL();
@@ -109,6 +100,25 @@ int donneesModele(modeleT * modele, optionsT * options)
 	{
 		// Initialisation du modèle
 	modeleInitialisation(modele, (*options).nombre, (*options).dt);
+
+	return 0;
+	}
+
+int donneesInitiale(controleurT * controleur)
+	{
+		// Réglage de la fonction initiale
+
+		//fprintf(stderr, " Fonction implicite\n");
+		//	enveloppe Période 1
+	modeleChangeInitiale(&(*controleur).modele, 1, 1, 0, 500);
+		//	porteuse Période 1
+	modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, 50);
+		//	motif	dent de scie
+	modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 3);
+		//	enveloppe Phase
+	modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, 500);
+		//	Mode transformé de fourier
+	controleurRegleMode(controleur, (*controleur).options.mode);
 
 	return 0;
 	}
