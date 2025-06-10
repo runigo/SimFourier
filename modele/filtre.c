@@ -37,6 +37,8 @@ int filtreUniforme(filtreT * filtre);
 int filtrePasseBasGauche(filtreT * filtre);
 int filtrePasseHautGauche(filtreT * filtre);
 
+int filtreAppliqueParametre(filtreT * filtre);
+
 	//		TRANSFORMATION D'UN FILTRE
 int filtreSymetrise(filtreT * filtre);
 int filtreInverseHB(filtreT * filtre);
@@ -109,7 +111,7 @@ int filtrePasseHautGauche(filtreT * filtre)
 	}
 int filtrePasseBasGauche(filtreT * filtre)
 	{
-			//	Crée un filtre passe haut à gauche
+			//	Crée un filtre passe bas à gauche
 	int i;
 	int frequence = (*filtre).frequence;
 	int nombre = (*filtre).nombre;
@@ -132,44 +134,69 @@ int filtrePasseBasGauche(filtreT * filtre)
 		}
 	else
 		{
-		for(i=(nS2-1);i>(-1);i--)
+		for(i=0;i<nS2;i++)
 			{
 			(*filtre).gain[i]=0.5 + (atan((float)(frequence-i) / (*filtre).ordre))/PI;
 			}
-		for(i=(nombre-1);i>(nS2-1);i--)
+		for(i=nS2;i<nombre;i++)
 			{
 			(*filtre).gain[i]=0.5 + (atan((float)(frequence+i) / (*filtre).ordre))/PI;
 			}
 		}
 	return 0;
 	}
-/*
-int filtrePasseBasGauche(filtreT * filtre)
-	{
-			//	Crée un filtre passe bas à gauche
 
-	filtrePasseHautGauche(filtre);
 
-	int i;
+int filtrePasseBandeGauche(filtreT * filtre)
+	{(void)filtre;
+			//	Crée un filtre passe bande à gauche
+	/*int i;
+	int frequence = (*filtre).frequence;
 	int nombre = (*filtre).nombre;
 	int nS2 = nombre / 2;
-	int tmp[nombre];
 
-	for(i=0;i<nombre;i++)
+	int fB = (*filtre).frequence - (*filtre).deltaF / 2;
+	int fH = (*filtre).frequence + (*filtre).deltaF / 2;
+
+	if((*filtre).ordre == 0)
 		{
-		tmp[i]=(*filtre).gain[i];
+		for(i=0;i<frequence;i++)
+			{
+			(*filtre).gain[i]=1.0;	//	p. bas
+			}
+		for(i=frequence;i<nS2;i++)
+			{
+			(*filtre).gain[i]=0.0;	//	p. bas
+			}
+		for(i=nS2;i<nombre;i++)
+			{
+			(*filtre).gain[i]=1.0;	//	p. bas
+			}
+		for(i=0;i<frequence;i++)
+			{
+			(*filtre).gain[i]=0.0;	//	p. haut
+			}
+		for(i=frequence;i<(*filtre).nombre;i++)
+			{
+			(*filtre).gain[i]=1.0;	//	p. haut
+			}
 		}
-
-	for(i=0;i<nS2;i++)
+	else
 		{
-		//(*filtre).gain[i] = tmp[nS2 - 1 - i];
-		(*filtre).gain[nS2 + i] = tmp[nombre - 1 - i];
-		}
-
-	(void)tmp;
+		for(i=0;i<nS2;i++)
+			{
+			(*filtre).gain[i]=0.5 + (atan((float)(frequence-i) / (*filtre).ordre))/PI;	//	p. bas
+			(*filtre).gain[i]=0.5 + (atan((float)(i-frequence) / (*filtre).ordre))/PI;	//	p. haut
+			}
+		for(i=nS2;i<nombre;i++)
+			{
+			(*filtre).gain[i]=0.5 + (atan((float)(frequence+i) / (*filtre).ordre))/PI;	//	p. bas
+			(*filtre).gain[i]=0.5 + (atan((float)(i-frequence) / (*filtre).ordre))/PI;	//	p. haut
+			}
+		}*/
 	return 0;
 	}
-*/
+
 int filtrePasseBas(filtreT * filtre)
 	{
 			//	Crée un filtre passe bas
@@ -181,21 +208,7 @@ int filtrePasseBas(filtreT * filtre)
 	else
 		{
 		filtrePasseBasGauche(filtre);	//	Passe bas gauche
-		if((*filtre).symetrie==0)
-			{
-			filtreSymetrise(filtre);	//	Symétrique
-			}
-		else
-			{
-			if((*filtre).symetrie==1)
-				{
-				filtreInverseGD(filtre);	//	Droite
-				}
-			}
-		if((*filtre).mode<0)
-			{
-			filtreInverseHB(filtre);	//	Passant -> coupant
-			}
+		filtreAppliqueParametre(filtre);
 		}
 	return 0;
 	}
@@ -211,23 +224,8 @@ int filtrePasseHaut(filtreT * filtre)
 	else
 		{
 		filtrePasseHautGauche(filtre);	//	Passe bas gauche
-		if((*filtre).symetrie==0)
-			{
-			filtreSymetrise(filtre);	//	Symétrique
-			}
-		else
-			{
-			if((*filtre).symetrie==1)
-				{
-				filtreInverseGD(filtre);	//	Droite
-				}
-			}
-		if((*filtre).mode<0)
-			{
-			filtreInverseHB(filtre);	//	Passant -> coupant
-			}
+		filtreAppliqueParametre(filtre);
 		}
-
 	return 0;
 	}
 
@@ -235,11 +233,38 @@ int filtrePasseHaut(filtreT * filtre)
 int filtrePasseBande(filtreT * filtre)
 	{
 			//	Crée un filtre passe bande
-	//int i;
-	//int frequence = (*filtre).frequence;
-	//int max = (*filtre).nombre - 1 - frequence;
-	//if((*filtre).mode==0)
-		{filtreUniforme(filtre);}
+
+	if((*filtre).mode==0)
+		{
+		filtreUniforme(filtre);	//	Filtre inactif
+		}
+	else
+		{
+		filtrePasseBandeGauche(filtre);	//	Passe bande gauche
+		filtreAppliqueParametre(filtre);
+		}
+	return 0;
+	}
+
+int filtreAppliqueParametre(filtreT * filtre)
+	{
+			//	Applique les paramètres de symétrie sur le filtre
+
+	if((*filtre).symetrie==0)
+		{
+		filtreSymetrise(filtre);	//	Symétrique
+		}
+	else
+		{
+		if((*filtre).symetrie==1)
+			{
+			filtreInverseGD(filtre);	//	Droite
+			}
+		}
+	if((*filtre).mode<0)
+		{
+		filtreInverseHB(filtre);	//	Passant -> coupant
+		}
 	return 0;
 	}
 
