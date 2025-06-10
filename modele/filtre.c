@@ -83,7 +83,7 @@ int filtreUniforme(filtreT * filtre)
 
 int filtrePasseHautGauche(filtreT * filtre)
 	{
-			//	Crée un filtre passe bas à gauche
+			//	Crée un filtre passe haut à gauche
 	int i;
 	int frequence = (*filtre).frequence;
 
@@ -107,34 +107,69 @@ int filtrePasseHautGauche(filtreT * filtre)
 		}
 	return 0;
 	}
+int filtrePasseBasGauche(filtreT * filtre)
+	{
+			//	Crée un filtre passe haut à gauche
+	int i;
+	int frequence = (*filtre).frequence;
+	int nombre = (*filtre).nombre;
+	int nS2 = nombre / 2;
 
+	if((*filtre).ordre == 0)
+		{
+		for(i=0;i<frequence;i++)
+			{
+			(*filtre).gain[i]=1.0;
+			}
+		for(i=frequence;i<nS2;i++)
+			{
+			(*filtre).gain[i]=0.0;
+			}
+		for(i=nS2;i<nombre;i++)
+			{
+			(*filtre).gain[i]=1.0;
+			}
+		}
+	else
+		{
+		for(i=(nS2-1);i>(-1);i--)
+			{
+			(*filtre).gain[i]=0.5 + (atan((float)(frequence-i) / (*filtre).ordre))/PI;
+			}
+		for(i=(nombre-1);i>(nS2-1);i--)
+			{
+			(*filtre).gain[i]=0.5 + (atan((float)(frequence-i) / (*filtre).ordre))/PI;
+			}
+		}
+	return 0;
+	}
+/*
 int filtrePasseBasGauche(filtreT * filtre)
 	{
 			//	Crée un filtre passe bas à gauche
-	int i;
-	int frequence = (*filtre).frequence;
 
-	if((*filtre).ordre == 0)
+	filtrePasseHautGauche(filtre);
+
+	int i;
+	int nombre = (*filtre).nombre;
+	int nS2 = nombre / 2;
+	int tmp[nombre];
+
+	for(i=0;i<nombre;i++)
 		{
-		for(i=0;i<frequence;i++)
-			{
-			(*filtre).gain[i]=1.0;
-			}
-		for(i=frequence;i<(*filtre).nombre;i++)
-			{
-			(*filtre).gain[i]=0.0;
-			}
+		tmp[i]=(*filtre).gain[i];
 		}
-	else
+
+	for(i=0;i<nS2;i++)
 		{
-		for(i=0;i<(*filtre).nombre;i++)
-			{
-			(*filtre).gain[i]=0.5 + (atan((float)(i-frequence) / (*filtre).ordre))/PI;
-			}
+		//(*filtre).gain[i] = tmp[nS2 - 1 - i];
+		(*filtre).gain[nS2 + i] = tmp[nombre - 1 - i];
 		}
+
+	(void)tmp;
 	return 0;
 	}
-
+*/
 int filtrePasseBas(filtreT * filtre)
 	{
 			//	Crée un filtre passe bas
@@ -376,15 +411,15 @@ int filtreChangeSymetrie(filtreT * filtre, int variation, int pourMille)
 		{
 		case 1:		//	Droite
 			(*filtre).symetrie = 1;
-	printf("Symetrie filtre = droite");break;
+	printf("Symetrie filtre = droite\n");break;
 		case 0:		//	Symétrique
 			(*filtre).symetrie = 0;
-	printf("Symetrie filtre = symétrique");break;
+	printf("Symetrie filtre = symétrique\n");break;
 		case -1:	//	Gauche
 			(*filtre).symetrie = -1;
-	printf("Symetrie filtre = gauche");break;
+	printf("Symetrie filtre = gauche\n");break;
 		default:
-			fprintf(stderr, "ERREUR : filtreChangeSymetrie");
+			fprintf(stderr, "ERREUR : filtreChangeSymetrie\n");
 		}
 	return 0;
 	}
@@ -402,13 +437,13 @@ int filtreChangeMode(filtreT * filtre, int variation, int pourMille)
 		{
 		case 1:		//	Allumé
 			(*filtre).mode = 1;
-			printf("Mode filtre = actif");break;
+			printf("Mode filtre = actif\n");break;
 		case 0:		//	Éteint
 			(*filtre).mode = 0;
-			printf("Mode filtre = inactif");break;
+			printf("Mode filtre = inactif\n");break;
 		case -1:	//	Inverse
 			(*filtre).mode = -1;
-			printf("Mode filtre = inverse");break;
+			printf("Mode filtre = inverse\n");break;
 		default:
 			fprintf(stderr, "ERREUR : filtreChangeMode");
 		}

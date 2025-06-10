@@ -280,17 +280,17 @@ int commandesSourisZone(commandesT * commandes)
 		{
 		if((*commandes).sourisY < (*commandes).mode)
 			{	//	Selection initiale/simulation
-				printf("commandesSourisZone 1\n");
+			//printf("commandesSourisZone 1\n");
 			return 1;
 			}
 		if((*commandes).sourisX < (*commandes).rotatifInitialDroite && (*commandes).sourisX > (*commandes).rotatifInitialGauche)
 			{	//	Rotatif
-				printf("commandesSourisZone 2\n");
+			//printf("commandesSourisZone 2\n");
 			return 2;
 			}
 		if((*commandes).sourisX < (*commandes).selectifInitialDroite && (*commandes).sourisX > (*commandes).selectifInitialGauche)
 			{	//	Selectif
-				printf("commandesSourisZone 3\n");
+			//printf("commandesSourisZone 3\n");
 			return 3;
 			}
 		}
@@ -300,28 +300,28 @@ int commandesSourisZone(commandesT * commandes)
 			{
 			if((*commandes).sourisY < (*commandes).fonctionHaut)
 				{	//	Menu fonction
-				printf("commandesSourisZone 4\n");
+				//printf("commandesSourisZone 4\n");
 				return 4;
 				}
 			if((*commandes).sourisY < (*commandes).fonctionBas)
 				{	//	Fonction
-				printf("commandesSourisZone 5\n");
+				//printf("commandesSourisZone 5\n");
 				return 5;
 				}
 			if((*commandes).sourisY < (*commandes).fourierHaut)
 				{	//	Menu fourier et sélectifs des filtres
 				if((*commandes).sourisX < (*commandes).filtrageGauche)
 					{
-					printf("commandesSourisZone 6\n");
+					//printf("commandesSourisZone 6\n");
 					return 6;
 					}
 				else
 					{
-					printf("commandesSourisZone 9\n");
+					//printf("commandesSourisZone 9\n");
 					return 9;
 					}
 				}
-			printf("commandesSourisZone 7\n");
+			//printf("commandesSourisZone 7\n");
 			return 7;	//	Fourier
 			}
 		else						//		MENU 3 = zone 8
