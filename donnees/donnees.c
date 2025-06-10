@@ -112,12 +112,14 @@ int donneesInitiale(controleurT * controleur)
 		//	enveloppe Période 1
 	modeleChangeInitiale(&(*controleur).modele, 1, 1, 0, 500);
 		//	porteuse Période 1
-	modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, 50);
+	modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, 500);
+		//	porteuse Période 1
+	modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, 100);
 		//	motif	dent de scie
 	modeleChangeInitiale(&(*controleur).modele, 0, 0, 0, 3);
 		//	enveloppe Phase
 	modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, 500);
-		//	Mode transformé de fourier
+		//	Mode transformé de fourier ou non
 	controleurRegleMode(controleur, (*controleur).options.mode);
 
 		//	Enveloppe sinus cardinal
@@ -125,9 +127,9 @@ int donneesInitiale(controleurT * controleur)
 		//	Porteuse peigne de dirac
 	modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 2);
 		//	Porteuse eta = 5
-	modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, 5);
+	//modeleChangeInitiale(&(*controleur).modele, 2, 1, 0, 5);
 		//	Porteuse rho = 0
-	modeleChangeInitiale(&(*controleur).modele, 2, 2, 0, 0);
+	//modeleChangeInitiale(&(*controleur).modele, 2, 2, 0, 0);
 		//	rho = 6, période = 14
 
 	return 0;

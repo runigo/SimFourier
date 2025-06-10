@@ -138,7 +138,7 @@ int filtrePasseBasGauche(filtreT * filtre)
 			}
 		for(i=(nombre-1);i>(nS2-1);i--)
 			{
-			(*filtre).gain[i]=0.5 + (atan((float)(frequence-i) / (*filtre).ordre))/PI;
+			(*filtre).gain[i]=0.5 + (atan((float)(frequence+i) / (*filtre).ordre))/PI;
 			}
 		}
 	return 0;
