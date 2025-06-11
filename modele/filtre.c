@@ -150,50 +150,49 @@ int filtrePasseBasGauche(filtreT * filtre)
 int filtrePasseBandeGauche(filtreT * filtre)
 	{(void)filtre;
 			//	Crée un filtre passe bande à gauche
-	/*int i;
-	int frequence = (*filtre).frequence;
+	int i;
 	int nombre = (*filtre).nombre;
 	int nS2 = nombre / 2;
 
 	int fB = (*filtre).frequence - (*filtre).deltaF / 2;
 	int fH = (*filtre).frequence + (*filtre).deltaF / 2;
 
+	if(fB<0)fB=0;
+	if(fB>nS2)fB=nS2;
+	if(fH<0)fH=0;
+	if(fH>nS2)fH=nS2;
+
 	if((*filtre).ordre == 0)
 		{
-		for(i=0;i<frequence;i++)
+		for(i=0;i<fB;i++)
 			{
-			(*filtre).gain[i]=1.0;	//	p. bas
+			(*filtre).gain[i]=0.0;
 			}
-		for(i=frequence;i<nS2;i++)
+		for(i=fB;i<fH;i++)
 			{
-			(*filtre).gain[i]=0.0;	//	p. bas
+			(*filtre).gain[i]=1.0;
+			}
+		for(i=fH;i<nS2;i++)
+			{
+			(*filtre).gain[i]=0.0;
 			}
 		for(i=nS2;i<nombre;i++)
 			{
-			(*filtre).gain[i]=1.0;	//	p. bas
-			}
-		for(i=0;i<frequence;i++)
-			{
-			(*filtre).gain[i]=0.0;	//	p. haut
-			}
-		for(i=frequence;i<(*filtre).nombre;i++)
-			{
-			(*filtre).gain[i]=1.0;	//	p. haut
+			(*filtre).gain[i]=1.0;
 			}
 		}
 	else
 		{
 		for(i=0;i<nS2;i++)
 			{
-			(*filtre).gain[i]=0.5 + (atan((float)(frequence-i) / (*filtre).ordre))/PI;	//	p. bas
-			(*filtre).gain[i]=0.5 + (atan((float)(i-frequence) / (*filtre).ordre))/PI;	//	p. haut
+			(*filtre).gain[i]=0.5 + (atan((float)(fH-i) / (*filtre).ordre))/PI;	//	p. bas
+			(*filtre).gain[i]=(*filtre).gain[i] * (0.5 + (atan((float)(i-fB) / (*filtre).ordre))/PI);	//	p. haut
 			}
 		for(i=nS2;i<nombre;i++)
 			{
-			(*filtre).gain[i]=0.5 + (atan((float)(frequence+i) / (*filtre).ordre))/PI;	//	p. bas
-			(*filtre).gain[i]=0.5 + (atan((float)(i-frequence) / (*filtre).ordre))/PI;	//	p. haut
+			(*filtre).gain[i]=1.0;
 			}
-		}*/
+		}
 	return 0;
 	}
 
