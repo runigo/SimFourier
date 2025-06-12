@@ -46,6 +46,7 @@ int initialePeriodiseEnveloppe(initialeT * initiale);
 	//		JAUGE ET NORMALISATION
 int initialeJaugeZero(initialeT * initiale);
 
+int InitialeRegleParametre(initialeT * initiale, int parametre);
 
 /*------------------------  INITIALISATION  -------------------------*/
 
@@ -169,6 +170,8 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 				partieRegleParametre(&(*initiale).enveloppe, parametre, pourMille);break;
 			case 2:	// Porteuse
 				partieRegleParametre(&(*initiale).porteuse, parametre, pourMille);break;
+			case 3:	// Porteuse
+				InitialeRegleParametre(initiale, parametre);break;
 			default:
 				fprintf(stderr, "ERREUR : initialeChangeParametre(initiale, %d, %d, %d, %d)", fonction, parametre, variation, pourMille);
 			}
@@ -196,6 +199,15 @@ int initialeChangeParametre(initialeT * initiale, int fonction, int parametre, i
 	return 0;
 	}
 
+int InitialeRegleParametre(initialeT * initiale, int parametre)
+	{
+		//	Centre le motif
+	(void)parametre;
+
+	(*initiale).enveloppe.khi = ((*initiale).enveloppe.fonction.nombre + (*initiale).enveloppe.periode ) / 2;
+
+	return 0;
+	}
 
 /*------------------------  AFFICHAGE DES PARAMÈTRES  -------------------------*/
 

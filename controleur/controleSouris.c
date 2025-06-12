@@ -240,8 +240,8 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 4);break;
 			case 9: //	enveloppe	Moyenne nulle
 				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 3);break;
-			case 10: //	enveloppe	Minimum = 0
-				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 4);break;
+			case 10: //	centrage du motif
+				modeleChangeInitiale(&(*controleur).modele, 3, 0, 0, 0);break;
 			case 11: //	porteuse	constant
 				modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 3);break;
 			case 12: //	porteuse	peigne de dirac

@@ -1,0 +1,66 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Rotatoireinitiale
+\begin{tikzpicture}[
+ % scale=\scl,
+  %panneauControles/.style={black!10!brown!10!,draw=black!60!brown!40!,thick},
+  panneauControles/.style={black!10!brown!10!},
+  panneauOnglet/.style={bottom color=black!60!brown!60!, top color=black!20!brown!20!}]
+
+\begin{scope}[xshift=-7 cm,yshift=0.0cm]
+
+                   %  Onglets et panneau
+  \begin{scope}[xshift=0 cm,yshift=20cm]
+    \fill[gray,draw=gray!10!] (0.1, 0.6) rectangle (2.2,-19.1);
+    \fill[panneauControles]
+      (0.2, 0.5) -- (2.2, 0.5) -- (2.2, -19) -- (0.2, -19) -- cycle;
+  \end{scope}
+    \draw (1.8,20) node [black]{ENVELOPPE};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FRÉQUENCE  ENVELOPPE
+
+  \begin{scope}[xshift=1.9 cm,yshift=17.8cm, scale=0.5]
+    \input{./tikz/fonction/rotatif.tex}
+    \draw (-2.7,2.6) node [black]{P$_0$};
+  \end{scope}
+  \begin{scope}[xshift=1.9 cm,yshift=16cm, scale=0.5]
+    \input{./tikz/fonction/rotatif.tex}
+    \draw (-2.7,2.6) node [black]{P$_1$};
+  \end{scope}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  MOYENNE  ET  SYMÉTRIE
+
+
+  \begin{scope}[xshift=1.9 cm,yshift=13.5cm, scale=0.5]
+    \input{./tikz/fonction/rotatif.tex}
+    \draw (-2.7,2.6) node [black]{S};
+  \end{scope}
+  \begin{scope}[xshift=1.9 cm,yshift=11.7cm, scale=0.5]
+    \input{./tikz/fonction/rotatif.tex}
+    \draw (-2.7,2.6) node [black]{\Large{$\phi$}};
+  \end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  DÉCALAGE ET AMPLITUDE
+
+  \begin{scope}[xshift=1.9 cm,yshift=9cm, scale=0.5]
+    \input{./tikz/fonction/rotatif.tex}
+    \draw (-2.7,2.6) node [black]{A};
+  \end{scope}
+  \begin{scope}[xshift=1.9 cm,yshift=7.2cm, scale=0.5]
+    \input{./tikz/fonction/rotatif.tex}
+    \draw (-2.7,2.6) node [black]{\Large{$\Delta$}};
+  \end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PORTEUSE
+    \draw (1.7,6) node [black]{PORTEUSE};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FRÉQUENCE  PORTEUSE
+  \begin{scope}[xshift=1.9 cm,yshift=3.8cm, scale=0.5]
+    \input{./tikz/fonction/rotatif.tex}
+    \draw (-2.7,2.6) node [black]{P$_0$};
+  \end{scope}
+  \begin{scope}[xshift=1.9 cm,yshift=2cm, scale=0.5]
+    \input{./tikz/fonction/rotatif.tex}
+    \draw (-2.7,2.6) node [black]{P$_1$};
+  \end{scope}
+\end{scope}
+\end{tikzpicture}
+
