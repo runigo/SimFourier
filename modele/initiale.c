@@ -204,7 +204,7 @@ int InitialeRegleParametre(initialeT * initiale, int parametre)
 		//	Centre le motif
 	(void)parametre;
 
-	(*initiale).enveloppe.khi = ((*initiale).enveloppe.fonction.nombre + (*initiale).enveloppe.periode ) / 2;
+	(*initiale).enveloppe.khi = ((*initiale).enveloppe.fonction.nombre - (*initiale).enveloppe.periode ) / 2;
 
 	return 0;
 	}

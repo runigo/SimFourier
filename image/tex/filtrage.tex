@@ -153,9 +153,19 @@
 
                    %  Onglets et panneau
   \begin{scope}[xshift=0 cm,yshift=19cm]
-    \fill[gray,draw=gray!10!] (-0.0, 0.6) rectangle (2.2,-16.6);
+    \fill[gray,draw=gray!10!] (-0.0, 1.5) rectangle (2.2,-16.6);
     \fill[panneauControles]
       (0.1, 0.5) -- (2.1, 0.5) -- (2.1, -16.5) -- (0.1, -16.5) -- cycle;
+    \fill[panneauControles]
+      (0.1, 1.4) -- (2.1, 1.4) -- (2.1, 0.6) -- (0.1, 0.6) -- cycle;
+    \draw (1.1,1.0) node [gray]{\bf{F 0/1}};
+  \end{scope}
+
+  \begin{scope}[xshift=3 cm,yshift=19cm]
+    \fill[gray,draw=gray!10!] (0, 1.6) rectangle (2.2,0.6);
+    \fill[panneauControles]
+      (0.1, 1.5) -- (2.1, 1.5) -- (2.1, 0.7) -- (0.1, 0.7) -- cycle;
+    \draw (1.1,1.1) node [gray]{\bf{F 0/1}};
   \end{scope}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      
