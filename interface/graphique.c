@@ -163,8 +163,8 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 		}
 
 		//	Position du  menu rotatif filtrage (zone 8)
-	coordonnee.w = (*graphique).facteur * 85;
-	coordonnee.h = (*graphique).facteur * 676;
+	coordonnee.w = (*graphique).facteur * 78;
+	coordonnee.h = (*graphique).facteur * 711;
 	coordonnee.y = 0;
 	coordonnee.x = (*graphique).fenetreX - coordonnee.w;
 
@@ -183,6 +183,15 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 		if ((*graphique).textures.filtreSelectif != 0)
 			{	//	Affichage du menu de la zone 9
 			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.filtreSelectif, NULL, &coordonnee);
+			}
+		}
+	else
+		{
+		coordonnee.w = (*graphique).facteur * 78;
+		coordonnee.h = (*graphique).facteur * 38;
+		if ((*graphique).textures.filtrage != 0)
+			{
+			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.filtrage, NULL, &coordonnee);
 			}
 		}
 	return 0;

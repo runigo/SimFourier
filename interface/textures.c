@@ -1,5 +1,5 @@
 /*
-Copyright mai 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 (d'après SimFoule 2.2  simulateur de foule, décembre 2019)
@@ -559,6 +559,19 @@ int texturesMenus(texturesT * textures, affichageT * affichage)
 		{
 		fprintf(stderr,"ERREUR grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
 		}
+
+	panneau = SDL_LoadBMP("./image/filtrage.bmp");
+	if (!panneau)
+		{
+		fprintf(stderr,"ERREUR chargement image, ./image/filtrage.bmp : %s\n",SDL_GetError());
+		}
+	(*textures).filtrage = SDL_CreateTextureFromSurface((*affichage).rendu, panneau);
+	SDL_FreeSurface(panneau);
+	if ((*textures).filtrage == 0)
+		{
+		fprintf(stderr,"ERREUR grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		}
+
 
 	return 0;
 }

@@ -44,10 +44,12 @@
         \draw[styleEteint] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
       \end{scope}
       \begin{scope}[xshift=2.4 cm] %              Dissymétrie 1
-        \draw[styleEteint] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--((0.9,0.3);
+        \draw[styleEteint] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--((0.5,0.3);
+        \draw[styleEteint] (0.5,0.7)--((0.9,0.7);
       \end{scope}
       \begin{scope}[xshift=3.6 cm] %              Dissymétrie 2
-        \draw[styleEteint] (0.1,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
+        \draw[styleEteint] (0.1,0.7)--(0.5,0.7);
+        \draw[styleEteint] (0.5,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
       \end{scope}
     \end{scope}
   \end{scope}
@@ -67,10 +69,12 @@
         --(0.7,0.7)--(0.8,0.7)--(0.8,0.3)--(0.9,0.3);
       \end{scope}
       \begin{scope}[xshift=2.4 cm] %              Dissymétrie 1
-        \draw[styleEteint] (0.1,0.3)--(0.2,0.3)--(0.2,0.7)--(0.3,0.7)--(0.3,0.3)--(0.9,0.3);
+        \draw[styleEteint] (0.1,0.3)--(0.2,0.3)--(0.2,0.7)--(0.3,0.7)--(0.3,0.3)--(0.5,0.3);
+        \draw[styleEteint] (0.5,0.7)--(0.9,0.7);
       \end{scope}
       \begin{scope}[xshift=3.6 cm] %              Dissymétrie 2
-        \draw[styleEteint] (0.1,0.3)--(0.7,0.3)--(0.7,0.7)--(0.8,0.7)--(0.8,0.3)--(0.9,0.3);
+        \draw[styleEteint] (0.1,0.7)--(0.5,0.7);
+        \draw[styleEteint] (0.5,0.3)--(0.7,0.3)--(0.7,0.7)--(0.8,0.7)--(0.8,0.3)--(0.9,0.3);
       \end{scope}
       \begin{scope}[xshift=4.8 cm] %              Inverse
         \draw (0.5,0.5) node [gray]{inv};
@@ -113,10 +117,12 @@
         \draw[boutonSelect] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
       \end{scope}
       \begin{scope}[xshift=2.4 cm] %              Dissymétrie 1
-        \draw[boutonSelect] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--((0.9,0.3);
+        \draw[boutonSelect] (0.1,0.7)--(0.3,0.7)--(0.3,0.3)--((0.5,0.3);
+        \draw[styleEteint] (0.5,0.7)--((0.9,0.7);
       \end{scope}
       \begin{scope}[xshift=3.6 cm] %              Dissymétrie 2
-        \draw[boutonSelect] (0.1,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
+        \draw[styleEteint] (0.1,0.7)--(0.5,0.7);
+        \draw[boutonSelect] (0.5,0.3)--(0.7,0.3)--(0.7,0.7)--(0.9,0.7);
       \end{scope}
     \end{scope}
   \end{scope}
@@ -136,10 +142,12 @@
         --(0.7,0.7)--(0.8,0.7)--(0.8,0.3)--(0.9,0.3);
       \end{scope}
       \begin{scope}[xshift=2.4 cm] %              Dissymétrie 1
-        \draw[boutonSelect] (0.1,0.3)--(0.2,0.3)--(0.2,0.7)--(0.3,0.7)--(0.3,0.3)--(0.9,0.3);
+        \draw[boutonSelect] (0.1,0.3)--(0.2,0.3)--(0.2,0.7)--(0.3,0.7)--(0.3,0.3)--(0.5,0.3);
+        \draw[styleEteint] (0.5,0.7)--(0.9,0.7);
       \end{scope}
       \begin{scope}[xshift=3.6 cm] %              Dissymétrie 2
-        \draw[boutonSelect] (0.1,0.3)--(0.7,0.3)--(0.7,0.7)--(0.8,0.7)--(0.8,0.3)--(0.9,0.3);
+        \draw[styleEteint] (0.1,0.7)--(0.5,0.7);
+        \draw[boutonSelect] (0.5,0.3)--(0.7,0.3)--(0.7,0.7)--(0.8,0.7)--(0.8,0.3)--(0.9,0.3);
       \end{scope}
       \begin{scope}[xshift=4.8 cm] %              Inverse
         \draw (0.5,0.5) node {inv};
@@ -153,18 +161,18 @@
 
                    %  Onglets et panneau
   \begin{scope}[xshift=0 cm,yshift=19cm]
-    \fill[gray,draw=gray!10!] (-0.0, 1.5) rectangle (2.2,-16.6);
+    \fill[gray,draw=gray!10!] (0.1, 1.5) rectangle (2.1,-16.6);
     \fill[panneauControles]
-      (0.1, 0.5) -- (2.1, 0.5) -- (2.1, -16.5) -- (0.1, -16.5) -- cycle;
+      (0.2, 0.5) -- (2.0, 0.5) -- (2.0, -16.5) -- (0.2, -16.5) -- cycle;
     \fill[panneauControles]
-      (0.1, 1.4) -- (2.1, 1.4) -- (2.1, 0.6) -- (0.1, 0.6) -- cycle;
+      (0.2, 1.4) -- (2.0, 1.4) -- (2.0, 0.6) -- (0.2, 0.6) -- cycle;
     \draw (1.1,1.0) node [gray]{\bf{F 0/1}};
   \end{scope}
 
   \begin{scope}[xshift=3 cm,yshift=19cm]
-    \fill[gray,draw=gray!10!] (0, 1.6) rectangle (2.2,0.6);
+    \fill[gray,draw=gray!10!] (0.1, 1.6) rectangle (2.1,0.6);
     \fill[panneauControles]
-      (0.1, 1.5) -- (2.1, 1.5) -- (2.1, 0.7) -- (0.1, 0.7) -- cycle;
+      (0.2, 1.5) -- (2.0, 1.5) -- (2.0, 0.7) -- (0.2, 0.7) -- cycle;
     \draw (1.1,1.1) node [gray]{\bf{F 0/1}};
   \end{scope}
 
