@@ -1,9 +1,7 @@
 # SimFourier
 
-Transformation de Fourier
+Transformation de Fourier et filtrage
 
-Ce programme est en développement il n'est pas fonctionnelle.
-
-Ce logiciel est un programme informatique servant à donner une représentation
-graphique de la transformation de Fourier à 1 dimension.
+Ce programme donne une représentation
+graphique de la transformation de Fourier à 1 dimension et permet d'observer l'effet d'un filtrage.
 
