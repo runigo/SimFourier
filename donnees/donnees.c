@@ -120,7 +120,7 @@ int donneesInitiale(controleurT * controleur)
 		//	enveloppe Phase
 	modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, 500);
 		//	Mode transformé de fourier ou non
-	controleurRegleMode(controleur, (*controleur).options.mode);
+	controleurChangeMode(controleur, (*controleur).options.mode);
 
 		//	Enveloppe sinus cardinal
 	modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 4);

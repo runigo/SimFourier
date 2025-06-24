@@ -55,11 +55,11 @@ int controleClavier(controleurT * controleur)
 		case SDLK_F9:
 			optionsChangeVitesse(&(*controleur).options, 0.32);break;	*/
 		case SDLK_F10:
-			controleurRegleMode(controleur, 0);break;
+			controleurChangeMode(controleur, 0);break;
 	//	case SDLK_F11:
 		//	controleurRegleMode(controleur, 1);break;
 		case SDLK_F12:
-			controleurRegleMode(controleur, 2);break;
+			controleurChangeMode(controleur, 2);break;
 
 			// Vitesse de la simulation
 /*		case SDLK_KP_PLUS:

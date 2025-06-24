@@ -76,7 +76,7 @@ int controleurSuppression(controleurT * controleur);
 
 int controleurFenetre(controleurT * controleur);
 
-int controleurRegleMode(controleurT * controleur, int mode);
+int controleurChangeMode(controleurT * controleur, int mode);
 
 void controleurPostReinitialisation(controleurT * controleur);
 

@@ -286,9 +286,9 @@ int optionsRegleMode(optionsT * options, int mode) {
 	return 0;
 	}
 
-int optionsChangeMode(optionsT * options) {
+int optionsVariationMode(optionsT * options) {
 
-		//		Change le mode 
+		//		Fait varier le mode 
 
 	switch((*options).mode) {
 		case -1: //		Simulation

@@ -353,14 +353,24 @@ void controleurPostReinitialisation(controleurT * controleur) {
 	return;
 	}
 
-int controleurRegleMode(controleurT * controleur, int mode) {
+int controleurChangeMode(controleurT * controleur, int mode) {
 
-		//		Regle le mode de fonctionnement
+		//		Inverse le mode de fonctionnement si mode < -1
+		//		Regle le mode de fonctionnement sinon
 
-	optionsRegleMode(&(*controleur).options, mode);
+	if(mode < -1)
+		{
+		optionsVariationMode(&(*controleur).options);
+		printf("mode =%d => optionsVariationMode\n",mode);
+		}
+	else
+		{
+		optionsRegleMode(&(*controleur).options, mode);
+		printf("mode =%d => optionsRegleMode\n",mode);
+		}
 
 		//	Position des graphes dans la fenêtre
-	if(mode == 2)	//	mode filtrage
+	if((*controleur).options.mode == 2)	//	mode filtrage
 		{
 		(*controleur).projection.fonction.longueur = LONGUEUR_IMP;
 		(*controleur).projection.fonction.positionX = 0.30;

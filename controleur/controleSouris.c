@@ -219,7 +219,7 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 
 	if(menu == 10)
 		{
-		optionsChangeMode(&(*controleur).options);
+		controleurChangeMode(controleur, -2);
 		}
 
 	if (menu == 3)
