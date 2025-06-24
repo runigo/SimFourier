@@ -130,7 +130,7 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 			//	Dessine les menus
 
 		//	Position du premier menu (zone 1, 2 et 3)
-	SDL_Rect coordonnee = {0, 0, (*graphique).facteur * MENUS_X, (*graphique).facteur * MENUS_Y};
+	SDL_Rect coordonnee = {0, 0, (*graphique).facteur * INITIALE_X, (*graphique).facteur * INITIALE_Y};
 
 	if(mode == 0 || mode == 2)	//	Mode initiale avec ou sans filtrage
 		{
@@ -149,10 +149,10 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 
 			//	Menu des graphes
 		//	Taille et position du menu du graphe fonction (zone 4)
-	coordonnee.w = (*graphique).facteur * 366;
-	coordonnee.h = (*graphique).facteur * 43;
+	coordonnee.w = (*graphique).facteur * GRAPHE_X;
+	coordonnee.h = (*graphique).facteur * GRAPHE_Y;
 	coordonnee.y = 0;
-	coordonnee.x = (*graphique).facteur * MENUS_X;
+	coordonnee.x = (*graphique).facteur * INITIALE_X;
 	if ((*graphique).textures.graphes != 0)
 		{	//	Affichage du menu de la zone 4
 		SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.graphes, NULL, &coordonnee);
@@ -163,8 +163,8 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 		}
 
 		//	Position du  menu rotatif filtrage (zone 8)
-	coordonnee.w = (*graphique).facteur * 78;
-	coordonnee.h = (*graphique).facteur * 711;
+	coordonnee.w = (*graphique).facteur * FILTRE_ROTATIF_X;
+	coordonnee.h = (*graphique).facteur * FILTRE_ROTATIF_Y;
 	coordonnee.y = 0;
 	coordonnee.x = (*graphique).fenetreX - coordonnee.w;
 
@@ -176,8 +176,8 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 			}
 				//	Menu selectif du filtrage
 			//	Taille et position des sélectif du filtrage (zone 9)
-		coordonnee.w = (*graphique).facteur * 563;
-		coordonnee.h = (*graphique).facteur * 42;
+		coordonnee.w = (*graphique).facteur * FILTRE_SELECTIF_X;
+		coordonnee.h = (*graphique).facteur * FILTRE_SELECTIF_Y;
 		coordonnee.y = (*graphique).fenetreY / 2;
 		coordonnee.x = (*graphique).fenetreX - coordonnee.w - (*graphique).facteur * 85;
 		if ((*graphique).textures.filtreSelectif != 0)
@@ -187,8 +187,8 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 		}
 	else
 		{
-		coordonnee.w = (*graphique).facteur * 78;
-		coordonnee.h = (*graphique).facteur * 38;
+		coordonnee.w = (*graphique).facteur * FILTRAGE_X;
+		coordonnee.h = (*graphique).facteur * FILTRAGE_Y;
 		if ((*graphique).textures.filtrage != 0)
 			{
 			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.filtrage, NULL, &coordonnee);

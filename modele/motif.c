@@ -1,5 +1,5 @@
 /*
-Copyright mai 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique permettant de donner une représentation
@@ -127,54 +127,7 @@ int motifCalculCarre(motifT * motif, int periode) {
 		}
 	return 0;
 }
-/*
-int motifCalculTriangle(motifT * motif, int periode) {
 
-	printf("Enveloppe dent de scie \n");
-	
-	int i;
-	int periode = (*motif).a +(*motif).b;
-	float alpha;
-	float beta;
-
-	if((*motif).a == 0)
-		{
-		alpha = 2*(*motif).amplitude;
-		printf(" Erreur dans motifCalculTriangle, (*motif).a == 0 \n");
-		}
-	else
-		{
-		alpha =  (2.0*(*motif).amplitude)/(*motif).a;
-		}
-
-	for(i=0;i<(*motif).a;i++)
-		{
-		(*motif).fonction.reel[i] = i*alpha - (*motif).amplitude;
-		(*motif).fonction.imag[i] = (*motif).fonction.reel[i];
-		}
-
-	if((*motif).b == 0)
-		{
-		alpha = 2 * (*motif).amplitude * (float)(*motif).a;
-		beta = (*motif).amplitude * (1 - 2 * (float)(*motif).a);
-		printf(" Erreur dans motifCalculTriangle, (*motif).b == 0 \n");
-		}
-	else
-		{
-		alpha =  2 * (*motif).amplitude * (float)(*motif).a / (*motif).b;
-		beta = (*motif).amplitude * (1 - 2 * (float)(*motif).a / (*motif).b) ;
-		}
-
-
-	for(i=(*motif).a;i<periode;i++)
-		{
-		(*motif).fonction.reel[i] = i*alpha - beta;
-		(*motif).fonction.imag[i] = (*motif).fonction.reel[i];
-		}
-
-	return 0;
-}
-*/
 int motifCalculTriangle(motifT * motif, int periode) {
 
 	printf("Enveloppe dent de scie \n");

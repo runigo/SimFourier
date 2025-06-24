@@ -104,9 +104,9 @@
     <id>UMLClass</id>
     <coordinates>
       <x>630</x>
-      <y>50</y>
+      <y>80</y>
       <w>40</w>
-      <h>350</h>
+      <h>320</h>
     </coordinates>
     <panel_attributes>8</panel_attributes>
     <additional_attributes/>
@@ -120,6 +120,17 @@
       <h>30</h>
     </coordinates>
     <panel_attributes>9</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>630</x>
+      <y>50</y>
+      <w>40</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>10</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

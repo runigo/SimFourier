@@ -1,5 +1,5 @@
 /*
-Copyright mai 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
@@ -83,21 +83,21 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 		}
 
 			//	Zones suivant X des rotatifs du menu initiale
-	(*commandes).rotatifInitialGauche = facteur * 19;
-	(*commandes).rotatifInitialDroite = facteur * 78;
+	(*commandes).rotatifInitialGauche = facteur * 11;
+	(*commandes).rotatifInitialDroite = facteur * 70;
 
 			//	Zones suivant X des selectifs du menu initiale
-	(*commandes).selectifInitialGauche = facteur * 97;
-	(*commandes).selectifInitialDroite = facteur * 129;
+	(*commandes).selectifInitialGauche = facteur * 83;
+	(*commandes).selectifInitialDroite = facteur * 114;
 
 			// Zones suivant X des fonctions (zones 4, 5, 6, 7)
-	(*commandes).fonctionsGauche = facteur * 145;
-	(*commandes).fonctionsDroite = fenetreX - facteur * 85;	//	Début de la zone 8
-	(*commandes).filtrageGauche = fenetreX - facteur * 648;	//	Début de la zone 9
+	(*commandes).fonctionsGauche = facteur * 126;
+	(*commandes).fonctionsDroite = fenetreX - facteur * FILTRE_ROTATIF_X;	//	Début de la zone 8
+	(*commandes).filtrageGauche = fenetreX - facteur * (FILTRE_ROTATIF_X+FILTRE_SELECTIF_X);	//	Début de la zone 9
 
 			//	Zones suivant X des rotatifs du menu filtrage
-	(*commandes).rotatifFiltrGauche = fenetreX - facteur * 70;
-	(*commandes).rotatifFiltrDroite = fenetreX - facteur * 11;
+	(*commandes).rotatifFiltrGauche = fenetreX - facteur * 67;
+	(*commandes).rotatifFiltrDroite = fenetreX - facteur * 8;
 
 		// Zones suivant Y du menu 1
 	(*commandes).mode = facteur * 24;
@@ -148,17 +148,18 @@ int commandesAjusteSelectifsInitiale(commandesT * commandes, float facteur)
 	(*commandes).selectifInitial[1].Y = facteur * 83;		//	Rectangle
 	(*commandes).selectifInitial[2].Y = facteur * 114;		//	Scie
 	(*commandes).selectifInitial[3].Y = facteur * 146;		//	Sinus
-	(*commandes).selectifInitial[4].Y = facteur * 217;		//	Apériodique
-	(*commandes).selectifInitial[5].Y = facteur * 251;		//	Périodique
-	(*commandes).selectifInitial[6].Y = facteur * 282;		//	Gaussienne
-	(*commandes).selectifInitial[7].Y = facteur * 314;		//	Lorentzienne
-	(*commandes).selectifInitial[8].Y = facteur * 346;		//	Sinus Cardinal
-	(*commandes).selectifInitial[9].Y = facteur * 458;		//	Zéro
-	(*commandes).selectifInitial[10].Y = facteur * 491;		//	Un
-	(*commandes).selectifInitial[11].Y = facteur * 601;		//	Constant
-	(*commandes).selectifInitial[12].Y = facteur * 633;		//	Dirac
-	(*commandes).selectifInitial[13].Y = facteur * 664;		//	Sinus
-	(*commandes).selectifInitial[14].Y = facteur * 696;		//	Complexe
+	(*commandes).selectifInitial[4].Y = facteur * 207;		//	Apériodique
+	(*commandes).selectifInitial[5].Y = facteur * 241;		//	Périodique
+	(*commandes).selectifInitial[6].Y = facteur * 272;		//	Gaussienne
+	(*commandes).selectifInitial[7].Y = facteur * 304;		//	Lorentzienne
+	(*commandes).selectifInitial[8].Y = facteur * 336;		//	Sinus Cardinal
+	(*commandes).selectifInitial[9].Y = facteur * 414;		//	Centrage horizontal
+	(*commandes).selectifInitial[10].Y = facteur * 465;		//	Minimum = 0
+	(*commandes).selectifInitial[11].Y = facteur * 505;		//	Centrage vertical
+	(*commandes).selectifInitial[12].Y = facteur * 601;		//	Constant
+	(*commandes).selectifInitial[13].Y = facteur * 633;		//	Dirac
+	(*commandes).selectifInitial[14].Y = facteur * 664;		//	Sinus
+	(*commandes).selectifInitial[15].Y = facteur * 696;		//	Complexe
 
 	return 0;
 	}
@@ -190,13 +191,13 @@ int commandesAjusteSelectifsGraphes(commandesT * commandes, float facteur)
 			selectifInitialise(&(*commandes).selectifGraph[j][i], (*commandes).selectifInitialDroite - (*commandes).selectifInitialGauche);
 			}
 				// BOUTONS SELECTIFS SUIVANT X
-		(*commandes).selectifGraph[j][0].X = facteur * 206;  	//	Implicite
-		(*commandes).selectifGraph[j][1].X = facteur * 236;		//	Imaginaire
-		(*commandes).selectifGraph[j][2].X = facteur * 269;		//	Reel
-		(*commandes).selectifGraph[j][3].X = facteur * 324;		//	Point
-		(*commandes).selectifGraph[j][4].X = facteur * 355;		//	Relié
-		(*commandes).selectifGraph[j][5].X = facteur * 402;		//	Vecteur
-		(*commandes).selectifGraph[j][6].X = facteur * 430;		//	Sans
+		(*commandes).selectifGraph[j][0].X = facteur * 187;  	//	Implicite
+		(*commandes).selectifGraph[j][1].X = facteur * 215;		//	Imaginaire
+		(*commandes).selectifGraph[j][2].X = facteur * 248;		//	Reel
+		(*commandes).selectifGraph[j][3].X = facteur * 306;		//	Point
+		(*commandes).selectifGraph[j][4].X = facteur * 333;		//	Relié
+		(*commandes).selectifGraph[j][5].X = facteur * 383;		//	Vecteur
+		(*commandes).selectifGraph[j][6].X = facteur * 410;		//	Sans
 		}
 	return 0;
 	}
@@ -209,14 +210,14 @@ int commandesAjusteRotatifsFiltres(commandesT * commandes, float facteur)
 		{
 		rotatifInitialise(&(*commandes).rotatifFiltrag[i], (*commandes).rotatifFiltrDroite-(*commandes).rotatifFiltrGauche);
 		}
-	(*commandes).rotatifFiltrag[0].Y = facteur * 12; 	//	Fréquence 1
-	(*commandes).rotatifFiltrag[1].Y = facteur * 83;	//	Ordre 1
-	(*commandes).rotatifFiltrag[2].Y = facteur * 181;	//	Fréquence 2
-	(*commandes).rotatifFiltrag[3].Y = facteur * 252;	//	Ordre 2
-	(*commandes).rotatifFiltrag[4].Y = facteur * 358;	//	Fréquence 3
-	(*commandes).rotatifFiltrag[5].Y = facteur * 429;	//	Ordre 3
-	(*commandes).rotatifFiltrag[6].Y = facteur * 501;	//	Delta f
-	(*commandes).rotatifFiltrag[7].Y = facteur * 603;	//	Amplification
+	(*commandes).rotatifFiltrag[0].Y = facteur * 47; 	//	Fréquence 1
+	(*commandes).rotatifFiltrag[1].Y = facteur * 118;	//	Ordre 1
+	(*commandes).rotatifFiltrag[2].Y = facteur * 216;	//	Fréquence 2
+	(*commandes).rotatifFiltrag[3].Y = facteur * 287;	//	Ordre 2
+	(*commandes).rotatifFiltrag[4].Y = facteur * 393;	//	Fréquence 3
+	(*commandes).rotatifFiltrag[5].Y = facteur * 464;	//	Ordre 3
+	(*commandes).rotatifFiltrag[6].Y = facteur * 535;	//	Delta f
+	(*commandes).rotatifFiltrag[7].Y = facteur * 638;	//	Amplification
 
 	return 0;
 	}
@@ -299,43 +300,41 @@ int commandesSourisZone(commandesT * commandes)
 		if((*commandes).sourisX < (*commandes).fonctionsDroite)	//		MENU 2 = zones 4, 5, 6 et 7, et 9
 			{
 			if((*commandes).sourisY < (*commandes).fonctionHaut)
-				{	//	Menu fonction
-				//printf("commandesSourisZone 4\n");
+				{	//	Menu fonction		printf("commandesSourisZone 4\n");
 				return 4;
 				}
 			if((*commandes).sourisY < (*commandes).fonctionBas)
-				{	//	Fonction
-				//printf("commandesSourisZone 5\n");
+				{	//	Fonction		printf("commandesSourisZone 5\n");
 				return 5;
 				}
 			if((*commandes).sourisY < (*commandes).fourierHaut)
 				{	//	Menu fourier et sélectifs des filtres
 				if((*commandes).sourisX < (*commandes).filtrageGauche)
-					{
-					//printf("commandesSourisZone 6\n");
+					{		//printf("commandesSourisZone 6\n");
 					return 6;
 					}
 				else
-					{
-					//printf("commandesSourisZone 9\n");
+					{		//printf("commandesSourisZone 9\n");
 					return 9;
 					}
-				}
-			//printf("commandesSourisZone 7\n");
+				}		//printf("commandesSourisZone 7\n");
 			return 7;	//	Fourier
 			}
 		else						//		MENU 3 = zone 8
 			{
-			if((*commandes).sourisX < (*commandes).rotatifFiltrDroite && (*commandes).sourisX > (*commandes).rotatifFiltrGauche)
-				{	//	Rotatif
-					printf("commandesSourisZone 8\n");
-				return 8;
+			if((*commandes).sourisY < (*commandes).fonctionHaut)
+				{	//	Bouton filtrage		printf("commandesSourisZone 10\n");
+				return 10;
 				}
-		//	printf("commandesSourisZone 8\n");
-		//	return 8;
+			else
+				{
+				if((*commandes).sourisX < (*commandes).rotatifFiltrDroite && (*commandes).sourisX > (*commandes).rotatifFiltrGauche)
+					{	//	Rotatif		printf("commandesSourisZone 8\n");
+					return 8;
+					}
+				}
 			}
 		}
-	
 	return -1;
 	}
 
@@ -439,67 +438,4 @@ int commandeRotatifsFiltres(commandesT * commandes)
 	return -1;
 	}
 
-
-/*
-int commandesSourisZone(commandesT * commandes)
-	{
-		//	Retourne la zone où se trouve la souris
-
-	if((*commandes).sourisX < (*commandes).fonctionsGauche)		//		MENU 1
-		{
-		if((*commandes).sourisY < (*commandes).mode)
-			{	//	Selection initiale/simulation
-			return 1;
-			}
-		else
-			{
-			if((*commandes).sourisX < (*commandes).rotatifInitialDroite && (*commandes).sourisX > (*commandes).rotatifInitialGauche)
-				{	//	Rotatif
-				return 2;
-				}
-			else
-				{	//	Selectif
-				if((*commandes).sourisX < (*commandes).selectifInitialDroite && (*commandes).sourisX > (*commandes).selectifInitialGauche)
-					{
-					return 3;
-					}
-				}
-			}
-		}
-	else
-		{
-		if((*commandes).sourisX < (*commandes).fonctionsDroite)	//		MENU 2
-			{
-			if((*commandes).sourisY < (*commandes).fonctionHaut)
-				{	//	Menu fonction
-				return 4;
-				}
-			else
-				{
-				if((*commandes).sourisY < (*commandes).fonctionBas)
-					{	//	Fonction
-					return 5;
-					}
-				else
-					{
-					if((*commandes).sourisY < (*commandes).fourierHaut)
-						{	//	Menu fourier
-						return 6;
-						}
-					else
-						{	//	Fourier
-							return 7;
-						}
-					}
-				}
-			}
-		else								//		MENU 3
-			{
-			return 8;
-			}
-		}
-	
-	return -1;
-	}
-*/
 //////////////////////////////////////////////////////////////////

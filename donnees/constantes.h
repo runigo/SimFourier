@@ -49,16 +49,32 @@ termes.
 
 		//-------------- PARAMÈTRES GRAPHIQUES ---------------
 
-	//  TAILLE IMPLICITE DE LA FENÊTRE
-#define FENETRE_X 1200
-#define FENETRE_Y 774
-	//  TAILLE IMPLICITE DU MENU. X = Y / 4
-#define MENUS_X 125
-#define MENUS_Y FENETRE_Y
+	//	TAILLE DES MENUS
+#define INITIALE_X 125
+#define INITIALE_Y 774
+
+#define GRAPHE_X 365
+#define GRAPHE_Y 43
+
+#define FILTRE_ROTATIF_X 78
+#define FILTRE_ROTATIF_Y 711
+
+#define FILTRE_SELECTIF_X 562
+#define FILTRE_SELECTIF_Y 43
+
+	//  TAILLE IMPLICITE DU BOUTON filtrage
+#define FILTRAGE_X 78
+#define FILTRAGE_Y 38
 
 	//  TAILLE IMPLICITE DES BOUTONS
 #define SELECTIF_X 40
 #define SELECTIF_Y 40
+
+	//  TAILLE IMPLICITE DE LA FENÊTRE
+#define FENETRE_X 1200
+#define FENETRE_Y  INITIALE_Y
+	//  TAILLE IMPLICITE DU MENU. X = Y / 4
+
 
 	//	POINT DE VUE IMPLICITE
 #define PHI 1.7
@@ -69,7 +85,7 @@ termes.
 #define GRAPHES 2 // Nombres de graphes
 
 	//  NOMBRE DE COMMANDES
-#define SELECTIF_INITIAL 15		// Nombres de boutons selectifs du menu initial
+#define SELECTIF_INITIAL 16		// Nombres de boutons selectifs du menu initial
 #define SELECTIF_GRAPHES 7		// Nombres de boutons selectifs des menus graphes
 #define SELECTIF_FILTRES 13		// Nombres de boutons selectifs du menu filtrage
 #define ROTATIF_INITIAL 8		// Nombre de boutons rotatifs du menu initial

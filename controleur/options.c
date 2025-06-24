@@ -286,6 +286,33 @@ int optionsRegleMode(optionsT * options, int mode) {
 	return 0;
 	}
 
+int optionsChangeMode(optionsT * options) {
+
+		//		Change le mode 
+
+	switch((*options).mode) {
+		case -1: //		Simulation
+			(*options).mode = 1;
+			printf("Mode : simulation\n"); break;
+		case 0:	//		Initiale sans filtre
+			(*options).mode = 2;
+			printf("Mode : initiale avec filtre\n"); break;
+		case 1:	//		Simulation pause
+			(*options).mode = -1;
+			printf("Mode : simulation pause\n"); break;
+		case 2:	//		Initiale avec filtre
+			(*options).mode = 0;
+			printf("Mode : initiale sans filtre\n"); break;
+		case 3:	//		Énergie potentielle
+			(*options).mode = 3;
+			printf("Mode : énergie potentielle\n"); break;
+		default:
+			fprintf(stderr, "ERREUR : optionsRegleMode\n");
+		}
+	//printf("(*options).mode = %d \n",(*options).mode);
+	return 0;
+	}
+
 void optionsChangeVitesse(optionsT * options, float facteur) {
 
 		//		Change la vitesse de la simulation

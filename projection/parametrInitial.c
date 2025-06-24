@@ -1,5 +1,5 @@
 /*
-Copyright mai 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique permettant de donner une représentation
@@ -98,12 +98,12 @@ int parametrInitialRotatifs(initialeT * initiale, parametrInitialT * parametre, 
 	theta = (*parametre).radianSym * ( (*initiale).motif.symetrie );
 	(*commandes).rotatifInitial[2].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[2].positionY = (int)(-longueur*sin(theta));
-		//	Phase motif
-	theta = (*parametre).radianKhi * ( (*initiale).enveloppe.khi );
-	(*commandes).rotatifInitial[3].positionX = (int)(-longueur*cos(theta));
-	(*commandes).rotatifInitial[3].positionY = (int)(-longueur*sin(theta));
 		//	Amplitude motif
 	theta = (*parametre).radianAmplitude * ((*initiale).motif.amplitude );
+	(*commandes).rotatifInitial[3].positionX = (int)(-longueur*cos(theta));
+	(*commandes).rotatifInitial[3].positionY = (int)(-longueur*sin(theta));
+		//	Phase motif
+	theta = (*parametre).radianKhi * ( (*initiale).enveloppe.khi );
 	(*commandes).rotatifInitial[4].positionX = (int)(-longueur*cos(theta));
 	(*commandes).rotatifInitial[4].positionY = (int)(-longueur*sin(theta));
 		//	Décalage verticale
@@ -177,13 +177,13 @@ int parametrInitialSelectifs(initialeT * initiale, commandesT * commandes)
 	switch((*initiale).porteuse.complexe)
 		{
 		case 0:
-			(*commandes).selectifInitial[13].etat = 1;break;	//	Réel
+			(*commandes).selectifInitial[14].etat = 1;break;	//	Réel
 		case 1:
-			(*commandes).selectifInitial[14].etat = 1;break;	//	Complexe
+			(*commandes).selectifInitial[15].etat = 1;break;	//	Complexe
 		case 2:
-			(*commandes).selectifInitial[12].etat = 1;break;	//	Peigne de dirac
+			(*commandes).selectifInitial[13].etat = 1;break;	//	Peigne de dirac
 		case 3:
-			(*commandes).selectifInitial[11].etat = 1;break;	//	Constant
+			(*commandes).selectifInitial[12].etat = 1;break;	//	Constant
 		default:
 			;
 		}

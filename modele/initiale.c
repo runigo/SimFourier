@@ -1,5 +1,5 @@
 /*
-Copyright mai 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique permettant de donner une représentation
@@ -204,7 +204,14 @@ int InitialeRegleParametre(initialeT * initiale, int parametre)
 		//	Centre le motif
 	(void)parametre;
 
-	(*initiale).enveloppe.khi = ((*initiale).enveloppe.fonction.nombre - (*initiale).enveloppe.periode ) / 2;
+	if((*initiale).enveloppe.periodique > 1)	//	Courbe en cloche
+		{
+		(*initiale).enveloppe.khi = (*initiale).enveloppe.fonction.nombre / 2;
+		}
+	else
+		{
+		(*initiale).enveloppe.khi = ((*initiale).enveloppe.fonction.nombre - (*initiale).enveloppe.periode ) / 2;
+		}
 
 	return 0;
 	}

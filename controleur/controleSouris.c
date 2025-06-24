@@ -1,5 +1,5 @@
 /*
-Copyright mai 2025, Stephan Runigo
+Copyright juin 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
@@ -123,6 +123,8 @@ int controleSourisBouton(controleurT * controleur, int appui)
 				controleSourisCliqRotatif(controleur, 8);break;
 			case 9: // Boutons selectif du filtrage
 				controleSourisCliqSelectif(controleur, 9);break;
+			case 10: // Bouton filtrage
+				controleSourisCliqSelectif(controleur, 10);break;
 			default:
 				;
 			}
@@ -156,10 +158,10 @@ int controleSourisCliqRotatif(controleurT * controleur, int menu)
 				modeleChangeInitiale(&(*controleur).modele, 1, 2, 0, pourMille);break;
 			case 2: //	motif Symétrie
 				modeleChangeInitiale(&(*controleur).modele, 0, 1, 0, pourMille);break;
-			case 3: //	enveloppe Phase
-				modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, pourMille);break;
-			case 4: //	motif Amplitude
+			case 3: //	motif Amplitude
 				modeleChangeInitiale(&(*controleur).modele, 0, 2, 0, pourMille);break;
+			case 4: //	enveloppe Phase
+				modeleChangeInitiale(&(*controleur).modele, 1, 3, 0, pourMille);break;
 			case 5: //	motif Décalage
 				modeleChangeInitiale(&(*controleur).modele, 0, 3, 0, pourMille);break;
 			case 6: //	porteuse Période 1
@@ -215,6 +217,11 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 
 	int selectif = 0;
 
+	if(menu == 10)
+		{
+		optionsChangeMode(&(*controleur).options);
+		}
+
 	if (menu == 3)
 		{
 		selectif = commandeSelectifsInitiale(&(*controleur).projection.commandes);
@@ -238,17 +245,19 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 3);break;
 			case 8: //	enveloppe	sinus cardinale
 				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 4);break;
-			case 9: //	enveloppe	Moyenne nulle
-				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 3);break;
-			case 10: //	centrage du motif
+			case 9: //	enveloppe	Centrage horizontal
 				modeleChangeInitiale(&(*controleur).modele, 3, 0, 0, 0);break;
-			case 11: //	porteuse	constant
+			/*case 10: //	enveloppe	minimum = 0
+				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 3);break;
+			case 11: //	centrage vertical
+				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 3);break;*/
+			case 12: //	porteuse	constant
 				modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 3);break;
-			case 12: //	porteuse	peigne de dirac
+			case 13: //	porteuse	peigne de dirac
 				modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 2);break;
-			case 13: //	porteuse	réelle
+			case 14: //	porteuse	réelle
 				modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 0);break;
-			case 14: //	porteuse	complexe
+			case 15: //	porteuse	complexe
 				modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 1);break;
 			default:
 				;
@@ -389,9 +398,9 @@ int controleSourisMoletteRotatifsInitial(controleurT * controleur)
 			case 2:
 				modeleChangeInitiale(&(*controleur).modele, 0, 1, 1, 0);break;
 			case 3:
-				modeleChangeInitiale(&(*controleur).modele, 1, 3, 1, 0);break;
-			case 4:
 				modeleChangeInitiale(&(*controleur).modele, 0, 2, 1, 0);break;
+			case 4:
+				modeleChangeInitiale(&(*controleur).modele, 1, 3, 1, 0);break;
 			case 5:
 				modeleChangeInitiale(&(*controleur).modele, 0, 3, 1, 0);break;
 			case 6:
@@ -413,9 +422,9 @@ int controleSourisMoletteRotatifsInitial(controleurT * controleur)
 			case 2:
 				modeleChangeInitiale(&(*controleur).modele, 0, 1, -1, 0);break;
 			case 3:
-				modeleChangeInitiale(&(*controleur).modele, 1, 3, -1, 0);break;
-			case 4:
 				modeleChangeInitiale(&(*controleur).modele, 0, 2, -1, 0);break;
+			case 4:
+				modeleChangeInitiale(&(*controleur).modele, 1, 3, -1, 0);break;
 			case 5:
 				modeleChangeInitiale(&(*controleur).modele, 0, 3, -1, 0);break;
 			case 6:
