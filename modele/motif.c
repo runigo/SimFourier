@@ -46,10 +46,10 @@ int motifRegleSymetrie(motifT * motif, int pourMille);
 
 	//		CALCUL DU MOTIF
 int motifCalcul(motifT * motif, int periode);
-int motifCalculUniforme(motifT * motif, int periode);
-int motifCalculHarmonique(motifT * motif, int periode);
-int motifCalculCarre(motifT * motif, int periode);
-int motifCalculTriangle(motifT * motif, int periode);
+int motifUniforme(motifT * motif, int periode);
+int motifHarmonique(motifT * motif, int periode);
+int motifCarre(motifT * motif, int periode);
+int motifTriangle(motifT * motif, int periode);
 
 
 /*------------------------  INITIALISATION  -------------------------*/
@@ -79,20 +79,20 @@ int motifCalculMotif(motifT * motif, int periode) {
 	switch ((*motif).forme)
 		{
 		case 0:
-			motifCalculUniforme(motif, periode);break;
+			motifUniforme(motif, periode);break;
 		case 1:
-			motifCalculUniforme(motif, periode);break;
+			motifHarmonique(motif, periode);break;
 		case 2:
-			motifCalculCarre(motif, periode);break;
+			motifCarre(motif, periode);break;
 		case 3:
-			motifCalculTriangle(motif, periode);break;
+			motifTriangle(motif, periode);break;
 		default:
 			;
 		}
 	return 0;
 }
 
-int motifCalculUniforme(motifT * motif, int periode) {
+int motifUniforme(motifT * motif, int periode) {
 
 	printf("Enveloppe uniforme \n");
 	(void)periode;
@@ -107,7 +107,28 @@ int motifCalculUniforme(motifT * motif, int periode) {
 	return 0;
 }
 
-int motifCalculCarre(motifT * motif, int periode) {
+int motifHarmonique(motifT * motif, int periode) {
+
+	printf("Enveloppe sinisoïdale \n");
+	int i;
+
+	if(periode==0)
+		{
+		printf("ERREUR : motifHarmonique, periode == 0");
+		}
+	else
+		{
+		for(i=0;i<periode;i++)
+			{
+			(*motif).fonction.reel[i] = (*motif).amplitude * sin ( (DEUXPI * i) / periode);
+			(*motif).fonction.imag[i] = (*motif).fonction.reel[i];
+			}
+		}
+
+	return 0;
+}
+
+int motifCarre(motifT * motif, int periode) {
 
 	printf("Enveloppe rectangulaire \n");
 
@@ -128,7 +149,7 @@ int motifCalculCarre(motifT * motif, int periode) {
 	return 0;
 }
 
-int motifCalculTriangle(motifT * motif, int periode) {
+int motifTriangle(motifT * motif, int periode) {
 
 	printf("Enveloppe dent de scie \n");
 	
