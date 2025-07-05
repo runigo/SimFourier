@@ -247,10 +247,10 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 4);break;
 			case 9: //	enveloppe	Centrage horizontal
 				modeleChangeInitiale(&(*controleur).modele, 3, 0, 0, 0);break;
-			/*case 10: //	enveloppe	minimum = 0
-				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 3);break;
-			case 11: //	centrage vertical
-				modeleChangeInitiale(&(*controleur).modele, 1, 0, 0, 3);break;*/
+			case 10: //	motif	minimum = 0
+				modeleChangeInitiale(&(*controleur).modele, 0, 3, 0, 100 * (*controleur).modele.initiale.motif.amplitude);break;
+			case 11: //	motif	centrage vertical
+				modeleChangeInitiale(&(*controleur).modele, 0, 3, 0, 0);break;
 			case 12: //	porteuse	constant
 				modeleChangeInitiale(&(*controleur).modele, 2, 0, 0, 3);break;
 			case 13: //	porteuse	peigne de dirac
@@ -302,10 +302,10 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 				modeleChangeFiltrage(&(*controleur).modele, 1, 4, 0, 0);break;
 			case 2: 	//	Passe bas droite
 				modeleChangeFiltrage(&(*controleur).modele, 1, 5, 0, 1);
-				modeleChangeFiltrage(&(*controleur).modele, 1, 4, 0, 1);break;
+				modeleChangeFiltrage(&(*controleur).modele, 1, 4, 0, -1);break;
 			case 3: 	//	Passe bas gauche
 				modeleChangeFiltrage(&(*controleur).modele, 1, 5, 0, 1);
-				modeleChangeFiltrage(&(*controleur).modele, 1, 4, 0, -1);break;
+				modeleChangeFiltrage(&(*controleur).modele, 1, 4, 0, 1);break;
 			case 4: //	Éteint le filtre passe haut
 				modeleChangeFiltrage(&(*controleur).modele, 2, 5, 0, 0);break;
 			case 5:		//	Passe haut symétrique
