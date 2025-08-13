@@ -1,5 +1,5 @@
 /*
-Copyright mai 2025, Stephan Runigo
+Copyright août 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique permettant de donner une représentation
@@ -53,14 +53,14 @@ termes.
 #define INITIALE_X 125
 #define INITIALE_Y 774
 
-#define GRAPHE_X 365
-#define GRAPHE_Y 43
+#define GRAPHE_X 321
+#define GRAPHE_Y 42
 
 #define FILTRE_ROTATIF_X 78
 #define FILTRE_ROTATIF_Y 711
 
-#define FILTRE_SELECTIF_X 562
-#define FILTRE_SELECTIF_Y 43
+#define FILTRE_SELECTIF_X 570
+#define FILTRE_SELECTIF_Y 42
 
 	//  TAILLE IMPLICITE DU BOUTON filtrage
 #define FILTRAGE_X 78
@@ -86,8 +86,8 @@ termes.
 
 	//  NOMBRE DE COMMANDES
 #define SELECTIF_INITIAL 16		// Nombres de boutons selectifs du menu initial
-#define SELECTIF_GRAPHES 7		// Nombres de boutons selectifs des menus graphes
-#define SELECTIF_FILTRES 13		// Nombres de boutons selectifs du menu filtrage
+#define SELECTIF_GRAPHES 6		// Nombres de boutons selectifs des menus graphes
+#define SELECTIF_FILTRES 12		// Nombres de boutons selectifs du menu filtrage
 #define ROTATIF_INITIAL 8		// Nombre de boutons rotatifs du menu initial
 #define ROTATIF_GRAPHES 1		// Nombre de boutons linéaires des menus graphes
 #define ROTATIF_FILTRES 8		// Nombre de boutons rotatifs du menu filtrage
