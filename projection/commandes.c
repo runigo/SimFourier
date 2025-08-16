@@ -232,18 +232,18 @@ int commandesAjusteSelectifsFiltres(commandesT * commandes, int fenetreX, float 
 		selectifInitialise(&(*commandes).selectifFiltrag[i], (*commandes).selectifInitialDroite - (*commandes).selectifInitialGauche);
 		}
 				// BOUTONS SELECTIFS SUIVANT X
-	(*commandes).selectifFiltrag[0].X = fenetreX - facteur * 610;  	//	Passe bas
-	(*commandes).selectifFiltrag[1].X = fenetreX - facteur * 641;		//	Passe bas gauche
-	(*commandes).selectifFiltrag[2].X = fenetreX - facteur * 670;		//	Passe bas droite
-	(*commandes).selectifFiltrag[3].X = fenetreX - facteur * 701;		//	Passe bas inverse
-	(*commandes).selectifFiltrag[4].X = fenetreX - facteur * 786;		//	Passe haut
-	(*commandes).selectifFiltrag[5].X = fenetreX - facteur * 814;		//	Passe haut gauche
-	(*commandes).selectifFiltrag[6].X = fenetreX - facteur * 845;		//	Passe haut droite
-	(*commandes).selectifFiltrag[7].X = fenetreX - facteur * 874;  	//	Passe haut inverse
-	(*commandes).selectifFiltrag[8].X = fenetreX - facteur * 959;		//	Passe bande
-	(*commandes).selectifFiltrag[9].X = fenetreX - facteur * 989;		//	Passe bande gauche
-	(*commandes).selectifFiltrag[10].X = fenetreX - facteur * 1020;		//	Passe bande droite
-	(*commandes).selectifFiltrag[11].X = fenetreX - facteur * 1050;		//	Passe bande inverse
+	(*commandes).selectifFiltrag[0].X = fenetreX - facteur * 590;  	//	Passe bas
+	(*commandes).selectifFiltrag[1].X = fenetreX - facteur * 559;		//	Passe bas gauche
+	(*commandes).selectifFiltrag[2].X = fenetreX - facteur * 530;		//	Passe bas droite
+	(*commandes).selectifFiltrag[3].X = fenetreX - facteur * 499;		//	Passe bas inverse
+	(*commandes).selectifFiltrag[4].X = fenetreX - facteur * 411;		//	Passe haut
+	(*commandes).selectifFiltrag[5].X = fenetreX - facteur * 386;		//	Passe haut gauche
+	(*commandes).selectifFiltrag[6].X = fenetreX - facteur * 355;		//	Passe haut droite
+	(*commandes).selectifFiltrag[7].X = fenetreX - facteur * 326;  	//	Passe haut inverse
+	(*commandes).selectifFiltrag[8].X = fenetreX - facteur * 241;		//	Passe bande
+	(*commandes).selectifFiltrag[9].X = fenetreX - facteur * 211;		//	Passe bande gauche
+	(*commandes).selectifFiltrag[10].X = fenetreX - facteur * 180;		//	Passe bande droite
+	(*commandes).selectifFiltrag[11].X = fenetreX - facteur * 150;		//	Passe bande inverse
 
 	return 0;
 	}
