@@ -1,5 +1,5 @@
 /*
-Copyright mai 2025, Stephan Runigo
+Copyright septembre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique permettant de donner une représentation
@@ -125,49 +125,60 @@ int parametrFiltragSelectifs(filtrageT * filtrage, commandesT * commandes)
 		(*commandes).selectifFiltrag[i].etat = 0;
 		}
 
-	if((*filtrage).passeBas.mode != 0)
+	if((*filtrage).passeBas.actif != 0)
 		{
+		(*commandes).selectifFiltrag[0].etat = 1;	//	Filtre actif
 		switch((*filtrage).passeBas.symetrie) {
 			case 0:
 				(*commandes).selectifFiltrag[1].etat = 1; break;	//	Symétrique
-			case 1:
-				(*commandes).selectifFiltrag[2].etat = 1; break;	//	Droite
 			case -1:
-				(*commandes).selectifFiltrag[3].etat = 1; break;	//	Gauche
+				(*commandes).selectifFiltrag[2].etat = 1; break;	//	Gauche
+			case 1:
+				(*commandes).selectifFiltrag[3].etat = 1; break;	//	Droite
 			default:
 				fprintf(stderr, "ERREUR parametrFiltragSelectifs, passeBas.symetrie");
 			}
+		if((*filtrage).passeBas.inverse != 0)
+			{
+			(*commandes).selectifFiltrag[4].etat = 1;	//	Inverse
+			}
 		}
 
-	if((*filtrage).passeHaut.mode != 0)
+	if((*filtrage).passeHaut.actif != 0)
 		{
+		(*commandes).selectifFiltrag[5].etat = 1;	//	Filtre actif
 		switch((*filtrage).passeHaut.symetrie) {
 			case 0:
-				(*commandes).selectifFiltrag[5].etat = 1; break;	//	Symétrique
-			case 1:
-				(*commandes).selectifFiltrag[7].etat = 1; break;	//	Droite
+				(*commandes).selectifFiltrag[6].etat = 1; break;	//	Symétrique
 			case -1:
-				(*commandes).selectifFiltrag[6].etat = 1; break;	//	Gauche
+				(*commandes).selectifFiltrag[7].etat = 1; break;	//	Gauche
+			case 1:
+				(*commandes).selectifFiltrag[8].etat = 1; break;	//	Droite
 			default:
 				fprintf(stderr, "ERREUR parametrFiltragSelectifs, passeHaut.symetrie");
 			}
+		if((*filtrage).passeHaut.inverse != 0)
+			{
+			(*commandes).selectifFiltrag[9].etat = 1;	//	Inverse
+			}
 		}
 
-	if((*filtrage).passeBande.mode != 0)
+	if((*filtrage).passeBande.actif != 0)
 		{
+		(*commandes).selectifFiltrag[10].etat = 1;	//	Filtre actif
 		switch((*filtrage).passeBande.symetrie) {
 			case 0:
-				(*commandes).selectifFiltrag[9].etat = 1; break;	//	Symétrique
-			case 1:
-				(*commandes).selectifFiltrag[11].etat = 1; break;	//	Droite
+				(*commandes).selectifFiltrag[11].etat = 1; break;	//	Symétrique
 			case -1:
-				(*commandes).selectifFiltrag[10].etat = 1; break;	//	Gauche
+				(*commandes).selectifFiltrag[12].etat = 1; break;	//	Gauche
+			case 1:
+				(*commandes).selectifFiltrag[13].etat = 1; break;	//	Droite
 			default:
 				fprintf(stderr, "ERREUR parametrFiltragSelectifs, passeBande.symetrie");
 			}
-		if((*filtrage).passeBande.mode < 0)
+		if((*filtrage).passeBande.inverse != 0)
 			{
-			(*commandes).selectifFiltrag[12].etat = 1;	//	Inverse
+			(*commandes).selectifFiltrag[14].etat = 1;	//	Inverse
 			}
 		}
 	return 0;

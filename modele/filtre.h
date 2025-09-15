@@ -1,5 +1,5 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright septembre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -49,7 +49,8 @@ typedef struct FiltreT filtreT;
 		int ordre;	//	Ordre du filtre, pour mille
 		int deltaF;	//	Ecart de fréquence (passe bande), pour mille
 		int symetrie;		//	Symétrie [sym, droite, gauche] (0, 1, -1)
-		int mode;		//	Allume, éteint, inverse le filtre (1, 0, -1)
+		int inverse;		//	Direct, inverse (0, 1)
+		int actif;		//	Allume, éteint,  (1, 0)
 
 		};
 

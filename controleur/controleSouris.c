@@ -1,5 +1,5 @@
 /*
-Copyright juin 2025, Stephan Runigo
+Copyright septembre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
@@ -295,42 +295,36 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 		selectif = commandeSelectifsFiltres(&(*controleur).projection.commandes);
 		switch(selectif)	//	filtre ,  parametre ,  variation ,  pourMille
 			{
-			case 0: //	Éteint le filtre passe bas
-				modeleChangeFiltrage(&(*controleur).modele, 1, 5, 0, 0);break;
-			case 1: 	//	Passe bas symétrique
-				modeleChangeFiltrage(&(*controleur).modele, 1, 5, 0, 1);
+			case 0:		//	Allume-éteint le filtre passe bas
+				modeleChangeFiltrage(&(*controleur).modele, 1, 6, 1, 0);break;
+			case 1: 		//	Symétrique
 				modeleChangeFiltrage(&(*controleur).modele, 1, 4, 0, 0);break;
-			case 2: 	//	Passe bas droite
-				modeleChangeFiltrage(&(*controleur).modele, 1, 5, 0, 1);
+			case 2: 		//	Gauche
 				modeleChangeFiltrage(&(*controleur).modele, 1, 4, 0, -1);break;
-			case 3: 	//	Passe bas gauche
-				modeleChangeFiltrage(&(*controleur).modele, 1, 5, 0, 1);
+			case 3: 		//	Droite
 				modeleChangeFiltrage(&(*controleur).modele, 1, 4, 0, 1);break;
-			case 4: //	Éteint le filtre passe haut
-				modeleChangeFiltrage(&(*controleur).modele, 2, 5, 0, 0);break;
-			case 5:		//	Passe haut symétrique
-				modeleChangeFiltrage(&(*controleur).modele, 2, 5, 0, 1);
+			case 4: 		//	Inverse
+				modeleChangeFiltrage(&(*controleur).modele, 1, 5, 1, 0);break;
+			case 5:		//	Allume-éteint le filtre passe haut
+				modeleChangeFiltrage(&(*controleur).modele, 2, 6, 1, 0);break;
+			case 6:			//	Symétrique
 				modeleChangeFiltrage(&(*controleur).modele, 2, 4, 0, 0);break;
-			case 6:		//	Passe haut gauche
-				modeleChangeFiltrage(&(*controleur).modele, 2, 5, 0, 1);
+			case 7:			//	Gauche
 				modeleChangeFiltrage(&(*controleur).modele, 2, 4, 0, -1);break;
-			case 7:		//	Passe haut droite
-				modeleChangeFiltrage(&(*controleur).modele, 2, 5, 0, 1);
+			case 8:			//	Droite
 				modeleChangeFiltrage(&(*controleur).modele, 2, 4, 0, 1);break;
-			case 8: //	Éteint le filtre passe bande
-				modeleChangeFiltrage(&(*controleur).modele, 3, 5, 0, 0);break;
-			case 9: 	//	Passe bande symétrique
-				modeleChangeFiltrage(&(*controleur).modele, 3, 5, 0, 1);
+			case 9: 		//	Inverse
+				modeleChangeFiltrage(&(*controleur).modele, 2, 5, 1, 0);break;
+			case 10: 	//	Allume-éteint le filtre passe bande
+				modeleChangeFiltrage(&(*controleur).modele, 3, 6, 1, 0);break;
+			case 11: 		//	Symétrique
 				modeleChangeFiltrage(&(*controleur).modele, 3, 4, 0, 0);break;
-			case 10: 	//	Passe bande gauche
-				modeleChangeFiltrage(&(*controleur).modele, 3, 5, 0, 1);
+			case 12: 		//	Gauche
 				modeleChangeFiltrage(&(*controleur).modele, 3, 4, 0, -1);break;
-			case 11: 	//	Passe bande droite
-				modeleChangeFiltrage(&(*controleur).modele, 3, 5, 0, 1);
+			case 13: 		//	Droite
 				modeleChangeFiltrage(&(*controleur).modele, 3, 4, 0, 1);break;
-			case 12: 	//	Passe bande inverse
-				modeleChangeFiltrage(&(*controleur).modele, 3, 5, 0, 1);
-				modeleChangeFiltrage(&(*controleur).modele, 3, 5, 0, -1);break;
+			case 14: 		//	Inverse
+				modeleChangeFiltrage(&(*controleur).modele, 3, 5, 1, 0);break;
 			default:
 				;
 			}

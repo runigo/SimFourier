@@ -92,7 +92,7 @@ mode</panel_attributes>
       <x>350</x>
       <y>240</y>
       <w>350</w>
-      <h>160</h>
+      <h>200</h>
     </coordinates>
     <panel_attributes>parametre
 --
@@ -104,7 +104,9 @@ mode</panel_attributes>
 
 4 : symetrie : 0, symétrique, 1, droite, -1 gauche
 
-5 : mode : 1, allume, 0, éteint, -1, inverse</panel_attributes>
+5 : inverse : 0, direct, 1, inverse
+
+6 : actif : 1, allume, 0, éteint</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

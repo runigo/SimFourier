@@ -1,5 +1,5 @@
 /*
-Copyright août 2025, Stephan Runigo
+Copyright septembre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
@@ -232,18 +232,21 @@ int commandesAjusteSelectifsFiltres(commandesT * commandes, int fenetreX, float 
 		selectifInitialise(&(*commandes).selectifFiltrag[i], (*commandes).selectifInitialDroite - (*commandes).selectifInitialGauche);
 		}
 				// BOUTONS SELECTIFS SUIVANT X
-	(*commandes).selectifFiltrag[0].X = fenetreX - facteur * 590;  	//	Passe bas
-	(*commandes).selectifFiltrag[1].X = fenetreX - facteur * 559;		//	Passe bas gauche
-	(*commandes).selectifFiltrag[2].X = fenetreX - facteur * 530;		//	Passe bas droite
-	(*commandes).selectifFiltrag[3].X = fenetreX - facteur * 499;		//	Passe bas inverse
-	(*commandes).selectifFiltrag[4].X = fenetreX - facteur * 411;		//	Passe haut
-	(*commandes).selectifFiltrag[5].X = fenetreX - facteur * 386;		//	Passe haut gauche
-	(*commandes).selectifFiltrag[6].X = fenetreX - facteur * 355;		//	Passe haut droite
-	(*commandes).selectifFiltrag[7].X = fenetreX - facteur * 326;  	//	Passe haut inverse
-	(*commandes).selectifFiltrag[8].X = fenetreX - facteur * 241;		//	Passe bande
-	(*commandes).selectifFiltrag[9].X = fenetreX - facteur * 211;		//	Passe bande gauche
-	(*commandes).selectifFiltrag[10].X = fenetreX - facteur * 180;		//	Passe bande droite
-	(*commandes).selectifFiltrag[11].X = fenetreX - facteur * 150;		//	Passe bande inverse
+	(*commandes).selectifFiltrag[0].X = fenetreX - facteur * 620;		//	Passe bas actif
+	(*commandes).selectifFiltrag[1].X = fenetreX - facteur * 590;		//	Symétrique
+	(*commandes).selectifFiltrag[2].X = fenetreX - facteur * 559;		//	Gauche
+	(*commandes).selectifFiltrag[3].X = fenetreX - facteur * 530;		//	Droite
+	(*commandes).selectifFiltrag[4].X = fenetreX - facteur * 499;		//	Inverse
+	(*commandes).selectifFiltrag[5].X = fenetreX - facteur * 441;		//	Passe haut actif
+	(*commandes).selectifFiltrag[6].X = fenetreX - facteur * 411;		//	Symétrique
+	(*commandes).selectifFiltrag[7].X = fenetreX - facteur * 386;		//	Gauche
+	(*commandes).selectifFiltrag[8].X = fenetreX - facteur * 355;		//	Droite
+	(*commandes).selectifFiltrag[9].X = fenetreX - facteur * 326;		//	Inverse
+	(*commandes).selectifFiltrag[10].X = fenetreX - facteur * 271;		//	Passe bande actif
+	(*commandes).selectifFiltrag[11].X = fenetreX - facteur * 241;		//	Symétrique
+	(*commandes).selectifFiltrag[12].X = fenetreX - facteur * 211;		//	Gauche
+	(*commandes).selectifFiltrag[13].X = fenetreX - facteur * 180;		//	Droite
+	(*commandes).selectifFiltrag[14].X = fenetreX - facteur * 150;		//	Inverse
 
 	return 0;
 	}

@@ -1,5 +1,5 @@
 /*
-Copyright juin 2025, Stephan Runigo
+Copyright septembre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -49,7 +49,8 @@ int filtreChangeFrequence(filtreT * filtre, int variation, int pourMille);
 int filtreChangeOrdre(filtreT * filtre, int variation, int pourMille);
 int filtreChangeDeltaF(filtreT * filtre, int variation, int pourMille);
 int filtreChangeSymetrie(filtreT * filtre, int variation, int pourMille);
-int filtreChangeMode(filtreT * filtre, int variation, int pourMille);
+int filtreChangeInverse(filtreT * filtre, int variation, int pourMille);
+int filtreChangeActif(filtreT * filtre, int variation, int pourMille);
 
 
 int filtreInitialise(filtreT * filtre, int nombre)
@@ -63,7 +64,8 @@ int filtreInitialise(filtreT * filtre, int nombre)
 	(*filtre).ordre = nombre / 16;
 	(*filtre).deltaF = nombre / 16;	//	Ecart de fréquence (passe bande)
 	(*filtre).symetrie = 0;
-	(*filtre).mode = 0;
+	(*filtre).actif = 0;
+	(*filtre).inverse = 0;
 
 	filtreUniforme(filtre);
 
@@ -200,7 +202,7 @@ int filtrePasseBas(filtreT * filtre)
 	{
 			//	Crée un filtre passe bas
 
-	if((*filtre).mode==0)
+	if((*filtre).actif==0)
 		{
 		filtreUniforme(filtre);	//	Filtre inactif
 		}
@@ -216,7 +218,7 @@ int filtrePasseHaut(filtreT * filtre)
 	{
 			//	Crée un filtre passe haut
 
-	if((*filtre).mode==0)
+	if((*filtre).actif==0)
 		{
 		filtreUniforme(filtre);	//	Filtre inactif
 		}
@@ -233,7 +235,7 @@ int filtrePasseBande(filtreT * filtre)
 	{
 			//	Crée un filtre passe bande
 
-	if((*filtre).mode==0)
+	if((*filtre).actif==0)
 		{
 		filtreUniforme(filtre);	//	Filtre inactif
 		}
@@ -260,7 +262,7 @@ int filtreAppliqueParametre(filtreT * filtre)
 			filtreInverseGD(filtre);	//	Droite
 			}
 		}
-	if((*filtre).mode<0)
+	if((*filtre).inverse==1)
 		{
 		filtreInverseHB(filtre);	//	Passant -> coupant
 		}
@@ -322,8 +324,10 @@ int filtreChangeParametre(filtreT * filtre, int parametre, int variation, int po
 			filtreChangeDeltaF(filtre, variation, pourMille);break;
 		case 4:	//	Symétrie
 			filtreChangeSymetrie(filtre, variation, pourMille);break;
-		case 5:	//	Mode
-			filtreChangeMode(filtre, variation, pourMille);break;
+		case 5:	//	Inverse
+			filtreChangeInverse(filtre, variation, pourMille);break;
+		case 6:	//	Actif
+			filtreChangeActif(filtre, variation, pourMille);break;
 		default:
 			fprintf(stderr, "ERREUR : filtreChangeParametre");
 		}
@@ -448,28 +452,51 @@ int filtreChangeSymetrie(filtreT * filtre, int variation, int pourMille)
 	return 0;
 	}
 
-int filtreChangeMode(filtreT * filtre, int variation, int pourMille)
+int filtreChangeInverse(filtreT * filtre, int variation, int pourMille)
 	{
-	int mode = (*filtre).mode + variation;
+	int inverse = (*filtre).inverse + variation;
 
 	if(variation == 0)
 		{
-		mode = pourMille;
+		inverse = pourMille;
 		}
 
-	switch (mode)
+	switch (inverse)
+		{
+		case 1:		//	Inverse
+			(*filtre).inverse = 1;
+			printf("Filtre inverse = 1\n");break;
+		case 0:	//	Direct
+			(*filtre).inverse = 0;
+			printf("Filtre inverse = 0\n");break;
+		default:
+			(*filtre).inverse = 0;
+			printf("Filtre inverse = 0\n");
+		}
+	return 0;
+	}
+
+
+int filtreChangeActif(filtreT * filtre, int variation, int pourMille)
+	{
+	int actif = (*filtre).actif + variation;
+
+	if(variation == 0)
+		{
+		actif = pourMille;
+		}
+
+	switch (actif)
 		{
 		case 1:		//	Allumé
-			(*filtre).mode = 1;
+			(*filtre).actif = 1;
 			printf("Mode filtre = actif\n");break;
 		case 0:		//	Éteint
-			(*filtre).mode = 0;
+			(*filtre).actif = 0;
 			printf("Mode filtre = inactif\n");break;
-		case -1:	//	Inverse
-			(*filtre).mode = -1;
-			printf("Mode filtre = inverse\n");break;
 		default:
-			fprintf(stderr, "ERREUR : filtreChangeMode");
+			(*filtre).actif = 0;
+			printf("Mode filtre = inactif\n");break;
 		}
 	return 0;
 	}

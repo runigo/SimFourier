@@ -1,7 +1,5 @@
 # SimFourier
 
-VERSION EN DÉVELOPPEMENT, NON FONCTIONNEL
-
 Transformation de Fourier et filtrage
 
 Ce programme donne une représentation graphique de la transformation de Fourier
