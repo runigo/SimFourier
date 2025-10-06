@@ -1,5 +1,5 @@
 /*
-Copyright juin 2025, Stephan Runigo
+Copyright octobre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -203,17 +203,17 @@ int projectionTronqueGraphes(projectionT * projection) {
 
 	//-----------------    CHANGE LA PROJECTION     -----------------------//
 
-int projectionChangeParametre(projectionT * projection, int menu, int parametre, int variation, int pourMille)
+int projectionChangeParametre(projectionT * projection, int menu, int bouton, int variation, int pourMille)
 	{
 				//	Change un paramètre de la projection
 
 	switch(menu) {
 		case 4:	//		Fonction et fct
-			grapheChangeParametre(&(*projection).fonction, parametre, variation, pourMille);
-			grapheChangeParametre(&(*projection).fct, parametre, variation, pourMille); break;
+			grapheChangeParametre(&(*projection).fonction, bouton, variation, pourMille);
+			grapheChangeParametre(&(*projection).fct, bouton, variation, pourMille); break;
 		case 6:	//		Fourier et fou
-			grapheChangeParametre(&(*projection).fourier, parametre, variation, pourMille);
-			grapheChangeParametre(&(*projection).fou, parametre, variation, pourMille); break;
+			grapheChangeParametre(&(*projection).fourier, bouton, variation, pourMille);
+			grapheChangeParametre(&(*projection).fou, bouton, variation, pourMille); break;
 		default:
 			printf("ERREUR projectionChangeParametre\n");
 		}

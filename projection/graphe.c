@@ -1,5 +1,5 @@
 /*
-Copyright mai 2025, Stephan Runigo
+Copyright octobre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 (D'après SiCP 1.3.7  simulateur de chaîne de pendules, septembre 2017)
@@ -33,11 +33,10 @@ termes.
 
 #include "graphe.h"
 
-int grapheReglageAxes(grapheT * graphe, int axes);
-int grapheReglageTrait(grapheT * graphe, int trait);
-int grapheReglageCoord(grapheT * graphe, int coord);
-int grapheChangeCoord(grapheT * graphe, int coord);
-int grapheReglagePdv(grapheT * graphe, int position);
+int grapheChangePdv(grapheT * graphe, int variation, int pourMille);
+int grapheChangeTrait(grapheT * graphe, int variation, int pourMille);
+int grapheChangeCoord(grapheT * graphe, int variation, int pourMille);
+int grapheChangeAxes(grapheT * graphe, int variation, int pourMille);
 
 int grapheInitialisation(grapheT * graphe, int nombre)
 	{
@@ -172,121 +171,178 @@ int graphe3D2D(grapheT * graphe, int fenetreX, int fenetreY)
 	return 0;
 	}
 
-int grapheChangeParametre(grapheT * graphe, int parametre, int variation, int pourMille)
+	//-----------------    CHANGEMENT PARAMETRE      -----------------------//
+
+int grapheChangeParametre(grapheT * graphe, int bouton, int variation, int pourMille)
 	{
 			// Change un paramètre du graphe
 
-	if(variation == 0)	//	Réglage du paramètre
-		{
-		switch (parametre)
+	switch (bouton)
 			{
 			case 0:	//	Point de vue implicite
-				grapheReglagePdv(graphe, pourMille); break;
+				grapheChangePdv(graphe, variation, pourMille); break;
 			case 1:	//	Point de vue imaginaire
-				grapheReglagePdv(graphe, pourMille); break;
+				grapheChangePdv(graphe, variation, pourMille); break;
 			case 2:	//	Point de vue réel
-				grapheReglagePdv(graphe, pourMille); break;
-			case 3:	//	trait point
-				grapheReglageTrait(graphe, pourMille); break;
-			case 4:	//	trait courbe
-				grapheReglageTrait(graphe, pourMille); break;
-			case 5:	//	coord vecteur
-				grapheReglageCoord(graphe, pourMille); break;
-			case 6:	//	coord sans
-				grapheReglageCoord(graphe, pourMille); break;
+				grapheChangePdv(graphe, variation, pourMille); break;
+			case 3:	//	Trait point-courbe
+				grapheChangeTrait(graphe, variation, pourMille); break;
+			case 4:	//	Coordonnées sans-vecteur-cartésien
+				grapheChangeCoord(graphe, variation, pourMille); break;
+			case 5:	//	Axes sans-derrière-devant
+				grapheChangeAxes(graphe, variation, pourMille); break;
 			default:
-				printf("ERREUR : grapheChangeParametre, paramètre inexistant\n");
+				printf("ERREUR : grapheChangeParametre, bouton inexistant\n");
 			}
-		}
-	else	//	Variation du paramètre
-		{
-		printf("ERREUR : grapheChangeParametre, variation != 0\n");
-		}
-
 	return 0;
 	}
 
-int grapheReglageAxes(grapheT * graphe, int axes)
+int grapheChangePdv(grapheT * graphe, int variation, int pourMille)
+	{
+							// Change la position du point de vue
+	if(variation==0)
+		{
+		switch (pourMille)
+			{
+			case 0:	//	implicite
+				pointDeVueReglePhi(&(*graphe).pointDeVue, PHI);
+				pointDeVueReglePsi(&(*graphe).pointDeVue, PSI);
+				printf("Point de vue implicite\n"); break;
+			case 1:	//	imaginaire
+				pointDeVueReglePhi(&(*graphe).pointDeVue, PIS2);
+				pointDeVueReglePsi(&(*graphe).pointDeVue, -PIS2);
+				printf("Point de vue imaginaire\n"); break;
+			case 2:	//	réel
+				pointDeVueReglePhi(&(*graphe).pointDeVue, PI);
+				pointDeVueReglePsi(&(*graphe).pointDeVue, -PIS2);
+				printf("Point de vue réel\n"); break;
+			default:
+				printf("ERREUR grapheReglagePdv : bouton inexistant\n");
+			}
+		}
+	else
+		{
+				printf("ERREUR grapheReglagePdv : variation <> 0\n");
+		}
+	return 0;
+	}
+
+int grapheChangeTrait(grapheT * graphe, int variation, int pourMille)
+	{
+						// Change le style du trait (points reliés ou non)
+	if(variation==0)
+		{
+		switch (pourMille)
+			{
+			case 0:	//	point
+				(*graphe).trait = 0;
+				printf("Courbe : points non reliés\n"); break;
+			case 1:	//	trait
+				(*graphe).trait = 1;
+				printf("Courbe : points reliés\n"); break;
+			default:
+				printf("ERREUR grapheRegleTrait, variation = 0\n");
+			}
+		}
+	else
+		{
+		switch ((*graphe).trait)
+			{
+			case 1:	//	Trait -> point
+				(*graphe).trait = 0;
+				printf("Courbe : points non reliés\n"); break;
+			case 0:	//	Point -> trait
+				(*graphe).trait = 1;
+				printf("Courbe : points reliés\n"); break;
+			default:
+				printf("ERREUR grapheRegleTrait, variation <> 0\n");
+			}
+		}
+	return 0;
+	}
+
+int grapheChangeCoord(grapheT * graphe, int variation, int pourMille)
+	{
+		// Change la représentation graphique des coordonnées (vecteur ou cartésien)
+
+	if(variation==0)	// Reglage
+		{
+		switch (pourMille)
+			{
+			case 0:
+				(*graphe).coord = 0;
+				printf("Coordonées : sans représentation\n"); break;
+			case 1:
+				(*graphe).coord = 1;
+				printf("Coordonées : style vecteur\n"); break;
+			case 2:
+				(*graphe).coord = 2;
+				printf("Coordonées : style cartésien\n"); break;
+			default:
+				printf("ERREUR grapheChangeCoord, variation = 0\n");
+			}
+		}
+	else				// Variation
+		{
+		switch ((*graphe).coord)
+			{
+			case 1:
+				(*graphe).coord = 0;
+				printf("Coordonées : sans représentation\n"); break;
+			case 0:
+				(*graphe).coord = 1;
+				printf("Coordonées : style vecteur\n"); break;
+		//	case 2:
+			//	(*graphe).coord = 0;
+			//	printf("Coordonées : style cartésien\n"); break;
+			default:
+				printf("ERREUR grapheChangeCoord, variation <> 0\n");
+			}
+		}
+		
+	return 0;
+	}
+
+int grapheChangeAxes(grapheT * graphe, int variation, int pourMille)
 	{
 		// Change la représentation graphique des axes (Derrière ou devant la courbe, sans)
 
-	switch (axes)
+	if(variation==0)	// Reglage
 		{
-		case 0:	//	point
-			(*graphe).axes = 0;
-			printf("Axes : non représentés\n"); break;
-		case 1:	//	trait
-			(*graphe).axes = 1;
-			printf("Axes : Derrière la courbe\n"); break;
-		case 2:	//	trait
-			(*graphe).axes = 2;
-			printf("Axes : Devant la courbe\n"); break;
-		default:
-			printf("ERREUR grapheRegleAxes\n");
+		switch (pourMille)
+			{
+			case 0:	//	Non représentés
+				(*graphe).axes = 0;
+				printf("Axes : non représentés\n"); break;
+			case 1:	//	Représentés
+				(*graphe).axes = 1;
+				printf("Axes : représentés\n"); break;
+			//	printf("Axes : Derrière la courbe\n");
+		//	case 2:	//	trait
+			//	(*graphe).axes = 2;
+			//	printf("Axes : Devant la courbe\n"); break;
+			default:
+				printf("ERREUR grapheRegleAxes, variation = 0\n");
+			}
 		}
-	return 0;
-	}
-
-int grapheReglagePdv(grapheT * graphe, int position)
-	{
-		// Regle la position du point de vue
-
-	switch (position)
+	else				// Variation
 		{
-		case 0:	//	implicite
-			pointDeVueReglePhi(&(*graphe).pointDeVue, PHI);
-			pointDeVueReglePsi(&(*graphe).pointDeVue, PSI);
-			printf("Point de vue implicite\n"); break;
-		case 1:	//	imaginaire
-			pointDeVueReglePhi(&(*graphe).pointDeVue, PIS2);
-			pointDeVueReglePsi(&(*graphe).pointDeVue, -PIS2);
-			printf("Point de vue imaginaire\n"); break;
-		case 2:	//	réel
-			pointDeVueReglePhi(&(*graphe).pointDeVue, PI);
-			pointDeVueReglePsi(&(*graphe).pointDeVue, -PIS2);
-			printf("Point de vue réel\n"); break;
-		default:
-			printf("ERREUR grapheReglage point de vue\n");
+		switch ((*graphe).axes)
+			{
+			case 1:	//	Représentés -> non représentés
+				(*graphe).axes = 0;
+				printf("Axes : non représentés\n"); break;
+			case 0:	//	Non représentés -> représentés
+				(*graphe).axes = 1;
+				printf("Axes : Derrière la courbe\n"); break;
+		//	case 2:	//	trait
+			//	(*graphe).axes = 2;
+			//	printf("Axes : Devant la courbe\n"); break;
+			default:
+				printf("ERREUR grapheRegleAxes, variation <> 0\n");
+			}
 		}
-	return 0;
-	}
-
-int grapheReglageTrait(grapheT * graphe, int trait)
-	{
-			// Regle la représentation graphique de la courbe
-				// Change la représentation graphique de la fonction (points reliés ou non)
-	switch (trait)
-		{
-		case 0:	//	point
-			(*graphe).trait = 0;
-			printf("Courbe : points non reliés\n"); break;
-		case 1:	//	trait
-			(*graphe).trait = 1;
-			printf("Courbe : points reliés\n"); break;
-		default:
-			printf("ERREUR grapheRegleTrait\n");
-		}
-	return 0;
-	}
-
-int grapheReglageCoord(grapheT * graphe, int coord)
-	{
-			// Regle la représentation graphique de la courbe
-				// Change la représentation graphique des coordonnées (vecteur ou cartésien)
-	switch (coord)
-		{
-		case 0:
-			(*graphe).coord = 0;
-			printf("Coordonées : sans représentation\n"); break;
-		case 1:
-			(*graphe).coord = 1;
-			printf("Coordonées : style vecteur\n"); break;
-		case 2:
-			(*graphe).coord = 2;
-			printf("Coordonées : style cartésien\n"); break;
-		default:
-			printf("ERREUR grapheChangeCoord\n");
-		}
+		
 	return 0;
 	}
 

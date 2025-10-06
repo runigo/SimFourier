@@ -1,5 +1,5 @@
 /*
-Copyright septembre 2025, Stephan Runigo
+Copyright octobre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, février 2021)
@@ -268,22 +268,20 @@ int controleSourisCliqSelectif(controleurT * controleur, int menu)
 	if (menu == 4 || 6)
 		{
 		selectif = commandeSelectifsGraphes(&(*controleur).projection.commandes);
-		switch(selectif)	//	fonction ,  parametre ,  variation ,  pourMille
+		switch(selectif)	//	fonction ,  bouton ,  variation ,  pourMille
 			{
-			case 0: //	point de vue implicite
+			case 0: //	Point de vue implicite
 				projectionChangeParametre(&(*controleur).projection, menu, 0, 0, 0);break;
-			case 1: //	point de vue imaginaire
+			case 1: //	Point de vue imaginaire
 				projectionChangeParametre(&(*controleur).projection, menu, 1, 0, 1);break;
-			case 2: //	point de vue réel
+			case 2: //	Point de vue réel
 				projectionChangeParametre(&(*controleur).projection, menu, 2, 0, 2);break;
-			case 3: //	graphe point
-				projectionChangeParametre(&(*controleur).projection, menu, 3, 0, 0);break;
-			case 4: //	graphe courbe
-				projectionChangeParametre(&(*controleur).projection, menu, 4, 0, 1);break;
-			case 5: //	coordonnées vecteur
-				projectionChangeParametre(&(*controleur).projection, menu, 5, 0, 1);break;
-			case 6: //	coordonnées sans
-				projectionChangeParametre(&(*controleur).projection, menu, 6, 0, 0);break;
+			case 3: //	Tracé point-courbe
+				projectionChangeParametre(&(*controleur).projection, menu, 3, 1, 0);break;
+			case 4: //	Coordonnées vecteur-sans
+				projectionChangeParametre(&(*controleur).projection, menu, 4, 1, 0);break;
+			case 5: //	Axes avec-sans
+				projectionChangeParametre(&(*controleur).projection, menu, 5, 1, 0);break;
 			default:
 				;
 			}

@@ -1,5 +1,5 @@
 /*
-Copyright avril 2025, Stephan Runigo
+Copyright octobre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique servant à donner une représentation
@@ -75,7 +75,7 @@ int projectionModele(projectionT * projection, modeleT * modele, int mode);
 //int projectionControleurCommandes(projectionT * projection, commandesT * commandes, int duree, int mode);
 
 	//-----------------    CHANGE      -----------------------//
-int projectionChangeParametre(projectionT * projection, int menu, int parametre, int variation, int pourMille);
+int projectionChangeParametre(projectionT * projection, int menu, int bouton, int variation, int pourMille);
 int projectionChangeFenetre(projectionT * projection, int x, int y);
 
 	//-----------------    AFFICHAGE      -----------------------//

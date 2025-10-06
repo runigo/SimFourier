@@ -1,5 +1,5 @@
 /*
-Copyright mai 2025, Stephan Runigo
+Copyright octobre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique permettant de donner une représentation
@@ -108,17 +108,25 @@ int parametrGraphSelectifs(grapheT * graphe, commandesT * commandes)
 
 	switch((*graphe).trait) {	//	Tracé de la courbe
 		case 0:
-			(*commandes).selectifGraph[(*graphe).espace][3].etat = 1; break;	//	Point
+			(*commandes).selectifGraph[(*graphe).espace][3].etat = 0; break;	//	Point
 		case 1:
-			(*commandes).selectifGraph[(*graphe).espace][4].etat = 1; break;	//	Relié
+			(*commandes).selectifGraph[(*graphe).espace][3].etat = 1; break;	//	Relié
 		default:
 			fprintf(stderr, "ERREUR : parametrGraphSelectifs, trait = %d\n", (*graphe).trait); }
 
 	switch((*graphe).coord) {	//	Tracé des coordonnées
 		case 0:
-			(*commandes).selectifGraph[(*graphe).espace][6].etat = 1; break;	//	vide
+			(*commandes).selectifGraph[(*graphe).espace][4].etat = 0; break;	//	vide
 		case 1:
-			(*commandes).selectifGraph[(*graphe).espace][5].etat = 1; break;	//	vecteur
+			(*commandes).selectifGraph[(*graphe).espace][4].etat = 1; break;	//	vecteur
+		default:
+			fprintf(stderr, "ERREUR : parametrGraphSelectifs, coord = %d\n", (*graphe).coord); }
+
+	switch((*graphe).axes) {	//	Tracé des axes
+		case 0:
+			(*commandes).selectifGraph[(*graphe).espace][5].etat = 0; break;	//	Sans
+		case 1:
+			(*commandes).selectifGraph[(*graphe).espace][5].etat = 1; break;	//	Avec
 		default:
 			fprintf(stderr, "ERREUR : parametrGraphSelectifs, coord = %d\n", (*graphe).coord); }
 
