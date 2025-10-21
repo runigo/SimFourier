@@ -1,5 +1,5 @@
 /*
-Copyright septembre 2025, Stephan Runigo
+Copyright octobre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 (d'après SiCP 2.5 simulateur de chaîne de pendules, fevrier 2021)
@@ -62,8 +62,6 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	{
 				//	Calcul de facteur et positions des zones
 
-	(void)fenetreX;
-
 	float facteur = 1.0;	//	Facteur lié à la taille de la fenêtre
 	float facteurX = 1.0;	//	Facteur lié à la taille de la fenêtre
 	if(fenetreY < FENETRE_Y)
@@ -87,8 +85,8 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	(*commandes).rotatifInitialDroite = facteur * 70;
 
 			//	Zones suivant X des selectifs du menu initiale
-	(*commandes).selectifInitialGauche = facteur * 83;
-	(*commandes).selectifInitialDroite = facteur * 114;
+	(*commandes).selectifInitialGauche = facteur * 82;
+	(*commandes).selectifInitialDroite = facteur * 113;
 
 			// Zones suivant X des fonctions (zones 4, 5, 6, 7)
 	(*commandes).fonctionsGauche = facteur * 126;
@@ -103,7 +101,7 @@ float commandesAjusteZones(commandesT * commandes, int fenetreX, int fenetreY)
 	(*commandes).mode = facteur * 24;
 
 		// Zones suivant Y des menus graphe et filtrage
-	(*commandes).selectifsFonctionHaut = facteur * 9;	//	Petits bouton du menu graphe-fonction (zone 4)
+	(*commandes).selectifsFonctionHaut = facteur * 7;	//	Petits bouton du menu graphe-fonction (zone 4)
 	(*commandes).selectifsFonctionBas = facteur * 37;
 	//(*commandes).selectifsFonction = facteur * 7;	//	position y des selectifs
 		// Zones suivant Y des fonctions
@@ -123,14 +121,14 @@ int commandesAjusteRotatifsInitiale(commandesT * commandes, float facteur)
 		{
 		rotatifInitialise(&(*commandes).rotatifInitial[i], (*commandes).rotatifInitialDroite-(*commandes).rotatifInitialGauche);
 		}
-	(*commandes).rotatifInitial[0].Y = facteur * 51; 	//	Largeur
-	(*commandes).rotatifInitial[1].Y = facteur * 122;	//	Largeur
-	(*commandes).rotatifInitial[2].Y = facteur * 221;	//	Symetrie
-	(*commandes).rotatifInitial[3].Y = facteur * 291;	//	Phase
-	(*commandes).rotatifInitial[4].Y = facteur * 398;	//	Amplitude
-	(*commandes).rotatifInitial[5].Y = facteur * 468;	//	Décalage
-	(*commandes).rotatifInitial[6].Y = facteur * 602;	//	Période
-	(*commandes).rotatifInitial[7].Y = facteur * 673;	//	Période
+	(*commandes).rotatifInitial[0].Y = facteur * 50; 	//	Largeur
+	(*commandes).rotatifInitial[1].Y = facteur * 121;	//	Largeur
+	(*commandes).rotatifInitial[2].Y = facteur * 220;	//	Symetrie
+	(*commandes).rotatifInitial[3].Y = facteur * 290;	//	Phase
+	(*commandes).rotatifInitial[4].Y = facteur * 397;	//	Amplitude
+	(*commandes).rotatifInitial[5].Y = facteur * 467;	//	Décalage
+	(*commandes).rotatifInitial[6].Y = facteur * 601;	//	Période
+	(*commandes).rotatifInitial[7].Y = facteur * 672;	//	Période
 
 	return 0;
 	}
@@ -191,12 +189,12 @@ int commandesAjusteSelectifsGraphes(commandesT * commandes, float facteur)
 			selectifInitialise(&(*commandes).selectifGraph[j][i], (*commandes).selectifInitialDroite - (*commandes).selectifInitialGauche);
 			}
 				// BOUTONS SELECTIFS SUIVANT X
-		(*commandes).selectifGraph[j][0].X = facteur * 187;  	//	Implicite
-		(*commandes).selectifGraph[j][1].X = facteur * 215;		//	Imaginaire
-		(*commandes).selectifGraph[j][2].X = facteur * 248;		//	Reel
-		(*commandes).selectifGraph[j][3].X = facteur * 306;		//	Point
-		(*commandes).selectifGraph[j][4].X = facteur * 333;		//	Relié
-		(*commandes).selectifGraph[j][5].X = facteur * 383;		//	Vecteur
+		(*commandes).selectifGraph[j][0].X = facteur * 163;  	//	Implicite
+		(*commandes).selectifGraph[j][1].X = facteur * 193;		//	Imaginaire
+		(*commandes).selectifGraph[j][2].X = facteur * 224;		//	Reel
+		(*commandes).selectifGraph[j][3].X = facteur * 281;		//	Point
+		(*commandes).selectifGraph[j][4].X = facteur * 328;		//	Vecteur
+		(*commandes).selectifGraph[j][5].X = facteur * 375;		//	Axes
 		//(*commandes).selectifGraph[j][6].X = facteur * 410;		//	Sans
 		}
 	return 0;

@@ -1,5 +1,5 @@
 /*
-Copyright juin 2025, Stephan Runigo
+Copyright octobre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 (d'après SimFoule 2.2 simulateur de foule, décembre 2019)
@@ -179,7 +179,7 @@ int graphiqueMenus(graphiqueT * graphique, int mode)
 		coordonnee.w = (*graphique).facteur * FILTRE_SELECTIF_X;
 		coordonnee.h = (*graphique).facteur * FILTRE_SELECTIF_Y;
 		coordonnee.y = (*graphique).fenetreY / 2;
-		coordonnee.x = (*graphique).fenetreX - coordonnee.w - (*graphique).facteur * 85;
+		coordonnee.x = (*graphique).fenetreX - coordonnee.w - (*graphique).facteur * 78;
 		if ((*graphique).textures.filtreSelectif != 0)
 			{	//	Affichage du menu de la zone 9
 			SDL_RenderCopy((*graphique).affichage.rendu, (*graphique).textures.filtreSelectif, NULL, &coordonnee);

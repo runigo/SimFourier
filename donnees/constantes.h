@@ -1,5 +1,5 @@
 /*
-Copyright septembre 2025, Stephan Runigo
+Copyright octobre 2025, Stephan Runigo
 runigo@free.fr
 SimFourier 1.4 Transformation de Fourier
 Ce logiciel est un programme informatique permettant de donner une représentation
@@ -59,7 +59,7 @@ termes.
 #define FILTRE_ROTATIF_X 78
 #define FILTRE_ROTATIF_Y 711
 
-#define FILTRE_SELECTIF_X 570
+#define FILTRE_SELECTIF_X 571
 #define FILTRE_SELECTIF_Y 42
 
 	//  TAILLE IMPLICITE DU BOUTON filtrage
